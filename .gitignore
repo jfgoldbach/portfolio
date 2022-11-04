@@ -18,6 +18,7 @@ public/images
 public/videos
 src/components/pages/Contact.tsx
 src/components/pages/subpages/Info.json
+/README.md
 
 # misc
 .DS_Store
