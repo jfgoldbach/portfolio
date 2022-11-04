@@ -1,38 +1,198 @@
-.App {
-  text-align: center;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+*::selection{
+  background-color: #ACB6E5;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+html{
+  scroll-behavior: smooth;
+}
+
+:root {
+  --dark:rgb(6, 2, 17);
+  /*--background: linear-gradient(15deg, rgb(142, 255, 236) 15%, rgb(211, 185, 255) 100%);*/
+  --background: linear-gradient( /*https://uigradients.com/#DigitalWater*/
+    45deg,
+    #74ebd5 0%,
+    #ACB6E5 100%
+  );
+  --footerheight: 100px;
+  --footermobile: 175px;
+  --navHeight: 65px;
+  --projbarHeight: 80px;
+  --btnShadow: 0 4px rgba(0,0,0,0.5);
+  --btnHoverShad: 0 3px rgba(0,0,0,0.5);
+  --btnShadowSmall: 0 2px rgba(0,0,0,0.5);
+}
+
+body{
+  background-image: var(--background);
+  background-size: 400%;
+  animation: backgroundAnim 15s alternate infinite;
+}
+@keyframes backgroundAnim{
+  0% {background-position: left;}
+  100% {background-position: right;}
+}
+
+/*So that all div elements "slide in" when displayed*/
+div{
+  animation: divIn 0.5s;
+}
+@keyframes divIn {
+  0% {
+    opacity: 0;
+    /*transform: translateY(-3vh);*/
+  }
+  100% {
+    opacity: 1;
+    /*transform: translateY(0);*/
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/*
+.webdev-container, .gamedev-container, .notfound-container{
+  height: calc(100vh - (var(--footerheight) + var(--navHeight)));
+}*/
+
+.notfound-container, .construction-container{
+  height: calc(100vh - (var(--footerheight)));
+}
+.construction-container-projbar{
+  height: calc(100vh - (var(--footerheight) + var(--projbarHeight)));
+}
+.fa-solid.fa-file-circle-question{
+  font-size: 3rem;
+  animation: shake 2s infinite;
+}
+
+@keyframes shake {
+  0% {transform: none}
+  12% {transform: translateX(-0.5vw)}
+  25% {transform: translateX(0.5vw)}
+  37% {transform: translateX(-0.5vw)}
+  50% {transform: translateX(0.5vw)}
+  67% {transform: none;}
+}
+
+.notfound-container{
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(15deg, rgb(255, 217, 142) 15%, rgb(255, 185, 201) 100%);
+}
+.notfound-container .message{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3vw;
+  background-color: rgb(236, 255, 110);
+  padding: 15px;
+  border-radius: 64px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border: 4px dashed black;
+}
+
+.construction-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.construction-container .message{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3vw;
+  background-color: rgba(57, 209, 255, 0.33);
+  padding: 15px;
+  border-radius: 64px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  box-shadow: 0 0 20px -4px rgba(0,0,0,0.33);
+}
+.construction-container .fa-solid.fa-screwdriver-wrench{
+  animation: wrenchWiggle 2s infinite;
+  font-size: 3rem;
+}
+@keyframes wrenchWiggle{
+  0% {transform: rotate(0);}
+  5% {transform: rotate(25deg);}
+  10% {transform: rotate(0);}
+  65% {transform: rotate(0);}
+  70% {transform: rotate(-25deg);}
+  75% {transform: rotate(0);}
+}
+
+.displayFlex {
+  display: flex !important;
+}
+.displayNone {
+  display: none !important;
+}
+.displayBlock {
+  display: block !important;
+}
+
+.home,
+.services,
+.products,
+.sign-up {
+  display: flex;
+  height: 90vh;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-size: 3rem;
 }
 
-.App-link {
-  color: #61dafb;
+
+.services {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #fff;
+  font-size: 100px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.products {
+  background-position: center;
+  background-size: fill;
+  background-repeat: no-repeat;
+  color: #fff;
+  font-size: 100px;
+}
+
+.sign-up {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #fff;
+  font-size: 100px;
+}
+
+.gamedev,
+.webdev {
+  height: 100vh;
+}
+
+
+.slide-in{
+  animation: slideIn 0.5s;
+}
+@keyframes slideIn {
+  0% {transform: translateY(3vw);}
+  100% {transform: translateY(0);}
+}
+.fa-solid.fa-spinner{
+  display: none;
+  font-size: 1.5rem;
+  animation: spin 2s linear infinite;
+}
+@keyframes spin {
+  0% {transform: rotate(0);}
+  100% {transform: rotate(360deg);}
 }

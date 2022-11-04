@@ -8,8 +8,16 @@
 # testing
 /coverage
 
+#media
+/public/imgs
+/public/videos
+
 # production
-/build
+build
+public/images
+public/videos
+src/components/pages/Contact.tsx
+src/components/pages/subpages/Info.json
 
 # misc
 .DS_Store

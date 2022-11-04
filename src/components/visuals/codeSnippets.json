@@ -1,0 +1,21 @@
+[
+    "useEffect(() =&gt; {}, [])",
+    ".divContainer{display: flex}",
+    "${'p'}.addClass( 'checked' )",
+    "type navbarProps = { count: number }",
+    "const ParticleCode: FunctionComponent&lt;particleProps&gt;",
+    "ids.push( JSON.stringify (Math.random()) )",
+    "document.getElementById (ids[i])?",
+    "$( '.tooltip__wrapper' ).css",
+    "&lt;ProjectThumbnail small={true} /&gt;",
+    "import $ from 'jquery'",
+    "import { Suspense } from 'react'",
+    "document.addEventListener ('scroll', handler)",
+    "{count &gt; 5 && &lt;button&gt; Submit &lt;/button&gt;}",
+    "&lt;Button onClick= {datenHandler} /&gt;",
+    "&lt;i className= {'fa-solid fa-caret-up'} /&gt;",
+    "props.path? props.path : '/'",
+    "&lt;Link to={link} target={targetPath}&gt;",
+    "import './Button.css';",
+    "document.addEventListener ('keydown', keys)"
+]

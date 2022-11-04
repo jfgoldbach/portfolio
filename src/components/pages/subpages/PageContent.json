@@ -1,0 +1,346 @@
+[
+    {
+        "title": "JS Calculator",
+
+        "info": "",
+
+        "thumbnail": "/images/calculator.jpg",
+
+        "video": "/videos/calculator.mp4",
+
+        "link": "webdev/calculator",
+
+        "skillcards": [{
+            "name": "CSS",
+            "type": "css"
+        }, 
+        {
+            "name": "HTML",
+            "type": "html"
+        },
+        {
+            "name": "JavaScript",
+            "type": "js"
+        }],
+
+        "buttons": {
+            "live": "https://jfgoldbach.github.io/JavaScriptCalculator/",
+            "github": "https://github.com/jfgoldbach/JavaScriptCalculator"
+        },
+
+        "sections": [{
+            "title": "About the app",
+            "content": "At first, I made a calculator app with just the basic operations (+ - * /). Because these were a little too basic you can now calculate square roots, square a number, calculate a custom root and use a custom power number. The main div is divided into the display and button portion. The buttons are then aligned in rows.",
+            "image": "../images/CalculatorDocs/calculator_overview.jpg"
+        },
+        {
+            "title": "HTML code",
+            "content": "The HTML code is therefore pretty basic. With the help of id’s I could then later on access all the necessary elements in JavaScript. The buttons in the right corner let you view the js and css code directly in the browser. I sadly couldn’t find a way to do the same with the html, but it’s still possible to look at it with a right-click in the tab.",
+            "image": "../images/CalculatorDocs/html_code.jpg"
+        },
+        {
+            "title": "Making the buttons work",
+            "content": "The next step was to make the buttons work. After looking up their id’s, they got assigned their proper function, which is called when pressed. For initialisation the display gets refreshed and said function makes the buttons functional.",
+            "image": "../images/CalculatorDocs/js_buttonBindAndRegularFunctions.jpg"
+        },
+        {
+            "title": "Calculations",
+            "content": "The bulk of the work went into the “execution functions”, which are responsible for handling the mathematical operations. A few variables are responsible for tracking states and other values. And like this, the calculator was ready and without erroring-out after every few button presses",
+            "image": "../images/CalculatorDocs/js_execFunctions.jpg"
+        }]
+    },
+
+    {
+        "title": "JS Game Divbreaker",
+
+        "info": "",
+
+        "thumbnail": "/images/divbreaker.jpg",
+
+        "video": "/videos/divbreaker.mp4",
+
+        "link": "webdev/divbreaker",
+
+        "skillcards": [{
+            "name": "CSS",
+            "type": "css"
+        }, 
+        {
+            "name": "HTML",
+            "type": "html"
+        },
+        {
+            "name": "JavaScript",
+            "type": "js"
+        }],
+
+        "buttons": {
+            "live": "https://jfgoldbach.github.io/divbreaker/",
+            "github": "https://github.com/jfgoldbach/divbreaker"
+        },
+
+        "sections": [
+            {
+                "title": "About the game",
+                "content": "The game is much like Arcanoid. There is a paddle you can move and dependent on the site the ball lands on, it rebounds to the left or right at a more or less steep angle. Every destroyed block gives you one point. But there are also some special blocks, which can give you more lives or make the ball invincible for a short period. There are infinite levels, whereas the next level gets generated after all blocks are destroyed. Only the increasing speed of the ball will hinder your progress.",
+                "image": "/images/divbreaker.jpg"
+            },
+            {
+                "title": "Overview",
+                "content": "With requestAnimationFrame the main loop gets called at the same rate your monitor refreshes. Because some refresh at 60hz and others at 144hz, the passed in time is used to calculate the delta second on each frame. This assures the same speed of the ball and the paddle no matter the refresh rate. Furthermore, the CSS file is with almost 500 lines almost as long as the JavaScript file. This is to prevent weird placement of the components.",
+                "image": "/images/DivBreakerDocs/init.png"
+            },
+            {
+                "title": "HTML code",
+                "content": "There are three divisions: The top bar, which contains gameplay information, the main container in which all the necessary components will be added (and also where fps and ball stats are displayed from), and the game-over window.",
+                "image": "/images/DivBreakerDocs/html.png"
+            },
+            {
+                "title": "Generating blocks",
+                "content": "The blocks consist of their own class, where every important information about each instance is stored. Then a for loop creates the blocklist which is later on important for collision checks. For every new level, blocks tend to move upwards. A random number between 0 and 1000 decides if the current block should be special. In the end, another function gets called, adding all the divs to the DOM.",
+                "image": "/images/DivBreakerDocs/blocks.png"
+            },
+            {
+                "title": "Ball movement",
+                "content": "This function is by far the most complex one in this project. It handles the movement of the ball but also checks for collision with nearby blocks. In the hope to improve performance only blocks that aren’t too far away from the ball get checked for collision (visualized by pressing Shift + B in the app). But because the ball should also be able to collide with the paddle, this has to be checked as well. A bug I encountered pretty soon was that the ball glitched when the paddle moved inside the ball while at the same height. To circulate this behavior the ball is then moved either on top or below the paddle.",
+                "image": "/images/DivBreakerDocs/ball.jpg"
+            }
+        ]
+    },
+
+    {
+        "title": "E-Commerce multipage site",
+
+        "info": "",
+
+        "thumbnail": "/images/store.jpg",
+
+        "video": "/videos/store.mp4",
+
+        "link": "webdev/ecommerce",
+
+        "skillcards": [{
+            "name": "React",
+            "type": "react"
+        }, 
+        {
+            "name": "TypeScript",
+            "type": "typescript"
+        },
+        {
+            "name": "CSS",
+            "type": "css"
+        },
+        {
+            "name": "Bootstrap",
+            "type": "bootstrap"
+        },
+        {
+            "name": "HTML",
+            "type": "html"
+        }],
+
+        "buttons": {
+            "live": "https://jfgoldbach.github.io/FinalWarehouse/",
+            "github": "https://github.com/jfgoldbach/FinalWarehouse"
+        },
+
+        "sections":[
+            {
+                "title": "About the app",
+                "content": "The project contains a home page (← which you can see there), a store page with a filter option for product categories, individual product pages and an about page with some additional info. There is also a shopping cart, which remains accessible at all times and keeps track of the items you put in it. Shipping cost is considered if the cart value is below 60 €. From the individual cards you can directly add more items or remove all items of one product at once.",
+                "image": "../images/EcommerceDocs/showcase.jpg"
+            },
+            {
+                "title": "The always present navbar",
+                "content": "The structure of the navbar is pretty straight-forward. It’s using the bootstrap NavbarBT component and always sticks to the top of the page. To navigate the site there is also a store and about button, as well as an icon to access the shopping cart.",
+                "image": "../images/EcommerceDocs/navbar.png"
+            },
+            {
+                "title": "The Homepage",
+                "content": "Again, a bootstrap component comes into play – this time the Carousel component. It’s initial styling was too bland in my opinion, so I changed it to a bit more modern aesthetic. In it 3 random products are shown, one at a time. Beneath the carousel is an overview of “recommended” products, which are really only randomly selected.",
+                "image": "../images/EcommerceDocs/home.png"
+            },
+            {
+                "title": "Overview of all products",
+                "content": "At the top, you can choose between different product categories, which are stored in a json file. According to the filtering you have chosen, each product that contains this category is displayed using the filter method. They are created using an item component in combination with a custom hook named “useShoppingCart”. This Hook manages the addition, removal and state request of the shopping cart.",
+                "image": "../images/EcommerceDocs/store.png"
+            },
+            {
+                "title": "The item pages",
+                "content": "Because every item has its corresponding id, the item page can look up the current URL id with the useParams hook. This way, all the right data from product image to price and the products properties can be loaded. It’s not a real product page, so the description is only lorem-ipsum nonsense.",
+                "image": "../images/EcommerceDocs/product.jpg"
+            },
+            {
+                "title": "How each item is stored",
+                "content": "A central space where all the item info is stored was needed. Otherwise, it would’ve become confusing and unreadable quickly. That’s why they are stored in a json file, like the product categories. Each product is its own object, containing every necessary information about it.",
+                "image": "../images/EcommerceDocs/items.png"
+            }
+        ]
+    },
+
+    {
+        "title": "Diced project",
+
+        "info": "",
+
+        "thumbnail": "/images/diced.jpg",
+
+        "video": "/videos/diced.mp4",
+
+        "link": "webdev/diced",
+
+        "skillcards": [{
+            "name": "three.js",
+            "type": "three"
+        }, 
+        {
+            "name": "React",
+            "type": "react"
+        }, 
+        {
+            "name": "TypeScript",
+            "type": "typescript"
+        },
+        {
+            "name": "CSS",
+            "type": "css"
+        },
+        {
+            "name": "HTML",
+            "type": "html"
+        }],
+
+        "buttons": {
+            "live": "https://jfgoldbach.github.io/diced/",
+            "github": "https://github.com/jfgoldbach/diced"
+        },
+
+        "sections":[
+            {
+                "title": "Initial thoughts",
+                "content": "I wanted to create an interactive Rubik’s cube you can access through your web browser, because I thought it wasn’t too complicated to create and the result would be fun to play with. Soon I had to find out that the data and state management wasn’t as easy as to turn a few cubes in real life. The first steps were then made in Blender, where all the 26 smaller cubes were built. To make rotating them later on easier, all these cubes shared the same pivot point in the center of all of them together. Furthermore a model that later on checks which boxes have to rotate had to be created. It consists of 9 materials for every possible axis.",
+                "image": "../images/dicedDocs/3d_models.jpg"
+            },
+            {
+                "title": "The canvas element",
+                "content": "This is the part of the application in which all the 3D-stuff is happening. The canvas element is part of the react-three-fiber library. For better looks fog transitions the floor with the background color. Then there is an ambient and directional light to make the cubes I also used a few elements from the drei library like the orbit controls (which are basically part of three.js), contact shadows and the environment texture.",
+                "image": "../images/dicedDocs/canvas.png"
+            },
+            {
+                "title": "Structure of the cube component",
+                "content": "The cube component is then composed of the before mentioned selector element and the 26 boxes. The selector part is rather short – it’s only responsibility is to check the material name which the mouse hovers over. The boxes part on the other hand is where all the magic happens. The most important hooks are the layout and active reducer. They keep track over current rotating boxes and recalculate the new layout, which in return is stored with an useState hook.",
+                "image": "../images/dicedDocs/cube_vars.png"
+            },
+            {
+                "title": "The Model function",
+                "content": "Because of how the fiber library works, each model (or box) handles their own rotation through a useFrame hook in combination with a reference to the primitive. If now the name matches with one of the active boxes, the box gets rotated according to the current delta-time. The two useMemo’s change the color of the individual model.",
+                "image": "../images/dicedDocs/model_function.png"
+            },
+            {
+                "title": "Changing the layout",
+                "content": "In this function the “real transforms” is happening. What I mean by that is that the rotation of each box is theoretically purely cosmetic. The layout is what really keeps track of the cube’s status. Dependent on the number of boxes that have to be moved (8 or 9) one or the other algorithm applies the new layout. After each turn a nested for loop checks if the cube is completed. That would be the case if each side has the same color. It’s not important that every color is where it was initially though.",
+                "image": "../images/dicedDocs/layout_reducer.jpg"
+            }
+        ]
+    },
+
+    {
+        "title": "This site",
+
+        "info": "deprecated",
+
+        "thumbnail": "/images/thisSite.jpg",
+
+        "video": "",
+
+        "link": "webdev/thissite",
+
+        "skillcards": [{
+            "name": "React",
+            "type": "react"
+        }, 
+        {
+            "name": "TypeScript",
+            "type": "typescript"
+        },
+        {
+            "name": "jQuery",
+            "type": "jquery"
+        },
+        {
+            "name": "CSS",
+            "type": "css"
+        },
+        {
+            "name": "HTML",
+            "type": "html"
+        }],
+
+        "buttons": {
+            "live": "",
+            "github": "https://github.com/jfgoldbach"
+        },
+
+        "sections":[
+            {
+                "title": "About",
+                "content": "To organize all my projects and showcase them the best, I decided to make a portfolio page. In the beginning, I wanted to have a start page and subpages for each project. Later on, I refined those ideas with a carousel, a small about section, categories for the two different development branches I’m interested in, and of course the contact form. This project has 20+ smaller and larger components (besides css files and so on) so this is only an excerpt of the key features.",
+                "image": "/images/portfolioDocs/portfolio.jpg"
+            },
+            {
+                "title": "App layout",
+                "content": "The core App.tsx component of course only consists of the navbar and a React-Router. The navbar is always visible, while there are 4 Route(s) and some sub-Route(s). If the user for some reason visits an invalid URL, the “NotFound” page gets displayed.",
+                "image": "/images/portfolioDocs/App.png"
+            },
+            {
+                "title": "The frontpage carousel",
+                "content": "Here you can only see a part of the whole component. But this is basically the most important functionality: making the carousel move. Whenever triggered, it changes the element's class properties, dependent on a predefined array. Because I found it distracting that the carousel keeps moving when scrolling down and viewing any other content, I decided to check for the scroll position and disable the carousel as well as grey it out.",
+                "image": "/images/portfolioDocs/carousel.png"
+            },
+            {
+                "title": "WebDev section",
+                "content": "The layout is similar to the app ones. A few links with images of the corresponding project and its name to make identifying them easier. They are again their own components. To hint the user to interact with the buttons gentle animated field points toward the clickable items.",
+                "image": "/images/portfolioDocs/webdev.png"
+            },
+            {
+                "title": "Code snippet particles",
+                "content": "To bring some live to the pages little code snippets spawn at the one or other location. To make it more flexible 8 properties can be passed into the component: id, width, emitters, spawnRate, fixed, endPosition, startPosition and duration. An useEffect hook initiates the first call of the function, which then calls itself (if the parent element is still available) over and over again in random intervals. But because it wouldn’t be very performant to generate infinite code tags, they also remove themselves after the setTimeout runs out.",
+                "image": "/images/portfolioDocs/particles.png"
+            },
+            {
+                "title": "Project subpages",
+                "content": "For a while each project had its own tsx file, which was kind of unnecessary, considering they contain the same html. So, logically I created a more versatile subpage.tsx that’s getting fed by the PageContent.json file. The sections then interchange between dark and right-handed and the standard light and left-handed layout.",
+                "image": "/images/portfolioDocs/subpage.png"
+            },
+            {
+                "title": "Contact form",
+                "content": "The form is not only for demonstration purposes, it's working (with emailjs)! After clicking the submit button and the entered information conforms with each prompt, an id/content check is performed to assure that the html has not been altered. Then a fancy css animation shows you a green tick inside the submit button – the message has been send to my email.",
+                "image": "/images/portfolioDocs/contact.png"
+            }
+        ]
+    },
+
+    {
+        "title": "Apartment",
+
+        "thumbnail": "/images/apartment.jpg",
+
+        "info": "inConstruction",
+
+        "video": "",
+
+        "link": "webdev/apartment",
+
+        "skillcards": [],
+
+        "buttons": {
+            "live": "",
+            "github": ""
+        },
+
+        "sections": [
+
+        ]
+    }
+]

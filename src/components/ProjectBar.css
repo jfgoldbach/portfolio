@@ -1,0 +1,71 @@
+.project-bar{
+    position: sticky;
+    top: var(--navHeight);
+    width: 100%;
+    height: var(--projbarHeight);
+    margin-top: var(--navHeight);
+    backdrop-filter: blur(7px);
+    --bgwebdev: rgba(128, 135, 180, 0.5);
+    --bggamedev: rgb(66, 117, 99, 0.35);
+    transition: 0.2s;
+    padding: calc(var(--projbarHeight)*0.05) 1.5vw;
+    border-bottom: 1px solid rgba(255,255,255,0.5);
+    z-index: 50;
+}
+
+.item-container{
+    display: flex;
+    justify-content: space-between;
+    gap: 3px;
+    overflow: hidden;
+    transition: 0.2s;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+
+
+.project-bar.webdev{
+    background: var(--bgwebdev);
+}
+
+.project-bar.gamedev{
+    background: var(--bgwebdev);
+}
+
+.project-bar::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(calc(var(--navHeight) * -1));
+    width: 100%;
+    background-color: var(--bgwebdev);
+    height: var(--navHeight)
+}
+
+.project-bar.zero-height{
+    height: 0px;
+    padding: 0;
+    opacity: 0;
+    margin-bottom: calc(var(--projbarHeight) - 5px);
+    transition: 0.2s;
+    background: rgba(31, 16, 149, 0.35)
+}
+
+.item-container.zero-height{
+    transition: 1.2s;
+    opacity: 0;
+    display: none;
+}
+
+
+@media screen and (max-width: 900px){
+    .item-container{
+        gap: 2px;
+        align-items: center;
+    }
+    .item-container a{
+        border: none;
+    }
+}

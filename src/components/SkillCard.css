@@ -1,0 +1,85 @@
+.skillContainer{
+    position: relative;
+    width: auto;
+    min-width: 80px;
+    text-align: center;
+    background-color: blue;
+    color: white;
+    border-radius: 8px;
+    padding: 10px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bold;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    cursor: default;
+}
+
+.sql{
+    background-color: #00758f;
+    color: white;
+}
+
+.jquery{
+    background-color: #056bba;
+    color: white;
+}
+
+.react{
+    color: #61dafb;
+    background-color: #282c34;
+}
+
+.three{
+    background-color: #222222;
+    color: #049ef4;
+}
+
+.js{
+    background-color: #f7df1d;
+    color: #000000;
+}
+
+.html{
+    background-color: #e14a22;
+    color: #e5e5e5;
+}
+
+.typescript{
+    background-color: #2d79c7;
+    color: #ffffff;
+}
+
+.css{
+    background-color: #264de4;
+    color: #ffffff;
+}
+
+
+.gimp{
+    background-color: #69614d;
+    color: #ffffff;
+}
+
+.photoshop{
+    background-color: #001e36;
+    color: #31a8ff;
+}
+
+.davinci{
+    background-color: #262626;
+    color: #ffffff;
+}
+
+.blender{
+    background-color: #f4792b;
+    color: #0f4873;
+}
+
+.bw{
+    background-color: black;
+    color: white;
+}
+
+.bootstrap{
+    background-color: #7912f8;
+    color: #f7f2fc;
+}
