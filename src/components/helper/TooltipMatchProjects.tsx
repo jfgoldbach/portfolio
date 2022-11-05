@@ -2,7 +2,8 @@ import ProjectThumbnail from "../ProjectThumbnail"
 import "./Tooltip.css"
 import pageContent from "../pages/subpages/PageContent.json"
 import $ from 'jquery'
-import { useEffect } from "react"
+import { useContext, useEffect } from "react"
+import { LangContext } from "../context/LangContext"
 
 
 type tooltipProps = {
@@ -17,6 +18,8 @@ function TooltipMatchProjects(props: tooltipProps) {
         }else{
             return skill.name === props.tech || "TypeScript"
         }}).length >= 1)
+
+    const {lang} = useContext(LangContext)
 
     useEffect(() => {
         const tooltipWidth = $(".tooltip__wrapper").width() as number
@@ -43,7 +46,7 @@ function TooltipMatchProjects(props: tooltipProps) {
   return (
     <div className={`tooltip__wrapper ${props.beneath ? "beneath" : ""}`}>
         <div className={`tooltip ${projects.length > 0? "" : "displayNone"}`}>
-            <p>Projects using {props.tech}:</p>
+            <p>{lang === "eng" ? `Projects using ${props.tech}:` : `Projekte, die ${props.tech} benutzen:`}</p>
             <div className="arrow" />
             <div className="tooltip__projects">
                 {projects.map

@@ -175,7 +175,7 @@
     text-align: left;
     --value: 75;
     color: rgb(var(--value),var(--value),var(--value));
-    gap: 2.5vw;
+    gap: 20px;
     width: 60%;
     padding: 1.5vw;
     z-index: 10;
@@ -196,16 +196,17 @@
 }
 .dark{
     background-color: #dddddd;
-    text-align: right;
 }
 
 .text-wrapper {
     display: flex;
+    align-items: center;
     flex-direction: column;
+    gap: 10px;
 }
 .content-wrapper{
     height: 100%;
-    /*margin: 35px 0;*/
+    width: 90%;
     font-family:'Times New Roman', Times, serif;
 }
 
@@ -254,21 +255,20 @@
 .calculator-container .section-wrapper h1{
     font-size: 1.8rem;
     color: rgba(0,0,0,0.8);
-    color: #496276;
-}
-.calculator-container .section-wrapper:not(.dark) h1{
-    text-align: left;
-}
-.calculator-container .section-wrapper.dark h1{
-    text-align: right;
+    color: white;
 }
 
 .calculator-container .section-title{
     width: fit-content;
     align-self: flex-start;
-    text-align: left;
+    text-align: center;
     font-size: 1.65rem;
     font-weight: normal;
+    background-color: #496276;
+    padding: 5px 10px;
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
 }
 
 .section-wrapper .line{
@@ -282,10 +282,6 @@
     background-image: linear-gradient(270deg, #496276 50%, transparent 90%);
 }
 
-.calculator-container .dark .section-title{
-    align-self: flex-end;
-    text-align: right;
-}
 
 .fa-brands.fa-github{
     font-size: 1.5rem;
@@ -344,9 +340,6 @@
         backdrop-filter: blur(7px);
         width: 93%;
         border-radius: 20px;
-    }
-    .contents{
-        max-width: 100px !important;
     }
     .skills{
         flex-wrap: wrap;

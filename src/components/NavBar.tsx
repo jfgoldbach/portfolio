@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import './NavBar.css'
 import Button from './Button'
 import Datenschutz from './Datenschutz'
+import { LangContext } from './context/LangContext'
 
 
 type navProps = {
@@ -19,6 +20,7 @@ function NavBar(props: navProps) {
     const [totop, setTotop] = useState(false)
     const [flag, setFlag] = useState(true)
     const location = useLocation()
+    const {lang, setLang} = useContext(LangContext)
 
 
     useEffect(() => {
@@ -64,6 +66,11 @@ function NavBar(props: navProps) {
         props.setDaten(false)
     }
 
+    const langHandler = () => {
+        setFlag(!flag)
+        setLang(lang === "eng" ? "ger" : "eng")
+    }
+
 
   return (
     <>
@@ -96,10 +103,10 @@ function NavBar(props: navProps) {
                         </Link>
                     </li>
                     <li className='nav-item'>
-                        <Button buttonStyle='btn--primary' path='/contact' onClick={() => {navigationButtonPressed()}}>Contact</Button>
+                        <Button buttonStyle='btn--primary' path='/contact' onClick={() => {navigationButtonPressed()}}>{lang === "eng" ? "Contact" : "Kontakt"}</Button>
                     </li>
                     <li className='nav-item'>
-                        <select className={`langSelect ${flag? "eng" : "ger"}`} onChange={() => setFlag(!flag)}>
+                        <select className={`langSelect ${flag? "eng" : "ger"}`} onChange={langHandler}>
                             <option value="eng">🇬🇧</option>
                             <option value="ger">🇩🇪</option>
                         </select>

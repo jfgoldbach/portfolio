@@ -15,7 +15,7 @@ function ZoomImage(props: imageProps) {
     }
 
   return (
-    <div className='zooomimage-container'>
+    <div className={`zooomimage-container`}>
         <img className={`zoomimage ${loaded? "" : "loading"}`} src={props.source} width={props.imageWidth} onClick={handleClick} onLoad={() => setLoaded(true)}/>
 
         {!loaded &&

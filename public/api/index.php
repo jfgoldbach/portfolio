@@ -32,10 +32,17 @@ switch($method){
         echo "{";
         foreach($response as $col => $value){
             echo "\"" . $col . "\": ";
-            if($col != array_key_last($response)){
-                echo "\"" . $value . "\", ";
+            if($col === "skillcards" || $col === "sections"){ //skillcards and sections arent string
+                if($value !== ""){
+                    echo $value;
+                } else {
+                    echo "\"\""; //value is empty, replace it with two quotes
+                }
             }else{
-                echo $value;
+                echo "\"" . $value . "\"";
+            }
+            if($col != array_key_last($response)){ //only add comma when not on last index
+                echo ", ";
             }
         };
         echo "}";

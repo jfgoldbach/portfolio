@@ -1,9 +1,12 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import './AboutMe.css'
+import { LangContext } from './context/LangContext'
 import SkillCard from './SkillCard'
+import startContent from './startContent.json'
 
 function AboutMe() {
     const [plusskills, setPlusSkills] = useState(false)
+    const {lang, setLang} = useContext(LangContext)
 
     const handleMoreSkills = () => {
         setPlusSkills(!plusskills)
@@ -13,16 +16,15 @@ function AboutMe() {
   return (
     <div className='main-container'>
         <div className='text-container'>
-            <h1>Hi 👋, I'm Julian</h1>
-            <p>Since i started to use computers i got quickly interested in creating things. 
-                My journey first started with blender, then i got hooked in game development and not much later i started to create websites.
-                I'm always excited to dive into new technologies and explore them. My skills are wide-ranged from 3D-modelling to photography, programming and more.</p>
+            <h1>{lang === "eng"? "Hi 👋, I'm Julian" : "Hi 👋, Ich bin Julian"}</h1>
+            <p>{startContent[0][lang as "eng" || "ger"]}</p>
         </div>
         <div className='skill-container'>
             <div className='category-container'>
                 <SkillCard skill='React' type='react' />
                 <SkillCard skill='three.js' type='three' />
                 <SkillCard skill='Bootstrap' type='bootstrap' />
+                <SkillCard skill='php' type='php' />
                 <SkillCard skill='TypeScript' type='typescript' />
                 <SkillCard skill='jQuery' type='jquery' />
                 <SkillCard skill='CSS' type='css' />
@@ -32,7 +34,7 @@ function AboutMe() {
             </div>
             <div className='more-skills'>
                 <p onClick={handleMoreSkills}>
-                    Other skills 
+                    {lang === "eng"? "Other skills" : "Andere skills"} 
                     <i className={`fa-solid fa-caret-up ${plusskills? "turned" : ""}`} />
                 </p>
                 {plusskills &&

@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import './Carousel.css'
 import '../App.css'
 import { Link } from 'react-router-dom'
 import pageContent from "./pages/subpages/PageContent.json"
+import { LangContext } from './context/LangContext'
 
 function Carousel() {
   const [position, setPosition] = useState(0)
@@ -11,6 +12,7 @@ function Carousel() {
   const [speed, setSpeed] = useState(6000)
   const [video, setVideo] = useState(true)
   const [stop, setStop] = useState(false)
+  const {lang, setLang} = useContext(LangContext)
 
   const links = ["webdev/diced", "webdev/ecommerce", "webdev/divbreaker", "webdev/calculator", "webdev/thissite"]
   const classes = ['img-back img-back-left', 'img-middle img-middle-left', 'img-front', 'img-middle img-middle-right', 'img-back img-back-right']
@@ -154,8 +156,8 @@ function Carousel() {
   return (
     <div className='carousel-container'>      {/*Title*/}
       <div className='introduction'>
-        <h1 className='title'>Web developer</h1>
-        <h2 className='describtion'>I like to create interesting webapps, enjoyable games and more:</h2>
+        <h1 className='title'>Web {lang === "eng" ? "developer" : "Entwickler"}</h1>
+        <h2 className='describtion'>{lang === "eng" ? "I like to create interesting webapps, enjoyable games and more:" : "Ich erstelle interessante webapps, unterhaltsame Spiele und mehr:"}</h2>
       </div>
 
       {/*Carousel Settings*/}
@@ -186,40 +188,42 @@ function Carousel() {
       <div className='img-container'>
 
         <figure className='img-back img-back-left' id='pic1' onClick={() => {setPosition(2)}} data-title={pageContent[projects[0]].title}>
-          <img src={pageContent[projects[0]].thumbnail} alt={pageContent[projects[0]].title} />
+          <img loading='lazy' src={pageContent[projects[0]].thumbnail} alt={pageContent[projects[0]].title} />
           {pageContent[projects[0]].video != "" &&
             <video src={pageContent[projects[0]].video} loop muted playsInline id="vid1"></video>
           }
         </figure>
 
         <figure className='img-middle img-middle-left' id='pic2' onClick={() => {setPosition(1)}} data-title={pageContent[projects[1]].title}>
-          <img src={pageContent[projects[1]].thumbnail} alt={pageContent[projects[1]].title} />
+          <img loading='lazy' src={pageContent[projects[1]].thumbnail} alt={pageContent[projects[1]].title} />
           {pageContent[projects[1]].video != "" &&
             <video src={pageContent[projects[1]].video} loop muted playsInline id="vid2"></video>
           }
         </figure>
 
         <figure className='img-front' id='pic3' onClick={() => {setPosition(0)}} data-title={pageContent[projects[2]].title}>
-          <img src={pageContent[projects[2]].thumbnail} alt={pageContent[projects[2]].title} />
+          <img loading='lazy' src={pageContent[projects[2]].thumbnail} alt={pageContent[projects[2]].title} />
           {pageContent[projects[2]].video != "" &&
             <video src={pageContent[projects[2]].video} autoPlay={false} loop muted playsInline id="vid3"></video>
           }
         </figure>
 
         <figure className='img-middle img-middle-right' id='pic4' onClick={() => {setPosition(4)}} data-title={pageContent[projects[3]].title}>
-          <img src={pageContent[projects[3]].thumbnail} alt={pageContent[projects[3]].title} />
+          <img loading='lazy' src={pageContent[projects[3]].thumbnail} alt={pageContent[projects[3]].title} />
           {pageContent[projects[3]].video != "" &&
             <video src={pageContent[projects[3]].video} loop muted playsInline id="vid4"></video>
           }
         </figure>
 
         <figure className='img-back img-back-right' id='pic5' onClick={() => {setPosition(3)}} data-title={pageContent[projects[4]].title}>
-          <img src={pageContent[projects[4]].thumbnail} alt={pageContent[projects[4]].title} />
+          <img loading='lazy' src={pageContent[projects[4]].thumbnail} alt={pageContent[projects[4]].title} />
           {pageContent[projects[4]].video != "" &&
             <video src={pageContent[projects[4]].video} loop muted playsInline id="vid5"></video>
           }
         </figure>
-        <Link to={links[position]} className="projectLink" />
+        <Link to={links[position]} className="projectLink">
+          <i className="fa-regular fa-folder-open" />
+        </Link>
 
       </div>
       

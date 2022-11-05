@@ -1,30 +1,39 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import SkillCard from "../../SkillCard"
 import ZoomImage from "../../ZoomImage"
-import Content from "./PageContent.json"
 import Info from './Info.json'
 import './Subpages.css'
 import axios from "axios"
-import { useLocation } from "react-router-dom"
+import { LangContext } from "../../context/LangContext"
 
 
 type pageProps = {
     index: number
 }
 
+type section = {
+  title: string;
+  content: string;
+  image: string;
+}
+
+type langs = "eng" | "ger"
+
 type sects = {
   id: string | number;
   name: string;
   info: string;
   link: string;
-  skillcards: string;
+  skillcards: {
+    name: string,
+    type: string
+  }[];
   liveLink: string;
   githubLink: string;
   sections: {
-    title: string;
-    content: string;
-    image: string;
-  }[]
+    eng: section[],
+    ger: section[]
+  };
 }
 
 type err = {
@@ -37,7 +46,7 @@ function Subpage({index}: pageProps) {
 
   const [content, setContent] = useState<sects>({} as sects)
   const [error, setError] = useState<err>()
-  const location = useLocation()
+  const {lang, setLang} = useContext(LangContext)
 
   //let contentsWidth = Math.ceil(content.sections.length/4) //error because sections has to be fetched and is not defined from the start
 
@@ -48,17 +57,17 @@ function Subpage({index}: pageProps) {
       .then(response => response.data)
       .then(result => setContent(result))
       .catch(error => setError(error))
-  }, [location])
+  }, [index])
 
 
   return (
     <div className="calculator-container">
+        
         <div className='main-element'>
-
-          {(content.sections === undefined && error === undefined) &&
+          {(content.id === undefined && error === undefined) &&
             <div className="dbLoad info-container">
               <img src="/images/loading.png" width={"10px"}></img>
-              <p>Loading article from database...</p>
+              <p>{lang === "eng"  ? "Loading article from database..." : "Lade Artikel aus Datenbank..."}</p>
             </div>
           }
 
@@ -69,16 +78,16 @@ function Subpage({index}: pageProps) {
             </div>
           }
 
-          {content.sections !== undefined &&
-          <div className={`header ${Content[index].info === "" ? "noInfo" : ""}`}>
+          {content.name !== undefined &&
+          <div className={`header ${content.info === "" ? "noInfo" : ""}`}>
             <h1 className="heading">{content.name}</h1>
 
             {content.skillcards.length !== 0 &&
             <>
-              <div style={{minWidth: `${Math.ceil(content.sections.length/4)*200}px`}} className="contents">
-                <h1>Contents</h1>
+              <div style={{minWidth: `${Math.ceil(content.sections[lang as langs].length/4)*200}px`}} className="contents">
+                <h1>{lang === "eng" ? "Contents" : "Inhalt"}</h1>
                 <div className="contentLinks">
-                  {content.sections.map(i => 
+                  {content.sections[lang as langs].map(i => 
                     <a href={
                       `#${i.title.toLowerCase().replaceAll(" ", "_")}`
                     }>{i.title}</a>
@@ -89,18 +98,18 @@ function Subpage({index}: pageProps) {
               <div className="projectInfo">
                 <div className='skills'>
                     {
-                        Content[index].skillcards.map(item => {
+                        content.skillcards.map(item => {
                             return <SkillCard beneath skill={item.name} type={item.type} />
                         })
                     }
                 </div>
                 <div className='examine'>
-                  {Content[index].buttons.live !== "" &&
-                    <a href={content.liveLink} target='_blank' className='btn'>View live 🔴</a>
+                  {content.liveLink !== "" &&
+                    <a href={content.liveLink} target='_blank' className='btn'>{lang === "eng" ? "View live 🔴" : "Live ansehen 🔴"}</a>
                   }
-                  {Content[index].buttons.github !== "" &&
+                  {content.githubLink !== "" &&
                     <a href={content.githubLink} target='_blank' className='btn'>
-                      View on GitHub <i className="fa-brands fa-github"></i>
+                      {lang === "eng" ? "View on Github" : "Auf Github ansehen"} <i className="fa-brands fa-github"></i>
                     </a>
                   }
 
@@ -120,14 +129,13 @@ function Subpage({index}: pageProps) {
           }
 
           {content.sections &&
-          content.sections.map((section, i) => {
+          content.sections[lang as langs].map((section, i) => {
                 if(i%2 === 0){
                     return(
                         <div id={section.title.toLowerCase().replaceAll(" ", "_")} className="section-wrapper">
                             <ZoomImage source={section.image} />
                             <div className="text-wrapper">
                                 <h1 className="section-title">{section.title}</h1>
-                                <div className="line" />
                                 <div className="content-wrapper">
                                   <p>{section.content}</p>
                                 </div>
@@ -139,7 +147,6 @@ function Subpage({index}: pageProps) {
                         <div id={section.title.toLowerCase().replaceAll(" ", "_")} className={`section-wrapper dark`}>
                             <div className="text-wrapper">
                                 <h1 className="section-title">{section.title}</h1>
-                                <div className="line" />
                                 <div className="content-wrapper">
                                   <p>{section.content}</p>
                                 </div>

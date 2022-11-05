@@ -259,7 +259,11 @@
         "skillcards": [{
             "name": "React",
             "type": "react"
-        }, 
+        },
+		{ 
+			"name": "php",
+			"type": "php"
+		},
         {
             "name": "TypeScript",
             "type": "typescript"
@@ -272,6 +276,10 @@
             "name": "CSS",
             "type": "css"
         },
+		{ 
+			"name": "SQL",
+			"type": "sql"
+		},
         {
             "name": "HTML",
             "type": "html"

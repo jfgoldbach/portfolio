@@ -20,7 +20,30 @@
     transform: translateX(-50%);
     top: calc(13.5vw + var(--navHeight));
     z-index: 10;
+    color: white;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
 }
+.projectLink i{
+    background-color: rgba(0,0,0,0.825);
+    backdrop-filter: blur(12px);
+    padding: 10px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    aspect-ratio: 1/1;
+    border: 1px solid white;
+    transition: 0.15s;
+    opacity: 0;
+}
+.projectLink:hover i{
+    border-radius: 12px;
+    transition: 0.25s;
+    padding: 30px;
+    opacity: 1;
+}
+/*
 .projectLink::after{
     position: absolute;
     left: 50%;
@@ -46,7 +69,7 @@
     height: 5vw;
     opacity: 1;
     transition: 0.15s;
-}
+}*/
 
 
 /*Settings*/
@@ -144,18 +167,19 @@ label{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding-top: 45px;
+    padding-top: 2vw;
     align-items: center;
-    height: 16vw;
+    height: 13.5vw;
     width: 100%;
-    background-image: url('../../public/images/wave-haikei.svg');
+    background-image: url('../../public/images/wave-haikei.png');
     background-size: 200%;
-    background-position-y: -1050px;
-    animation: intro 30s infinite linear alternate;
+    background-position-y: 13.5vw;
+    animation: wave 60s infinite linear;
+    pointer-events: none;
 }
-@keyframes intro {
+@keyframes wave {
     from {background-position-x: 0}
-    to {background-position-x: 100%;}
+    to {background-position-x: 200%;}
 }
 .introduction::before{
     position: absolute;
@@ -165,21 +189,27 @@ label{
     background-color: #324157;
     top: 0;
 }
+/*Second Wave*/
 .introduction::after{
+    position: absolute;
     content: '';
     width: 100%;
-    height: 400px;
-    background-image: url('../../public/images/wave-haikei.svg');
-    background-size: 150%;
-    background-position-y: -920px;
-    animation: intro 37s infinite linear alternate-reverse;
-    transform: translateY(-10px);
+    height: 7vw;
+    top: 8.5vw;
+    background-image: url('../../public/images/wave-haikei.png');
+    background-size: 160%;
+    background-position-y: 7vw;
+    animation: wave2 37s infinite linear reverse;
     z-index: -1;
 }
+@keyframes wave2 {
+    from {background-position-x: 0}
+    to {background-position-x: 265%;}
+}
+
 h1.title {
     font-size: 3.5rem;
     text-align: center;
-    padding: 10px 0px;
     color: rgb(230, 230, 255);
     text-shadow: 0 0 10px rgba(255,255,255, 0.15);
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -388,30 +418,55 @@ img::selection {
         transform: translateZ(-3px);
         border-radius: 16px;
     }
-    .projectLink::after{
-        display: none;
+    .projectLink:hover{
+        opacity: 0;
     }
 
     .setbtn-container{
         display: none;
     }
     .introduction {
-        height: 21vh;
+        padding-top: 4vw;
+        gap: 8px;
+        --height: 44vw;
+        height: var(--height);
+        background-image: url('../../public/images/wave-haikei-mobile.png');
+        background-size: 400%;
+        background-position-y: var(--height);
+        animation-name: wavesMobile;
+        animation-duration: 100s;
+    }
+    @keyframes wavesMobile {
+        from {background-position-x: 0}
+        to {background-position-x: 400%;}
+    }
+    /*Second Wave*/
+    .introduction::after{
+        position: absolute;
+        content: '';
+        width: 100%;
+        height: 20vw;
+        top: 35vw;
+        background-image: url('../../public/images/wave-haikei.png');
+        background-size: 300%;
+        background-position-y: 20vw;
+        animation-name: wave2Mobile;
+        animation-duration: 67s;
+        z-index: -1;
+    }
+    @keyframes wave2Mobile {
+        from {background-position-x: 0}
+        to {background-position-x: 300%;}
     }
     h1.title {
-        font-size: 3rem;
+        font-size: 2.75rem;
         text-transform: capitalize;
-        text-align: left;
-        transform: translateX(-60px);
-        width: 100px;
     }
 
     h2.describtion {
-        font-size: 1.125rem;
+        font-size: 0.9rem;
         text-align: center;
-        border-bottom: 1px solid black;
-        width: 90%;
-        display: none;
+        padding: 0 10px;
     }
 
     .carousel-container img,

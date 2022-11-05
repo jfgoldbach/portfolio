@@ -92,6 +92,7 @@ h1 {
         background-color: transparent;
         box-shadow: none;
         padding: 0;
+        margin-bottom: 100px;
     }
     .text-container, .skill-container{
         width: 100%;

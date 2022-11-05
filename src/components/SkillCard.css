@@ -13,6 +13,11 @@
     cursor: default;
 }
 
+.php{
+    background-color: #7a86b8;
+    color: #1e212e;
+}
+
 .sql{
     background-color: #00758f;
     color: white;
