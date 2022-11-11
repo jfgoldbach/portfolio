@@ -1,9 +1,8 @@
 import ProjectThumbnail from "../ProjectThumbnail"
 import "./Tooltip.css"
-import pageContent from "../pages/subpages/PageContent.json"
 import $ from 'jquery'
 import { useContext, useEffect } from "react"
-import { LangContext } from "../context/LangContext"
+import { LangContext, OverviewContext } from "../../App"
 
 
 type tooltipProps = {
@@ -12,7 +11,8 @@ type tooltipProps = {
 }
 
 function TooltipMatchProjects(props: tooltipProps) {
-    const projects = pageContent.filter(i => i.skillcards.filter(skill => {
+    const {overview} = useContext(OverviewContext)
+    const projects = overview.filter(i => i.skillcards.filter(skill => {
         if(props.tech !== "JavaScript"){
            return skill.name === props.tech
         }else{
@@ -46,12 +46,12 @@ function TooltipMatchProjects(props: tooltipProps) {
   return (
     <div className={`tooltip__wrapper ${props.beneath ? "beneath" : ""}`}>
         <div className={`tooltip ${projects.length > 0? "" : "displayNone"}`}>
-            <p>{lang === "eng" ? `Projects using ${props.tech}:` : `Projekte, die ${props.tech} benutzen:`}</p>
+            <p>{lang === "eng" ? `Projects using ${props.tech}:` : `Projekte mit ${props.tech}:`}</p>
             <div className="arrow" />
             <div className="tooltip__projects">
                 {projects.map
                     (item =>
-                        <ProjectThumbnail small={true} link={item.link} source={item.thumbnail} name={item.title} />
+                        <ProjectThumbnail small={true} link={item.link} source={item.thumbnail} name={item.name} />
                     )
                 }
             </div>

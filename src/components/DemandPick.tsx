@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { LangContext } from './context/LangContext'
+import { LangContext } from '../App'
 import './DemandPick.css'
 
 function DemandPick() {

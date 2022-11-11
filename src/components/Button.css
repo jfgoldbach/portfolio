@@ -9,7 +9,8 @@
     border-radius: var(--btnRadius);
     outline: none;
     border: none;
-    cursor: pointer
+    cursor: pointer;
+    transition: 0.15s
 }
 .btn--primary:hover{
     transform: translateY(-1px);

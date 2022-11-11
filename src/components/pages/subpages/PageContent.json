@@ -340,7 +340,20 @@
 
         "link": "webdev/apartment",
 
-        "skillcards": [],
+        "skillcards": [
+            {
+                "name": "three.js",
+                "type": "three"
+            },
+            {
+                "name": "React",
+                "type": "react"
+            },
+            {
+                "name": "CSS",
+                "type": "css"
+            }
+        ],
 
         "buttons": {
             "live": "",
@@ -348,7 +361,11 @@
         },
 
         "sections": [
-
+            {
+                "title": "In construction",
+                "content": "In construction",
+                "image": ""
+            }
         ]
     }
 ]

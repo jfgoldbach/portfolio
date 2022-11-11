@@ -4,11 +4,14 @@ import ZoomImage from "../../ZoomImage"
 import Info from './Info.json'
 import './Subpages.css'
 import axios from "axios"
-import { LangContext } from "../../context/LangContext"
+import ProjectBar from "../../ProjectBar"
+import ProjectThumbnail from "../../ProjectThumbnail"
+import { LangContext, OverviewContext } from "../../../App"
 
 
 type pageProps = {
-    index: number
+    index: number,
+    scroll: number
 }
 
 type section = {
@@ -42,18 +45,19 @@ type err = {
 }
 
 
-function Subpage({index}: pageProps) {
+function Subpage({index, scroll}: pageProps) {
 
   const [content, setContent] = useState<sects>({} as sects)
   const [error, setError] = useState<err>()
-  const {lang, setLang} = useContext(LangContext)
+  const {lang} = useContext(LangContext)
+  const {overview} = useContext(OverviewContext)
 
   //let contentsWidth = Math.ceil(content.sections.length/4) //error because sections has to be fetched and is not defined from the start
 
   useEffect(() => {
     setContent({} as sects)
     setError(undefined)
-    axios.get(`http://localhost:8000/?id=${index}&col=sections`) //change url for production
+    axios.get(`http://jfgoldbach.de/api/?type=single&&id=${index}`) //change url for production: jfgoldbach.de/api (dev: localhost:8000)
       .then(response => response.data)
       .then(result => setContent(result))
       .catch(error => setError(error))
@@ -62,6 +66,11 @@ function Subpage({index}: pageProps) {
 
   return (
     <div className="calculator-container">
+      <ProjectBar scroll={scroll} type='webdev'>
+        {overview.map(project => 
+          <ProjectThumbnail link={`/${project.link}`} source={project.thumbnail} name={project.name} />
+        )}
+        </ProjectBar>
         
         <div className='main-element'>
           {(content.id === undefined && error === undefined) &&
@@ -82,9 +91,9 @@ function Subpage({index}: pageProps) {
           <div className={`header ${content.info === "" ? "noInfo" : ""}`}>
             <h1 className="heading">{content.name}</h1>
 
-            {content.skillcards.length !== 0 &&
+            {content.skillcards.length !== 0 && content.sections[lang as langs] !== undefined &&
             <>
-              <div style={{minWidth: `${Math.ceil(content.sections[lang as langs].length/4)*200}px`}} className="contents">
+              <div style={{width: `${Math.ceil(content.sections[lang as langs].length/4)*200}px`}} className="contents">
                 <h1>{lang === "eng" ? "Contents" : "Inhalt"}</h1>
                 <div className="contentLinks">
                   {content.sections[lang as langs].map(i => 
@@ -105,7 +114,10 @@ function Subpage({index}: pageProps) {
                 </div>
                 <div className='examine'>
                   {content.liveLink !== "" &&
-                    <a href={content.liveLink} target='_blank' className='btn'>{lang === "eng" ? "View live 🔴" : "Live ansehen 🔴"}</a>
+                    <a href={content.liveLink} target='_blank' className='btn'>
+                      <p>{lang === "eng" ? "View live" : "Live ansehen"}</p>
+                      <p>🔴</p>
+                    </a>
                   }
                   {content.githubLink !== "" &&
                     <a href={content.githubLink} target='_blank' className='btn'>
@@ -124,7 +136,7 @@ function Subpage({index}: pageProps) {
           {(content.info !== undefined && content.info !== "") &&
             <div className={`info-container ${content.info === "inConstruction" ? "mildWarn" : ""}`}>
               <i className="fa-solid fa-circle-info"></i>
-              <p>{Info[0][content.info as keyof typeof Info[0]]}</p>
+              <p>{Info[0][content.info as keyof typeof Info[0]][lang as langs]}</p>
             </div>
           }
 
@@ -145,13 +157,13 @@ function Subpage({index}: pageProps) {
                 } else {
                     return(
                         <div id={section.title.toLowerCase().replaceAll(" ", "_")} className={`section-wrapper dark`}>
+                            <ZoomImage source={section.image} />
                             <div className="text-wrapper">
                                 <h1 className="section-title">{section.title}</h1>
                                 <div className="content-wrapper">
                                   <p>{section.content}</p>
                                 </div>
                             </div>
-                            <ZoomImage source={section.image} />
                         </div>
                     )
                 }

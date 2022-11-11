@@ -1,6 +1,5 @@
 .navbar {
     --opacity: 0.8;
-    background: linear-gradient(90deg, rgba(18, 18, 19, var(--opacity)) 0%, rgba(36, 36, 41,var(--opacity)) 100%);
     background: rgba(33, 12, 91, 0.125);
     height: var(--navHeight);
     display: flex;
@@ -191,22 +190,41 @@
   }
   
   .navbar-logo {
+    position: relative;
     color: white;
-    flex-direction: row;
     margin-left: 1.15vw;
-    padding: 0 0.35vw;
     cursor: pointer;
     text-decoration: none;
     font-size: 1.3rem;
-    font-weight: bold;
     display: flex;
-    align-items: flex-start;
     border-radius: 8px;
     transition: 0.1s;
+    width: 190px;
+    overflow: hidden;
+  }
+  .navbar-logo .logo-main{
+    display: flex;
+    flex-grow: 1;
+    gap: 10px;
+    transition: transform 0.15s;
+  }
+  
+  .navbar-logo .logo-house{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    transform: translateY(-50px);
+    transition: transform 0.15s;
+  }
+  .navbar-logo .fa-house{
+    font-size: 2rem;
+    height: fit-content;
   }
   .navbar-logo img{
     height: 53px;
-    margin-right: 10px;
   }
   .navbar-logo:hover{
     background-color: rgba(255,255,255,0.15);
@@ -221,6 +239,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    font-weight: bold;
   }
 
   .fa-regular{
@@ -271,12 +290,12 @@
     outline: 1px solid white;
   }
   .langSelect.eng{
-    background-image: url("../../public/images/uk.svg.webp");
+    background-image: url("./backgrounds/uk.svg.webp");
     background-size: 150%;
     background-position-x: -9px;
   }
   .langSelect.ger{
-    background-image: url("../../public/images/germany.svg.webp");
+    background-image: url("./backgrounds/germany.svg.webp");
     background-size: 135%;
   }
   .langSelSym{
@@ -366,15 +385,32 @@
       outline: 2px solid white;
       transition: 0.05s;
     }
+    .navbar-logo:hover .logo-main{
+      transform: translateY(50px);
+    }
+    .navbar-logo:hover .logo-house{
+      transform: none;
+    }
   }
   
   @media screen and (max-width: 960px) {
+    .navbar-logo:active .logo-main{
+      transform: translateY(50px);
+      transition: 0s;
+    }
+    .navbar-logo:active .logo-house{
+      transform: none;
+      transition: 0s;
+    }
     .nav-menu .langSelect{
       width: 55px; 
       margin-left: 0;
     }
     .langSelect.eng{
       background-position-x: -13px;
+    }
+    .nav-menu .langSelect:hover{
+      outline: none;
     }
     .navbar-logo:hover, .nav-links:hover{
       box-shadow: none;
@@ -467,6 +503,7 @@
       position: absolute;
       top: 6px;
       left: 10px;
+      width: fit-content;
       transform: 
         translateZ(5px);
     }

@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import './NavBar.css'
 import Button from './Button'
 import Datenschutz from './Datenschutz'
-import { LangContext } from './context/LangContext'
+import { LangContext } from '../App'
 
 
 type navProps = {
@@ -77,12 +77,15 @@ function NavBar(props: navProps) {
         <nav className='navbar'>
             <div className='navbar-container'>
                 <Link to='/' className='navbar-logo' onClick={() => {navigationButtonPressed()}}>
-                    {/*<i className="fa-regular fa-hand-spock"></i>*/}
-                    {/*<i className="fa-regular fa-hand-scissors"></i>*/}
-                    <img src="/images/jglogo.png" />
-                    <div className='flex-col'>
-                        <p style={{opacity: "0.85"}}>Julian</p>
-                        <p style={{opacity: "0.65"}}>Goldbach</p>
+                    <div className='logo-main'>
+                        <img src="/images/jglogo.png" />
+                        <div className='flex-col'>
+                            <p style={{opacity: "0.85"}}>Julian</p>
+                            <p style={{opacity: "0.65"}}>Goldbach</p>
+                        </div>
+                    </div>
+                    <div className='logo-house'>
+                        <i className='fa-solid fa-house'></i>
                     </div>
                 </Link>
 

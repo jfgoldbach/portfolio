@@ -21,7 +21,7 @@ function Home(){
             <ParticleCode 
                 id={2} emitters={1} spawnRate={2000} 
                 width={50}
-                startPosition={`-50px`} 
+                startPosition={"-75px"} 
                 endPosition={"100vh"} duration={18000} 
             />
             }

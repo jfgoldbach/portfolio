@@ -8,8 +8,30 @@
     background: none;
     padding-top: var(--navHeight);
 }
-.img-container{
-    animation: none; /*Without this setting this div would hinder the proper display of roll-in animation of the carousel*/
+.img-container figure{
+    animation: divIn 1s; /*fade in the loaded carousel cards */
+}
+
+
+.greeting-container{
+    align-self: center;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+.greeting{
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 10px;
+    color: rgb(38, 32, 72);
+    background-color: rgba(255,255,255, 0.65);
+    box-shadow: 0 0 10px rgba(0,0,0,0.33);
+    padding: 15px 25px;
+    border-radius: 16px;
+}
+
+.carousel-container .fetchError{
+    min-width: 100%;
 }
 
 .projectLink{
@@ -171,7 +193,7 @@ label{
     align-items: center;
     height: 13.5vw;
     width: 100%;
-    background-image: url('../../public/images/wave-haikei.png');
+    background-image: url("./backgrounds/wave-haikei.png");
     background-size: 200%;
     background-position-y: 13.5vw;
     animation: wave 60s infinite linear;
@@ -196,7 +218,7 @@ label{
     width: 100%;
     height: 7vw;
     top: 8.5vw;
-    background-image: url('../../public/images/wave-haikei.png');
+    background-image: url("./backgrounds/wave-haikei.png");
     background-size: 160%;
     background-position-y: 7vw;
     animation: wave2 37s infinite linear reverse;
@@ -212,7 +234,7 @@ h1.title {
     text-align: center;
     color: rgb(230, 230, 255);
     text-shadow: 0 0 10px rgba(255,255,255, 0.15);
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    /*font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;*/
 }
 h2.describtion {
     font-size: 1.3rem;
@@ -220,7 +242,7 @@ h2.describtion {
     font-weight: normal;
     text-align: center;
     color: rgb(168, 168, 233);
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    /*font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;*/
 }
 
 
@@ -272,7 +294,7 @@ figure::after {
 /*Images*/
 .img-container img{
     width: 100%;
-    height: 150%;
+    aspect-ratio: 128/72;
     border-radius: 12px;
     box-shadow: rgba(0, 0, 0, 0.75) 0px 60px 35px -40px;
     transition: 0.5s;
@@ -423,16 +445,22 @@ img::selection {
     }
 
     .setbtn-container{
-        display: none;
+        /*display: none;*/
+        height: 100%;
+        width: var(--mobileInnerWidth);
+    }
+    .carouSet-btn{
+        padding: 8px 10px;
+        margin-bottom: 55px;
     }
     .introduction {
         padding-top: 4vw;
         gap: 8px;
-        --height: 44vw;
+        --height: 55vw;
         height: var(--height);
-        background-image: url('../../public/images/wave-haikei-mobile.png');
+        background-image: url("./backgrounds/wave-haikei-mobile.png");
         background-size: 400%;
-        background-position-y: var(--height);
+        background-position-y: 42vw;
         animation-name: wavesMobile;
         animation-duration: 100s;
     }
@@ -447,7 +475,7 @@ img::selection {
         width: 100%;
         height: 20vw;
         top: 35vw;
-        background-image: url('../../public/images/wave-haikei.png');
+        background-image: url("./backgrounds/wave-haikei-mobile.png");
         background-size: 300%;
         background-position-y: 20vw;
         animation-name: wave2Mobile;

@@ -1,9 +1,15 @@
+import { useContext } from 'react'
+import { LangContext } from '../../App'
+import './UnderConstruction.css'
+
 function UnderConstruction() {
+  const {lang} = useContext(LangContext)
+
   return (
     <div className='construction-container'>
         <div className='message'>
             <i className="fa-solid fa-screwdriver-wrench"></i>
-            <span>Under construction!</span>
+            <span>{lang === "eng" ? "Under construction!" : "In Entwicklung!"}</span>
         </div>
     </div>
   )

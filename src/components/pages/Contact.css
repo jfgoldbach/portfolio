@@ -103,9 +103,10 @@
     overflow: hidden;
   }
   .submit-send{
+    font-size: 1.3rem;
     display: flex;
-    justify-content: space-around;
-    gap: 10px;
+    gap: 7px;
+    align-items: center;
     animation: none;
   }
 
@@ -116,12 +117,19 @@
   .contact-container h1{
     margin-top: 35px;
     margin-bottom: 75px;
+    text-align: center;
   }
   .fa-solid.fa-check{
     display: none;
     font-size: 1.5rem;
     color: rgb(68, 255, 93);
     animation: rollIn 1.75s;
+  }
+
+  .load{
+    display: none;
+    width: 1.75rem;
+    animation: spin 1s steps(16, end) infinite;
   }
 
   @keyframes rollIn {
@@ -134,10 +142,11 @@
 
   @media screen and (max-width: 900px){
     .contact-container{
-      padding: 15px 8px;
+      padding-top: 5vw;
+      padding-bottom: 15vw;
     }
     .contact-container .main-element{
-      width: 100%;
+      width: var(--mobileInnerWidth);
       padding: 10px;
       align-items: center;
     }
@@ -145,7 +154,7 @@
       width: 100%;
     }
     .contact-container button{
-      height: 6vh;
+      min-height: 5vh;
       width: 45%;
     }
     .contact-container input, 
@@ -168,5 +177,8 @@
     .contact-container h1{
       margin: 5vh 0;
       font-size: 1.75rem;
+    }
+    .load{
+      width: 2.25rem;
     }
   }

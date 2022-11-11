@@ -1,16 +1,15 @@
 import { useContext, useState } from 'react'
+import { LangContext } from '../App'
 import './AboutMe.css'
-import { LangContext } from './context/LangContext'
 import SkillCard from './SkillCard'
 import startContent from './startContent.json'
 
 function AboutMe() {
     const [plusskills, setPlusSkills] = useState(false)
-    const {lang, setLang} = useContext(LangContext)
+    const {lang} = useContext(LangContext)
 
     const handleMoreSkills = () => {
         setPlusSkills(!plusskills)
-        console.log (plusskills)
     }
 
   return (
@@ -34,7 +33,7 @@ function AboutMe() {
             </div>
             <div className='more-skills'>
                 <p onClick={handleMoreSkills}>
-                    {lang === "eng"? "Other skills" : "Andere skills"} 
+                    {lang === "eng"? "Other skills" : "Andere Skills"} 
                     <i className={`fa-solid fa-caret-up ${plusskills? "turned" : ""}`} />
                 </p>
                 {plusskills &&

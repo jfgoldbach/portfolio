@@ -50,7 +50,7 @@ const ParticleCode: FunctionComponent<particleProps> = ({id, width, emitters, en
                         style="left: ${Math.random()*(segment- particleWidth/2) + particleWidth/2 + (segment)*i}vw;
                         max-width: ${particleWidth}vw;
                         --endPos: ${endPosition}; --startPos: ${startPosition}; --duration: ${duration}ms;
-                        --startRot: ${rot}deg; --endRot: ${-rot}deg">
+                        --startRot: 0deg; --endRot: ${rot}deg">
                         ${snippets[Math.floor(Math.random()*snippets.length)]}
                         </code>`
                     )

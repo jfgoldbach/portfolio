@@ -19,6 +19,7 @@ public/videos
 src/components/pages/Contact.tsx
 src/components/pages/subpages/Info.json
 /README.md
+public/api
 
 # misc
 .DS_Store
