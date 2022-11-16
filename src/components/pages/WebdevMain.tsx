@@ -15,9 +15,11 @@ function WebdevMain() {
         <div className="webdevPick-container">
           {overview.length !== 0 &&
             overview.map(item => {
-              return <ProjectCards index={item.id} />
+              let index= overview.findIndex(proj => proj.id === item.id)
+              return <ProjectCards key={index} index={index+1} />
             })
           }
+
           {overview.length === 0 && !error.msg  &&
             <div className="dbLoad info-container">
               <img src="/images/loading.png" alt="loading" width={"10px"}></img>

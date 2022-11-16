@@ -75,22 +75,6 @@ function App() {
   }, [])
 
 
-  //order projects by priority higher -> lower
-  const sortResult = (result: overviewType) => {
-    console.log(result)
-      let order: overviewType = []
-      let overCopy = result //copy result so that projects cant appear multiple times
-      let prios = overCopy.map(project => project.priority) //all project priorities, unordered, duplicates possible
-      for(let i = 0; i<result.length; i++){
-        const highest = Math.max(...prios)
-        const nextItem = overCopy.filter(project => project.priority === highest)[0] //getting only one project that has the highest priority still available
-        overCopy.splice(prios.findIndex(e => e === highest), 1)
-        order.push(nextItem)
-        prios.splice(prios.findIndex(e => e === highest),1)
-      }
-      return(order)
-  }
-
   return (
     <Router>
       <LangContext.Provider value={{lang, setLang}}>

@@ -206,7 +206,7 @@ function Carousel() {
       </div>
       
 
-        {/*Carousel*/}
+        {/*Carousel FOR THE FUTURE: Should reflect the right order based on priority*/}
       <div className='img-container'>
       
       {(projects.length > 0 && projects[0] !== undefined )&&

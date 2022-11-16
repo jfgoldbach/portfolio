@@ -51,7 +51,7 @@ function TooltipMatchProjects(props: tooltipProps) {
             <div className="tooltip__projects">
                 {projects.map
                     (item =>
-                        <ProjectThumbnail small={true} link={item.link} source={item.thumbnail} name={item.name} />
+                        <ProjectThumbnail title={item.name} small={true} link={item.link} source={item.thumbnail} name={item.name} />
                     )
                 }
             </div>
