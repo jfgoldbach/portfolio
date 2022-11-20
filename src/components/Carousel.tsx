@@ -21,7 +21,8 @@ function Carousel() {
   const {lang} = useContext(LangContext)
   const {overview, error} = useContext(OverviewContext)
 
-  const classes = ['img-back img-back-left', 'img-middle img-middle-left', 'img-front', 'img-middle img-middle-right', 'img-back img-back-right']
+  //const classes2 = ['img-back img-back-left', 'img-middle img-middle-left', 'img-front', 'img-middle img-middle-right', 'img-back img-back-right']
+  const classes = ['img-front', 'img-middle img-middle-left', 'img-back img-back-left', 'img-back img-back-right', 'img-middle img-middle-right']
 
   useEffect(() => {
     setProjects(overview.slice(0,5))
@@ -66,16 +67,17 @@ function Carousel() {
 
   //change classes when "position" has changed
   useEffect(() => {
+    console.log(position)
     if(projects.length !== 0){
       for(let i = 0; i<5; i++){
         const pos = position + i
         pos<5
           ? pos >= 0
-            ? (document.getElementById(`pic${1+i}`) as HTMLElement).className = classes[pos]
-            : (document.getElementById(`pic${1+i}`) as HTMLElement).className = classes[pos+5]
-          : (document.getElementById(`pic${1+i}`) as HTMLElement).className = classes[pos-5];
+            ? (document.getElementById(`pic${i}`) as HTMLElement).className = classes[pos]
+            : (document.getElementById(`pic${i}`) as HTMLElement).className = classes[pos+5]
+          : (document.getElementById(`pic${i}`) as HTMLElement).className = classes[pos-5];
         if(scrolled){
-          document.getElementById(`pic${1+i}`)?.classList.add("blackwhite");
+          document.getElementById(`pic${i}`)?.classList.add("blackwhite");
         }
       }
     }
@@ -84,14 +86,14 @@ function Carousel() {
   //change to black and white and pause video if scrolled
   useEffect(() => {
     for(let i= 0; i<5; i++){
-      let video = document.getElementById(`vid${i+1}`) as HTMLVideoElement;
+      let video = document.getElementById(`vid${i}`) as HTMLVideoElement;
       if(scrolled){
-        document.getElementById(`pic${i+1}`)?.classList.add("blackwhite");
+        document.getElementById(`pic${i}`)?.classList.add("blackwhite");
         if(video){
           video.pause();
         }
       } else {
-        document.getElementById(`pic${i+1}`)?.classList.remove("blackwhite");
+        document.getElementById(`pic${i}`)?.classList.remove("blackwhite");
         if(video){
           video.play();
         }
@@ -103,14 +105,14 @@ function Carousel() {
   useEffect(() => {
     if(video){
       for(let i = 0; i<5; i++){
-        let vid = document.getElementById(`vid${i+1}`)
+        let vid = document.getElementById(`vid${i}`)
         if(vid){
           vid.classList.remove('display-none');
         }
       }
     } else {
       for(let i = 0; i<5; i++){
-        let vid = document.getElementById(`vid${i+1}`)
+        let vid = document.getElementById(`vid${i}`)
         if(vid){
           vid.classList.add('display-none');
         }
@@ -121,9 +123,9 @@ function Carousel() {
   //change position if tab is active
   const rotateCarousel = () => {
     if(activewindow && !scrolled && !stop){
-      position>-2
-        ?setPosition(position -1)
-        :setPosition(2)
+      position > 0
+        ? setPosition(position - 1)
+        : setPosition(4)
     }
   }
 
@@ -209,17 +211,17 @@ function Carousel() {
         {/*Carousel FOR THE FUTURE: Should reflect the right order based on priority*/}
       <div className='img-container'>
       
-      {(projects.length > 0 && projects[0] !== undefined )&&
-        projects.map(project =>
-          <figure 
-            className={classes[project.id - 1]} 
-            id={`pic${project.id}`} 
-            onClick={() => {setPosition(2 - overview.indexOf(project))} } 
+      {(projects.length > 0 && projects[0] !== undefined ) &&
+        projects.map((project, index) =>
+          <figure
+            className={classes[index]}
+            id={`pic${index}`} 
+            onClick={() => {setPosition(5 - index)} } 
             data-title={project.name}
             >
             <img src={project.thumbnail} alt={project.name} />
             {project.video !== "" &&
-              <video src={project.video} loop muted playsInline id={`vid${project.id}`}></video>
+              <video src={project.video} loop muted autoPlay playsInline id={`vid${index}`}></video>
             }
           </figure>
         )
@@ -227,7 +229,7 @@ function Carousel() {
     
         
       {projects.length !== 0 &&
-        <Link to={projects[(position - 2) * -1].link} className="projectLink">
+        <Link to={projects[position === 0 ? 0 : 5 - position].link} className="projectLink">
           <i className="fa-regular fa-folder-open" />
         </Link>
       }
