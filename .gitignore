@@ -20,6 +20,7 @@ src/components/pages/Contact.tsx
 src/components/pages/subpages/Info.json
 /README.md
 public/api
+.php
 
 # misc
 .DS_Store

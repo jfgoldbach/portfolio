@@ -39,6 +39,8 @@ html{
 body{
   background-image: var(--background);
   background-size: 400%;
+  max-width: 100vw;
+  overflow-x: hidden;
   animation: backgroundAnim 15s alternate infinite;
 }
 @keyframes backgroundAnim{

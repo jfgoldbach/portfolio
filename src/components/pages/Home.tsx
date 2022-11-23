@@ -4,6 +4,7 @@ import AboutMe from '../AboutMe';
 import { Suspense } from 'react';
 import ParticleCode from '../visuals/ParticleCode';
 import $ from "jquery"
+import Overview from '../frontpage/Overview';
 
 function Home(){
     return(
@@ -13,7 +14,7 @@ function Home(){
             {($(window).width() || 0) > 1000 &&
             <ParticleCode 
                 id={1} emitters={3} spawnRate={2000} 
-                startPosition={`-50px`} 
+                startPosition={`-150px`} 
                 endPosition={"425px"} duration={10000} 
             />
             }
@@ -25,7 +26,7 @@ function Home(){
                 endPosition={"100vh"} duration={18000} 
             />
             }
-            
+            <Overview />
         </Suspense>
     );
 }

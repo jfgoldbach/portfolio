@@ -160,7 +160,9 @@ function Carousel() {
   return (
     <div className='carousel-container'>      
       <div className='introduction'>
-        <h1 className='title'>Web {lang === "eng" ? "developer" : "Entwickler"}</h1>
+        <h1 className='title' data-title={`Web ${lang === "eng" ? "developer" : "Entwickler"}`}>
+          Web {lang === "eng" ? "developer" : "Entwickler"}
+        </h1>
         <h2 className='describtion'>{lang === "eng" ? "I like to create interesting webapps, enjoyable games and more:" : "Ich erstelle interessante webapps, unterhaltsame Spiele und mehr:"}</h2>
       </div>
 
