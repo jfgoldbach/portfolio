@@ -58,7 +58,6 @@ function App() {
 
   const [lang, setLang] = useState("eng")
   const [overview, setOverview] = useState<overviewType>([])
-  const [sorted, setSorted] = useState<overviewType>([])
   const [error, setError] = useState<errorType>({} as errorType)
 
   
@@ -86,12 +85,17 @@ function App() {
 
           <Route path='/webdev' element={<WebDev scroll={scroll} />}>
             <Route index element={<WebdevMain />}></Route>
-            <Route path='calculator' element={<Subpage index={1} scroll={scroll} />}></Route>
+            {/*<Route path='calculator' element={<Subpage index={1} scroll={scroll} />}></Route>
             <Route path='divbreaker' element={<Subpage index={2} scroll={scroll} />}></Route>
             <Route path='ecommerce' element={<Subpage index={3} scroll={scroll} />}></Route>
             <Route path='diced' element={<Subpage index={4} scroll={scroll} />}></Route>
             <Route path='thissite' element={<Subpage index={5} scroll={scroll} />}></Route>
-            <Route path='apartment' element={<Subpage index={6} scroll={scroll} />}></Route>
+            <Route path='apartment' element={<Subpage index={6} scroll={scroll} />}></Route>*/}
+            {overview &&
+            <>
+              {overview.map(project => <Route path={project.link.replaceAll("webdev/", "")} element={<Subpage index={project.id} scroll={scroll} />} />)}
+            </>
+            }
           </Route>
 
           <Route path='/gamedev' element={<UnderConstruction />}>

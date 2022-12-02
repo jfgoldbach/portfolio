@@ -134,7 +134,7 @@ function Subpage({index, scroll}: pageProps) {
               
 
           {(content.info !== undefined && content.info !== "") &&
-            <div className={`info-container ${content.info === "inConstruction" ? "mildWarn" : ""}`}>
+            <div className={`info-container ${Info[0][content.info as keyof typeof Info[0]].css}`}>
               <i className="fa-solid fa-circle-info"></i>
               <p>{Info[0][content.info as keyof typeof Info[0]][lang as langs]}</p>
             </div>

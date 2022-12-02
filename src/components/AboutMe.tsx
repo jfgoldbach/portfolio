@@ -30,6 +30,8 @@ function AboutMe() {
                 <SkillCard skill='SQL' type='sql' />
                 <SkillCard skill='HTML' type='html' />
                 <SkillCard skill='JavaScript' type='js' />
+                <SkillCard skill='Axios' type='axios' />
+                <SkillCard skill='Vite.js' type='vite' />
             </div>
             <div className='more-skills'>
                 <p onClick={handleMoreSkills}>

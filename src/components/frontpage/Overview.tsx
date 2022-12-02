@@ -11,8 +11,9 @@ function Overview() {
     <>
     {overview.length !== 0 && !error.msg &&
     <div className="overviewWrapper">
+        <img className="spikyDivider" src="images/spiky-wave.svg" />
         <section>
-            <ZoomImage source={overview[overview.length-1].thumbnail} />
+            <ZoomImage source={overview[1].thumbnail} />
             <div className="overviewSecContent">
                 <div className="overviewSecTitle">
                     <h1>Web development</h1>

@@ -59,6 +59,15 @@
     font-size: 2rem;
     color: rgb(228, 158, 158);
 }
+.info-container.attention{
+    background-color: rgba(64, 39, 0, 0.4);
+    border-color: rgb(228, 214, 56);
+}
+.info-container.attention .fa-solid.fa-circle-info,
+.info-container.attention .fa-solid.fa-triangle-exclamation{
+    font-size: 2rem;
+    color: rgb(228, 215, 158);
+}
 .fetchError{
     margin-top: 20px;
 }

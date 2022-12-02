@@ -8,7 +8,7 @@
     --bgwebdev: rgba(128, 135, 180, 0.5);
     --bggamedev: rgb(66, 117, 99, 0.35);
     transition: 0.2s;
-    padding: calc(var(--projbarHeight)*0.05) 1.5vw;
+    padding: calc(var(--projbarHeight)*0.05) 1.15vw;
     border-bottom: 1px solid rgba(255,255,255,0.5);
     z-index: 50;
 }
