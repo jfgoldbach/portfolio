@@ -26,6 +26,10 @@ type sects = {
   id: string | number;
   name: string;
   info: string;
+  preview: {
+    desktop: string,
+    mobile: string
+  }
   link: string;
   skillcards: {
     name: string,
@@ -131,7 +135,16 @@ function Subpage({index, scroll}: pageProps) {
             }
           </div>
           }
-              
+
+          {content.preview &&
+          <div className={`preview ${content.info === ""? "" : "preview-lessMargin"}`}>
+            <img className="preview-desktop" src={content.preview.desktop}></img>
+            <div className="preview-mobileWrapper">
+              <img className="preview-mobileBackground" src={content.preview.mobile}></img>
+              <img className="preview-mobileFrame" src="/images/mobile/smartphone.svg"></img>
+            </div>
+          </div>
+          }    
 
           {(content.info !== undefined && content.info !== "") &&
             <div className={`info-container ${Info[0][content.info as keyof typeof Info[0]].css}`}>
@@ -139,6 +152,7 @@ function Subpage({index, scroll}: pageProps) {
               <p>{Info[0][content.info as keyof typeof Info[0]][lang as langs]}</p>
             </div>
           }
+          
 
           {content.sections &&
           content.sections[lang as langs].map((section, i) => {
