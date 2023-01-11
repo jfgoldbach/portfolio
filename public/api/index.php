@@ -2,7 +2,7 @@
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 
-$server = "localhost"; //"sql859.main-hosting.eu" in development, "localhost" in production
+$server = "sql859.main-hosting.eu"; //"sql859.main-hosting.eu" in development, "localhost" in production
 $user = "Julian";
 $password = "4@pS:R3+Pg";
 $database = "PortfolioData";
@@ -27,7 +27,7 @@ switch($method){
         switch($type){
             case "single": //get data for article
                 $id = $_GET['id'] != null ? $_GET['id'] : 1;
-                $sql = "SELECT id,name,info,link,skillcards,liveLink,githubLink,sections FROM projects WHERE id = " . $id . ";";
+                $sql = "SELECT id,name,info,preview,link,skillcards,liveLink,githubLink,sections FROM projects WHERE id = " . $id . ";";
                 $result = $con->query($sql);
                 $response = $result->fetch_assoc();
 
@@ -35,7 +35,7 @@ switch($method){
                 echo "{";
                 foreach($response as $col => $value){
                     echo "\"" . $col . "\": ";
-                    if($col === "skillcards" || $col === "sections"){ //skillcards and sections arent strings
+                    if($col === "skillcards" || $col === "sections" ||$col === "preview"){ //skillcards and sections arent strings
                         if($value !== ""){
                             echo $value;
                         } else {
@@ -59,12 +59,37 @@ switch($method){
                 $cols = array("id","name","info","link","thumbnail","video","skillcards","description","priority");
                 $sql = "SELECT id,name,info,link,thumbnail,video,skillcards,description,priority FROM projects;";
                 $result = $con->query($sql);
-                $respone = $result->fetch_all();
-                //print_r($respone);
+                $response = $result->fetch_all();
+
+
+                //sorting the response by priority:
+                function priority($project) {
+                    return $project[8]; //cant access key of original object, only index
+                }
+                
+                $length = count($response);
+                $ordered = array();
+                $prios = array_map("priority", $response);
+
+                for($i = 0; $i<$length; $i++){
+                    $highest = max($prios);
+                    $nextItem = array_filter($response, fn($project) => $project[8] === $highest);
+                    $nextProj;
+                    $curIndex;
+                    foreach($nextItem as $index => $proj){ //extract the project data and key (index from original $response array)
+                        $nextProj = $proj;
+                        $curIndex = $index;
+                    }
+                    array_splice($response, $curIndex, 1); //remove project from response based on projects position in array
+                    array_push($ordered, $nextProj);
+                    array_splice($prios, $curIndex, 1);
+                }
+
+
 
                 //start whole object
                 echo"[";
-                foreach($respone as $row => $row_values){
+                foreach($ordered as $row => $row_values){
                     //start individual project object
                     echo "{";
                     foreach($row_values as $col => $value){
@@ -84,7 +109,7 @@ switch($method){
                         //echo "<br/>";
                     }
                     echo "}";
-                    if($row !== array_key_last($respone)){ //add comma at end if not last object
+                    if($row !== array_key_last($ordered)){ //add comma at end if not last object
                         echo ", ";
                     }
                     //echo "<br/>";

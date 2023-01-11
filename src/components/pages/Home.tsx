@@ -1,4 +1,4 @@
-import '../../App.css'
+//import '/styles/css/App.css'
 import Carousel from '../Carousel';
 import AboutMe from '../AboutMe';
 import { Suspense } from 'react';
@@ -22,7 +22,7 @@ function Home(){
             <ParticleCode 
                 id={2} emitters={1} spawnRate={2000} 
                 width={50}
-                startPosition={"-75px"} 
+                startPosition={"-150px"} 
                 endPosition={"100vh"} duration={18000} 
             />
             }

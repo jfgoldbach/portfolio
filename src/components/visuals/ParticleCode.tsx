@@ -1,5 +1,5 @@
 import { FunctionComponent, useEffect } from "react"
-import "./ParticleCode.css"
+//import "/styles/css/ParticleCode.css"
 import snippets from "./codeSnippets.json"
 import $ from 'jquery'
 

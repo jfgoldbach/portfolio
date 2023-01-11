@@ -1,13 +1,14 @@
 import { Outlet, useLocation } from 'react-router-dom'
-import '../../App.css'
-import "./WebDev.css"
+//import '/styles/css/App.css'
+//import "/styles/css/WebDev.css"
 import ParticleCode from '../visuals/ParticleCode'
 import $ from "jquery"
-import ProjectCards from './ProjectCards'
+
 
 type webProps = {
   scroll: number
 }
+
 
 function WebDev(props: webProps) {
   const location = useLocation()

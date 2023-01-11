@@ -1,0 +1,56 @@
+.datenschutz-lr {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.datenschutz-lr.top::before {
+  border-radius: 6px 6px 0 0;
+  -webkit-animation: divIn 0.25s;
+          animation: divIn 0.25s;
+  top: 0;
+  left: 0;
+  content: "";
+  position: absolute;
+  height: 30px;
+  width: 100%;
+  background-image: linear-gradient(180deg, #31a6ff -100%, transparent);
+  pointer-events: none;
+}
+.datenschutz-lr.bottom::after {
+  border-radius: 0 0 6px 6px;
+  -webkit-animation: divIn 0.25s;
+          animation: divIn 0.25s;
+  bottom: 0;
+  left: 0;
+  content: "";
+  position: absolute;
+  height: 30px;
+  width: 100%;
+  background-image: linear-gradient(0deg, #31a6ff -100%, transparent);
+  pointer-events: none;
+}
+
+.datenschutz-content {
+  height: 100%;
+  overflow: auto;
+  padding: 4px;
+  font-family: Arial, Helvetica, sans-serif;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.25) inset;
+}
+
+.datenschutz-content h2 {
+  color: black;
+}
+.datenschutz-content h3,
+.datenschutz-content h4 {
+  color: #333;
+}
+.datenschutz-content h3 {
+  text-decoration: underline;
+  -webkit-text-decoration-color: #555;
+          text-decoration-color: #555;
+}
+.datenschutz-content p {
+  color: #777;
+  font-size: 1rem;
+}

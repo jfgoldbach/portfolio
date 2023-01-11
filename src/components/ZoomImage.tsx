@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import Loading from './helper/Loading'
-import './ZoomImage.css'
+//import 'styles/css/ZoomImage.css'
 
 type imageProps = {
   source: string
@@ -9,22 +8,30 @@ type imageProps = {
 
 function ZoomImage(props: imageProps) {
   const [loaded, setLoaded] = useState(false)
-    const handleClick = () => {
-        document.getElementById('zoomcontain')?.classList.add('showFlex');
-        (document.getElementById('zoomimage') as HTMLImageElement).src = props.source
+
+  const handleClick = () => {
+    if (loaded) {
+      document.getElementById('zoomcontain')?.classList.add('showFlex');
+      (document.getElementById('zoomimage') as HTMLImageElement).src = props.source
     }
+  }
 
   return (
-    <div className={`zooomimage-container`}>
-        <img className={`zoomimage ${loaded? "" : "loading"}`} src={props.source} width={props.imageWidth} onClick={handleClick} onLoad={() => setLoaded(true)}/>
+    <div className={`zooom-container ${loaded ? "" : "loading"}`}>
+      <img
+        className={`zoomimage ${loaded ? "" : "loading"}`}
+        src={props.source} width={props.imageWidth}
+        onClick={handleClick}
+        onLoad={() => setLoaded(true)}
+      />
 
-        {!loaded &&
+      {/*!loaded &&
           <Loading />
-        }
-        {loaded &&
-          <i className="fa-solid fa-magnifying-glass-plus"></i>
-        }
-        
+        */}
+      {loaded &&
+        <i className="fa-solid fa-magnifying-glass-plus"></i>
+      }
+
     </div>
   )
 }

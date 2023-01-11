@@ -1,0 +1,201 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+.loading {
+  background-image: linear-gradient(70deg, #222 40%, #777, #555, #333, #222 60%);
+  background-size: 300%;
+  -webkit-animation: loadingAnim 1s infinite linear !important;
+          animation: loadingAnim 1s infinite linear !important;
+}
+
+@-webkit-keyframes loadingAnim {
+  from {
+    background-position-x: -25%;
+  }
+  to {
+    background-position-x: 110%;
+  }
+}
+
+@keyframes loadingAnim {
+  from {
+    background-position-x: -25%;
+  }
+  to {
+    background-position-x: 110%;
+  }
+}
+/*App*/
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+*::-moz-selection {
+  background-color: #ACB6E5;
+}
+
+*::selection {
+  background-color: #ACB6E5;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-image: linear-gradient(45deg, #74ebd5 0%, #ACB6E5 100%);
+  background-size: 400%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  -webkit-animation: backgroundAnim 15s alternate infinite;
+          animation: backgroundAnim 15s alternate infinite;
+}
+
+@-webkit-keyframes backgroundAnim {
+  0% {
+    background-position: left;
+  }
+  100% {
+    background-position: right;
+  }
+}
+
+@keyframes backgroundAnim {
+  0% {
+    background-position: left;
+  }
+  100% {
+    background-position: right;
+  }
+}
+/*div:not(.noDivIn)
+ * animation: divIn 0.5s*/
+@-webkit-keyframes divIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes divIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.displayFlex {
+  display: flex !important;
+}
+
+.displayNone {
+  display: none !important;
+}
+
+.displayBlock {
+  display: block !important;
+}
+
+.home,
+.services,
+.products,
+.sign-up {
+  display: flex;
+  height: 90vh;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+.services {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #fff;
+  font-size: 100px;
+}
+
+.products {
+  background-position: center;
+  background-size: fill;
+  background-repeat: no-repeat;
+  color: #fff;
+  font-size: 100px;
+}
+
+.sign-up {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #fff;
+  font-size: 100px;
+}
+
+.gamedev,
+.webdev {
+  height: 100vh;
+}
+
+.greyscale {
+  filter: grayscale(1);
+  opacity: 0.85;
+}
+
+.slide-in {
+  -webkit-animation: slideIn 0.5s;
+          animation: slideIn 0.5s;
+}
+
+@-webkit-keyframes slideIn {
+  0% {
+    transform: translateY(3vw);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(3vw);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.fa-solid.fa-spinner {
+  display: none;
+  font-size: 1.5rem;
+  -webkit-animation: spin 2s linear infinite;
+          animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -21,6 +21,7 @@ src/components/pages/subpages/Info.json
 /README.md
 public/api
 .php
+.bat
 
 # misc
 .DS_Store

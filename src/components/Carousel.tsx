@@ -1,9 +1,11 @@
 import React, {useState, useEffect, useContext} from 'react'
-import './Carousel.css'
-import '../App.css'
-import './pages/subpages/Subpages.css'
+//import '/styles/css/Carousel.css'
+//import '/styles/css/App.css'
+//import '/styles/css/Subpages.css'
 import { Link } from 'react-router-dom'
 import { LangContext, OverviewContext, overviewType } from '../App'
+import { CarouselCard } from './frontpage/CarouselCard'
+import Button from './Button'
 
 
 
@@ -14,6 +16,7 @@ function Carousel() {
   const [speed, setSpeed] = useState(6000)
   const [video, setVideo] = useState(true)
   const [stop, setStop] = useState(false)
+  const [settings, setSettings] = useState(false)
 
   const [projects, setProjects] = useState<overviewType>([])
   
@@ -53,21 +56,26 @@ function Carousel() {
     })
 
     //closes settings when clicked anywhere else
-    document.addEventListener('click', e => {
+    document.addEventListener('click', outsideClick)
+
+    function outsideClick (e: MouseEvent) {
       const target = e.target as Node
-      if(!document.getElementById('carouselSettings')?.contains(target) && !document.getElementById('setbtn')?.contains(target)){
-        if(document.getElementById('carouselSettings')?.classList.contains('showSettings')){
-          document.getElementById('carouselSettings')?.classList.remove('showSettings');
-          document.getElementById('setbtn')?.classList.remove('settings-active');
-        }
+      const form = document.getElementById('carouselSettings')
+    
+      if(target !== form  && target !== document.getElementById('setbtn') && target.nodeName !== "INPUT" && target.nodeName !== "LABEL"){
+        setSettings(false)
       }
+    }
+
+    return(() => {
+      document.removeEventListener("click", outsideClick)
     })
   }, [])
 
 
   //change classes when "position" has changed
   useEffect(() => {
-    console.log(position)
+    //console.log(position)
     if(projects.length !== 0){
       for(let i = 0; i<5; i++){
         const pos = position + i
@@ -130,13 +138,7 @@ function Carousel() {
   }
 
   const handleSettings = () => {
-    if(document.getElementById('carouselSettings')?.classList.contains('showSettings')){
-      document.getElementById('carouselSettings')?.classList.remove('showSettings');
-      document.getElementById('setbtn')?.classList.remove('settings-active');
-    } else {
-      document.getElementById('carouselSettings')?.classList.add('showSettings');
-      document.getElementById('setbtn')?.classList.add('settings-active');
-    }
+    setSettings(prev => !prev)
   }
 
   const handleSlider = (e: any) => {
@@ -163,30 +165,26 @@ function Carousel() {
         <h1 className='title' data-title={`Web ${lang === "eng" ? "developer" : "Entwickler"}`}>
           Web {lang === "eng" ? "developer" : "Entwickler"}
         </h1>
-        <h2 className='describtion'>{lang === "eng" ? "I like to create interesting webapps, enjoyable games and more:" : "Ich erstelle interessante webapps, unterhaltsame Spiele und mehr:"}</h2>
+        <h2 className='describtion' data-shadow={lang === "eng" ?  "I like to create webapps and games" : "Ich erstelle webapps und Spiele"}>
+          {lang === "eng" ? "I like to create webapps and games" : "Ich erstelle webapps und Spiele"}
+        </h2>
       </div>
 
 
       <div className='setbtn-container'>
-
-        {overview.length === 0 && !error.msg &&
-          <div className="greeting-container">
-            <div className='greeting'>
-              <p>{lang === "eng" ? "Welcome!" : "Willkommen!"}</p>
-            </div>
-          </div>
-        }
         {error.msg &&
           <div className='greeting-container'>
             <div className="info-container mildWarn fetchError">
               <i className="fa-solid fa-triangle-exclamation" />
-              <p>{`${lang === "eng" ? "Couldn't load data for Carousel:" : "Konnte Daten für das Karussell nicht laden:"} ${error.msg} (${error.code})`}</p>
+              <p>{`${lang === "eng" ? "Couldn't load data for Carousel:" : "Konnte Daten für das Karussell nicht laden: "} ${error.msg} (${error.code})`}</p>
+              <Button title="Reload page" onClick={() => window.location.reload()}>
+                <i className="fa-solid fa-rotate"></i>
+              </Button>
             </div>
           </div>
         }
 
-
-        <form id="carouselSettings" className='settings-form'>
+        <form id="carouselSettings" className={`settings-form ${settings? "showSettings" : ""}`}>
           <label htmlFor='stop'>{lang === "eng" ? "Stop Carousel" : "Karussell stoppen"}
             <input id='stop' type="checkbox" onChange={handleStop}/>
           </label>
@@ -194,26 +192,30 @@ function Carousel() {
             <input id="preview" type="checkbox" defaultChecked onChange={handleNoVid}/>
           </label>
           <div className='form-slider'>
-            <label htmlFor='preview' className='slider-label' title='Click to reset speed' onClick={resetSpeed}>{lang === "eng" ? "Slide speed:" : "Wechsel-Dauer:"}
+            <label htmlFor='range' className='slider-label' title='Click to reset speed' onClick={resetSpeed}>{lang === "eng" ? "Slide speed:" : "Wechsel-Dauer:"}
               <p>{`${speed/1000}s`}</p>
             </label>
-            <input type="range" min='1' max='30' value={speed/1000} onChange={handleSlider} />
+            <input id="range" type="range" min='1' max='30' value={speed/1000} onChange={handleSlider} />
           </div>
         </form>
 
         {overview.length !== 0 &&
-          <button className='carouSet-btn' title='Change behaviour of the carousel' onClick={handleSettings} id='setbtn'>
+          <button 
+            className={`carouSet-btn ${settings? "settings-active" : ""}`} 
+            title='Change behaviour of the carousel' 
+            onClick={handleSettings} 
+            id='setbtn'
+          >
             <i className="fa-solid fa-gear"></i>
           </button>
         }
-
       </div>
       
 
-        {/*Carousel FOR THE FUTURE: Should reflect the right order based on priority*/}
-      <div className='img-container'>
+      {/*Carousel cards*/}
+      <div className='img-container noDivIn'>
       
-      {(projects.length > 0 && projects[0] !== undefined ) &&
+      {/*(projects.length > 0 && projects[0] !== undefined ) &&
         projects.map((project, index) =>
           <figure
             className={classes[index]}
@@ -227,8 +229,11 @@ function Carousel() {
             }
           </figure>
         )
-      }
+      */}
     
+      {[0,0,0,0,0].map((i, index) => 
+        <CarouselCard project={projects[index]} index={index} setPosition={setPosition} />
+      )}
         
       {projects.length !== 0 &&
         <Link to={projects[position === 0 ? 0 : 5 - position].link} className="projectLink">

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import TooltipMatchProjects from './helper/TooltipMatchProjects'
-import './SkillCard.css'
+//import '/styles/css/SkillCard.css'
 
 type skillProps = {
   skill: string

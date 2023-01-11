@@ -1,0 +1,128 @@
+.overviewWrapper {
+  position: relative;
+  width: 100%;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  align-items: center;
+  padding: 15px;
+  margin-top: 100px;
+  padding-bottom: 200px;
+}
+.overviewWrapper::after {
+  content: "";
+  width: 100%;
+  height: 16px;
+  position: absolute;
+  bottom: -16px;
+  background-color: #fff;
+}
+
+.spikyDivider {
+  position: absolute;
+  width: 100%;
+  margin: 0;
+  bottom: 100%;
+  overflow: hidden;
+  left: 0;
+}
+
+.spikyDivider img {
+  width: 110%;
+  display: block;
+}
+
+@-webkit-keyframes wave {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: 100%;
+  }
+}
+
+@keyframes wave {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: 100%;
+  }
+}
+.overviewWrapper h1 {
+  text-align: center;
+}
+
+.overviewWrapper section {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 75%;
+  background-color: #fef46e;
+  border-radius: 12px;
+  box-shadow: 0 20px 10px -5px rgba(0, 0, 0, 0.2), 35px 30px 25px -30px rgba(0, 0, 0, 0.2), -35px 30px 25px -30px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  padding-top: 58px;
+}
+
+.overviewWrapper section.mirrored {
+  flex-direction: row-reverse;
+}
+
+.overviewWrapper section::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 50px;
+  background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.04) 95%, transparent);
+}
+
+.overviewSecContent {
+  flex-direction: column;
+  padding: 50px;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.overviewSecTitle {
+  display: flex;
+  gap: 15px;
+  background-color: violet;
+  padding: 2px 5px;
+  align-items: center;
+}
+
+.overviewWrapper .zoomimage-container,
+.overviewWrapper img.zoomimage {
+  width: 33vw;
+}
+
+.overviewSecTitle button {
+  font-weight: bold;
+  padding: 5px 10px;
+  background-color: black;
+  color: #eee;
+}
+
+@media screen and (max-width: 1000px) {
+  .overviewWrapper section,
+.overviewWrapper section.mirrored {
+    flex-direction: column;
+    width: var(--mobileInnerWidth);
+  }
+  .overviewWrapper::before {
+    top: -70px;
+    background-image: url(./backgrounds/spiky-haikei-mobile.png);
+  }
+  .spikyDivider img {
+    width: 200%;
+    transform: translateY(2px);
+  }
+}

@@ -1,8 +1,8 @@
-import './Loading.css'
+//import '/styles/css/Loading.css'
 
 function Loading() {
   return (
-    <div>
+    <div className="loadingContainer noDivIn">
       <img src="/images/loading.png" width={"10px"} className="loadingWheel"></img>
     </div>
   )

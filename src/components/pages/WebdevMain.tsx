@@ -1,8 +1,8 @@
 import { useContext, useEffect } from "react"
 import { LangContext, OverviewContext } from "../../App"
 import ProjectCards from "./ProjectCards"
-import "./WebdevMain.css"
-import "./subpages/Subpages.css"
+//import "/styles/css/WebdevMain.css"
+//import "/styles/css/subpages/Subpages.css"
 
 
 

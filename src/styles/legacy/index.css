@@ -1,0 +1,27 @@
+:root{
+  --loadGrad: linear-gradient(70deg, #222 40%, #777, #555, #333, #222 60%)
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.loading{
+  background-image: var(--loadGrad);
+  background-size: 300%;
+  animation: loadingAnim 1s infinite linear !important
+}
+@keyframes loadingAnim {
+  from {background-position-x: -25%;}
+  to {background-position-x: 110%;}
+}

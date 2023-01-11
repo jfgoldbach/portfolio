@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import SkillCard from "../../SkillCard"
 import ZoomImage from "../../ZoomImage"
 import Info from './Info.json'
-import './Subpages.css'
+//import '/styles/css/Subpages.css'
 import axios from "axios"
 import ProjectBar from "../../ProjectBar"
 import ProjectThumbnail from "../../ProjectThumbnail"
@@ -61,7 +61,7 @@ function Subpage({index, scroll}: pageProps) {
   useEffect(() => {
     setContent({} as sects)
     setError(undefined)
-    axios.get(`http://jfgoldbach.de/api/?type=single&&id=${index}`) //change url for production: jfgoldbach.de/api (dev: localhost:8000)
+    axios.get(`http://jfgoldbach.de/api/?type=single&&id=${index}`) //change url for production: jfgoldbach.de/api (dev: 192.168.178.101:8000)
       .then(response => response.data)
       .then(result => setContent(result))
       .catch(error => setError(error))
@@ -70,11 +70,6 @@ function Subpage({index, scroll}: pageProps) {
 
   return (
     <div className="calculator-container">
-      <ProjectBar scroll={scroll} type='webdev'>
-        {overview.map(project => 
-          <ProjectThumbnail link={`/${project.link}`} source={project.thumbnail} name={project.name} />
-        )}
-        </ProjectBar>
         
         <div className='main-element'>
           {(content.id === undefined && error === undefined) &&
@@ -91,23 +86,33 @@ function Subpage({index, scroll}: pageProps) {
             </div>
           }
 
+          {(content.info !== undefined && content.info !== "") &&
+            <div className={`info-container ${Info[0][content.info as keyof typeof Info[0]].css}`}>
+              <i className="fa-solid fa-circle-info"></i>
+              <p>{Info[0][content.info as keyof typeof Info[0]][lang as langs]}</p>
+            </div>
+          }
+
           {content.name !== undefined &&
           <div className={`header ${content.info === "" ? "noInfo" : ""}`}>
             <h1 className="heading">{content.name}</h1>
 
             {content.skillcards.length !== 0 && content.sections[lang as langs] !== undefined &&
             <>
-              <div style={{width: `${Math.ceil(content.sections[lang as langs].length/4)*200}px`}} className="contents">
-                <h1>{lang === "eng" ? "Contents" : "Inhalt"}</h1>
-                <div className="contentLinks">
-                  {content.sections[lang as langs].map(i => 
-                    <a href={
-                      `#${i.title.toLowerCase().replaceAll(" ", "_")}`
-                    }>{i.title}</a>
-                  )}
+              {content.sections[lang as langs]. length > 2 &&
+                <div style={{width: `${Math.ceil(content.sections[lang as langs].length/4)*200}px`}} className="contents">
+                  <h1>{lang === "eng" ? "Contents" : "Inhalt"}</h1>
+                  <div className="contentLinks">
+                    {content.sections[lang as langs].map(i => 
+                      <a href={`#${i.title.toLowerCase().replaceAll(" ", "_")}`} title={i.title}>
+                        {i.title}
+                      </a>
+                      )
+                    }
+                  </div>
                 </div>
-              </div>
-            
+              }
+
               <div className="projectInfo">
                 <div className='skills'>
                     {
@@ -137,53 +142,50 @@ function Subpage({index, scroll}: pageProps) {
           }
 
           {content.preview &&
-          <div className={`preview ${content.info === ""? "" : "preview-lessMargin"}`}>
-            <img className="preview-desktop" src={content.preview.desktop}></img>
-            <div className="preview-mobileWrapper">
-              <img className="preview-mobileBackground" src={content.preview.mobile}></img>
-              <img className="preview-mobileFrame" src="/images/mobile/smartphone.svg"></img>
+            <div className={`preview ${content.info === ""? "" : "preview-lessMargin"}`}>
+              <div className="preview-desktop loading">
+                <img src={content.preview.desktop}></img>
+              </div>
+              <div className="preview-mobileWrapper">
+                <img className="preview-mobileBackground loading" src={content.preview.mobile}></img>
+                <img className="preview-mobileFrame" src="/images/mobile/smartphone2.svg"></img>
+              </div>
             </div>
-          </div>
           }    
-
-          {(content.info !== undefined && content.info !== "") &&
-            <div className={`info-container ${Info[0][content.info as keyof typeof Info[0]].css}`}>
-              <i className="fa-solid fa-circle-info"></i>
-              <p>{Info[0][content.info as keyof typeof Info[0]][lang as langs]}</p>
-            </div>
-          }
           
 
-          {content.sections &&
-          content.sections[lang as langs].map((section, i) => {
-                if(i%2 === 0){
-                    return(
-                        <div id={section.title.toLowerCase().replaceAll(" ", "_")} className="section-wrapper">
-                            <ZoomImage source={section.image} />
-                            <div className="text-wrapper">
-                                <h1 className="section-title">{section.title}</h1>
-                                <div className="content-wrapper">
-                                  <p>{section.content}</p>
-                                </div>
-                            </div>
-                        </div>
-                    )
-                } else {
-                    return(
-                        <div id={section.title.toLowerCase().replaceAll(" ", "_")} className={`section-wrapper dark`}>
-                            <ZoomImage source={section.image} />
-                            <div className="text-wrapper">
-                                <h1 className="section-title">{section.title}</h1>
-                                <div className="content-wrapper">
-                                  <p>{section.content}</p>
-                                </div>
-                            </div>
-                        </div>
-                    )
-                }
-                
-            })
-          }
+          <div className="information-wrapper">
+            {content.sections &&
+              content.sections[lang as langs].map((section, i) => {
+                  if(i%2 === 0){
+                      return(
+                          <div id={section.title.toLowerCase().replaceAll(" ", "_")} className="section-wrapper">
+                              <ZoomImage source={section.image} />
+                              <div className="text-wrapper">
+                                  <h1 className="section-title">{section.title}</h1>
+                                  <div className="content-wrapper">
+                                    <p>{section.content}</p>
+                                  </div>
+                              </div>
+                          </div>
+                      )
+                  } else {
+                      return(
+                          <div id={section.title.toLowerCase().replaceAll(" ", "_")} className={`section-wrapper dark`}>
+                              <ZoomImage source={section.image} />
+                              <div className="text-wrapper">
+                                  <h1 className="section-title">{section.title}</h1>
+                                  <div className="content-wrapper">
+                                    <p>{section.content}</p>
+                                  </div>
+                              </div>
+                          </div>
+                      )
+                  }
+                  
+              })
+            }
+          </div>
 
         </div>
     </div>

@@ -1,0 +1,561 @@
+/*Main container*/
+.carousel-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 38.5vw;
+  height: calc(var(--mobileInnerWidth) - 65px - 20px);
+  background: none;
+}
+.carousel-container::before {
+  position: absolute;
+  top: 0;
+  content: "";
+  width: 100vw;
+  height: 10.25vw;
+  background-color: #203e69;
+}
+
+/*.img-container figure
+ *  animation: divIn 1s /*fade in the loaded carousel cards */
+.greeting-container {
+  align-self: center;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  pointer-events: all;
+}
+
+.greeting {
+  font-size: 2rem;
+  color: rgb(38, 32, 72);
+  background-color: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.33);
+  padding: 15px 25px;
+  border-radius: 16px;
+}
+
+.carousel-container .fetchError {
+  min-width: 100%;
+}
+
+.projectLink {
+  position: absolute;
+  height: 22.5vw;
+  width: 40vw;
+  left: 50%;
+  transform: translateX(-50%);
+  top: calc(13.5vw + 65px);
+  z-index: 10;
+  color: white;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.projectLink i {
+  background-color: rgba(0, 0, 0, 0.825);
+  -webkit-backdrop-filter: blur(12px);
+          backdrop-filter: blur(12px);
+  padding: 10px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  aspect-ratio: 1/1;
+  border: 1px solid white;
+  transition: 0.15s;
+  opacity: 0;
+}
+
+.projectLink:hover i {
+  border-radius: 12px;
+  transition: 0.25s;
+  padding: 30px;
+  opacity: 1;
+}
+
+/*Settings*/
+.slider-label {
+  cursor: pointer;
+}
+.slider-label p {
+  pointer-events: none;
+}
+
+.carouSet-btn {
+  font-size: 1.125rem;
+  padding: 0.25vw 1vw;
+  border: none;
+  border-radius: 8px;
+  background-color: white;
+  cursor: pointer;
+  transition: 0.15s;
+  z-index: 15;
+  opacity: 0.65;
+  box-shadow: 0 2px rgba(0, 0, 0, 0.5);
+  pointer-events: all;
+}
+
+.settings-active {
+  border-radius: 0 0 8px 8px;
+  opacity: 1;
+  box-shadow: 0 10px 15px -15px black inset, 0 2px rgba(0, 0, 0, 0.5);
+}
+.settings-active .fa-solid.fa-gear {
+  rotate: 180deg;
+  transition: 0.5s;
+}
+
+.fa-solid.fa-gear {
+  color: black;
+  transition: 0.5s;
+  pointer-events: none;
+}
+
+.carouSet-btn:hover {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+.setbtn-container {
+  width: 40vw;
+  height: 25.5vw;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  flex-direction: column;
+  z-index: 200;
+  pointer-events: none;
+}
+
+.setbtn-container .settings-form {
+  display: none;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 35px;
+  z-index: 200;
+  background-color: white;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 8px 8px 8px 0;
+  box-shadow: 5px -5px 15px -5px rgba(0, 0, 0, 0.45);
+  -webkit-animation: rollBottom 0.2s;
+          animation: rollBottom 0.2s;
+  pointer-events: all;
+}
+
+@-webkit-keyframes rollBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(3vh);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rollBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(3vh);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.showSettings {
+  display: flex !important;
+}
+
+input {
+  justify-self: flex-end;
+}
+
+label {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  width: 100%;
+}
+
+.form-slider {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  -webkit-animation: none;
+          animation: none;
+}
+
+@-webkit-keyframes rotateFull {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotateFull {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/*if carousel is not active*/
+.blackwhite {
+  filter: grayscale(100%);
+}
+
+@-webkit-keyframes wave2 {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: 265%;
+  }
+}
+
+@keyframes wave2 {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: 265%;
+  }
+}
+@-webkit-keyframes waving {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: 200%;
+  }
+}
+@keyframes waving {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: 200%;
+  }
+}
+/*Headings*/
+.introduction {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 2vw;
+  align-items: center;
+  height: 15vw;
+  width: 100%;
+  background-repeat: repeat-x;
+  background-size: 200%;
+  background-position-y: -56vw;
+  -webkit-animation: waving 50s linear infinite;
+          animation: waving 50s linear infinite;
+  pointer-events: none;
+}
+.introduction::after {
+  display: block;
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 7vw;
+  top: 10vw;
+  background-image: url("./backgrounds/wave-haikei.png");
+  background-size: 160%;
+  background-position-y: 7vw;
+  animation: wave2 37s infinite linear reverse;
+  z-index: -1;
+}
+
+h1.title {
+  position: relative;
+  font-size: 3.5rem;
+  text-align: center;
+  color: rgb(230, 230, 255);
+  color: transparent;
+  background-image: linear-gradient(45deg, violet, rgb(0, 229, 255));
+  background-size: 400%;
+  -webkit-animation: titleAnim 5s infinite alternate;
+          animation: titleAnim 5s infinite alternate;
+  -webkit-background-clip: text;
+          background-clip: text;
+  padding: 5px;
+  background-color: rgba(32, 62, 105, 0.5);
+  border-radius: 8px;
+  /*font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif*/
+}
+h1.title::after {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  content: attr(data-title);
+  background-image: linear-gradient(45deg, violet, rgb(0, 229, 255));
+  background-size: 400%;
+  -webkit-animation: titleAnim 5s infinite alternate;
+          animation: titleAnim 5s infinite alternate;
+  -webkit-background-clip: text;
+          background-clip: text;
+  filter: blur(8px);
+  z-index: 10;
+  white-space: nowrap;
+}
+
+@-webkit-keyframes titleAnim {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: 100%;
+  }
+}
+
+@keyframes titleAnim {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: 100%;
+  }
+}
+h2.describtion {
+  position: relative;
+  font-size: 1.3rem;
+  white-space: 0rem;
+  font-weight: normal;
+  text-align: center;
+  color: red;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  /*font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif*/
+  z-index: 10;
+  -webkit-text-stroke: 4px #203e69;
+}
+h2.describtion::before {
+  -webkit-text-stroke-width: 0;
+  z-index: 0;
+  content: attr(data-shadow);
+  position: absolute;
+  font-weight: 100;
+  font-size: 1.3rem;
+  top: 0;
+  left: 0;
+  color: rgb(168, 168, 233);
+}
+
+/*Video*/
+.img-container video {
+  position: inherit;
+  top: 0;
+  left: 0;
+  border-radius: 12px;
+  z-index: 6;
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: none;
+}
+
+.img-container .img-front video {
+  display: block;
+}
+
+.display-none {
+  display: none !important;
+}
+
+/*Figure element for embedding the image/video. after & before selectors for decoration*/
+figure {
+  display: flex;
+  border-radius: 12px;
+  position: absolute;
+  transition: 1s ease-in-out;
+  cursor: pointer;
+  background-color: rgb(155, 187, 255);
+}
+
+figure::after {
+  content: attr(data-title);
+  position: absolute;
+  bottom: 0;
+  background: rgba(120, 120, 120, 0.4);
+  padding: 10px 30px;
+  border-radius: 1000px;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  border: 1px solid rgba(222, 222, 222, 0.5);
+  box-shadow: 0 -10px 20px -5px rgba(0, 0, 0, 0.25);
+  z-index: 10;
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+}
+
+/*Images*/
+.img-container img {
+  width: 100%;
+  aspect-ratio: 128/72;
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.75) 0px 60px 35px -40px;
+  transition: 0.5s;
+}
+
+img::-moz-selection {
+  background-color: none;
+}
+
+img::selection {
+  background-color: none;
+}
+
+/*Front image*/
+.img-front {
+  width: 40vw;
+  left: 50%;
+  transform: translateX(-50%);
+  top: calc(13.5vw + 65px);
+  z-index: 5;
+  transition: 1.1s;
+}
+
+.img-front::after {
+  left: 50%;
+  transform: translateX(-50%) translateY(calc(50% - 4px));
+  min-width: 1%;
+  transition: 1s;
+}
+
+/*          Screen adjust           */
+@media screen and (max-width: 800px) {
+  .carouSet-btn:hover .fa-solid.fa-gear {
+    -webkit-animation: none;
+            animation: none;
+  }
+  .carouSet-btn:active .fa-solid.fa-gear {
+    rotate: 270deg;
+  }
+  .projectLink {
+    width: 85vw;
+    height: 50vw;
+    left: 7.5vw;
+    top: calc(69vw + 65px);
+    transform: translateZ(-3px);
+    border-radius: 16px;
+  }
+  .projectLink:hover {
+    opacity: 0;
+  }
+  .setbtn-container {
+    /*display: none*/
+    height: 100%;
+    width: 90vw;
+    background-color: red;
+    width: 0;
+    align-self: flex-start;
+    margin-left: 5vw;
+    transform: translateZ(15px);
+  }
+  .carouSet-btn {
+    padding: 8px 10px;
+    margin-bottom: 20px;
+  }
+  .settings-form {
+    width: 75vw;
+    font-size: 1.125rem;
+  }
+  .settings-form input[type=checkbox] {
+    width: 20px;
+  }
+  .introduction {
+    gap: 8px;
+    padding: 0;
+    height: calc(var(--viewportHeight) / 3);
+    background-image: url("./backgrounds/wave-haikei-mobile.png");
+    background-size: 400%;
+    background-position-y: calc(var(--viewportHeight) * -0.6);
+    -webkit-animation-name: wavesMobile;
+            animation-name: wavesMobile;
+    -webkit-animation-duration: 100s;
+            animation-duration: 100s;
+  }
+  .introduction::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 50vh;
+    top: 0;
+    background-image: url("./backgrounds/wave-haikei-mobile.png");
+    background-size: 300%;
+    background-position-y: calc(var(--viewportHeight) * -0.28);
+    background-repeat: repeat-x;
+    -webkit-animation-name: wave2Mobile;
+            animation-name: wave2Mobile;
+    -webkit-animation-duration: 67s;
+            animation-duration: 67s;
+    z-index: -1;
+  }
+  .introduction h1.title {
+    padding: 0;
+    font-size: 2.4rem;
+  }
+  .introduction h1.title::after {
+    top: 0;
+    left: 0;
+  }
+  @-webkit-keyframes wavesMobile {
+    from {
+      background-position-x: 0;
+    }
+    to {
+      background-position-x: 400%;
+    }
+  }
+  @keyframes wavesMobile {
+    from {
+      background-position-x: 0;
+    }
+    to {
+      background-position-x: 400%;
+    }
+  }
+  /*Second Wave*/
+  @-webkit-keyframes wave2Mobile {
+    from {
+      background-position-x: 0;
+    }
+    to {
+      background-position-x: 300%;
+    }
+  }
+  @keyframes wave2Mobile {
+    from {
+      background-position-x: 0;
+    }
+    to {
+      background-position-x: 300%;
+    }
+  }
+  h2.describtion {
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 0 10px;
+  }
+  h2.describtion::before {
+    font-size: 0.9rem;
+  }
+  .carousel-container img:hover {
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 40px 20px -20px;
+  }
+  .carousel-container {
+    height: 150vw;
+    height: calc(var(--viewportHeight) - 65px - 20px - 50px);
+  }
+  .carousel-container::before {
+    height: 36vw;
+  }
+}

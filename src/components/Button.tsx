@@ -1,5 +1,5 @@
 import React from "react";
-import './Button.css';
+//import '/styles/css/Button.css';
 import { Link } from "react-router-dom";
 
 
@@ -16,6 +16,7 @@ type buttonProps = {
     pathTarget?: string
     path?: string
     className?: string
+    title?: string
 }
 
 const Button: React.FC<buttonProps> = (props) => {
@@ -39,6 +40,7 @@ const Button: React.FC<buttonProps> = (props) => {
         {props.path &&
             <Link to={link} className='btn-mobile' target={targetPath}>
                 <button 
+                    title={props.title}
                     className={`btn ${checkButtonSize} ${checkButtonStyle} ${props.className}`} //fill in all passed in values
                     onClick={props.onClick}
                     //type={props.type} idk for what this was
@@ -49,6 +51,7 @@ const Button: React.FC<buttonProps> = (props) => {
         }
         {!props.path &&
         <button 
+            title={props.title}
             className={`btn ${checkButtonSize} ${checkButtonStyle} ${props.className}`} //fill in all passed in values
             onClick={props.onClick}
             //type={props.type} idk for what this was

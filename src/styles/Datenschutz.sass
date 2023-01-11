@@ -1,0 +1,53 @@
+@import globals
+
+.datenschutz-lr
+    position: relative
+    border-radius: 8px
+    overflow: hidden
+    //border: 2px solid #ccc
+    &.top::before
+        border-radius: 6px 6px 0 0
+        animation: divIn 0.25s
+        top: 0
+        left: 0
+        content: ""
+        position: absolute
+        height: 30px
+        width: 100%
+        background-image: linear-gradient(180deg, $active -100%, transparent)
+        pointer-events: none
+
+    &.bottom::after
+        border-radius: 0 0 6px 6px
+        animation: divIn 0.25s
+        bottom: 0
+        left: 0
+        content: ""
+        position: absolute
+        height: 30px
+        width: 100%
+        background-image: linear-gradient(0deg, $active -100%, transparent)
+        pointer-events: none
+    
+.datenschutz-content
+    height: 100%
+    overflow: auto
+    padding: 4px
+    font-family: Arial, Helvetica, sans-serif
+    box-shadow: 0 0 15px rgba(0,0,0,0.25) inset
+
+   
+
+
+.datenschutz-content
+    h2
+        color: black
+    h3,
+    h4
+        color: #333
+    h3
+        text-decoration: underline
+        text-decoration-color: #555
+    p
+        color: #777
+        font-size: 1rem

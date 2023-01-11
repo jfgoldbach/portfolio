@@ -2,7 +2,7 @@ import { useContext } from "react"
 import { OverviewContext } from "../../App"
 import Button from "../Button"
 import ZoomImage from "../ZoomImage"
-import "./Overview.css"
+//import "/styles/css/Overview.css"
 
 function Overview() {
     const {overview, error} = useContext(OverviewContext)
@@ -11,7 +11,9 @@ function Overview() {
     <>
     {overview.length !== 0 && !error.msg &&
     <div className="overviewWrapper">
-        <img className="spikyDivider" src="images/spiky-wave.svg" />
+        <div className="spikyDivider">
+            <img src="images/spiky-wave.svg" />
+        </div>
         <section>
             <ZoomImage source={overview[1].thumbnail} />
             <div className="overviewSecContent">
@@ -20,7 +22,7 @@ function Overview() {
                     <Button path="/webdev" >&gt;&gt;</Button>
                 </div>
                 
-                <p>Everything with websites, applications that are accesiable through your browser and everything inbetween</p>
+                <p>Websites, applications that are accesiable through your browser and everything inbetween</p>
             </div>
         </section>
 
@@ -32,9 +34,9 @@ function Overview() {
                     <Button path="/gamedev" >&gt;&gt;</Button>
                 </div>
                 <p>
-                    Making games and creating their gameplay, but also the technical side of it. 
-                    <br/>
                     <span style={{color: "grey"}}>&#40;In construction&#41;</span>
+                    <br/>
+                    Making games and creating their gameplay, but also the technical side of it. 
                 </p>
             </div>
         </section>

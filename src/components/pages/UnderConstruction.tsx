@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { LangContext } from '../../App'
-import './UnderConstruction.css'
+//import '/styles/css/UnderConstruction.css'
 
 function UnderConstruction() {
   const {lang} = useContext(LangContext)

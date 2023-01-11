@@ -1,0 +1,102 @@
+.thumbnail-container{
+    position: relative;
+    --height: calc(var(--projbarHeight) *0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--height);
+    overflow: hidden;
+    z-index: 2;
+    transition: 0.1s;
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.5);
+}
+.thumbnail-container.small{
+    min-width: 130px;
+    height: 70px;
+    border-radius: 8px;
+    box-shadow: 0 0 8px -2px black;
+}
+.thumbnail-container.small:hover{
+    border: 2px solid white;
+}
+
+.thumbnail-container:hover{
+    transition: 0.1s;
+}
+
+.thumbnail-container:hover .project-title{
+    font-size: 1.5rem;
+    transition: 0.15s;
+    opacity: 0;
+}
+
+.thumbnail-container:hover img{
+    filter: none;
+    transition: 0.15s;
+    opacity: 1;
+}
+
+.project-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    font-weight: 600;
+    font-size: 1.25rem;
+    content: '';
+    z-index: 3;
+    color: white;
+    transition: 0.075s;
+    text-shadow: 0 0 10px black;
+    text-align: center;
+    max-width: 100%;
+}
+.thumbnail-container.small .project-title{
+    display: none;
+}
+
+.thumbnail-container img{
+    border: none;
+    border-radius: 0;
+    width: 100%;
+    z-index: 1;
+    opacity: 0.75;
+    transition: 0.15s;
+    filter: blur(4px);
+    opacity: 0.5;
+}
+.thumbnail-container.small img{
+    filter: none;
+    opacity: 1;
+}
+
+@media screen and (max-width: 900px){
+    .thumbnail-container{
+        width: 25vw;
+        max-width: 125px;
+    }
+    .thumbnail-container img{
+        height: var(--height);
+        width: auto;
+        filter: none;
+        opacity: 1;
+    }
+    .project-title{
+        display: none;
+    }
+
+    .thumbnail-container:hover{
+        transition: 0;
+        filter:brightness(1.33);
+        box-shadow: 0 0 10px white;
+    }
+    
+    .thumbnail-container:hover .project-title{
+        font-size: 1.125rem;
+        transition: 0;
+        opacity: 1;
+        background: white;
+        color: black;
+    }
+}

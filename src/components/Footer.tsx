@@ -1,4 +1,4 @@
-import './Footer.css'
+//import '/styles/css/Footer.css'
 
 type footerProps = {
     setContact: React.Dispatch<React.SetStateAction<boolean>>
@@ -20,8 +20,8 @@ function Footer(props: footerProps) {
 
   return (
     <div className='footer-container'>
+        <small className='website-right'>© 2023 Julian Goldbach</small>
             <div className='social-media-wrap'>
-                <small className='website-right'>© 2022 Julian Goldbach</small>
                 <button className='contact-btn' onClick={contactHandler}>Impressum</button>
                 <button className='contact-btn' onClick={datenHandler}>Datenschutzerklärung</button>
                 <div className='social-icons'>
