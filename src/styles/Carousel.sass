@@ -191,7 +191,7 @@ label
     align-items: center
     height: 15vw
     width: 100%
-    //background-image: url("./backgrounds/wave-haikei.png")
+    background-image: url("./backgrounds/wave-haikei.png")
     background-repeat: repeat-x
     background-size: 200%
     background-position-y: -56vw
@@ -381,11 +381,11 @@ img::selection
     .introduction
         gap: 8px
         padding: 0
-        $height: calc(var(--viewportHeight) / 3)
+        $height: calc(var(--initialHeight) / 3)
         height: $height
         background-image: url("./backgrounds/wave-haikei-mobile.png")
         background-size: 400%
-        background-position-y: calc(var(--viewportHeight) * -0.6) //-100vw
+        background-position-y: calc(var(--initialHeight) * -0.6) //-100vw
         animation-name: wavesMobile
         animation-duration: 100s
         &::after
@@ -396,7 +396,7 @@ img::selection
             top: 0
             background-image: url("./backgrounds/wave-haikei-mobile.png")
             background-size: 300%
-            background-position-y: calc(var(--viewportHeight) * -0.28) //20vw
+            background-position-y: calc(var(--initialHeight) * -0.28) //20vw
             background-repeat: repeat-x
             animation-name: wave2Mobile
             animation-duration: 67s
@@ -435,7 +435,7 @@ img::selection
 
     .carousel-container
         height: 150vw
-        height: calc(var(--viewportHeight) - $navHeight - 20px - 50px)
+        height: calc(var(--initialHeight) - $navHeight - 20px - 50px)
         &::before
             height: 36vw
 

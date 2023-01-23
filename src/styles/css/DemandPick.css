@@ -17,22 +17,8 @@
   background-color: rgba(255, 255, 255, 0.35);
   padding: 15px;
   box-shadow: 0 0 20px -5px rgba(0, 0, 0, 0.45);
-  -webkit-animation: jiggle 4s infinite;
-          animation: jiggle 4s infinite;
-  -webkit-animation-delay: 0.5s;
-          animation-delay: 0.5s;
-}
-
-@-webkit-keyframes jiggle {
-  0% {
-    transform: translateY(0);
-  }
-  25% {
-    transform: translateY(-75%);
-  }
-  50% {
-    transform: translateY(0);
-  }
+  animation: jiggle 4s infinite;
+  animation-delay: 0.5s;
 }
 
 @keyframes jiggle {

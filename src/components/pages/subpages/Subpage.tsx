@@ -61,7 +61,7 @@ function Subpage({index, scroll}: pageProps) {
   useEffect(() => {
     setContent({} as sects)
     setError(undefined)
-    axios.get(`http://jfgoldbach.de/api/?type=single&&id=${index}`) //change url for production: jfgoldbach.de/api (dev: 192.168.178.101:8000)
+    axios.get(`http://192.168.178.101:8000/?type=single&&id=${index}`) //change url for production: jfgoldbach.de/api (dev: 192.168.178.101:8000)
       .then(response => response.data)
       .then(result => setContent(result))
       .catch(error => setError(error))

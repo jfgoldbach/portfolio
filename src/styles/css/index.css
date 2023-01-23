@@ -16,17 +16,7 @@ code {
 .loading {
   background-image: var(--loadGrad);
   background-size: 300%;
-  -webkit-animation: loadingAnim 1s infinite linear !important;
-          animation: loadingAnim 1s infinite linear !important;
-}
-
-@-webkit-keyframes loadingAnim {
-  from {
-    background-position-x: -25%;
-  }
-  to {
-    background-position-x: 110%;
-  }
+  animation: loadingAnim 1s infinite linear !important;
 }
 
 @keyframes loadingAnim {

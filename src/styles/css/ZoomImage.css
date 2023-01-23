@@ -6,8 +6,6 @@
   cursor: zoom-in;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   border-radius: 16px;
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
   height: fit-content;
 }
 

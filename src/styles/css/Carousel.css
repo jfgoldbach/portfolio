@@ -56,8 +56,7 @@
 
 .projectLink i {
   background-color: rgba(0, 0, 0, 0.825);
-  -webkit-backdrop-filter: blur(12px);
-          backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   padding: 10px;
   border-radius: 6px;
   display: flex;
@@ -140,20 +139,8 @@
   padding: 20px;
   border-radius: 8px 8px 8px 0;
   box-shadow: 5px -5px 15px -5px rgba(0, 0, 0, 0.45);
-  -webkit-animation: rollBottom 0.2s;
-          animation: rollBottom 0.2s;
+  animation: rollBottom 0.2s;
   pointer-events: all;
-}
-
-@-webkit-keyframes rollBottom {
-  0% {
-    opacity: 0;
-    transform: translateY(3vh);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 @keyframes rollBottom {
@@ -185,17 +172,7 @@ label {
   width: 100%;
   display: flex;
   flex-direction: column;
-  -webkit-animation: none;
-          animation: none;
-}
-
-@-webkit-keyframes rotateFull {
-  0% {
-    transform: rotate(0);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  animation: none;
 }
 
 @keyframes rotateFull {
@@ -211,29 +188,12 @@ label {
   filter: grayscale(100%);
 }
 
-@-webkit-keyframes wave2 {
-  from {
-    background-position-x: 0;
-  }
-  to {
-    background-position-x: 265%;
-  }
-}
-
 @keyframes wave2 {
   from {
     background-position-x: 0;
   }
   to {
     background-position-x: 265%;
-  }
-}
-@-webkit-keyframes waving {
-  from {
-    background-position-x: 0;
-  }
-  to {
-    background-position-x: 200%;
   }
 }
 @keyframes waving {
@@ -253,11 +213,11 @@ label {
   align-items: center;
   height: 15vw;
   width: 100%;
+  background-image: url("./backgrounds/wave-haikei.png");
   background-repeat: repeat-x;
   background-size: 200%;
   background-position-y: -56vw;
-  -webkit-animation: waving 50s linear infinite;
-          animation: waving 50s linear infinite;
+  animation: waving 50s linear infinite;
   pointer-events: none;
 }
 .introduction::after {
@@ -282,10 +242,8 @@ h1.title {
   color: transparent;
   background-image: linear-gradient(45deg, violet, rgb(0, 229, 255));
   background-size: 400%;
-  -webkit-animation: titleAnim 5s infinite alternate;
-          animation: titleAnim 5s infinite alternate;
-  -webkit-background-clip: text;
-          background-clip: text;
+  animation: titleAnim 5s infinite alternate;
+  background-clip: text;
   padding: 5px;
   background-color: rgba(32, 62, 105, 0.5);
   border-radius: 8px;
@@ -298,22 +256,11 @@ h1.title::after {
   content: attr(data-title);
   background-image: linear-gradient(45deg, violet, rgb(0, 229, 255));
   background-size: 400%;
-  -webkit-animation: titleAnim 5s infinite alternate;
-          animation: titleAnim 5s infinite alternate;
-  -webkit-background-clip: text;
-          background-clip: text;
+  animation: titleAnim 5s infinite alternate;
+  background-clip: text;
   filter: blur(8px);
   z-index: 10;
   white-space: nowrap;
-}
-
-@-webkit-keyframes titleAnim {
-  from {
-    background-position-x: 0;
-  }
-  to {
-    background-position-x: 100%;
-  }
 }
 
 @keyframes titleAnim {
@@ -392,8 +339,7 @@ figure::after {
   border: 1px solid rgba(222, 222, 222, 0.5);
   box-shadow: 0 -10px 20px -5px rgba(0, 0, 0, 0.25);
   z-index: 10;
-  -webkit-backdrop-filter: blur(6px);
-          backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
 }
 
 /*Images*/
@@ -403,10 +349,6 @@ figure::after {
   border-radius: 12px;
   box-shadow: rgba(0, 0, 0, 0.75) 0px 60px 35px -40px;
   transition: 0.5s;
-}
-
-img::-moz-selection {
-  background-color: none;
 }
 
 img::selection {
@@ -433,8 +375,7 @@ img::selection {
 /*          Screen adjust           */
 @media screen and (max-width: 800px) {
   .carouSet-btn:hover .fa-solid.fa-gear {
-    -webkit-animation: none;
-            animation: none;
+    animation: none;
   }
   .carouSet-btn:active .fa-solid.fa-gear {
     rotate: 270deg;
@@ -474,14 +415,12 @@ img::selection {
   .introduction {
     gap: 8px;
     padding: 0;
-    height: calc(var(--viewportHeight) / 3);
+    height: calc(var(--initialHeight) / 3);
     background-image: url("./backgrounds/wave-haikei-mobile.png");
     background-size: 400%;
-    background-position-y: calc(var(--viewportHeight) * -0.6);
-    -webkit-animation-name: wavesMobile;
-            animation-name: wavesMobile;
-    -webkit-animation-duration: 100s;
-            animation-duration: 100s;
+    background-position-y: calc(var(--initialHeight) * -0.6);
+    animation-name: wavesMobile;
+    animation-duration: 100s;
   }
   .introduction::after {
     position: absolute;
@@ -491,12 +430,10 @@ img::selection {
     top: 0;
     background-image: url("./backgrounds/wave-haikei-mobile.png");
     background-size: 300%;
-    background-position-y: calc(var(--viewportHeight) * -0.28);
+    background-position-y: calc(var(--initialHeight) * -0.28);
     background-repeat: repeat-x;
-    -webkit-animation-name: wave2Mobile;
-            animation-name: wave2Mobile;
-    -webkit-animation-duration: 67s;
-            animation-duration: 67s;
+    animation-name: wave2Mobile;
+    animation-duration: 67s;
     z-index: -1;
   }
   .introduction h1.title {
@@ -507,14 +444,6 @@ img::selection {
     top: 0;
     left: 0;
   }
-  @-webkit-keyframes wavesMobile {
-    from {
-      background-position-x: 0;
-    }
-    to {
-      background-position-x: 400%;
-    }
-  }
   @keyframes wavesMobile {
     from {
       background-position-x: 0;
@@ -524,14 +453,6 @@ img::selection {
     }
   }
   /*Second Wave*/
-  @-webkit-keyframes wave2Mobile {
-    from {
-      background-position-x: 0;
-    }
-    to {
-      background-position-x: 300%;
-    }
-  }
   @keyframes wave2Mobile {
     from {
       background-position-x: 0;
@@ -553,7 +474,7 @@ img::selection {
   }
   .carousel-container {
     height: 150vw;
-    height: calc(var(--viewportHeight) - 65px - 20px - 50px);
+    height: calc(var(--initialHeight) - 65px - 20px - 50px);
   }
   .carousel-container::before {
     height: 36vw;

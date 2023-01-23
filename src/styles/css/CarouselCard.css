@@ -56,8 +56,7 @@ figure::after {
   color: white;
   box-shadow: 0 -10px 20px -5px rgba(0, 0, 0, 0.25);
   z-index: 10;
-  -webkit-backdrop-filter: blur(6px) invert(0.25);
-          backdrop-filter: blur(6px) invert(0.25);
+  backdrop-filter: blur(6px) invert(0.25);
 }
 
 /*Images*/
@@ -67,10 +66,6 @@ figure::after {
   border-radius: 12px;
   box-shadow: rgba(0, 0, 0, 0.75) 0px 60px 35px -40px;
   transition: 0.5s;
-}
-
-.carouselImg::-moz-selection {
-  background-color: none;
 }
 
 .carouselImg::selection {

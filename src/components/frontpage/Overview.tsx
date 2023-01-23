@@ -1,7 +1,8 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { OverviewContext } from "../../App"
 import Button from "../Button"
 import ZoomImage from "../ZoomImage"
+import { StickyNote } from "./StickyNote"
 //import "/styles/css/Overview.css"
 
 function Overview() {
@@ -14,60 +15,32 @@ function Overview() {
         <div className="spikyDivider">
             <img src="images/spiky-wave.svg" />
         </div>
-        <section>
-            <ZoomImage source={overview[1].thumbnail} />
-            <div className="overviewSecContent">
-                <div className="overviewSecTitle">
-                    <h1>Web development</h1>
-                    <Button path="/webdev" >&gt;&gt;</Button>
-                </div>
-                
-                <p>Websites, applications that are accesiable through your browser and everything inbetween</p>
-            </div>
-        </section>
+        <StickyNote 
+            title="Web development" 
+            source="images/web_development.jpg" 
+            path="/webdev" 
+            text="Websites, applications that are accesiable through your browser and everything inbetween" 
+        />
 
-        <section className="mirrored">
-            <ZoomImage source="images/ue4.jpg" />
-            <div className="overviewSecContent">
-                <div className="overviewSecTitle">
-                    <h1>Game development</h1>
-                    <Button path="/gamedev" >&gt;&gt;</Button>
-                </div>
-                <p>
-                    <span style={{color: "grey"}}>&#40;In construction&#41;</span>
-                    <br/>
-                    Making games and creating their gameplay, but also the technical side of it. 
-                </p>
-            </div>
-        </section>
+        <StickyNote
+            mirrored
+            title="Game development" 
+            source="images/ue4.jpg" 
+            text="Making games and creating their gameplay, but also the technical side of it. Subpage is in construction." 
+        />
 
-        <section>
-            <ZoomImage source="images/photography.jpg" />
-            <div className="overviewSecContent">
-                <div className="overviewSecTitle">
-                    <h1>Photography</h1>
-                </div>
-                <p>
-                    Taking photos 
-                    <br/> 
-                    <span style={{color: "grey"}}>&#40;Coming son&#41;</span>
-                </p>
-            </div>
-        </section>
+        <StickyNote
+            title="Photography" 
+            source="images/photography.jpg" 
+            text="Taking photos. Coming soon." 
+        />
 
-        <section className="mirrored">
-            <ZoomImage source="images/cgi.jpg" />
-            <div className="overviewSecContent">
-                <div className="overviewSecTitle">
-                    <h1>CGI</h1>
-                </div>
-                <p>
-                    Computer generated imagery: rendered pictures of 3D models or environments 
-                    <br/> 
-                    <span style={{color: "grey"}}>&#40;Coming son&#41;</span>
-                </p>
-            </div>
-        </section>
+        <StickyNote
+            mirrored
+            title="CGI" 
+            source="images/cgi.jpg" 
+            text="Computer generated imagery: rendered pictures of 3D models or environments. Coming soon." 
+        />
     </div>
     }
     </>

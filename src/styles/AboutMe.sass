@@ -54,7 +54,11 @@
     align-content: flex-start
     flex-wrap: wrap
     color: rgba(0,0,0,0.65)
-    gap: 10px
+    transition: 0.1s
+    gap: 0
+    &.unfold
+        gap: 10px
+        transition: 0.3s
 
 
 .more-skills > p
@@ -64,6 +68,8 @@
     padding: 3px 10px
     border-radius: 8px
     cursor: pointer
+    &::selection
+        background-color: transparent
 
 .more-skills > p::selection
     background-color: none
@@ -85,6 +91,14 @@
     align-content: flex-start
     flex-wrap: wrap
     gap: 7px
+    transition: 1s
+    height: fit-content
+    &.foldable
+        overflow: hidden
+        transition: 0.2s
+        opacity: 0.25
+    &.unfold
+        opacity: 1
 
 
 @media screen and (max-width: 850px)

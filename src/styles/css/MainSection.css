@@ -3,8 +3,7 @@
 }
 
 video {
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   width: 50%;
   height: 95%;
   position: fixed;
@@ -21,8 +20,7 @@ video {
   justify-content: center;
   align-items: center;
   background-color: black;
-  -o-object-fit: contain;
-     object-fit: contain;
+  object-fit: contain;
   z-index: 1;
 }
 

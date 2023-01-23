@@ -1,9 +1,30 @@
+.thumbnailWrapper {
+  position: relative;
+  height: auto;
+  width: 100%;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+}
+.thumbnailWrapper .fa-solid.fa-wrench {
+  position: absolute;
+  z-index: 10;
+  font-size: 0.85rem;
+  right: 0;
+  bottom: 0;
+  transform: translate(25%, 25%);
+  padding: 4px;
+  border: 2px solid black;
+  display: none;
+}
+
 .thumbnail-container {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: auto;
+  flex-grow: 0;
+  height: 50px;
   flex-grow: 1;
   overflow: hidden;
   z-index: 2;
@@ -14,19 +35,13 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 @media screen and (min-width: 800px) {
+  .thumbnail-container {
+    width: 50px;
+    height: 50px;
+  }
   .thumbnail-container:hover {
+    outline: 2px solid #31a6ff;
     transition: 0.1s;
-  }
-  .thumbnail-container:hover .project-title {
-    transition: 0.15s;
-    font-weight: 600;
-    font-size: 1.25rem;
-    opacity: 1;
-  }
-  .thumbnail-container:hover img {
-    filter: blur(4px) saturate(0.5);
-    transition: 0.15s;
-    opacity: 0.5;
   }
 }
 .thumbnail-container.small {
@@ -37,8 +52,7 @@
 .thumbnail-container.small img {
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .thumbnail-container.small:hover {
   border: 2px solid white;
@@ -56,7 +70,9 @@
 .thumbnail-container img {
   border: none;
   border-radius: 0;
+  width: 100%;
   height: 100%;
+  object-fit: cover;
   z-index: 1;
   opacity: 0.75;
   transition: 0.15s;
@@ -70,27 +86,22 @@
     width: 100%;
     height: 100%;
     border-radius: 4px;
-    -o-object-fit: cover;
-       object-fit: cover;
+    object-fit: cover;
   }
 }
 
 .project-title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: absolute;
-  z-index: 3;
-  content: "";
+  top: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  z-index: 100;
   color: white;
-  text-shadow: 0 0 10px black;
-  transition: 0.075s;
-  max-width: 100%;
+  width: 100px;
   text-align: center;
-  opacity: 0;
-  font-weight: 600;
-  font-size: 1.25rem;
-  font-size: 1.5rem;
+  display: none;
+  opacity: 0.75;
 }
 
 .thumbnail-container.small img {

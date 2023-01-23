@@ -54,12 +54,24 @@ $bggamedev: rgb(66, 117, 99, 0.35)
         &:hover 
             //border-right-color: rgba(#fff, 0.5)
             background-position-x: 0
+            .thumbnail-container
+                aspect-ratio: 1/1
             .item-container
                 opacity: 1
                 filter: none
-                height: calc(100% - 20px)
-                width: 150px
-                transition: 0.2s
+                max-height: calc(100% - 20px)
+                //width: 120px
+                width: 105px
+                padding: 15px 25px
+                padding-bottom: 35px
+                transition: 0.2s all
+                gap: 50px
+                overflow-y: auto
+            .project-title
+                display: block !important
+            .thumbnailWrapper 
+                .fa-solid.fa-wrench
+                    display: block !important
 
     @media screen and (max-width: $mobileBreakpoint)
         animation: slideLeftMobile 0.5s
@@ -70,19 +82,20 @@ $bggamedev: rgb(66, 117, 99, 0.35)
         height: 100%
         background: none !important
 
+    
 .item-container
     display: flex
     flex-direction: column
     justify-content: space-between
     gap: 12px
-    height: 100%
     padding: 10px
     background-color: rgb(85, 81, 97)
     overflow: hidden
-    transition: 0.2s
+    transition: 0.2s all
     border-radius: 0 16px 16px 0
     width: 75px
-    height: 50%
+    height: fit-content
+    max-height: 500px
     overflow: hidden
     filter: saturate(0.5)
     opacity: 0.8
@@ -90,13 +103,12 @@ $bggamedev: rgb(66, 117, 99, 0.35)
         transition: 1.2s
         opacity: 0
         display: none
-
     @media screen and (max-width: $mobileBreakpoint)
         width: 100%
         flex-direction: row
         height: 100%
         border-radius: 8px
-        padding: 0
+        padding: 5px
         opacity: 1
         filter: none
         box-shadow: $shadow2

@@ -5,8 +5,7 @@
   gap: 2vw;
   padding: 40px 4vw;
   background-color: rgba(255, 255, 255, 0.65);
-  -webkit-backdrop-filter: blur(12px);
-          backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   margin: 5vw 10vw 3vw 10vw;
   border-radius: 32px;
   box-shadow: 5px 5px 10px 3px rgba(0, 0, 0, 0.33);
@@ -55,7 +54,12 @@
   align-content: flex-start;
   flex-wrap: wrap;
   color: rgba(0, 0, 0, 0.65);
+  transition: 0.1s;
+  gap: 0;
+}
+.more-skills.unfold {
   gap: 10px;
+  transition: 0.3s;
 }
 
 .more-skills > p {
@@ -66,9 +70,8 @@
   border-radius: 8px;
   cursor: pointer;
 }
-
-.more-skills > p::-moz-selection {
-  background-color: none;
+.more-skills > p::selection {
+  background-color: transparent;
 }
 
 .more-skills > p::selection {
@@ -93,6 +96,16 @@
   align-content: flex-start;
   flex-wrap: wrap;
   gap: 7px;
+  transition: 1s;
+  height: fit-content;
+}
+.category-container.foldable {
+  overflow: hidden;
+  transition: 0.2s;
+  opacity: 0.25;
+}
+.category-container.unfold {
+  opacity: 1;
 }
 
 @media screen and (max-width: 850px) {
@@ -104,16 +117,14 @@
     box-shadow: none;
     padding: 0 10px;
     margin-bottom: 100px;
-    -webkit-backdrop-filter: none;
-            backdrop-filter: none;
+    backdrop-filter: none;
     align-items: center;
   }
   .text-container, .skill-container {
     width: var(--mobileInnerWidth);
     border-radius: 32px;
     background-color: rgba(255, 255, 255, 0.65);
-    -webkit-backdrop-filter: blur(12px);
-            backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.33);
     padding: 25px;
   }

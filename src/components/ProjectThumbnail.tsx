@@ -8,6 +8,7 @@ type thumbnailProps = {
   name: string
   small?: boolean
   title?: string
+  wip?: boolean
 }
 
 function ProjectThumbnail(props: thumbnailProps) {
@@ -15,15 +16,20 @@ function ProjectThumbnail(props: thumbnailProps) {
   const [loaded, setLoaded] = useState(false)
 
   return (
-    <Link title={props.title} to={props.link} className={`
-      thumbnail-container 
-      ${props.small ? "small" : ""}
-      ${location.pathname === props.link? "active" : ""}
-      ${loaded? "" : "loading"}
-      `}>
-        <img src={props.source} onLoad={() => setLoaded(true)} />
+    <div className="thumbnailWrapper">
+      <Link title={props.title} to={props.link} className={`
+        thumbnail-container 
+        ${props.small ? "small" : ""}
+        ${location.pathname === props.link? "active" : ""}
+        ${loaded? "" : "loading"}
+        `}>
+          <img src={props.source} onLoad={() => setLoaded(true)} />
+      </Link>
+        {props.wip &&
+          <i className="fa-solid fa-wrench" />
+        }
         <p className='project-title'>{props.name}</p>
-    </Link>
+    </div>
   )
 }
 

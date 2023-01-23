@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { LangContext } from '../App'
 //import 'src/styles/css/AboutMe.css'
 
@@ -8,10 +8,27 @@ import startContent from './startContent.json'
 function AboutMe() {
     const [plusskills, setPlusSkills] = useState(false)
     const {lang} = useContext(LangContext)
+    const moreSkillsRef = useRef<HTMLDivElement>(null)
 
     const handleMoreSkills = () => {
         setPlusSkills(!plusskills)
     }
+
+    useEffect(() => {
+        const container = moreSkillsRef.current
+        if(plusskills && container){
+            container.style.height = `${container.scrollHeight}px`
+            setTimeout(() => {
+                if(plusskills && container){
+                    container.style.overflow = "visible"
+                    console.log("visible")
+                }
+            }, 200);
+        } else if (container){
+            container.style.height = "0px"
+            container.style.overflow = "hidden"
+        }
+    }, [plusskills])
 
   return (
     <div className='main-container aboutMe'>
@@ -44,21 +61,19 @@ function AboutMe() {
                 <SkillCard skill='php' type='php' />
                 <SkillCard skill='SQL' type='sql' />
             </div>
-            <div className='more-skills'>
+            <div className={`more-skills ${plusskills? "unfold" : "folded"}`}>
                 <p onClick={handleMoreSkills}>
                     {lang === "eng"? "Other skills" : "Andere Skills"} 
                     <i className={`fa-solid fa-caret-up ${plusskills? "turned" : ""}`} />
                 </p>
-                {plusskills &&
-                    <div className={`category-container unfold`}>
-                        <SkillCard skill='Photoshop' type='photoshop'/>
-                        <SkillCard skill='Inkscape' type='bw' />
-                        <SkillCard skill='Davinci Resolve' type='davinci'/>
-                        <SkillCard skill='Gimp' type='gimp'/>
-                        <SkillCard skill='Unreal Engine' type='bw'/>
-                        <SkillCard skill='Blender' type='blender'/>
-                    </div>
-                }
+                <div ref={moreSkillsRef} className={`category-container foldable ${plusskills? "unfold" : ""}`}>
+                    <SkillCard skill='Photoshop' type='photoshop'/>
+                    <SkillCard skill='Inkscape' type='bw' />
+                    <SkillCard skill='Davinci Resolve' type='davinci'/>
+                    <SkillCard skill='Gimp' type='gimp'/>
+                    <SkillCard skill='Unreal Engine' type='bw'/>
+                    <SkillCard skill='Blender' type='blender'/>
+                </div>
             </div>
         </div>
     </div>

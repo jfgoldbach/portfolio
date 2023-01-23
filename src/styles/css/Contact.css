@@ -111,8 +111,7 @@
   display: flex;
   gap: 7px;
   align-items: center;
-  -webkit-animation: none;
-          animation: none;
+  animation: none;
 }
 
 .contact-container button:hover {
@@ -130,35 +129,13 @@
   display: none;
   font-size: 1.5rem;
   color: rgb(68, 255, 93);
-  -webkit-animation: rollIn 1.75s;
-          animation: rollIn 1.75s;
+  animation: rollIn 1.75s;
 }
 
 .load {
   display: none;
   width: 1.75rem;
-  -webkit-animation: spin 1s steps(16, end) infinite;
-          animation: spin 1s steps(16, end) infinite;
-}
-
-@-webkit-keyframes rollIn {
-  0% {
-    transform: translateX(-10vw);
-  }
-  30% {
-    transform: translateX(0);
-    font-size: 1.5rem;
-  }
-  40% {
-    font-size: 2.25rem;
-  }
-  70% {
-    transform: translateX(0);
-    font-size: 1.5rem;
-  }
-  100% {
-    transform: translateX(5vw);
-  }
+  animation: spin 1s steps(16, end) infinite;
 }
 
 @keyframes rollIn {

@@ -107,6 +107,8 @@ function App() {
   
 
   useEffect(() => {
+    document.documentElement.style.setProperty("--initialHeight", `${window.innerHeight}px`)
+
     document.addEventListener("scroll", updateScroll)
     function updateScroll () {
       setScroll(window.scrollY)
@@ -119,7 +121,7 @@ function App() {
 
     updateVPsize() //initialize
 
-    axios.get("http://jfgoldbach.de/api/?type=all_overview") //change url for production: jfgoldbach.de/api (dev: 192.168.178.101:8000)
+    axios.get("http://192.168.178.101:8000/?type=all_overview") //change url for production: jfgoldbach.de/api (dev: 192.168.178.101:8000)
       .then(response => response.data)
       .then(result => setOverview(result))
       .catch(error => setError({"msg": error.message, "code": error.code}))

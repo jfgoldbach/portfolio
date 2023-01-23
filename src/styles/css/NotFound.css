@@ -10,8 +10,6 @@
   background-color: rgba(0, 0, 0, 0.4);
   color: var(--color);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.33);
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
   max-width: 90%;
 }
@@ -33,29 +31,7 @@
 
 .fa-solid.fa-file-circle-question {
   font-size: 2rem;
-  -webkit-animation: shake 2s infinite;
-          animation: shake 2s infinite;
-}
-
-@-webkit-keyframes shake {
-  0% {
-    transform: none;
-  }
-  12% {
-    transform: translateX(-8px);
-  }
-  25% {
-    transform: translateX(8px);
-  }
-  37% {
-    transform: translateX(-8px);
-  }
-  50% {
-    transform: translateX(8px);
-  }
-  67% {
-    transform: none;
-  }
+  animation: shake 2s infinite;
 }
 
 @keyframes shake {

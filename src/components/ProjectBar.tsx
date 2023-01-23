@@ -24,7 +24,7 @@ function ProjectBar(props: barProps) {
     <div id='bar' className={`project-bar ${props.type}`}>
         <div id='bar_item_container' className='item-container'>
           {overview.map(project => 
-            <ProjectThumbnail link={`/${project.link}`} source={project.thumbnail} name={project.name} />
+            <ProjectThumbnail link={`/${project.link}`} source={project.thumbnail} name={project.name} wip={project.info === "inConstruction"} />
           )}
         </div>
     </div>

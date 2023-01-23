@@ -4,10 +4,6 @@
   padding: 0;
 }
 
-*::-moz-selection {
-  background-color: #ACB6E5;
-}
-
 *::selection {
   background-color: #ACB6E5;
 }
@@ -39,17 +35,7 @@ body {
   background-size: 400%;
   max-width: 100vw;
   overflow-x: hidden;
-  -webkit-animation: backgroundAnim 15s alternate infinite;
-          animation: backgroundAnim 15s alternate infinite;
-}
-
-@-webkit-keyframes backgroundAnim {
-  0% {
-    background-position: left;
-  }
-  100% {
-    background-position: right;
-  }
+  animation: backgroundAnim 15s alternate infinite;
 }
 
 @keyframes backgroundAnim {
@@ -62,19 +48,7 @@ body {
 }
 /*So that all div elements "slide in" when displayed*/
 div:not(.noDivIn) {
-  -webkit-animation: divIn 0.5s;
-          animation: divIn 0.5s;
-}
-
-@-webkit-keyframes divIn {
-  0% {
-    opacity: 0;
-    /*transform: translateY(-3vh)*/
-  }
-  100% {
-    opacity: 1;
-    /*transform: translateY(0)*/
-  }
+  animation: divIn 0.5s;
 }
 
 @keyframes divIn {
@@ -140,17 +114,7 @@ div:not(.noDivIn) {
 }
 
 .slide-in {
-  -webkit-animation: slideIn 0.5s;
-          animation: slideIn 0.5s;
-}
-
-@-webkit-keyframes slideIn {
-  0% {
-    transform: translateY(3vw);
-  }
-  100% {
-    transform: translateY(0);
-  }
+  animation: slideIn 0.5s;
 }
 
 @keyframes slideIn {
@@ -164,17 +128,7 @@ div:not(.noDivIn) {
 .fa-solid.fa-spinner {
   display: none;
   font-size: 1.5rem;
-  -webkit-animation: spin 2s linear infinite;
-          animation: spin 2s linear infinite;
-}
-
-@-webkit-keyframes spin {
-  0% {
-    transform: rotate(0);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  animation: spin 2s linear infinite;
 }
 
 @keyframes spin {
