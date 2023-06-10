@@ -37,7 +37,7 @@ function ErrorInfo({ msg, request, countdown }: errorInfoProps) {
     }
 
     return (
-        <div className="warn-container">
+        <div className="warn-container scaleIn">
             <i className="fa-solid fa-triangle-exclamation"></i>
             <h4>{msg ?? lang === "eng" ? "An error occured" : "Ein Fehler ist aufgetreten"}</h4>
             {request ?

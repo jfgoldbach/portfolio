@@ -1,12 +1,26 @@
 @use "globals"
 
-.contact
-  height: 100vh
-  .fa-solid.fa-check
-    display: none
+
+@keyframes rollIn
+  0%
+    transform: translateX(-10vw)
+  30%
+    transform: translateX(0)
     font-size: 1.5rem
-    color: rgb(68, 255, 93)
-    animation: rollIn 1.75s
+  40%
+    font-size: 2.25rem
+  70%
+    transform: translateX(0)
+    font-size: 1.5rem
+  100%
+    transform: translateX(5vw)
+
+
+.fa-solid.fa-check
+  display: none
+  font-size: 1.5rem
+  color: rgb(68, 255, 93)
+  animation: rollIn 1.75s infinite
 
 .input-required
   color: rgba(255, 83, 35, 0.75)
@@ -27,7 +41,8 @@
   display: flex
   flex-direction: column
   align-items: center
-  padding: 1vh 10vw
+  padding: 32px 85px
+  gap: 110px
   border-radius: 32px
   box-shadow: globals.$shadow
   background-color: white
@@ -35,10 +50,11 @@
 .contact-container form
   display: flex
   flex-direction: column
+  align-items: flex-end
   gap: 15px
   text-align: left
   width: 35vw
-  padding-bottom: 35px
+  //padding-bottom: 35px
   font-size: 1.125rem
   border-radius: 32px
 
@@ -71,6 +87,7 @@
   border-bottom: 1px solid rgba(#000, 0.5)
 
 .contact-container label
+  width: 100%
   color: rgb(96, 95, 105)
   font-weight: bold
   display: flex
@@ -119,25 +136,46 @@
   position: relative
   align-items: center
   justify-content: center
-  align-self: center
   color: white
   background-color: black
   border: none
-  width: 6vw
-  height: 3.5vh
-  min-width: 120px
-  min-height: 30px
-  border-radius: 8px
+  $size: 42px
+  width: $size
+  height: $size
+  border-radius: 50%
+  font-size: 1.4rem
   padding: 8px 16px
-  font-size: 1.25rem
-  margin: 16px
   cursor: pointer
+  margin-right: 31px
+  margin-top: 6px
   box-shadow: var(--btnShadow)
   transition: 0.1s
   overflow: hidden
+  i.fa-paper-plane
+    transition: opacity 0.125s
+  &.loading
+    background: darken(globals.$active, 25%)
+    pointer-events: none
+    i
+      opacity: 0
+  &.error
+    @keyframes btnError
+      from
+        background: red
+      to
+        background: black
+    animation: btnError 1s
+  &.done
+    @keyframes btnDone
+      from
+        background: green
+      to
+        background: black
+    animation: btnDone 2s
 
 .submit-send
-  font-size: 1.3rem
+  padding-right: 3px
+  padding-bottom: 2px
   display: flex
   gap: 7px
   align-items: center
@@ -148,28 +186,14 @@
   transition: 0.2s
 
 .contact-container h1
-  margin-top: 35px
-  margin-bottom: 75px
   text-align: center
+  @include globals.flexCenter
+  gap: 12px
 
 .load
   display: none
   width: 1.75rem
   animation: spin 1s steps(16, end) infinite
-
-@keyframes rollIn
-  0%
-    transform: translateX(-10vw)
-  30%
-    transform: translateX(0)
-    font-size: 1.5rem
-  40%
-    font-size: 2.25rem
-  70%
-    transform: translateX(0)
-    font-size: 1.5rem
-  100%
-    transform: translateX(5vw)
 
 @media screen and (max-width: 900px)
   .contact-container
