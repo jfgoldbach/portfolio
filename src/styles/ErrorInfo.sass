@@ -1,0 +1,29 @@
+@use 'globals'
+
+.warn-container
+    position: absolute
+    width: 100%
+    height: 100%
+    margin-top: auto
+    @include globals.flexCenter
+    gap: 12px
+    flex-direction: column
+    i.fa-triangle-exclamation
+        color: globals.$cancel
+        font-size: 3rem
+        text-shadow: globals.$shadow2
+    h4
+        color: white
+        text-shadow: globals.$shadow2
+    button
+        @include globals.flexCenter
+        gap: 6px
+        font-size: 1rem
+    .time-display
+        margin-top: 12px
+        border: 1px solid white
+        border-radius: 16px
+        padding: 6px 12px
+        color: white
+        text-shadow: globals.$shadow2
+        box-shadow: globals.$shadow

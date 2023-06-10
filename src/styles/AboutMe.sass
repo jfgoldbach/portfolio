@@ -6,7 +6,8 @@
     padding: 40px 4vw
     background-color: rgba(255,255,255,0.65)
     backdrop-filter: blur(12px)
-    margin: 5vw 10vw 3vw 10vw
+    margin: 12.85vw 10vw 3vw 10vw
+    //margin-top: 12.5vw
     border-radius: 32px
     box-shadow: 5px 5px 10px 3px rgba(0,0,0,0.33)
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
@@ -18,9 +19,11 @@
     font-family: Arial, Helvetica, sans-serif
 
 
-.aboutMe h1 
-    color: var(--dark)
-    text-align: left
+.aboutMe
+    box-shadow: 0 -4px #fff, 5px 5px 10px 3px rgba(0,0,0,0.33)
+    h1 
+        color: var(--dark)
+        text-align: left
 
 
 .text-container p
@@ -101,11 +104,27 @@
         opacity: 1
 
 
+.char-canvas
+    @keyframes blendIn
+        from
+            opacity: 0
+        to
+            opacity: 1
+    position: absolute !important
+    left: 0
+    top: -10.5vw
+    //border: 1px dashed red
+    width: 17vw !important
+    height: 17vw !important
+    animation: blendIn 0.33s
+
+
 @media screen and (max-width: 850px)
     .main-container
         flex-direction: column
         gap: 45px
         margin: 2vw 0 5vw 0
+        margin-top: 150px
         background-color: transparent
         box-shadow: none
         padding: 0 10px
@@ -124,3 +143,11 @@
     .skill-container
         gap: 25px
     
+    .char-canvas
+        z-index: 10
+        $size: 250px
+        width: $size !important
+        height: $size !important
+        top: $size * -0.625
+        left: unset
+        right: $size / -4

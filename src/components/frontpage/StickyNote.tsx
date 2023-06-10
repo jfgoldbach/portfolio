@@ -8,11 +8,13 @@ type noteProps = {
     path?: string,
     text?: string,
     mirrored?: boolean
+    dontRotate?: boolean
 }
 
-export function StickyNote ({source, path, text, title, mirrored}: noteProps) {
+export function StickyNote ({source, path, text, title, mirrored, dontRotate}: noteProps) {
     const noteRef = useRef<HTMLElement>(null)
     const [visible, setVisible] = useState(false)
+    const [rotation, setRotation] = useState([0, 0])
 
     const checkInViewport = (entries: IntersectionObserverEntry[]) => {
         if(entries[0].isIntersecting) setVisible(true)
@@ -32,6 +34,9 @@ export function StickyNote ({source, path, text, title, mirrored}: noteProps) {
         if(note){
             observer.observe(note)
         }
+        if(!dontRotate){
+        setRotation([Math.random()*4.5 -2.25, Math.random()*4.5 -2.25]) //random rotation betwen -2.25° and 2.25°
+        }
 
         return (() => {
             if(note) observer.unobserve(note)
@@ -40,10 +45,10 @@ export function StickyNote ({source, path, text, title, mirrored}: noteProps) {
 
     return (
         <section ref={noteRef} className={`noteContainer ${mirrored? "mirrored" : ""} ${visible? "onScreen" : ""}`}>
-            <div className="note">
+            <div className="note" style={{rotate: `${rotation[0]}deg`}}>
                 <ZoomImage source={source} />
             </div>
-            <div className="overviewSecContent note">
+            <div className="overviewSecContent note"  style={{rotate: `${rotation[1]}deg`}}>
                 <div className="overviewSecTitle">
                     <img src="images/markerStroke.svg"></img>
                     <h1>{title}</h1>

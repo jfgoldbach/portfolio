@@ -1,3 +1,31 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes rollBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(3vh);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes rollTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-3vh);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .calculator-container {
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   position: relative;
@@ -476,8 +504,8 @@
     max-height: unset;
   }
   .heading,
-.contents,
-.projectInfo {
+  .contents,
+  .projectInfo {
     padding: 25px;
     background-color: #eee;
     backdrop-filter: blur(7px);
@@ -485,7 +513,7 @@
     max-width: 100%;
   }
   .preview-desktop,
-.preview-mobileWrapper {
+  .preview-mobileWrapper {
     height: 30vh;
   }
   .preview-mobileWrapper {

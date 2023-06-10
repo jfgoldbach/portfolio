@@ -1,19 +1,22 @@
 //import "/styles/css/ProjectCards.css"
 //import "/styles/css/SkillCard.css"
 import { Link } from "react-router-dom"
-import { useContext, useEffect, useState } from "react"
+import { MouseEventHandler, useContext, useEffect, useState } from "react"
 import { LangContext, OverviewContext } from "../../App"
 import $ from 'jquery'
 
 type cardsprops = {
-  index: number
+  index: number,
+  type?: number,
+  className?: string
 }
 
-function ProjectCards({ index }: cardsprops) {
-  const { overview } = useContext(OverviewContext)
+function ProjectCards({ index, type, className }: cardsprops) {
+  const { overview, gameOverview } = useContext(OverviewContext)
   const { lang } = useContext(LangContext)
-  const project = overview[index - 1]
+  const project = type && type === 1? gameOverview[index - 1] : overview[index - 1] //temporary solution
   const [loaded, setLoaded] = useState(false)
+  const [over, setOver] = useState(false)
 
   let pos: [number, number], dims: [number, number]
 
@@ -78,12 +81,16 @@ function ProjectCards({ index }: cardsprops) {
       document.removeEventListener('scroll', scrollOffset)
       window.removeEventListener('resize', updateSizePosition)
     })
-  }, [])
+  }, [over])
+
+  function overOut (e: React.MouseEvent) { //above listeners will only be created/triggered when mouse is over
+    setOver(e.type === "mouseover")
+  }
 
 
 
   return (
-    <Link to={`/${project.link}`} className="projectCard" id={`card${index}`}>
+    <Link to={`/${project.link}`} className={`projectCard scaleIn ${className && ""}`} id={`card${index}`} onMouseOver={overOut} onMouseOut={overOut}>
       <div className="imgContainer">
         <img className={`
           projectImg

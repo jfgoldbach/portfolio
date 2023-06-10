@@ -1,0 +1,42 @@
+{
+    "navigation": [
+        {
+            "ger": "Seiten",
+            "eng": "Pages",
+            "fa_icon": "fa-solid fa-file",
+            "items": [
+                {"ger": "Startseite", "eng": "landing page", "admin_only": false, "path": "landingpage"},
+                {"ger": "WebEnt", "eng": "WebDev", "admin_only": false, "path": "webdev"},
+                {"ger": "SpielEnt", "eng": "GameDev", "admin_only": false, "path": "gamedev"},
+                {"ger": "Kontakt", "eng": "Contact", "admin_only": false, "path": "contact"},
+                {"ger": "Modellbetrachter", "eng": "Model viewer", "admin_only": false, "path": "viewer"},
+                {"ger": "Admin Panel", "eng": "Admin Panel", "admin_only": true, "path": "changer"}
+            ]
+        },
+        {
+            "ger": "Formales",
+            "eng": "Formals",
+            "fa_icon": "fa-solid fa-pen-nib",
+            "items": [
+                {"ger": "Datenschutz", "eng": "Data protection", "admin_only": false, "path": "datenschutz"},
+                {"ger": "Impressum", "eng": "Imprint", "admin_only": false, "path": "impressum"}
+            ]
+        },
+        {
+            "ger": "Design",
+            "eng": "Design",
+            "fa_icon": "fa-solid fa-spray-can",
+            "items": [
+                {"ger": "Skillkarten", "eng": "Skillcards", "admin_only": false, "path": "style_skillcards"}
+            ]
+        },
+        {
+            "ger": "Login",
+            "eng": "Login",
+            "fa_icon": "fa-solid fa-user",
+            "items": [
+                {"ger": "Zugangsdaten", "eng": "Change credentials", "admin_only": true, "path": "admin_credentials"}
+            ]
+        }
+    ]
+}

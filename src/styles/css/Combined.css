@@ -1,3 +1,31 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes rollBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(3vh);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes rollTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-3vh);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -23,6 +51,10 @@ code {
     background-position-x: 110%;
   }
 }
+.error {
+  background-image: repeating-linear-gradient(45deg, #ff6666, #ff6666 10px, transparent 10px, transparent 20px);
+}
+
 /*App*/
 * {
   box-sizing: border-box;
@@ -39,7 +71,7 @@ html {
 }
 
 body {
-  background-image: linear-gradient(45deg, #74ebd5 0%, #ACB6E5 100%);
+  background-image: linear-gradient(45deg, #60a79a 0%, #838aa4 100%);
   background-size: 400%;
   max-width: 100vw;
   overflow-x: hidden;
@@ -122,15 +154,18 @@ body {
 }
 
 .slide-in {
-  animation: slideIn 0.5s;
+  opacity: 0;
+  animation: slideIn 0.125s forwards;
 }
 
 @keyframes slideIn {
   0% {
-    transform: translateY(3vw);
+    transform: translateY(-50px);
+    opacity: 0;
   }
   100% {
     transform: translateY(0);
+    opacity: 1;
   }
 }
 .fa-solid.fa-spinner {
@@ -146,4 +181,183 @@ body {
   100% {
     transform: rotate(360deg);
   }
+}
+input[type=text],
+input[type=password] {
+  border: none;
+  padding: 5px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border-bottom: 2px solid #aaa;
+  background: none;
+  min-width: 150px;
+  transition: 0.25s;
+}
+input[type=text].focus:focus,
+input[type=password].focus:focus {
+  font-size: 1.2rem;
+  border-color: transparent;
+}
+
+input[type=color] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+input[type=color]::-webkit-color-swatch {
+  border-radius: 50%;
+  border: none;
+}
+input[type=color]::-moz-color-swatch {
+  border-radius: 50%;
+  border: none;
+}
+
+button[type=submit] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-size: 1rem;
+  border: none;
+  height: 38px;
+  background: #333;
+  color: white;
+  font-weight: bold;
+  margin-top: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  transition: 0.25s;
+}
+button[type=submit]:hover {
+  font-size: 1.15rem;
+  box-shadow: 0 0 20px #31a6ff;
+}
+
+.deleteBtn {
+  background: none;
+  border: 1px solid rgb(255, 103, 79);
+  color: rgb(255, 103, 79);
+  font-size: 1rem;
+}
+.deleteBtn:hover {
+  background: rgba(255, 103, 79, 0.25);
+}
+
+.homeContainer {
+  min-height: calc(100vh - 65px);
+  position: relative;
+}
+
+.blurBackground {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  z-index: -1;
+}
+@keyframes move1 {
+  0% {
+    transform: translateX(-10%);
+    rotate: 0deg;
+  }
+  50% {
+    transform: translateX(10%);
+  }
+  100% {
+    rotate: 360deg;
+    transform: translateX(-10%);
+  }
+}
+.blurBackground .object1 {
+  content: "";
+  position: absolute;
+  width: 130vh;
+  height: 130vh;
+  border-radius: 50%;
+  bottom: 0;
+  right: -15%;
+  background: linear-gradient(#c42eab, rgba(136, 24, 118, 0.1));
+  z-index: -1;
+  animation: move1 20s infinite linear;
+  filter: blur(128px);
+}
+.blurBackground .object2 {
+  content: "";
+  position: absolute;
+  width: 180vh;
+  height: 180vh;
+  border-radius: 50%;
+  bottom: -10%;
+  left: -20%;
+  background: linear-gradient(90deg, rgba(32, 59, 192, 0.8), rgba(29, 50, 160, 0.1));
+  z-index: -1;
+  animation: move1 30s infinite linear;
+  filter: blur(128px);
+}
+.blurBackground .object3 {
+  content: "";
+  position: absolute;
+  width: 70vh;
+  height: 70vh;
+  border-radius: 50%;
+  bottom: 10%;
+  left: 40%;
+  background: linear-gradient(90deg, rgba(0, 221, 255, 0.8), rgba(29, 160, 160, 0.1));
+  z-index: -1;
+  animation: move1 30s infinite linear;
+  filter: blur(128px);
+}
+.blurBackground .blurer {
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(0);
+}
+
+.scaleIn {
+  animation: transIn 0.2s;
+}
+@keyframes transIn {
+  from {
+    scale: 0.75;
+    opacity: 0;
+  }
+  to {
+    scale: 1;
+    opacity: 1;
+  }
+}
+
+.dragging {
+  opacity: 0.5;
+  backdrop-filter: blur(5px);
+}
+
+.window {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: #eee;
+  border: 2px solid #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.25);
+}
+
+.inactive {
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.inactiveInvis {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.Toastify__toast-container--top-right {
+  top: calc(75px + 1em) !important;
 }

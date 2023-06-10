@@ -1,6 +1,5 @@
-@import globals
-  
-$loadGrad: linear-gradient(70deg, #222 40%, #777, #555, #333, #222 60%)
+@use 'globals'
+
 
 body
   margin: 0
@@ -12,7 +11,7 @@ code
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace
 
 .loading
-  background-image: $loadGrad
+  background-image: globals.$loadGrad
   background-size: 300%
   animation: loadingAnim 1s infinite linear !important
 
@@ -22,6 +21,8 @@ code
   to 
     background-position-x: 110%
 
+.error
+  background-image: globals.$errorStripes
 
 /*App*/
 *
@@ -37,7 +38,7 @@ html
 
 
 body
-  background-image: $background
+  background-image: globals.$background
   background-size: 400%
   max-width: 100vw
   overflow-x: hidden
@@ -108,13 +109,16 @@ body
   opacity: 0.85
 
 .slide-in
-  animation: slideIn 0.5s
+  opacity: 0
+  animation: slideIn 0.125s forwards
 
 @keyframes slideIn
   0% 
-    transform: translateY(3vw)
+    transform: translateY(-50px)
+    opacity: 0
   100% 
     transform: translateY(0)
+    opacity: 1
 
 .fa-solid.fa-spinner
   display: none
@@ -126,3 +130,156 @@ body
     transform: rotate(0)
   100% 
     transform: rotate(360deg)
+
+
+input[type="text"],
+input[type="password"]
+  border: none
+  padding: 5px
+  font-size: 1rem
+  border-radius: 6px
+  border-bottom: 2px solid #aaa
+  background: none
+  min-width: 150px
+  //text-align: center
+  //box-shadow: 0 0 12px rgba(#000, 0.2)
+  transition: 0.25s
+  &.focus:focus
+    font-size: 1.2rem
+    border-color: transparent
+
+input[type="color"]
+  -webkit-appearance: none
+  -moz-appearance: none
+  appearance: none
+  background-color: transparent
+  border: none
+  cursor: pointer
+  &::-webkit-color-swatch
+    border-radius: 50%
+    border: none
+  &::-moz-color-swatch
+    border-radius: 50%
+    border: none
+
+button[type="submit"]
+  @include globals.flexCenter
+  width: 100%
+  font-size: 1rem
+  border: none
+  height: 38px
+  background: #333
+  color: white
+  font-weight: bold
+  margin-top: 15px
+  border-radius: 10px
+  cursor: pointer
+  box-shadow: globals.$shadow
+  transition: 0.25s
+  &:hover
+    font-size: 1.15rem
+    box-shadow: 0 0 20px globals.$active
+
+.deleteBtn
+  background: none
+  border: 1px solid globals.$cancel
+  color: globals.$cancel
+  font-size: 1rem
+  &:hover
+    background: rgba(globals.$cancel, 0.25)
+
+.homeContainer
+  min-height: calc(100vh - globals.$navHeight)
+  position: relative
+
+
+.blurBackground
+  @keyframes move1
+    0%
+      transform: translateX(-10%)
+      rotate: 0deg
+    50%
+      transform: translateX(10%)
+    100%
+      rotate: 360deg
+      transform: translateX(-10%)
+  position: fixed
+  top: 0
+  height: 100vh
+  width: 100%
+  z-index: -1
+  .object1
+    content: ""
+    position: absolute
+    width: 130vh
+    height: 130vh
+    border-radius: 50%
+    bottom: 0
+    right: -15%
+    background: linear-gradient(rgba(#c42eab, 1), rgba(#881876, 0.1))
+    z-index: -1
+    animation: move1 20s infinite linear
+    filter: blur(128px)
+  .object2
+    content: ""
+    position: absolute
+    width: 180vh
+    height: 180vh
+    border-radius: 50%
+    bottom: -10%
+    left: -20%
+    background: linear-gradient(90deg, rgba(#203bc0, 0.8), rgba(#1D32A0, 0.1))
+    z-index: -1
+    animation: move1 30s infinite linear
+    filter: blur(128px)
+  .object3
+    content: ""
+    position: absolute
+    width: 70vh
+    height: 70vh
+    border-radius: 50%
+    bottom: 10%
+    left: 40%
+    background: linear-gradient(90deg, rgba(#00ddff, 0.8), rgba(#1da0a0, 0.1))
+    z-index: -1
+    animation: move1 30s infinite linear
+    filter: blur(128px)
+  .blurer
+    width: 100%
+    height: 100%
+    backdrop-filter: blur(0) //128px
+
+.scaleIn
+  @keyframes transIn
+    from
+        scale: 0.75
+        opacity: 0
+    to
+        scale: 1
+        opacity: 1
+  animation: transIn 0.2s
+
+
+.dragging
+  opacity: 0.5
+  backdrop-filter: blur(5px)
+
+.window
+  @include globals.flexCenter
+  flex-direction: column
+  background: #eee
+  border: 2px solid #fff
+  border-radius: 12px
+  box-shadow: 0 0 16px rgba(#000, 0.25)
+
+.inactive
+  opacity: 0.2
+  pointer-events: none
+
+.inactiveInvis
+  opacity: 0
+  pointer-events: none
+
+
+.Toastify__toast-container--top-right
+  top: calc(globals.$navHeight + 10px + 1em) !important

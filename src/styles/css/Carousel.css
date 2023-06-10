@@ -1,3 +1,41 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes rollBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(3vh);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes rollTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-3vh);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes rollTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-3vh);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 /*Main container*/
 .carousel-container {
   display: flex;
@@ -5,20 +43,21 @@
   align-items: center;
   justify-content: flex-start;
   height: 38.5vw;
-  height: calc(var(--mobileInnerWidth) - 65px - 20px);
+  height: 80vh;
   background: none;
 }
 .carousel-container::before {
   position: absolute;
-  top: 0;
+  bottom: 100%;
   content: "";
   width: 100vw;
-  height: 10.25vw;
+  height: 75px;
   background-color: #203e69;
+  z-index: 4;
 }
 
 /*.img-container figure
- *  animation: divIn 1s /*fade in the loaded carousel cards */
+ * animation: divIn 1s /*fade in the loaded carousel cards */
 .greeting-container {
   align-self: center;
   display: flex;
@@ -42,11 +81,9 @@
 
 .projectLink {
   position: absolute;
-  height: 22.5vw;
-  width: 40vw;
-  left: 50%;
-  transform: translateX(-50%);
-  top: calc(13.5vw + 65px);
+  height: 20vw;
+  width: 35vw;
+  right: 0;
   z-index: 10;
   color: white;
   display: flex;
@@ -84,7 +121,8 @@
 
 .carouSet-btn {
   font-size: 1.125rem;
-  padding: 0.25vw 1vw;
+  width: 30px;
+  height: 30px;
   border: none;
   border-radius: 8px;
   background-color: white;
@@ -94,12 +132,13 @@
   opacity: 0.65;
   box-shadow: 0 2px rgba(0, 0, 0, 0.5);
   pointer-events: all;
+  margin-left: 6px;
 }
 
 .settings-active {
-  border-radius: 0 0 8px 8px;
+  border-radius: 8px 8px 0 0;
   opacity: 1;
-  box-shadow: 0 10px 15px -15px black inset, 0 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 -10px 15px -15px black inset, 0 2px rgba(0, 0, 0, 0.5);
 }
 .settings-active .fa-solid.fa-gear {
   rotate: 180deg;
@@ -118,18 +157,93 @@
 }
 
 .setbtn-container {
-  width: 40vw;
-  height: 25.5vw;
+  position: relative;
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
-  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 200;
   pointer-events: none;
+  width: 100%;
+}
+.setbtn-container .progress-container {
+  margin: 0 6px;
+  height: 0;
+  opacity: 0;
+  margin-top: 26px;
+  transition: 0.2s;
+}
+.setbtn-container .progress-container.active {
+  margin-top: 0;
+  height: 26px;
+  opacity: 1;
+}
+.setbtn-container .progress-container svg.progressAnim {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.setbtn-container .progress-container svg.progressAnim circle {
+  fill: none;
+  stroke-dasharray: 1px, 200px;
+  stroke-dashoffset: -60px;
+  stroke: rgba(0, 225, 255, 0.9);
+  stroke-linecap: round;
+}
+.setbtn-container .progress-container svg.progressAnim circle.anim {
+  animation: progressAnim 3s linear;
+}
+@keyframes progressAnim {
+  0% {
+    stroke-dasharray: 1px, 200px;
+  }
+  95% {
+    stroke-dasharray: 90px, 200px;
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dasharray: 1px, 200px;
+  }
+}
+.setbtn-container h3 {
+  font-weight: normal;
+  font-size: 0.8rem;
+  margin-right: auto;
+  margin-top: auto;
+  color: rgba(255, 255, 255, 0.6);
+  opacity: 0;
+  transition: 0.2s;
+}
+.setbtn-container .fa-video-slash,
+.setbtn-container .fa-stop {
+  color: white;
+  opacity: 0.75;
+  font-size: 1.25rem;
+  transition: 0.2s;
+}
+.setbtn-container i.vidIco {
+  width: 0;
+  opacity: 0;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  pointer-events: none;
+}
+.setbtn-container i.vidIco.active {
+  width: 22px;
+  opacity: 1;
+  margin: 0 6px;
 }
 
 .setbtn-container .settings-form {
   display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
   align-items: flex-start;
   justify-content: space-between;
   gap: 35px;
@@ -137,35 +251,23 @@
   background-color: white;
   flex-direction: column;
   padding: 20px;
-  border-radius: 8px 8px 8px 0;
-  box-shadow: 5px -5px 15px -5px rgba(0, 0, 0, 0.45);
-  animation: rollBottom 0.2s;
+  border-radius: 8px 0 8px 8px;
+  box-shadow: -5px 5px 15px -5px rgba(0, 0, 0, 0.45);
   pointer-events: all;
 }
-
-@keyframes rollBottom {
-  0% {
-    opacity: 0;
-    transform: translateY(3vh);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.setbtn-container .settings-form label {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  width: 100%;
 }
+
 .showSettings {
   display: flex !important;
 }
 
 input {
   justify-self: flex-end;
-}
-
-label {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  width: 100%;
 }
 
 .form-slider {
@@ -209,16 +311,16 @@ label {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding-top: 2vw;
   align-items: center;
-  height: 15vw;
+  height: 8vw;
   width: 100%;
   background-image: url("./backgrounds/wave-haikei.png");
   background-repeat: repeat-x;
   background-size: 200%;
-  background-position-y: -56vw;
+  background-position-y: -62vw;
   animation: waving 50s linear infinite;
   pointer-events: none;
+  z-index: 10;
 }
 .introduction::after {
   display: block;
@@ -226,7 +328,7 @@ label {
   content: "";
   width: 100%;
   height: 7vw;
-  top: 10vw;
+  top: 0;
   background-image: url("./backgrounds/wave-haikei.png");
   background-size: 160%;
   background-position-y: 7vw;
@@ -234,33 +336,243 @@ label {
   z-index: -1;
 }
 
-h1.title {
+.hero-main {
+  display: flex;
+  justify-content: space-between;
+  height: 57vh;
+  width: calc(100% - 30vw);
+  z-index: 100;
+  margin: auto;
+}
+.hero-main.intro .presentation {
+  cursor: pointer;
+  width: 50%;
+  margin-left: 25%;
+  transition: 0.2s;
+}
+.hero-main.intro .presentation h1 {
+  font-size: 3.5rem;
+}
+.hero-main.intro .presentation h2 {
+  font-size: 2rem;
+  animation-delay: 1.5s;
+  animation: rollTop 1s;
+}
+.hero-main.intro .presentation .friendlyWave {
+  right: 106%;
+  top: calc(50% - 45px);
+}
+.hero-main.intro .presentation .friendlyWave img {
+  width: 80px !important;
+}
+.hero-main.intro .project-previews {
+  width: 0 !important;
+  opacity: 0;
+  transition: 0.2s;
+  pointer-events: none;
+}
+.hero-main .presentation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  position: relative;
+  padding: 5px;
+  margin-left: 0;
+  width: 25vw;
+  min-width: 250px;
+  color: white;
+  transition: 0.2s;
+}
+.hero-main .presentation .friendlyWave {
+  position: absolute;
+  right: 102.5%;
+  cursor: pointer;
+  top: calc(50% - 40px);
+  transition: 0.2s;
+}
+@keyframes handWave {
+  0% {
+    rotate: -45deg;
+    filter: blur(0);
+  }
+  10% {
+    filter: blur(0.75px);
+  }
+  50% {
+    rotate: 45deg;
+    filter: blur(0);
+  }
+  60% {
+    filter: blur(0.75px);
+  }
+  100% {
+    rotate: -45deg;
+    filter: blur(0);
+  }
+}
+.hero-main .presentation .friendlyWave.active {
+  animation: handWave 1.75s infinite;
+}
+.hero-main .presentation .friendlyWave:not(.active) .hand {
+  opacity: 0;
+  animation: waveGoodbye 2s forwards;
+}
+@keyframes waveGoodbye {
+  33% {
+    opacity: 0;
+    rotate: -45deg;
+  }
+  40% {
+    opacity: 1;
+  }
+  66% {
+    rotate: 45deg;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    rotate: -45deg;
+    opacity: 0;
+    rotate: 0;
+  }
+}
+.hero-main .presentation .friendlyWave img {
+  width: 40px;
+  transform: translate(10%, -25%);
+}
+.hero-main .presentation .friendlyWave .thumb {
+  animation: thumbOk 0.66s forwards;
+  position: absolute;
+  left: 0;
+}
+@keyframes thumbOk {
+  0% {
+    translate: 0;
+  }
+  45% {
+    translate: 0 -2.5vh;
+  }
+  90% {
+    translate: 0;
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.hero-main .presentation h1 {
+  font-size: 2.5rem;
+  transition: 0.2s;
+}
+.hero-main .presentation h2 {
+  font-weight: normal;
+  font-size: 1.25rem;
+  transition: 0.2s;
+}
+.hero-main .presentation .scrollHint {
+  height: 40%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: 0.2s;
+  pointer-events: none;
+}
+.hero-main .presentation .scrollHint.active {
+  opacity: 1;
+  pointer-events: all;
+}
+.hero-main .presentation .scrollHint .scrollHint-Wrapper {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+}
+.hero-main .presentation .scrollHint .scrollHint-Wrapper .fa-computer-mouse {
+  font-size: 2rem;
+  animation: mouseHint 2s infinite;
+}
+@keyframes mouseHint {
+  0% {
+    transform: translate(0, 0);
+  }
+  30% {
+    transform: translate(0, 2rem);
+  }
+  75% {
+    transform: translate(0, 0);
+  }
+}
+.hero-main .presentation .scrollHint .scrollHint-Wrapper .fa-arrow-down {
+  font-size: 1.5rem;
+  animation: arrowHint 2s infinite;
+}
+@keyframes arrowHint {
+  0% {
+    opacity: 1;
+  }
+  10% {
+    opacity: 0;
+  }
+  55% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 1;
+  }
+}
+.hero-main .project-previews {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  width: 35vw;
+  opacity: 1;
+  transition: 0.2s;
+}
+.hero-main .project-previews .img-container {
+  position: relative;
+  height: 100%;
+  width: 40vw;
+}
+.hero-main .project-previews:hover h3 {
+  opacity: 1;
+}
+
+.title {
   position: relative;
   font-size: 3.5rem;
-  text-align: center;
   color: rgb(230, 230, 255);
   color: transparent;
-  background-image: linear-gradient(45deg, violet, rgb(0, 229, 255));
+  background-image: linear-gradient(45deg, #ff90d8, rgb(54, 235, 255));
   background-size: 400%;
   animation: titleAnim 5s infinite alternate;
   background-clip: text;
-  padding: 5px;
   background-color: rgba(32, 62, 105, 0.5);
   border-radius: 8px;
   /*font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif*/
 }
-h1.title::after {
+.title::after {
   position: absolute;
-  left: 5px;
-  top: 5px;
+  left: 0;
+  top: 0;
   content: attr(data-title);
-  background-image: linear-gradient(45deg, violet, rgb(0, 229, 255));
+  background-image: linear-gradient(45deg, #ff7ace, rgb(138, 243, 255));
   background-size: 400%;
   animation: titleAnim 5s infinite alternate;
   background-clip: text;
   filter: blur(8px);
   z-index: 10;
-  white-space: nowrap;
+  width: 100%;
 }
 
 @keyframes titleAnim {
@@ -301,7 +613,7 @@ h2.describtion::before {
   top: 0;
   left: 0;
   border-radius: 12px;
-  z-index: 6;
+  z-index: 10;
   width: 100%;
   height: 100%;
   border: none;
@@ -324,6 +636,7 @@ figure {
   transition: 1s ease-in-out;
   cursor: pointer;
   background-color: rgb(155, 187, 255);
+  z-index: 20;
 }
 
 figure::after {
@@ -356,22 +669,18 @@ img::selection {
 }
 
 /*Front image*/
-.img-front {
-  width: 40vw;
-  left: 50%;
-  transform: translateX(-50%);
-  top: calc(13.5vw + 65px);
-  z-index: 5;
-  transition: 1.1s;
-}
-
-.img-front::after {
-  left: 50%;
-  transform: translateX(-50%) translateY(calc(50% - 4px));
-  min-width: 1%;
-  transition: 1s;
-}
-
+/* .img-front
+ *  width: 30vw
+ *  left: 50%
+ *  transform: translateX(-50%)
+ *  top: calc(13.5vw + globals.$navHeight)
+ *  z-index: 5
+ *  transition: 1.1s*/
+/* .img-front::after
+ *  left: 50%
+ *  transform: translateX(-50%) translateY(calc(50% - 4px))
+ *  min-width: 1%
+ *  transition: 1s  */
 /*          Screen adjust           */
 @media screen and (max-width: 800px) {
   .carouSet-btn:hover .fa-solid.fa-gear {
@@ -421,6 +730,7 @@ img::selection {
     background-position-y: calc(var(--initialHeight) * -0.6);
     animation-name: wavesMobile;
     animation-duration: 100s;
+    z-index: 4;
   }
   .introduction::after {
     position: absolute;
@@ -477,6 +787,9 @@ img::selection {
     height: calc(var(--initialHeight) - 65px - 20px - 50px);
   }
   .carousel-container::before {
-    height: 36vw;
+    height: 5vw;
   }
+}
+.img-containerF {
+  z-index: 20;
 }

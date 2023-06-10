@@ -2,6 +2,7 @@
   animation: spin 1s steps(16, end) infinite
   width: 60px
   position: absolute
+  z-index: 999
   top: calc(50% - 30px)
   left: calc(50% - 30px)
 
@@ -10,3 +11,32 @@
       transform: rotate(0deg)
     100% 
       transform: rotate(360deg)
+
+svg.loadAnim
+  position: absolute
+  transform-origin: center
+  top: calc(50% - 25px)
+  left: calc(50% - 25px)
+  animation: svgAnim 2s linear infinite
+  z-index: 999
+  @keyframes svgAnim
+    0%
+      rotate: 0deg
+    100%
+      rotate: 360deg
+  circle
+    fill: none
+    stroke-dasharray: 1px, 200px
+    stroke-dashoffset: 0
+    stroke: rgba(#000, 0.9)
+    stroke-linecap: round
+    animation: circleAnim 3s infinite linear
+    @keyframes circleAnim
+      0%
+        stroke-dasharray: 1px, 200px
+      50%
+        stroke-dasharray: 125px, 200px
+        stroke-dashoffset: 0
+      100%
+        stroke-dashoffset: -120px
+        

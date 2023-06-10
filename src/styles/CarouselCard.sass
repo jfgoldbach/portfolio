@@ -1,4 +1,4 @@
-@import globals
+@use 'globals'
     
 /*Loading*/
 .img-middle.loading
@@ -32,11 +32,12 @@ video
 /*Figure element for embedding the image/video. after & before selectors for decoration*/
 figure
     display: flex
-    border-radius: 12px
+    border-radius: 14px
     position: absolute
     transition: 1s ease-in-out
     cursor: pointer
     background-color: rgb(155, 187, 255)
+    //outline: 2px solid #ddd
 
 figure::after
     content: attr(data-title)
@@ -64,12 +65,17 @@ figure::after
 .carouselImg::selection
     background-color: none
 
+$bigImage: 35vw
+$gutter: 1.33vw
+$paddingLR: 2.5vw
+$nextImages: calc(($bigImage - ($gutter * 3) - ($paddingLR * 2)) / 4)
+
 /*Front image*/
 .img-front
-    width: 40vw
-    left: 50%
-    transform: translateX(-50%)
-    top: calc(13.5vw + $navHeight)
+    width: $bigImage //40vw
+    right: 0
+    //transform: translateX(-50%)
+    bottom: calc(100% - $bigImage * 0.5625) //calc(13.5vw + $navHeight)
     z-index: 5
     transition: 1.1s
 
@@ -79,27 +85,32 @@ figure::after
     min-width: 1%
     transition: 1s
 
-/*Middle images*/
+
+/*Middle images -> are now just next and previous (last) image*/
 .img-middle
-    width: 27vw
-    top: calc(18.5vw + $navHeight)
+    width: $nextImages //27vw
+    //top: calc(18.5vw + $navHeight)
+    bottom: 0
     z-index: 2
 
 .img-middle::after
+    opacity: 0
     font-size: 13px
     transition: 1s
     padding: 7px 0
 
-.img-middle img
-    opacity: 0.8
+/* .img-middle img
+    opacity: 0.8 */
 
 .img-middle-left
-    left: 12vw
-    transform: perspective(75em) rotateY(25deg) rotateX(2deg)
+    right: calc($bigImage - $nextImages - $paddingLR) //12vw
+    //transform: perspective(75em) rotateY(25deg) rotateX(2deg)
     transition: 1.5s
     z-index: 4
+    opacity: 0.9
 
 .img-middle-left::after
+    opacity: 0
     left: 15px
     transform: translateY(calc(50% - 6px))
     max-width: 10vw
@@ -108,38 +119,44 @@ figure::after
     transition: 1s
 
 .img-middle-right
-    left: 60vw
-    transform: perspective(75em) rotateY(-25deg) rotateX(2deg)
+    right: $paddingLR
+    //left: 60vw
+    //transform: perspective(75em) rotateY(-25deg) rotateX(2deg)
     transition: 0.9s
     z-index: 3
+    opacity: 0.45
 
 .img-middle-right::after
     left: 100%
-    transform: translateX(calc(-100% - 15px)) translateY(calc(50% - 4px))
+    //transform: translateX(calc(-100% - 15px)) translateY(calc(50% - 4px))
     max-width: 10vw
     min-width: 12.75vw
     max-width: 13.75vw
     transition: 1s
 
-/*Back images*/
+
+/*Back images -> now "middle" images*/
 .img-back
-    width: 13vw
-    top: calc(24.5vw + $navHeight)
+    width: $nextImages //13vw
+    //top: calc(24.5vw + $navHeight)
+    bottom: 0
     z-index: 0
 
-.img-back img
-    opacity: 0.5
+/* .img-back img
+    opacity: 0.5 */
 
 .img-back::after
+    display: none
     font-size: 10px
     padding: 4px 0
     transition: 1s
 
 .img-back-left
-    left: 1.5vw
-    transform: perspective(105em) rotateY(40deg) rotateX(5deg)
+    right: calc((($nextImages + $gutter) * 2) + $paddingLR)
+    //transform: perspective(105em) rotateY(40deg) rotateX(5deg)
     transition: 1.25s
     z-index: 2
+    opacity: 0.75
 
 .img-back-left::after
     left: 15px
@@ -150,10 +167,12 @@ figure::after
     transition: 1s
 
 .img-back-right
-    left: 83.5vw
-    transform: perspective(105em) rotateY(-40deg) rotateX(5deg)
+    right: calc($nextImages + $gutter + $paddingLR)
+    //left: 83.5vw
+    //transform: perspective(105em) rotateY(-40deg) rotateX(5deg)
     transition: 1.25s
     z-index: 1
+    opacity: 0.6
 
 .img-back-right::after
     left: 100%

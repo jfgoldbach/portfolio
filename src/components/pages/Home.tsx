@@ -1,33 +1,100 @@
 //import '/styles/css/App.css'
 import Carousel from '../Carousel';
 import AboutMe from '../AboutMe';
-import { Suspense } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import ParticleCode from '../visuals/ParticleCode';
 import $ from "jquery"
 import Overview from '../frontpage/Overview';
+import useCheckJWT from '../hooks/useCheckJWT';
+import instance from '../network/axios';
+import { LangContext, ReadyContext, errorType } from '../../App';
+import { landingpageType } from '../../types/types';
+import Loading from '../helper/Loading';
+import { toast } from 'react-toastify';
+import Button from '../Button';
+import ErrorInfo from '../helper/ErrorInfo';
+import BlurredBg from '../visuals/BlurredBg';
 
-function Home(){
-    return(
-        <Suspense fallback={<img src="/images/loading.png" className='loading'></img>}>
-            <Carousel />
-            <AboutMe />
-            {($(window).width() || 0) > 1000 &&
-            <ParticleCode 
-                id={1} emitters={3} spawnRate={2000} 
-                startPosition={`-150px`} 
-                endPosition={"425px"} duration={10000} 
-            />
-            }
-            {($(window).width() || 0) < 1000 &&
-            <ParticleCode 
-                id={2} emitters={1} spawnRate={2000} 
-                width={50}
-                startPosition={"-150px"} 
-                endPosition={"100vh"} duration={18000} 
-            />
-            }
-            <Overview />
-        </Suspense>
+export const homeContext = createContext<landingpageType | null | undefined>({} as landingpageType)
+
+type homeProps = {
+    appError: errorType
+}
+
+function Home({ appError }: homeProps) {
+    const { ready } = useContext(ReadyContext)
+    const { lang } = useContext(LangContext)
+    const [content, setContent] = useState<landingpageType | null>()
+    const [error, setError] = useState<errorType>({} as errorType)
+    const { check } = useCheckJWT()
+
+
+    useEffect(() => {
+        const metaIcon: HTMLLinkElement = document.getElementById("icon") as HTMLLinkElement
+        if (metaIcon) {
+            metaIcon.href = "/images/favicon.ico"
+        }
+        document.title = "Julian Goldbach - Home"
+    }, [])
+
+    useEffect(() => {
+        if (error.msg) toast.warn(`Home.tsx ${error.msg} (${error.msg})`)
+    }, [error])
+
+    useEffect(() => {
+        console.log("home effect")
+        if (ready && !content) {
+            check.then(() => {
+                console.log("get landingpage content")
+                instance.get("?type=landingpage", { headers: { "jwt": sessionStorage.getItem("jwt") } })
+                    .then(response => response.data)
+                    .then(result => setContent(result))
+                    .catch(error => window.alert({ "msg": error.message, "code": error.code }))
+            })
+        }
+    }, [ready])
+
+    /*     useEffect(() => {
+            if (content) console.log(content.heading)
+        }, [content]) */
+
+    return (
+        <homeContext.Provider value={content}>
+            <div className="homeContainer">
+                <BlurredBg />
+                {content ?
+                    <>
+                        <Carousel />
+                        <AboutMe
+                            heading={content.aboutme_heading}
+                            subheading={content.aboutme_subheading}
+                            skillcards={content.skillcard_sections}
+                        />
+                        {($(window).width() || 0) > 1000 &&
+                            <ParticleCode
+                                id={1} emitters={3} spawnRate={2000}
+                                startPosition={`-150px`}
+                                endPosition={"425px"} duration={10000}
+                            />
+                        }
+                        {($(window).width() || 0) < 1000 &&
+                            <ParticleCode
+                                id={2} emitters={1} spawnRate={2000}
+                                width={50}
+                                startPosition={"-150px"}
+                                endPosition={"100vh"} duration={18000}
+                            />
+                        }
+                        <Overview notepads={content.notepads} />
+                    </>
+                    : appError.msg ?
+                        <ErrorInfo />
+                        :
+                        <Loading />
+                }
+
+            </div>
+        </homeContext.Provider>
     );
 }
 

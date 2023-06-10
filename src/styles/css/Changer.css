@@ -1,0 +1,975 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes rollBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(3vh);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes rollTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-3vh);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100dvh;
+}
+@media screen and (max-height: 800px) {
+  .login {
+    height: calc(var(--viewportHeight) - 65px - 10px);
+  }
+}
+.login form {
+  position: relative;
+  gap: 10px;
+  width: 350px;
+  padding: 30px 40px;
+}
+.login form h1 {
+  margin-bottom: 10px;
+}
+.login form .input-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0;
+  min-height: 44px;
+}
+.login form .input-container label {
+  position: absolute;
+  left: 12px;
+  bottom: -2px;
+  line-height: 0.8rem;
+  padding: 0 3px;
+  font-size: 0.75rem;
+  background: #eee;
+  width: fit-content;
+  pointer-events: none;
+  color: #666;
+  transition: 0.25s;
+}
+.login form .input-container input:focus + label {
+  left: 3px;
+  bottom: 1px;
+  background: none;
+}
+.login form .input-container input[value=""] + label {
+  border: none;
+  background: none;
+  font-size: 1rem;
+  left: 5px;
+  bottom: 50%;
+  transform: translateY(50%);
+}
+.login form .input-container input {
+  width: 100%;
+  padding: 8px;
+}
+.login form .input-container#password button {
+  color: #222;
+  background: none;
+  height: 26px;
+  width: 26px;
+  position: absolute;
+  right: 0;
+  border: none;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.125s;
+}
+.login form .input-container#password button:hover {
+  color: #000;
+  background: #ccc;
+}
+.login form .warning-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-weight: bold;
+  color: rgb(255, 103, 79);
+  font-size: 1.1rem;
+  overflow: hidden;
+  animation: warningIn 0.25s forwards;
+}
+@keyframes warningIn {
+  from {
+    height: 0;
+  }
+  to {
+    height: 25px;
+  }
+}
+.login.failed form {
+  background: red;
+  color: black;
+  border: 4px dashed black;
+  animation: alert 1s infinite;
+}
+@keyframes alert {
+  0% {
+    background: #ffdfbd;
+  }
+  50% {
+    background: #ff736e;
+  }
+  100% {
+    background: #ffdfbd;
+  }
+}
+.login.failed form p:last-child {
+  font-weight: bold;
+}
+.login a {
+  color: #555;
+  font-size: 0.9rem;
+}
+.login button.wrong {
+  animation: wrongShake 0.33s;
+}
+@keyframes wrongShake {
+  0% {
+    transform: translateX(12px);
+  }
+  25% {
+    transform: translateX(-12px);
+  }
+  50% {
+    transform: translateX(12px);
+  }
+  75% {
+    transform: translateX(-12px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.login .check-container {
+  position: absolute;
+  top: 47%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(85, 85, 85, 0.33);
+  border-radius: 12px;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+  width: 90%;
+}
+.login .check-container .fa-check {
+  color: green;
+  animation: checkIn 0.25s forwards;
+}
+@keyframes checkIn {
+  from {
+    font-size: 0.25rem;
+  }
+  to {
+    font-size: 2.5rem;
+  }
+}
+
+.changer-container {
+  height: 100vh;
+  position: relative;
+  display: grid;
+  grid-template-columns: 180px auto;
+  background: #020613;
+}
+.changer-container input[type=text] {
+  font-weight: normal;
+  font-size: 1rem;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  text-align: left;
+  background: white;
+  width: fit-content;
+  min-width: 4rem;
+}
+.changer-container::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 32px;
+  bottom: -32px;
+  background-image: linear-gradient(270deg, #dce5ff, #060e2b);
+}
+.changer-container::after {
+  content: "";
+  position: absolute;
+  background: #dce5ff;
+  height: 100%;
+  width: 8px;
+  right: 0;
+}
+.changer-container .changer-sidebar {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  background: #020613;
+}
+@keyframes fromLeft {
+  from {
+    transform: translateX(-300px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.changer-container .changer-sidebar h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fromLeft 0.25s;
+  box-shadow: 0 -5px 11px rgba(0, 0, 0, 0.33);
+  justify-content: flex-start;
+  margin-top: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 6px 6px 0 0;
+  font-size: 1.25rem;
+  background: rgba(255, 255, 255, 0.033);
+}
+.changer-container .changer-sidebar h2 i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  font-size: 1.125rem;
+}
+.changer-container .changer-sidebar ul {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fromLeft 0.25s;
+  flex-direction: column;
+  gap: 5px;
+  padding-top: 8px;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.033), transparent);
+}
+.changer-container .changer-sidebar ul li {
+  width: 100%;
+}
+.changer-container .changer-sidebar ul li.forbidden {
+  pointer-events: none;
+  opacity: 0.5;
+}
+.changer-container .changer-sidebar ul li.forbidden i,
+.changer-container .changer-sidebar ul li.forbidden button {
+  color: rgb(255, 103, 79) !important;
+}
+.changer-container .changer-sidebar ul li button {
+  padding: 8px 4px 8px 30px;
+  color: white;
+  background: none;
+  width: 100%;
+  font-size: 0.95rem;
+  border-radius: 0;
+  text-align: left;
+}
+.changer-container .changer-sidebar ul li button i {
+  margin: 0 4px;
+}
+.changer-container .changer-sidebar ul li button:hover {
+  background: #5e6890;
+}
+.changer-container .changer-sidebar ul li.active {
+  background: #dce5ff;
+  position: relative;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.33);
+}
+.changer-container .changer-sidebar ul li.active::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 30px;
+  right: -30px;
+  background: #dce5ff;
+  z-index: 100;
+}
+.changer-container .changer-sidebar ul li.active button {
+  color: black;
+}
+.changer-container .changer-sidebar .home-bg {
+  height: 77px;
+}
+.changer-container .changer-sidebar h1 {
+  font-size: 1.3rem;
+  padding: 8px 12px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.changer-container .changer-sidebar .changer-navigationBottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-between;
+  padding: 4px 6px;
+  margin: 6px;
+  border-radius: 12px;
+  margin-top: auto;
+  background: #4b475b;
+}
+.changer-container .changer-sidebar .changer-navigationBottom button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: none;
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.33);
+}
+.changer-container .changer-sidebar .changer-navigationBottom .fa-arrow-right-from-bracket {
+  font-size: 1.25rem;
+}
+.changer-container .changer-sidebar .changer-navigationBottom .countdown {
+  color: rgba(255, 255, 255, 0.5);
+}
+.changer-container .changer-sidebar .changer-navigationBottom .countdown.warn {
+  color: rgb(255, 103, 79);
+  font-weight: bold;
+}
+.changer-container .changer-main {
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #dce5ff;
+  border-radius: 12px 0 0 12px;
+  box-shadow: 12px 0 10px -6px rgba(0, 0, 0, 0.33) inset;
+  scrollbar-color: #203e69 transparent;
+  scrollbar-width: thin;
+  margin-right: 8px;
+}
+.changer-container .changer-main > .apSubmitContainer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+.changer-container .changer-main > .apSubmitContainer::before {
+  content: "";
+  position: absolute;
+  right: -150px;
+  bottom: -342.8571428571px;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background-image: radial-gradient(rgba(49, 166, 255, 0.6) 25%, transparent 60%);
+  opacity: 0;
+  transition: 0.25s;
+  pointer-events: none;
+}
+.changer-container .changer-main > .apSubmitContainer.active::before {
+  opacity: 1;
+}
+.changer-container .changer-main > .apSubmitContainer .apSubmitBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  scale: 0.5;
+  margin-right: 20px;
+  margin-bottom: 25px;
+  transform: translateY(130px) translateX(75px);
+  z-index: 100;
+  gap: 12px;
+  padding: 8px;
+  background: rgba(51, 51, 51, 0.8);
+  border: 2px solid #cccccc;
+  backdrop-filter: blur(6px);
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+  transition: 0.1s;
+}
+.changer-container .changer-main > .apSubmitContainer .apSubmitBox.active {
+  scale: 1;
+  bottom: 25px;
+  transform: translateY(0px) translateX(0px);
+  transition: 0.25s;
+}
+.changer-container .changer-main > .apSubmitContainer .apSubmitBox button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 1rem;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}
+.changer-container .changer-main > .apSubmitContainer .apSubmitBox button.submitBtn {
+  background: #80ff80;
+  color: #004d00;
+  font-weight: bold;
+}
+.changer-container .changer-main > .apSubmitContainer .apSubmitBox button.submitBtn.forbidden {
+  background: rgb(255, 103, 79);
+  pointer-events: none;
+  color: #444;
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+.changer-container .changer-main .apContent {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 32px 64px;
+  flex-direction: column;
+  gap: 32px;
+  min-height: 100%;
+  margin: 0;
+  padding-bottom: 75px;
+}
+.changer-container .changer-main .apContent .info-container.mildWarn.fetchError {
+  margin: auto;
+}
+.changer-container .changer-main .apContent .apcSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
+  border-radius: 12px;
+  gap: 15px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.75);
+  width: 100%;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  outline: 3px solid transparent;
+  transition: outline 0.2s;
+}
+.changer-container .changer-main .apContent .apcSection.apcInfo {
+  align-items: center;
+  justify-content: space-between;
+  width: unset;
+  padding: 8px;
+  background: rgba(49, 166, 255, 0.5);
+  border-color: rgba(32, 62, 105, 0.75);
+  color: rgba(32, 62, 105, 0.85);
+}
+.changer-container .changer-main .apContent .apcSection.apcInfo .fa-solid.fa-circle-info {
+  font-size: 2rem;
+}
+.changer-container .changer-main .apContent .apcSection.apcInfo button {
+  padding: 3px 12px;
+}
+.changer-container .changer-main .apContent .apcSection.apcSkills {
+  flex-direction: column;
+}
+.changer-container .changer-main .apContent .apcSection.apcSkills .skillsContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 12px;
+  gap: 12px;
+}
+.changer-container .changer-main .apContent .apcSection.apcSkills .skillsContainer > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}
+.changer-container .changer-main .apContent .apcSection.apcSkills .skillsContainer .skillWrapper {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.changer-container .changer-main .apContent .apcSection.apcSkills .skillsContainer .skillWrapper.changes {
+  outline: none;
+}
+.changer-container .changer-main .apContent .apcSection.apcSkills .skillsContainer .skillWrapper.changes::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  width: 4px;
+  height: 100%;
+  background: green;
+}
+.changer-container .changer-main .apContent .apcSection.apcSkills .skillsContainer .skillWrapper button {
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  padding: 5px 8px;
+}
+.changer-container .changer-main .apContent .apcSection.apcSkills .skillsContainer .skillWrapper button.deleteBtn, .changer-container .changer-main .apContent .apcSection.apcSkills .skillsContainer .skillWrapper button.changedBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+}
+.changer-container .changer-main .apContent .apcSection.apcSkills .skillsContainer .skillWrapper .addContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.33);
+  padding: 2px 4px;
+  color: white;
+  border-radius: 6px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  margin-left: auto;
+  /* input[type="text"]
+  *  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+  *  font-weight: bold
+  *  border: none
+  *  text-align: center
+  *  width: fit-content
+  *  min-width: 4rem */
+}
+.changer-container .changer-main .apContent .apcSection.apcSkills .skillsContainer .skillWrapper .addContainer .colorContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.changer-container .changer-main .apContent .apcSection.apcSkills .skillsContainer .skillWrapper .addContainer .colorContainer label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: flex-end;
+  font-size: 0.65rem;
+  gap: 2px;
+}
+.changer-container .changer-main .apContent .apcSection.apcSkills .skillsContainer .skillWrapper .addContainer .colorContainer label input[type=color] {
+  height: 15px;
+  width: 15px;
+}
+.changer-container .changer-main .apContent .apcSection.apcSkills .skillsContainer .skillWrapper .addContainer label.presetSelector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  flex-direction: column;
+}
+.changer-container .changer-main .apContent .apcSection.apcSkills .skillsContainer .skillWrapper .addContainer button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  width: 25px;
+}
+.changer-container .changer-main .apContent .apcSection.apcSkills .skillsContainer .skillWrapper .skillContainer {
+  position: relative;
+}
+.changer-container .changer-main .apContent .apcSection.apcSkills .skillsContainer .skillWrapper .skillContainer:hover .deleteBtn {
+  opacity: 1;
+}
+.changer-container .changer-main .apContent .apcSection.apcSkills .skillsContainer .skillWrapper .skillContainer .deleteBtn {
+  width: 27px;
+  height: 27px;
+  opacity: 0;
+  position: absolute;
+  border-radius: 50%;
+  border: none;
+  color: black;
+  background: rgb(255, 103, 79);
+  font-size: 0.9rem;
+  top: -5px;
+  right: -5px;
+  transition: all 0.1s border 0s;
+}
+.changer-container .changer-main .apContent .apcSection.apcSkills .skillsContainer .skillWrapper .skillContainer .deleteBtn:hover {
+  color: rgb(255, 103, 79);
+  background: #1c0400;
+}
+.changer-container .changer-main .apContent .apcSection.apcSkills h3 {
+  font-size: 1rem;
+  margin-top: 16px;
+  font-weight: normal;
+}
+.changer-container .changer-main .apContent .apcSection.apcNotes {
+  display: flex;
+  flex-direction: column;
+}
+.changer-container .changer-main .apContent .apcSection.apcNotes button.resetBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  height: 33px;
+  width: 33px;
+  padding: 0;
+}
+.changer-container .changer-main .apContent .apcSection.apcNotes label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.7rem;
+}
+.changer-container .changer-main .apContent .apcSection.apcNotes .notesContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  gap: 8px;
+  width: 100%;
+  height: fit-content;
+}
+.changer-container .changer-main .apContent .apcSection.apcNotes .notesContainer .dragobj {
+  background: rgba(0, 0, 0, 0.125);
+  border: 1px solid #888;
+  display: flex;
+  border-radius: 12px;
+  align-items: center;
+  gap: 12px;
+  cursor: move;
+  height: 165px;
+  padding-right: 4px;
+}
+.changer-container .changer-main .apContent .apcSection.apcNotes .notesContainer .dragobj h3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: normal;
+  color: white;
+  background: rgba(0, 0, 0, 0.8);
+  height: 50px;
+  padding: 5px;
+  border-radius: 0 12px 12px 0;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}
+.changer-container .changer-main .apContent .apcSection.apcNotes .notesContainer .dragobj .imgContainer {
+  width: 200px;
+  height: 112.5px;
+  aspect-ratio: 16/9;
+}
+.changer-container .changer-main .apContent .apcSection.apcNotes .notesContainer .dragobj .textContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 6px;
+}
+.changer-container .changer-main .apContent .apcSection.apcNotes .notesContainer .dragobj .textContainer label h4 {
+  font-weight: normal;
+  display: flex;
+  gap: 4px;
+}
+.changer-container .changer-main .apContent .apcSection.apcNotes .notesContainer .dragobj .descrContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 8px;
+  width: 100%;
+  height: 100%;
+}
+.changer-container .changer-main .apContent .apcSection.apcNotes .notesContainer .dragobj .descrContainer h4 {
+  font-weight: normal;
+}
+.changer-container .changer-main .apContent .apcSection.apcNotes .notesContainer .dragobj .descrContainer .describtions {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  height: 100%;
+}
+.changer-container .changer-main .apContent .apcSection.apcNotes .notesContainer .dragobj .descrContainer .describtions textarea {
+  height: 100%;
+}
+.changer-container .changer-main .apContent .apcSection.apcNotes .notesContainer .dragobj .descrContainer label {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+.changer-container .changer-main .apContent .apcSection h2 {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  align-self: flex-start;
+  font-weight: normal;
+  font-size: 1.125rem;
+  min-width: 150px;
+  width: 12.5%;
+  min-height: 40px;
+  border-radius: 10px 0 12px 0;
+  padding: 0 12px;
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.125);
+  color: #444;
+  transition: 0.125s;
+}
+.changer-container .changer-main .apContent .apcSection h2.changes {
+  background: limegreen;
+  color: black;
+}
+.changer-container .changer-main .apContent .apcSection h2 .fa-pen {
+  color: black;
+}
+.changer-container .changer-main .apContent .apcSection textarea {
+  width: 100%;
+  height: 100px;
+  font-family: "Arial";
+  resize: none;
+  padding: 3px;
+  border-radius: 4px;
+  line-height: 1.33rem;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  outline: 3px solid transparent;
+  transition: 0.2s;
+}
+.changer-container .changer-main .apContent .apcSection .ger,
+.changer-container .changer-main .apContent .apcSection .eng {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+  padding: 8px;
+}
+.changer-container .changer-main .apContent .apcSection .ger .flagContainer,
+.changer-container .changer-main .apContent .apcSection .eng .flagContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.changer-container .changer-main .apContent .apcSection .ger .flagContainer button,
+.changer-container .changer-main .apContent .apcSection .eng .flagContainer button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  padding: 5px;
+  height: 20px;
+}
+.changer-container .changer-main .apContent .apcSection .flag {
+  background-size: 100%;
+  width: 40px;
+  height: 20px;
+  border-radius: 6px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}
+.changer-container .changer-main .apContent .apcSection .ger .flag {
+  background-image: url("./backgrounds/germany.svg.webp");
+  background-size: 90%;
+}
+.changer-container .changer-main .apContent .apcSection .eng .flag {
+  background-image: url("./backgrounds/uk.svg.webp");
+}
+
+textarea.changed,
+input.changed {
+  outline: 2px solid green !important;
+}
+
+.flag_ger {
+  background-size: 100%;
+  width: 20px;
+  height: 10px;
+  border-radius: 4px;
+  margin: 2px 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  opacity: 0.85;
+  background-image: url("./backgrounds/germany.svg.webp");
+  background-size: 90%;
+}
+
+.flag_eng {
+  background-size: 100%;
+  width: 20px;
+  height: 10px;
+  border-radius: 4px;
+  margin: 2px 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  opacity: 0.85;
+  background-image: url("./backgrounds/uk.svg.webp");
+}
+
+@keyframes flyIn {
+  from {
+    transform: translateY(-25px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.AP-main-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 22px;
+  padding: 32px;
+}
+.AP-main-container section {
+  opacity: 0;
+  animation: flyIn 0.33s forwards;
+  display: flex;
+  border-radius: 12px;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  gap: 12px;
+  padding: 6px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2) inset;
+  overflow: hidden;
+}
+.AP-main-container section:nth-child(0) {
+  animation-delay: 0s;
+}
+.AP-main-container section:nth-child(1) {
+  animation-delay: 0.0625s;
+}
+.AP-main-container section:nth-child(2) {
+  animation-delay: 0.125s;
+}
+.AP-main-container section:nth-child(3) {
+  animation-delay: 0.1875s;
+}
+.AP-main-container section:nth-child(4) {
+  animation-delay: 0.25s;
+}
+.AP-main-container section:nth-child(5) {
+  animation-delay: 0.3125s;
+}
+.AP-main-container section:nth-child(6) {
+  animation-delay: 0.375s;
+}
+.AP-main-container section:nth-child(7) {
+  animation-delay: 0.4375s;
+}
+.AP-main-container section:nth-child(8) {
+  animation-delay: 0.5s;
+}
+.AP-main-container section:nth-child(9) {
+  animation-delay: 0.5625s;
+}
+.AP-main-container .twoLangs-top {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr [eng] 6fr [ger] 6fr;
+}
+.AP-main-container h2 {
+  background: #dce5ff;
+  transform: translate(-6px, -6px);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  font-weight: normal;
+  text-align: center;
+  padding: 6px 12px;
+  border-bottom-right-radius: 12px;
+}
+.AP-main-container h3 {
+  background-size: 100%;
+  width: 60px;
+  aspect-ratio: 2/1;
+  border-radius: 6px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  margin: auto;
+}
+.AP-main-container h3.eng {
+  grid-column-start: eng;
+  background-image: url("./backgrounds/uk.svg.webp");
+}
+.AP-main-container h3.ger {
+  grid-column-start: ger;
+  background-image: url("./backgrounds/germany.svg.webp");
+  background-size: 90%;
+}
+.AP-main-container .twoLangs-content {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr [eng] 6fr [ger] 6fr;
+  padding: 6px;
+  gap: 12px;
+}
+.AP-main-container .twoLangs-content p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+.AP-main-container .twoLangs-content textarea {
+  resize: none;
+  padding: 5px;
+  border-radius: 6px;
+  min-height: 2rem;
+  border: 1px solid grey;
+  width: 95%;
+  margin: auto;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}
+.AP-main-container .one-content {
+  padding: 6px;
+  gap: 12px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 12fr;
+}
+.AP-main-container .one-content p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+.AP-main-container .twoPure-content {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+label.credentials {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 3px;
+}
+label.credentials input {
+  background: #fff;
+  border: 1px solid grey;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}
+
+.changes {
+  outline: 2px solid green;
+}
+
+.apcSection .category-container {
+  border-radius: 8px;
+  transition: 0.125s;
+  background: rgba(0, 0, 0, 0.125);
+  width: 100%;
+  min-height: 37px;
+}
+.apcSection .category-container .warnContainer {
+  height: 37px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.apcSection .category-container .warnContainer .fa-triangle-exclamation {
+  color: rgb(255, 103, 79);
+  font-size: 1.5rem;
+}
+.apcSection.changes {
+  background: rgba(0, 0, 0, 0.06);
+}

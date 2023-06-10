@@ -1,5 +1,9 @@
 //import '/styles/css/Footer.css'
 
+import { useContext } from "react"
+import { Link } from "react-router-dom"
+import { ReadyContext } from "../App"
+
 type footerProps = {
     setContact: React.Dispatch<React.SetStateAction<boolean>>
     setDaten: React.Dispatch<React.SetStateAction<boolean>>
@@ -7,6 +11,7 @@ type footerProps = {
 
 
 function Footer(props: footerProps) {
+    const { ready } = useContext(ReadyContext)
 
     const contactHandler = () => {
         props.setContact(true)
@@ -18,9 +23,10 @@ function Footer(props: footerProps) {
         props.setDaten(true)
     }
 
-  return (
-    <div className='footer-container'>
-        <small className='website-right'>© 2023 Julian Goldbach</small>
+
+    return (
+        <div className='footer-container'>
+            <small className='website-right'>© 2023 Julian Goldbach</small>
             <div className='social-media-wrap'>
                 <button className='contact-btn' onClick={contactHandler}>Impressum</button>
                 <button className='contact-btn' onClick={datenHandler}>Datenschutzerklärung</button>
@@ -37,9 +43,10 @@ function Footer(props: footerProps) {
                         <i className="fa-brands fa-linkedin"></i>
                     </a>
                 </div>
+                <Link className="contact-btn" to="/changer">Login</Link>
             </div>
-    </div>
-  )
+        </div>
+    )
 }
 
 export default Footer

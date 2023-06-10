@@ -1,14 +1,19 @@
-@import globals
-  
+@use "globals"
+
 .contact
   height: 100vh
+  .fa-solid.fa-check
+    display: none
+    font-size: 1.5rem
+    color: rgb(68, 255, 93)
+    animation: rollIn 1.75s
 
 .input-required
   color: rgba(255, 83, 35, 0.75)
   font-size: 1.2125rem
 
 .contact-container
-  min-height: calc(100vh - $footerheight - $navHeight - 10px)
+  min-height: calc(100vh - globals.$footerheight - globals.$navHeight - 10px)
   position: relative
   width: 100%
   align-items: center
@@ -24,7 +29,7 @@
   align-items: center
   padding: 1vh 10vw
   border-radius: 32px
-  box-shadow: 0 0 10px 2px rgba(0,0,0,0.33)
+  box-shadow: globals.$shadow
   background-color: white
 
 .contact-container form
@@ -44,41 +49,74 @@
   min-width: 100%
   max-height: 50vh
   min-height: 10rem
-  border-radius: 0 32px 0 32px
+  border-radius: 32px
+  resize: none
   border: none
-  padding: 12px
-  background-color: rgb(240,240,240)
-  box-shadow: 1px 1px 1px rgba(0,0,0,0.25) inset, -2px -2px 1px white inset
+  color: #eee
+  padding: 16px
+  background-color: globals.$active //rgb(240,240,240)
+  //box-shadow: 1px 1px 1px rgba(0,0,0,0.25) inset, -2px -2px 1px white inset
+  //box-shadow: -6px -6px 8px rgba(#000, 0.1) inset, 6px 6px 8px rgba(#fff, 0.15) inset
+  position: relative
 
 .contact-container input
   font-family: Arial, Helvetica, sans-serif
-  padding: 12px
-  border-radius: 32px
+  padding: 4px
+  //border-radius: 32px
   font-size: 1rem
   width: 78%
   border: none
-  background-color: rgb(240,240,240)
-  box-shadow: 1px 1px 1px rgba(0,0,0,0.25) inset, -2px -2px 1px white inset
+  //background-color: rgb(240,240,240)
+  //box-shadow: 1px 1px 1px rgba(0,0,0,0.25) inset, -2px -2px 1px white inset
+  border-bottom: 1px solid rgba(#000, 0.5)
 
 .contact-container label
   color: rgb(96, 95, 105)
   font-weight: bold
   display: flex
   flex-direction: row
+  justify-content: space-between
   align-items: center
   gap: 3px
   font-size: 1rem
   padding: 5px
+  small
+    //margin-right: auto
 
 .contact-container .message
   margin-top: 1.5vh
   display: flex
   align-items: flex-start
   flex-direction: column
-  gap: 10px
+  gap: 3px
+  position: relative
+  &::after
+    position: absolute
+    content: ""
+    top: calc(100% - 5px)
+    right: 34px
+    $size: 18px
+    border-left: $size solid transparent
+    border-right: $size solid transparent
+    border-top: $size solid globals.$active //darken(globals.$active, 8%) 
+  .charInfo
+    position: absolute
+    bottom: 5px
+    right: 28px
+    font-size: 0.8rem
+    font-weight: normal
+    color: #eee
+    background: globals.$active
+    padding: 3px
+    border-radius: 500px
+    //text-shadow: 0 0 8px rgba(#000, 0.65)
+    span.tooLong
+      color: red
+      font-weight: bold !important
 
 .contact-container button
   display: flex
+  position: relative
   align-items: center
   justify-content: center
   align-self: center
@@ -114,29 +152,23 @@
   margin-bottom: 75px
   text-align: center
 
-.fa-solid.fa-check
-  display: none
-  font-size: 1.5rem
-  color: rgb(68, 255, 93)
-  animation: rollIn 1.75s
-
 .load
   display: none
   width: 1.75rem
   animation: spin 1s steps(16, end) infinite
 
 @keyframes rollIn
-  0% 
+  0%
     transform: translateX(-10vw)
-  30% 
-    transform: translateX(0) 
+  30%
+    transform: translateX(0)
     font-size: 1.5rem
-  40% 
+  40%
     font-size: 2.25rem
-  70% 
-    transform: translateX(0) 
+  70%
+    transform: translateX(0)
     font-size: 1.5rem
-  100% 
+  100%
     transform: translateX(5vw)
 
 @media screen and (max-width: 900px)
@@ -166,6 +198,7 @@
 
   .contact-container textarea
     border-bottom-right-radius: 0
+    position: relative
 
   .contact-container label
     flex-direction: column

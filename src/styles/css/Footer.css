@@ -1,3 +1,31 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes rollBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(3vh);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes rollTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-3vh);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .footer-container {
   position: absolute;
   width: 100%;
@@ -11,10 +39,12 @@
   z-index: 200;
   transform: translateZ(2px);
   border-radius: 16px 16px 0 0;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.65) inset;
 }
 
 .contact-btn {
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  font-size: 0.8rem;
   color: rgb(126, 122, 153);
   background: none;
   border: none;

@@ -12,6 +12,9 @@
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   cursor: default;
 }
+.skillContainer.draggable {
+  cursor: move;
+}
 
 .php {
   background-color: #7a86b8;

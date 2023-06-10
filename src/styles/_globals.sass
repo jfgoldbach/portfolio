@@ -1,8 +1,9 @@
 $dark: rgb(6, 2, 17)
-$background: linear-gradient(45deg,#74ebd5 0%,#ACB6E5 100%)
+$background: linear-gradient(45deg,#60a79a 0%,#838aa4 100%) //#74ebd5, #ACB6E5
 $footerheight: 100px
 $footermobile: 175px
 $navHeight: 65px
+$navMargin: 15vw
 $projbarHeight: 80px
 $btnShadow: 0 4px rgba(0,0,0,0.5)
 $btnHoverShad: 0 3px rgba(0,0,0,0.5)
@@ -11,8 +12,18 @@ $mobileInnerWidth: 90vw
 $secondary: #203e69
 $active: #31a6ff
 
-$shadow1: 0 0 15px rgba(0,0,0,0.25)
-$shadow2: 0 0 10px rgba(0,0,0,0.5)
+$loginWidth: 350px
+
+$loadGrad: linear-gradient(70deg, #222 40%, #777, #555, #333, #222 60%)
+$errorStripes: repeating-linear-gradient(45deg, #ff6666, #ff6666 10px, transparent 10px, transparent 20px)
+
+$gamedevBg: #111
+
+$shadow: 0 0 12px rgba(#000, 0.2)
+$shadow1: 0 0 15px rgba(#000 ,0.25)
+$shadow2: 0 0 10px rgba(#000 ,0.5)
+
+$bordMed: 12px
 
 $cancel: rgb(255, 103, 79)
 $construction: rgb(255, 234, 79)
@@ -20,3 +31,41 @@ $construction: rgb(255, 234, 79)
 $borderText: 2px 2px $secondary, -2px -2px $secondary, 2px -2px $secondary, -2px 2px $secondary, 0px 2px $secondary, 0 -2px $secondary, 2px 0 $secondary, -2px 0 $secondary
 
 $mobileBreakpoint: 800px
+
+@keyframes fadeIn
+    from
+        opacity: 0
+    to 
+        opacity: 1
+
+@mixin flexCenter
+    display: flex
+    align-items: center
+    justify-content: center
+
+@mixin pseudoAbs
+    content: ""
+    position: absolute
+
+@mixin absCenter
+    left: 50%
+    top: 50%
+    transform: translate(-50%, -50%)
+
+@keyframes rollBottom
+    0%
+        opacity: 0
+        transform: translateY(3vh)
+
+    100%
+        opacity: 1
+        transform: translateY(0)
+
+@keyframes rollTop
+    0%
+        opacity: 0
+        transform: translateY(-3vh)
+
+    100%
+        opacity: 1
+        transform: translateY(0)

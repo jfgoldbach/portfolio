@@ -1,0 +1,74 @@
+{ 
+    "php": {
+        "back": "#7a86b8",
+        "color": "#1e212e"
+    },
+    "sql": {
+        "back": "#00758f",
+        "color": "#1e212e"
+    },
+    "jquery": {
+        "back": "#056bba",
+        "color": "#ffffff"
+    },
+    "react": {
+        "back": "#282c34",
+        "color": "#61dafb"
+    },
+    "three": {
+        "back": "#222222",
+        "color": "#049ef4"
+    },
+    "js": {
+        "back": "#f7df1d",
+        "color": "#000000"
+    },
+    "html": {
+        "back": "#e14a22",
+        "color": "#e5e5e5"
+    },
+    "typscript": {
+        "back": "#2d79c7",
+        "color": "#ffffff"
+    },
+    "css": {
+        "back": "#264de4",
+        "color": "#ffffff"
+    },
+    "gimp": {
+        "back": "#69614d",
+        "color": "#ffffff"
+    },
+    "photoshop": {
+        "back": "#001e36",
+        "color": "#31a8ff"
+    },
+    "davinci": {
+        "back": "#262626",
+        "color": "#ffffff"
+    },
+    "blender": {
+        "back": "#f4792b",
+        "color": "#0f4873"
+    },
+    "bw": {
+        "back": "#000000",
+        "color": "#ffffff"
+    },
+    "bootstrap": {
+        "back": "#7912f8",
+        "color": "#f7f2fc"
+    },
+    "axios": {
+        "back": "#ffffff",
+        "color": "#5a29e4"
+    },
+    "vite": {
+        "back": "#bb32fc",
+        "color": "#ffd028"
+    },
+    "sass": {
+        "back": "#f8f9fa",
+        "color": "#cf649a"
+    }
+}

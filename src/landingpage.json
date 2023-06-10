@@ -1,0 +1,117 @@
+{
+    "heading": {
+        "type": "dualang",
+        "ger": "Web Entwickler",
+        "eng": "Web developer"
+    },
+    "subheading": {
+        "type": "dualang",
+        "ger": "Ich erstelle webapps und Spiele",
+        "eng": "I like to create webapps and games"
+    },
+    "carousel": {
+        "type": "info_link",
+        "path": "/changer/loggedin/webdev",
+        "ger": "Die Daten für das Karusell werden von der Projekübersicht geladen.",
+        "eng": "The data for the carousel are loaded from the project overview."
+    },
+    "aboutme_heading": {
+        "type": "dualang",
+        "ger": "Hi, ich bin Julian",
+        "eng": "Hi, Im Julian"
+    },
+    "aboutme_subheading": {
+        "type": "dualang",
+        "ger": "Seitdem ich Computer benutze interessiere ich mich dafür, mit ihnen etwas zu erschaffen. Meine Reise begann als ich auf Blender aufmerksam wurde, was mich zur hobbymäßigen Spieleentwicklung brachte und schließlich auch zur Entwicklung von Websites. Ich lerne gerne neue Technologien und Bibliotheken um sie in zukünftigen Projekten nutzen zu können. Meine Fähigkeiten reichen von 3D-Modellierung über Fotografie bis hin zu Programmierung. Hier sind einige Technologien, die ich benutze:",
+        "eng": "Since i started to use computers i got quickly interested in creating things. My journey first started with blender, then i got hooked in game development and not much later i started to create websites. I'm always excited to dive into new technologies and explore them. My skills are wide-ranged from 3D-modelling to photography, programming and more. Here you can see some technologies I use:"
+    },
+    "skillcard_sections": {
+        "type": "skillcards",
+        "sections": [
+            [
+                {"name": "React", "class": "react"}, 
+                {"name": "Vite.js", "class": "vite"}
+            ],
+            [
+                {"name": "three.js", "class": "three"},
+                {"name": "TypeScript", "class": "typescript"},
+                {"name": "jQuery", "class": "jquery"},
+                {"name": "HTML", "class": "html"},
+                {"name": "JavaScript", "class": "js"},
+                {"name": "Axios", "class": "axios"}
+            ],
+            [
+                {"name": "SASS", "class": "sass"},
+                {"name": "CSS", "class": "css"},
+                {"name": "Bootstrap", "class": "bootstrap"}
+            ],
+            [
+                {"name": "php", "class": "php"},
+                {"name": "SQL", "class": "sql"}
+            ]
+        ],
+        "hidden": [
+            [
+            {"name": "Photoshop", "class": "photoshop"},
+            {"name": "Inkscape", "class": "bw"},
+            {"name": "Davinci Resolve", "class": "davinci"},
+            {"name": "Gimp", "class": "gimp"},
+            {"name": "Unreal Engine", "class": "bw"},
+            {"name": "Blender", "class": "blender"}
+        ]
+        ]
+    },
+    "notepads": {
+        "type": "notepads",
+        "notes": [
+            {
+                "heading": {
+                    "ger": "Web Entwicklung",
+                    "eng": "Web development"
+                }, 
+                "description": {
+                    "ger": "",
+                    "eng": "Websites, applications that are accesiable through your browser and everything inbetween"
+                },
+                "path": "/webdev",
+                "img": "images/web_development.jpg"
+            },
+            {
+                "heading": {
+                    "ger": "Spiel Entwicklung",
+                    "eng": "Game development"
+                },
+                "description": {
+                    "ger": "",
+                    "eng": "Making games and creating their gameplay, but also the technical side of it. Subpage is in construction."
+                },
+                "path": "/gamedev",
+                "img": "images/ue4.jpg"
+            },
+            {
+                "heading": {
+                    "ger": "Photography",
+                    "eng": "Fotografie"
+                },
+                "description": {
+                    "ger": "",
+                    "eng": "Taking photos. Coming soon."
+                },
+                "path": "",
+                "img": "images/photography.jpg"
+            },
+            {
+                "heading": {
+                    "ger": "CGI",
+                    "eng": "CGI"
+                },
+                "description": {
+                    "ger": "",
+                    "eng": "omputer generated imagery: rendered pictures of 3D models or environments. Coming soon."
+                },
+                "path": "",
+                "img": "images/cgi.jpg"
+            }
+        ]
+    }
+}
