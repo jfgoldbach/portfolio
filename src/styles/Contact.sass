@@ -27,7 +27,7 @@
   font-size: 1.2125rem
 
 .contact-container
-  min-height: calc(100vh - globals.$footerheight - globals.$navHeight - 10px)
+  min-height: calc(100vh - globals.$navHeight - 10px)
   position: relative
   width: 100%
   align-items: center
@@ -41,11 +41,11 @@
   display: flex
   flex-direction: column
   align-items: center
-  padding: 32px 85px
-  gap: 110px
-  border-radius: 32px
-  box-shadow: globals.$shadow
-  background-color: white
+  //padding: 32px 85px
+  gap: 45px
+  //border-radius: 32px
+  //box-shadow: globals.$shadow
+  //background-color: white
 
 .contact-container form
   display: flex
@@ -53,10 +53,13 @@
   align-items: flex-end
   gap: 15px
   text-align: left
-  width: 35vw
+  width: 45vw
   //padding-bottom: 35px
   font-size: 1.125rem
+  padding: 30px 58px
   border-radius: 32px
+  box-shadow: globals.$shadow
+  background-color: white
 
 .contact-container textarea
   font-family: Arial, Helvetica, sans-serif
@@ -80,7 +83,7 @@
   padding: 4px
   //border-radius: 32px
   font-size: 1rem
-  width: 78%
+  width: 90%
   border: none
   //background-color: rgb(240,240,240)
   //box-shadow: 1px 1px 1px rgba(0,0,0,0.25) inset, -2px -2px 1px white inset
@@ -151,6 +154,8 @@
   box-shadow: var(--btnShadow)
   transition: 0.1s
   overflow: hidden
+  &.inactive
+    opacity: 0.4
   i.fa-paper-plane
     transition: opacity 0.125s
   &.loading
@@ -188,7 +193,14 @@
 .contact-container h1
   text-align: center
   @include globals.flexCenter
-  gap: 12px
+  gap: 16px
+  padding: 22px 0
+  width: 100%
+  border-radius: 32px
+  border: 2px solid white
+  color: white
+  text-shadow: globals.$shadow 
+  box-shadow: globals.$shadow, globals.$shadow inset
 
 .load
   display: none

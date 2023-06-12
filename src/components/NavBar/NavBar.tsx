@@ -107,19 +107,36 @@ function NavBar(props: navProps) {
 
                     <ul className={click ? 'nav-menu active' : 'nav-menu'} id="navMenu">
                         <li className='nav-item'>
-                            <Link to='/webdev' className={`nav-links ${location.pathname === "/webdev" ? "active" : ""}`} onClick={() => { navigationButtonPressed() }} id='link1'>
+                            <Link 
+                                to='/webdev' 
+                                className={`nav-links ${location.pathname === "/webdev" ? "active" : ""}`} 
+                                onClick={() => { navigationButtonPressed() }} 
+                                id='link1'
+                            >
                                 <p>Web</p>
                                 <p>{lang === "eng" ? "projects" : "Projekte"}</p>
                             </Link>
                         </li>
                         <li className='nav-item'>
-                            <Link to='/gamedev' className={`nav-links ${location.pathname === "/gamedev" ? "active" : ""}`} onClick={() => { navigationButtonPressed() }} id='link2'>
+                            <Link 
+                                to='/gamedev' 
+                                className={`nav-links ${location.pathname === "/gamedev" ? "active" : ""}`} 
+                                onClick={() => { navigationButtonPressed() }} 
+                                id='link2'
+                            >
                                 <p>Game</p>
                                 <p>{lang === "eng" ? "projects" : "Projekte"}</p>
                             </Link>
                         </li>
                         <li className='nav-item' id="contactBtn">
-                            <Button buttonStyle='btn--primary' path='/contact' onClick={() => { navigationButtonPressed() }}>{lang === "eng" ? "Contact" : "Kontakt"}</Button>
+                            <Button 
+                                buttonStyle='btn--primary' 
+                                path='/contact' 
+                                onClick={() => { navigationButtonPressed() }} 
+                                title={lang === "eng" ? "Contact" : "Kontakt"}
+                            >
+                                <i className="fa-solid fa-envelope" />
+                            </Button>
                         </li>
                         <li className='nav-item' id="langSelect">
                             <LangChange />

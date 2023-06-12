@@ -437,9 +437,15 @@
   align-items: center
   position: relative
   height: 100%
+  a
+    text-decoration: none
 
 .nav-item button
   margin: 0 0.5vw
+  $size: 40px
+  width: $size
+  height: $size
+  @include globals.flexCenter
 
 .nav-links
   color: #fff
