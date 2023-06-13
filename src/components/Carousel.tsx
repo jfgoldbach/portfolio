@@ -51,7 +51,7 @@ function Carousel() {
   useEffect(() => {
     setTimeout(() => {
       setIntro(false)
-    }, 4500)
+    }, 3500)
 
 
     //read values from local storage

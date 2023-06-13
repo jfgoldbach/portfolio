@@ -10,7 +10,6 @@ import ErrorInfo from "../helper/ErrorInfo"
 
 function WebdevMain() {
   const { overview, error } = useContext(OverviewContext)
-  const { lang } = useContext(LangContext)
 
   return (
     <div className="webdevPick-Outer">

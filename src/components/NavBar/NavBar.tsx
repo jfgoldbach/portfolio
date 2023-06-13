@@ -150,11 +150,11 @@ function NavBar(props: navProps) {
                         <img id='zoomimage' className='zoomed-image' src='../images/DivBreakerDocs/levels.jpg'></img>
                         <i className="fa-solid fa-magnifying-glass-minus"></i>
                     </div>
-                    <div className="btnBg1" />
+                    {/* <div className="btnBg1" />
                     <div className="btnBg2" />
                     <Button onClick={zoomClickHandler}>
                         <p>&times;</p>
-                    </Button>
+                    </Button> */}
                 </div>
 
                 {pathMatches && pathMatches.length > 0 &&
