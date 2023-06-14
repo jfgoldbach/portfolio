@@ -1,53 +1,62 @@
-:root
-    --primary: #fff
-    --btnRadius: 6px
-    --btnTransition: all 0.125s ease-out
+@use 'globals'
+    
 
+$light: #fff
+$btnRadius: 10px    
+$btnTransition: all 0.125s ease-out
 
 .btn
     padding: 8px 20px
-    border-radius: var(--btnRadius)
+    border-radius: $btnRadius
     outline: none
     border: none
     cursor: pointer
     transition: 0.15s
 
-.btn--primary:hover
-    //transform: translateY(-1px)
-    box-shadow: var(--btnHoverShad)
 
 
-.btn--primary
-    background-color: var(--primary)
+.btn--light
+    background-color: $light
     color: #242424
-    box-shadow: var(--btnShadow)
-    //transform: translateY(-2px)
+    box-shadow: globals.$shadow
+    &:hover
+        box-shadow: 0 0 12px rgba(#fff, 0.66)
+        background-color: rgba(darken($light, 66%), 0.5)
+        color: white
 
 
 .btn--dark
+    @include globals.flexCenter
+    min-height: 37px
     background-color: black
     color: white
+    border-radius: 6px
+    transition: 0.125s
+    align-self: center
+    box-shadow: globals.$shadow
+    &:hover
+        box-shadow: 0 0 12px rgba(#000, 0.8)
+        background-color: rgba(lighten(#000, 80%), 0.5)
+        color: #000
 
 
 .btn--outline
     background-color: transparent
     color: #fff
     padding: 8px 20px
-    border: 1px solid var(--primary)
-    transition: var(--btnTransition)
+    border: 1px solid $light
+    transition: $btnTransition
 
+
+.btn--small
+    padding: 4px 10px
+    font-size: 0.8rem
 
 .btn--medium
-    padding: 8px 20px
-    font-size: 20px
+    padding: 6px 16px
+    font-size: 1rem
 
 
 .btn--large
     padding: 12px 26px
-    font-size: 20px
-
-
-.btn--primary:hover, .btn--outline:hover, .btn--dark:hover 
-    background: rgb(144, 144, 182)
-    color: white
-    transition: var(--btnTransition)
+    font-size: 1.5rem

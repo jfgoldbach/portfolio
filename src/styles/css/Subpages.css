@@ -50,7 +50,7 @@
   justify-content: space-between;
   min-width: 65%;
   max-width: 100%;
-  min-height: 150px;
+  height: 150px;
   background-color: white;
   border-radius: 32px;
   padding: 7px 15px;
@@ -140,8 +140,9 @@
 }
 
 .projectInfo {
-  height: fit-content;
+  height: 100%;
   align-self: center;
+  justify-content: space-evenly;
   padding: 0 5px;
 }
 
@@ -197,29 +198,6 @@
 
 .contents a:hover {
   text-decoration: underline;
-}
-
-.calculator-container .btn {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  min-height: 2.5rem;
-  text-decoration: none;
-  background-color: black;
-  color: white;
-  padding: 8px 20px;
-  border-radius: 6px;
-  transition: 0.125s;
-  align-self: center;
-  box-shadow: var(--btnShadow);
-}
-
-.btn:hover {
-  background-color: rgb(50, 50, 50);
-  transform: translateY(1px);
-  box-shadow: var(--btnHoverShad);
-  transition: 0.15s;
 }
 
 .calculator-container .main-element {

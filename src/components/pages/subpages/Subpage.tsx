@@ -10,6 +10,7 @@ import { LangContext, OverviewContext } from "../../../App"
 import instance from "../../network/axios"
 import Loading from "../../helper/Loading"
 import Error from "../../Info/Error"
+import Button from "../../Button"
 
 
 type pageProps = {
@@ -159,15 +160,22 @@ function Subpage({ index }: pageProps) {
                   </div>
                   <div className='examine'>
                     {content.liveLink !== "" &&
-                      <a href={content.liveLink} target='_blank' className='btn'>
+                      <Button buttonStyle="btn--dark" path={content.liveLink} outsidePath>
                         <p>{lang === "eng" ? "View live" : "Live ansehen"}</p>
                         <p>🔴</p>
-                      </a>
+                      </Button>
+                      /*<a href={content.liveLink} target='_blank' className='btn'>
+                        <p>{lang === "eng" ? "View live" : "Live ansehen"}</p>
+                        <p>🔴</p>
+                      </a>*/
                     }
                     {content.githubLink !== "" &&
-                      <a href={content.githubLink} target='_blank' className='btn'>
+                      <Button buttonStyle="btn--dark" buttonSize="btn--medium" path={content.githubLink} outsidePath>
                         {lang === "eng" ? "View on Github" : "Auf Github ansehen"} <i className="fa-brands fa-github"></i>
-                      </a>
+                      </Button>
+                      /*<a href={content.githubLink} target='_blank' className='btn'>
+                        {lang === "eng" ? "View on Github" : "Auf Github ansehen"} <i className="fa-brands fa-github"></i>
+                      </a>*/
                     }
 
                   </div>

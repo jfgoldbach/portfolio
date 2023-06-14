@@ -1,53 +1,88 @@
-:root {
-  --primary: #fff;
-  --btnRadius: 6px;
-  --btnTransition: all 0.125s ease-out;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
-
+@keyframes rollBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(3vh);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes rollTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-3vh);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .btn {
   padding: 8px 20px;
-  border-radius: var(--btnRadius);
+  border-radius: 10px;
   outline: none;
   border: none;
   cursor: pointer;
   transition: 0.15s;
 }
 
-.btn--primary:hover {
-  box-shadow: var(--btnHoverShad);
-}
-
-.btn--primary {
-  background-color: var(--primary);
+.btn--light {
+  background-color: #fff;
   color: #242424;
-  box-shadow: var(--btnShadow);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}
+.btn--light:hover {
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.66);
+  background-color: rgba(87, 87, 87, 0.5);
+  color: white;
 }
 
 .btn--dark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 37px;
   background-color: black;
   color: white;
+  border-radius: 6px;
+  transition: 0.125s;
+  align-self: center;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}
+.btn--dark:hover {
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.8);
+  background-color: rgba(204, 204, 204, 0.5);
+  color: #000;
 }
 
 .btn--outline {
   background-color: transparent;
   color: #fff;
   padding: 8px 20px;
-  border: 1px solid var(--primary);
-  transition: var(--btnTransition);
+  border: 1px solid #fff;
+  transition: all 0.125s ease-out;
+}
+
+.btn--small {
+  padding: 4px 10px;
+  font-size: 0.8rem;
 }
 
 .btn--medium {
-  padding: 8px 20px;
-  font-size: 20px;
+  padding: 6px 16px;
+  font-size: 1rem;
 }
 
 .btn--large {
   padding: 12px 26px;
-  font-size: 20px;
-}
-
-.btn--primary:hover, .btn--outline:hover, .btn--dark:hover {
-  background: rgb(144, 144, 182);
-  color: white;
-  transition: var(--btnTransition);
+  font-size: 1.5rem;
 }

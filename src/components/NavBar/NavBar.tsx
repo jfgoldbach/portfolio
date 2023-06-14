@@ -130,7 +130,7 @@ function NavBar(props: navProps) {
                         </li>
                         <li className='nav-item' id="contactBtn">
                             <Button 
-                                buttonStyle='btn--primary' 
+                                buttonStyle='btn--light' 
                                 path='/contact' 
                                 onClick={() => { navigationButtonPressed() }} 
                                 title={lang === "eng" ? "Contact" : "Kontakt"}
