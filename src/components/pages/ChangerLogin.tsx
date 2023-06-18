@@ -5,6 +5,7 @@ import { LangContext } from "../../App";
 import request from '../../request.json'
 import useCheckJWT from "../hooks/useCheckJWT";
 import instance from "../network/axios";
+import BlurredBg from "../visuals/BlurredBg";
 
 
 
@@ -106,6 +107,7 @@ export default function ChangerLogin() {
 
     return (
         <div className={`login ${fails > 2 ? "failed" : ""}`}>
+            <BlurredBg />
             {navigate &&
                 <Navigate to="/changer/loggedin" />
             }

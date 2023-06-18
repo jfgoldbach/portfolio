@@ -3,6 +3,7 @@ import { LangContext, OverviewContext } from "../../App"
 import ProjectCards from "./ProjectCards"
 import Loading from "../helper/Loading"
 import ErrorInfo from "../helper/ErrorInfo"
+import BlurredBg from "../visuals/BlurredBg"
 //import "/styles/css/WebdevMain.css"
 //import "/styles/css/subpages/Subpages.css"
 
@@ -14,12 +15,7 @@ function WebdevMain() {
   return (
     <div className="webdevPick-Outer">
       <div className="webdevPick-container">
-        <div className="blurBackground">
-          <div className="object1"></div>
-          <div className="object3"></div>
-          <div className="object2"></div>
-          <div className="blurer"></div>
-        </div>
+        <BlurredBg />
         {overview.length !== 0 &&
           overview.map(item => {
             let index = overview.findIndex(proj => proj.id === item.id)
@@ -32,8 +28,8 @@ function WebdevMain() {
         }
       </div>
       {error.msg &&
-        <ErrorInfo />
-
+        /* <ErrorInfo /> */
+<Loading />
       }
     </div>
   )

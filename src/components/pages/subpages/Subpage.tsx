@@ -80,7 +80,7 @@ function Subpage({ index }: pageProps) {
     if (metaIcon) {
       metaIcon.href = "/images/favicon_webdev.ico"
     }
-    document.title = "Julian Goldbach - Loading..."
+    document.title = `${lang === "eng" ? "Loading..." : "Lädt..."} | Julian Goldbach`
   }, [])
 
   useEffect(() => {
@@ -89,15 +89,15 @@ function Subpage({ index }: pageProps) {
       setError({message: "Data received from server is unusable.", code: "500"})
     }
     if (content.name) {
-      document.title = `Julian Goldbach - ${content.name}`
+      document.title = `${content.name} | Julian Goldbach`
     } else {
-      document.title = "Julian Goldbach - Loading..."
+      document.title = `${lang === "eng" ? "Loading..." : "Lädt..."} | Julian Goldbach`
     }
   }, [content])
 
   useEffect(() => {
     if(error?.message){
-      document.title = "Julian Goldbach - Error"
+      document.title = `${lang === "eng" ? "Error" : "Fehler"} | Julian Goldbach`
     }
   }, [error])
 

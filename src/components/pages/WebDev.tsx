@@ -3,7 +3,8 @@ import { Outlet, useLocation } from 'react-router-dom'
 //import "/styles/css/WebDev.css"
 import ParticleCode from '../visuals/ParticleCode'
 import $ from "jquery"
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
+import { LangContext } from '../../App'
 
 
 type webProps = {
@@ -13,17 +14,19 @@ type webProps = {
 
 function WebDev(props: webProps) {
   const location = useLocation()
+  const {lang} = useContext(LangContext)
+  const title = lang === "eng" ? "Web projects | Julian Goldbach" : "Web Projekte | Julian Goldbach"
 
   useEffect(() => {
     const metaIcon: HTMLLinkElement = document.getElementById("icon") as HTMLLinkElement
     if (metaIcon) {
       metaIcon.href = "/images/favicon_webdev.ico"
     }
-    document.title = "Julian Goldbach - WebDev"
+    document.title = title
   }, [])
 
   useEffect(() => {
-    document.title = "Julian Goldbach - WebDev"
+    document.title = title
   }, [location])
 
   return (

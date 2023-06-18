@@ -213,7 +213,7 @@ function App() {
 
 
   useEffect(() => {
-    if (error.msg) toast.warn(`${error.msg} (Code: ${error.code})`)
+    if (error.msg) toast.warn(`${error.msg}`)
   }, [error])
 
 

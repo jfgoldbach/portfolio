@@ -90,25 +90,21 @@
   justify-content: center;
   text-decoration: none;
 }
-
 .projectLink i {
-  background-color: rgba(0, 0, 0, 0.825);
-  backdrop-filter: blur(12px);
+  background-color: #151515;
   padding: 10px;
-  border-radius: 6px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   aspect-ratio: 1/1;
-  border: 1px solid white;
   transition: 0.15s;
   opacity: 0;
 }
-
 .projectLink:hover i {
-  border-radius: 12px;
   transition: 0.25s;
   padding: 30px;
   opacity: 1;
+  shadow: 0 0 12px rgba(0, 0, 0, 0.2);
 }
 
 /*Settings*/
@@ -185,26 +181,26 @@
   align-items: center;
   justify-content: center;
 }
-.setbtn-container .progress-container svg.progressAnim circle {
+.setbtn-container .progress-container svg.progressAnim circle.track {
   fill: none;
-  stroke-dasharray: 1px, 200px;
-  stroke-dashoffset: -60px;
+  stroke: rgba(255, 255, 255, 0.25);
+}
+.setbtn-container .progress-container svg.progressAnim circle.progress {
+  fill: none;
   stroke: rgba(0, 225, 255, 0.9);
   stroke-linecap: round;
 }
-.setbtn-container .progress-container svg.progressAnim circle.anim {
-  animation: progressAnim 3s linear;
+.setbtn-container .progress-container svg.progressAnim circle.progress.anim {
+  animation: progressAnim 3s linear infinite;
 }
 @keyframes progressAnim {
   0% {
     stroke-dasharray: 1px, 200px;
-  }
-  95% {
-    stroke-dasharray: 90px, 200px;
-    stroke-dashoffset: 0;
+    stroke-dashoffset: -60px;
   }
   100% {
-    stroke-dasharray: 1px, 200px;
+    stroke-dasharray: 80px, 200px;
+    stroke-dashoffset: 0;
   }
 }
 .setbtn-container h3 {

@@ -38,7 +38,7 @@ const Button: React.FC<buttonProps> = (props) => {
     //return with link only if path is given
     return (
         <>
-            {props.path &&
+            {props.path ?
                 props.outsidePath ?
                     <a href={props.path} target="_blank" style={{textDecoration: "none"}}>
                         <button
@@ -49,7 +49,7 @@ const Button: React.FC<buttonProps> = (props) => {
                             {props.children}
                         </button>
                     </a>
-                :
+                    :
                     <Link to={link} target={targetPath}>
                         <button
                             title={props.title}
@@ -59,8 +59,7 @@ const Button: React.FC<buttonProps> = (props) => {
                             {props.children}
                         </button>
                     </Link>
-            }
-            {!props.path &&
+                :
                 <button
                     title={props.title}
                     className={`btn ${checkButtonSize} ${checkButtonStyle} ${props.className}`} //fill in all passed in values

@@ -13,6 +13,7 @@
       transform: rotate(360deg)
 
 svg.loadAnim
+  fill: none
   position: absolute
   transform-origin: center
   top: calc(50% - 25px)
@@ -25,10 +26,9 @@ svg.loadAnim
     100%
       rotate: 360deg
   circle
-    fill: none
     stroke-dasharray: 1px, 200px
     stroke-dashoffset: 0
-    stroke: rgba(#000, 0.9)
+    stroke: url(#loadGradient)
     stroke-linecap: round
     animation: circleAnim 3s infinite linear
     @keyframes circleAnim
@@ -38,5 +38,5 @@ svg.loadAnim
         stroke-dasharray: 125px, 200px
         stroke-dashoffset: 0
       100%
-        stroke-dashoffset: -120px
+        stroke-dashoffset: -125px
         

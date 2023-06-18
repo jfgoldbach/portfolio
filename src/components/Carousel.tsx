@@ -19,6 +19,7 @@ function Carousel() {
   const [speed, setSpeed] = useState(8000)
   const [video, setVideo] = useState(true)
   const [stop, setStop] = useState(false)
+  const [pause, setPause] = useState(false)
   const [settings, setSettings] = useState(false)
   const [hint, setHint] = useState(false)
   const [hand, setHand] = useState(true)
@@ -27,6 +28,7 @@ function Carousel() {
 
   const [projects, setProjects] = useState<overviewType>([])
 
+  const progressRef = useRef<SVGSVGElement>(null)
 
   const { lang } = useContext(LangContext)
   const { overview, error } = useContext(OverviewContext)
@@ -78,7 +80,7 @@ function Carousel() {
         if (prev) return !(window.scrollY > 50)
         else return prev
       })
-      if(hintCheck && window.scrollY > 50){
+      if (hintCheck && window.scrollY > 50) {
         clearTimeout(hintCheck)
         hintCheck = undefined
       }
@@ -89,7 +91,7 @@ function Carousel() {
 
     let hintCheck: NodeJS.Timeout | undefined
     const showHint = sessionStorage.getItem("scrollHint")
-    if (!showHint ||  (showHint && showHint === "true")) {
+    if (!showHint || (showHint && showHint === "true")) {
       hintCheck = setTimeout(() => {
         setHint(true)
       }, 20000)
@@ -114,9 +116,34 @@ function Carousel() {
     if (speed !== 8000) localStorage.setItem("carouSpeed", Number.prototype.toString(speed))
   }, [speed])
 
+
   useEffect(() => {
     localStorage.setItem("carouStop", stop ? "true" : "false")
+    const progress = circleRef.current
+    if (progress) {
+      if (stop) {
+        progress.classList.remove("anim")
+      } else {
+        progress.classList.add("anim")
+      }
+    }
   }, [stop])
+
+
+  useEffect(() => {
+    const progress = circleRef.current
+    if (progress) {
+      if (pause) {
+        const progressStyle = window.getComputedStyle(progress)
+        progress.style.strokeDasharray = progressStyle.getPropertyValue("stroke-dasharray")
+        progress.style.strokeDashoffset = progressStyle.getPropertyValue("stroke-dashoffset")
+        progress.classList.remove("anim")
+      } else {
+        progress.classList.add("anim")
+      }
+    }
+  }, [pause])
+
 
   useEffect(() => {
     localStorage.setItem("carouVideo", video ? "true" : "false")
@@ -141,6 +168,7 @@ function Carousel() {
     }
     if (circleRef.current) {
       circleRef.current.classList.add("anim")
+      circleRef.current.style.animationDuration = `${speed / 1000}s`
     }
   }, [position])
 
@@ -188,9 +216,9 @@ function Carousel() {
         ? setPosition(position - 1)
         : setPosition(4)
     }
-    if (circleRef.current) {
+    /* if (circleRef.current) {
       circleRef.current.classList.remove("anim")
-    }
+    } */
   }
 
   const handleSettings = () => {
@@ -285,10 +313,10 @@ function Carousel() {
 
             <form id="carouselSettings" className={`settings-form ${settings ? "showSettings" : ""}`}>
               <label htmlFor='stop'>{lang === "eng" ? "Stop Carousel" : "Karussell stoppen"}
-                <input id='stop' type="checkbox" onChange={handleStop} />
+                <input id='stop' checked={stop} type="checkbox" onChange={handleStop} />
               </label>
               <label htmlFor='preview'>{lang === "eng" ? "Show video preview" : "Video Vorschau anzeigen"}
-                <input id="preview" type="checkbox" defaultChecked onChange={handleNoVid} />
+                <input id="preview" type="checkbox" checked={video} defaultChecked onChange={handleNoVid} />
               </label>
               <div className='form-slider'>
                 <label
@@ -305,8 +333,23 @@ function Carousel() {
             </form>
 
             <div className={`progress-container ${stop ? "" : "active"}`}>
-              <svg height="26" width="26" viewBox="12 12 26 30" className={`progressAnim ${stop ? "" : "active"}`}>
-                <circle ref={circleRef} style={{ animationDuration: `${speed / 1000}s` }} cx="26" cy="26" r="10" strokeWidth="7" />
+              <svg ref={progressRef} height="26" width="26" viewBox="12 12 26 30" className={`progressAnim ${stop ? "" : "active"}`}>
+                <circle 
+                  className="track" 
+                  cx="26" 
+                  cy="26" 
+                  r="10" 
+                  strokeWidth="6" 
+                />
+                <circle 
+                  className="progress" 
+                  ref={circleRef} 
+                  style={{ animationDuration: `${speed / 1000}s` }} 
+                  cx="26" 
+                  cy="26" 
+                  r="10" 
+                  strokeWidth="7" 
+                />
               </svg>
             </div>
 
