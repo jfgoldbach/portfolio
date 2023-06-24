@@ -5,6 +5,7 @@ import CharCanvas from './3d/CharCanvas'
 //import 'src/styles/css/AboutMe.css'
 
 import SkillCard from './SkillCard'
+import { introContext } from './pages/Home'
 
 type aboutmeProps = {
     "heading": dbDualangType,
@@ -17,6 +18,7 @@ type aboutmeProps = {
 function AboutMe({ heading, subheading, skillcards }: aboutmeProps) {
     const [plusskills, setPlusSkills] = useState(false)
     const { lang } = useContext(LangContext)
+    const { finished } = useContext(introContext)
     const moreSkillsRef = useRef<HTMLDivElement>(null)
 
     const handleMoreSkills = () => {
@@ -42,7 +44,8 @@ function AboutMe({ heading, subheading, skillcards }: aboutmeProps) {
     return (
         <div className='main-container aboutMe'>
 
-            <CharCanvas />
+            {finished && <CharCanvas />}
+
             <div className='text-container'>
                 {/* <h1>{lang === "eng" ? heading.eng : heading.ger}</h1> */}
                 <p>{lang === "eng" ? subheading.eng : subheading.ger}</p>

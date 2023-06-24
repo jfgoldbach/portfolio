@@ -7,7 +7,7 @@ import { LangContext, OverviewContext, overviewType } from '../App'
 import { CarouselCard } from './frontpage/CarouselCard'
 import Button from './Button'
 import { dbDualangType } from '../types/types'
-import { homeContext } from './pages/Home'
+import { homeContext, introContext } from './pages/Home'
 import { toast } from 'react-toastify'
 
 
@@ -23,16 +23,18 @@ function Carousel() {
   const [settings, setSettings] = useState(false)
   const [hint, setHint] = useState(false)
   const [hand, setHand] = useState(true)
-  const [intro, setIntro] = useState(true)
   const circleRef = useRef<SVGCircleElement>(null)
+  const timeoutRef = useRef<NodeJS.Timeout>()
 
   const [projects, setProjects] = useState<overviewType>([])
 
   const progressRef = useRef<SVGSVGElement>(null)
+  const progrStartRef = useRef<number | null>(null)
 
   const { lang } = useContext(LangContext)
   const { overview, error } = useContext(OverviewContext)
   const homeContent = useContext(homeContext)
+  const { finished, setFinished } = useContext(introContext)
 
   //const classes2 = ['img-back img-back-left', 'img-middle img-middle-left', 'img-front', 'img-middle img-middle-right', 'img-back img-back-right']
   const classes = ['img-front', 'img-middle img-middle-left', 'img-back img-back-left', 'img-back img-back-right', 'img-middle img-middle-right']
@@ -42,17 +44,21 @@ function Carousel() {
   }, [overview])
 
   //change position every few seconds
-  useEffect(() => {
-    const interval = setInterval(
-      rotateCarousel,
-      speed);
-    return () => clearInterval(interval)
-  })
+  /*   useEffect(() => {
+      const interval = setInterval(
+        rotateCarousel,
+        speed);
+      return () => clearInterval(interval)
+    }) */
+
 
 
   useEffect(() => {
     setTimeout(() => {
-      setIntro(false)
+      setTimeout(() => {
+        setFinished(true)
+      }, 200);
+      carouTimeout()
     }, 3500)
 
 
@@ -114,6 +120,10 @@ function Carousel() {
 
   useEffect(() => {
     if (speed !== 8000) localStorage.setItem("carouSpeed", Number.prototype.toString(speed))
+    carouTimeout() //resets carousel timeout and adds one with new speed value
+    if (circleRef.current) {
+      circleRef.current.style.animationDuration = `${speed / 1000}s`
+    }
   }, [speed])
 
 
@@ -127,10 +137,22 @@ function Carousel() {
         progress.classList.add("anim")
       }
     }
+    if (stop) {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    } else {
+      carouTimeout()
+    }
   }, [stop])
 
 
   useEffect(() => {
+    if (timeoutRef.current) { 
+      if (pause) { 
+        clearTimeout(timeoutRef.current) 
+      }
+    } else if (!pause && progrStartRef.current){
+      carouTimeout(Date.now() - progrStartRef.current)
+    }
     const progress = circleRef.current
     if (progress) {
       if (pause) {
@@ -152,7 +174,8 @@ function Carousel() {
 
   //change classes when "position" has changed
   useEffect(() => {
-    //console.log(position)
+    carouTimeout()
+    console.log("position:", position)
     if (projects.length !== 0) {
       for (let i = 0; i < 5; i++) {
         const pos = position + i
@@ -166,10 +189,11 @@ function Carousel() {
         }
       }
     }
-    if (circleRef.current) {
-      circleRef.current.classList.add("anim")
-      circleRef.current.style.animationDuration = `${speed / 1000}s`
-    }
+
+    setTimeout(() => {
+      if (circleRef.current) circleRef.current.classList.add("anim")
+    }, 5);
+
   }, [position])
 
   //change to black and white and pause video if scrolled
@@ -209,16 +233,31 @@ function Carousel() {
     }
   }, [video])
 
+
+  function carouTimeout(value?: number) {
+    const TO_Val = timeoutRef.current
+    if (TO_Val && value) {
+      clearTimeout(TO_Val) //clears timeout once a speed is passed in, so that a new timeout wont overlap
+    }
+    progrStartRef.current = Date.now() //writes down time to be used for pausing (maybe implement this function as a class??)
+    timeoutRef.current = setTimeout(() => {
+      if (circleRef.current) {
+        circleRef.current.classList.remove("anim")
+      }
+      rotateCarousel()
+    }, value ?? speed)
+  }
+
+
   //change position if tab is active
-  const rotateCarousel = () => {
+  function rotateCarousel() {
+    console.log("rotate carousel")
     if (activewindow && !scrolled && !stop) {
+      console.log("position for rotateCarousel:", position)
       position > 0
         ? setPosition(position - 1)
         : setPosition(4)
     }
-    /* if (circleRef.current) {
-      circleRef.current.classList.remove("anim")
-    } */
   }
 
   const handleSettings = () => {
@@ -263,8 +302,8 @@ function Carousel() {
         </h2> */}
       </div>
 
-      <div className={`hero-main ${intro ? "intro" : ""}`}>
-        <div className="presentation" onClick={() => setIntro(false)}>
+      <div className={`hero-main ${!finished ? "intro" : ""}`}>
+        <div className="presentation" onClick={() => setFinished(true)}>
           <div
             className={`friendlyWave ${hand ? "active" : ""}`}
             onClick={clickWave}
@@ -332,23 +371,23 @@ function Carousel() {
               </div>
             </form>
 
-            <div className={`progress-container ${stop ? "" : "active"}`}>
+            <div className={`progress-container ${(stop && finished) ? "" : "active"}`}>
               <svg ref={progressRef} height="26" width="26" viewBox="12 12 26 30" className={`progressAnim ${stop ? "" : "active"}`}>
-                <circle 
-                  className="track" 
-                  cx="26" 
-                  cy="26" 
-                  r="10" 
-                  strokeWidth="6" 
+                <circle
+                  className="track"
+                  cx="26"
+                  cy="26"
+                  r="10"
+                  strokeWidth="6"
                 />
-                <circle 
-                  className="progress" 
-                  ref={circleRef} 
-                  style={{ animationDuration: `${speed / 1000}s` }} 
-                  cx="26" 
-                  cy="26" 
-                  r="10" 
-                  strokeWidth="7" 
+                <circle
+                  className="progress"
+                  ref={circleRef}
+                  style={{ animationDuration: `${speed / 1000}s` }}
+                  cx="26"
+                  cy="26"
+                  r="10"
+                  strokeWidth="7"
                 />
               </svg>
             </div>
@@ -392,7 +431,12 @@ function Carousel() {
             )}
 
             {projects.length !== 0 &&
-              <Link to={projects[position === 0 ? 0 : 5 - position].link} className="projectLink">
+              <Link
+                to={projects[position === 0 ? 0 : 5 - position].link}
+                className="projectLink"
+                onMouseEnter={() => setPause(true)}
+                onMouseLeave={() => setPause(false)}
+              >
                 <i className="fa-regular fa-folder-open" />
               </Link>
             }

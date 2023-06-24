@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import { errorType, OverviewContext, projectType } from "../../App"
-//import "/styles/css/CarouselCard.css"
+import "../../styles/css/CarouselCard.css"
 
 type carouselCardProps = {
     project: projectType | undefined,

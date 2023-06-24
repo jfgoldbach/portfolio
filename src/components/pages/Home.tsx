@@ -16,9 +16,15 @@ import ErrorInfo from '../helper/ErrorInfo';
 import BlurredBg from '../visuals/BlurredBg';
 
 export const homeContext = createContext<landingpageType | null | undefined>({} as landingpageType)
+export const introContext = createContext<introType>({} as introType)
 
 type homeProps = {
     appError: errorType
+}
+
+type introType = {
+    finished: boolean
+    setFinished: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 function Home({ appError }: homeProps) {
@@ -26,6 +32,7 @@ function Home({ appError }: homeProps) {
     const { lang } = useContext(LangContext)
     const [content, setContent] = useState<landingpageType | null>()
     const [error, setError] = useState<errorType>({} as errorType)
+    const [finished, setFinished] = useState(false)
     const { check } = useCheckJWT()
 
 
@@ -64,12 +71,14 @@ function Home({ appError }: homeProps) {
                 <BlurredBg />
                 {content ?
                     <>
-                        <Carousel />
-                        <AboutMe
-                            heading={content.aboutme_heading}
-                            subheading={content.aboutme_subheading}
-                            skillcards={content.skillcard_sections}
-                        />
+                        <introContext.Provider value={{finished, setFinished}}>
+                            <Carousel />
+                            <AboutMe
+                                heading={content.aboutme_heading}
+                                subheading={content.aboutme_subheading}
+                                skillcards={content.skillcard_sections}
+                            />
+                        </introContext.Provider>
                         {($(window).width() || 0) > 1000 &&
                             <ParticleCode
                                 id={1} emitters={3} spawnRate={2000}

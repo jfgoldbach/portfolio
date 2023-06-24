@@ -153,17 +153,17 @@
               fill: none
               //stroke-dasharray: 1px, 200px
               //stroke-dashoffset: -60px
-              stroke: rgba(#00e1ff, 0.9)
+              stroke: rgba(#fff, 0.9)
               stroke-linecap: round
               &.anim
-                animation: progressAnim 3s linear infinite
+                animation: progressAnim 3s linear
                 @keyframes progressAnim
                   0%
                       stroke-dasharray: 1px, 200px
                       stroke-dashoffset: -60px
                   100%
-                      stroke-dasharray: 80px, 200px
-                      stroke-dashoffset: 0
+                      stroke-dasharray: 75px, 200px
+                      stroke-dashoffset: -4px
     h3
         font-weight: normal
         font-size: 0.8rem
@@ -532,21 +532,6 @@ figure
     cursor: pointer
     background-color: rgb(155, 187, 255)
     z-index: 20
-
-figure::after
-    content: attr(data-title)
-    position: absolute
-    bottom: 0
-    background: rgba(120,120,120,0.4)
-    padding: 10px 30px
-    border-radius: 1000px
-    text-align: center
-    font-weight: bold
-    color: white
-    border: 1px solid rgba(222, 222, 222, 0.5)
-    box-shadow: 0 -10px 20px -5px rgba(0,0,0,0.25)
-    z-index: 10
-    backdrop-filter: blur(6px)
 
 /*Images*/
 .img-container img
