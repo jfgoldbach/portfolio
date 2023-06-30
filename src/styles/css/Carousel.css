@@ -189,9 +189,13 @@
   fill: none;
   stroke: rgba(255, 255, 255, 0.9);
   stroke-linecap: round;
+  transition: 8s;
+  stroke-dasharray: 1px, 200px;
+  stroke-dashoffset: -60px;
 }
 .setbtn-container .progress-container svg.progressAnim circle.progress.anim {
-  animation: progressAnim 3s linear;
+  stroke-dasharray: 75px, 200px !important;
+  stroke-dashoffset: -4px !important;
 }
 @keyframes progressAnim {
   0% {
@@ -304,6 +308,7 @@ input {
 }
 /*Headings*/
 .introduction {
+  opacity: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -317,6 +322,10 @@ input {
   animation: waving 50s linear infinite;
   pointer-events: none;
   z-index: 10;
+  transition: 0.25s;
+}
+.introduction.active {
+  opacity: 1;
 }
 .introduction::after {
   display: block;

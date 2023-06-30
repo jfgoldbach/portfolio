@@ -1,16 +1,14 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import SkillCard from "../../SkillCard"
 import ZoomImage from "../../ZoomImage"
 import Info from './Info.json'
 //import '/styles/css/Subpages.css'
-import axios from "axios"
-import ProjectBar from "../../ProjectBar"
-import ProjectThumbnail from "../../ProjectThumbnail"
 import { LangContext, OverviewContext } from "../../../App"
 import instance from "../../network/axios"
 import Loading from "../../helper/Loading"
 import Error from "../../Info/Error"
 import Button from "../../Button"
+import useIntersectionObserver from "../../hooks/useIntersectionObserver"
 
 
 type pageProps = {
@@ -58,6 +56,9 @@ function Subpage({ index }: pageProps) {
   const [error, setError] = useState<err>()
   const { lang } = useContext(LangContext)
   const { overview } = useContext(OverviewContext)
+  const contentsRef = useRef<HTMLDivElement>(null)
+  const contentsVisible = useIntersectionObserver(contentsRef, 0)
+  const [sideCont, SetSideCont] = useState(false)
 
   //let contentsWidth = Math.ceil(content.sections.length/4) //error because sections has to be fetched and is not defined from the start
 
@@ -69,6 +70,16 @@ function Subpage({ index }: pageProps) {
       .then(result => setContent(result))
       .catch(error => setError(error))
   }
+
+  useEffect(() => {
+    if(contentsVisible && !sideCont){
+      SetSideCont(true)
+    }
+  }, [contentsVisible, sideCont])
+
+  useEffect(() => {
+    console.log("sideCont", sideCont)
+  }, [sideCont])
 
   useEffect(() => {
     getContent()
@@ -84,9 +95,8 @@ function Subpage({ index }: pageProps) {
   }, [])
 
   useEffect(() => {
-    console.log(content)
-    if(typeof content !== "object"){
-      setError({message: "Data received from server is unusable.", code: "500"})
+    if (typeof content !== "object") {
+      setError({ message: "Data received from server is unusable.", code: "500" })
     }
     if (content.name) {
       document.title = `${content.name} | Julian Goldbach`
@@ -96,7 +106,7 @@ function Subpage({ index }: pageProps) {
   }, [content])
 
   useEffect(() => {
-    if(error?.message){
+    if (error?.message) {
       document.title = `${lang === "eng" ? "Error" : "Fehler"} | Julian Goldbach`
     }
   }, [error])
@@ -109,11 +119,26 @@ function Subpage({ index }: pageProps) {
   return (
     <div className="calculator-container">
       <div className="blurBackground">
-          <div className="object1"></div>
-          <div className="object3"></div>
-          <div className="object2"></div>
-          <div className="blurer"></div>
+        <div className="object1"></div>
+        <div className="object3"></div>
+        <div className="object2"></div>
+        <div className="blurer"></div>
+      </div>
+
+      {sideCont && content.name !== undefined && content.sections[lang as langs] !== undefined && content.sections[lang as langs].length > 2 &&
+        < div className="contents-side">
+          <h1>{lang === "eng" ? "Contents" : "Inhalt"}</h1>
+          <div className="contentLinks">
+            {content.sections[lang as langs].map(i =>
+              <a href={`#${i.title.toLowerCase().replaceAll(" ", "_")}`} title={i.title}>
+                {i.title}
+              </a>
+            )
+            }
+          </div>
         </div>
+      }
+
       <div className='main-element'>
         {(content.id === undefined && error === undefined) &&
           <Loading />
@@ -137,11 +162,11 @@ function Subpage({ index }: pageProps) {
             {content.skillcards.length !== 0 && content.sections[lang as langs] !== undefined &&
               <>
                 {content.sections[lang as langs].length > 2 &&
-                  <div style={{ width: `${Math.ceil(content.sections[lang as langs].length / 4) * 200}px` }} className="contents">
+                  <div ref={contentsRef} style={{ width: `${Math.ceil(content.sections[lang as langs].length / 4) * 200}px` }} className="contents">
                     <h1>{lang === "eng" ? "Contents" : "Inhalt"}</h1>
                     <div className="contentLinks">
                       {content.sections[lang as langs].map(i =>
-                        <a href={`#${i.title.toLowerCase().replaceAll(" ", "_")}`} title={i.title}>
+                        <a href={`#${i.title.toLowerCase().replaceAll(" ", "_")}`} title={i.title} className="lineClamp">
                           {i.title}
                         </a>
                       )
@@ -232,7 +257,7 @@ function Subpage({ index }: pageProps) {
           </div>
         }
       </div>
-    </div>
+    </div >
   )
 }
 

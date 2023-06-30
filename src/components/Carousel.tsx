@@ -146,22 +146,30 @@ function Carousel() {
 
 
   useEffect(() => {
-    if (timeoutRef.current) { 
-      if (pause) { 
-        clearTimeout(timeoutRef.current) 
-      }
-    } else if (!pause && progrStartRef.current){
-      carouTimeout(Date.now() - progrStartRef.current)
-    }
+    console.log("timeoutRef", timeoutRef.current)
     const progress = circleRef.current
-    if (progress) {
-      if (pause) {
+
+    if(pause) {
+      if(progress){
+        //set style to current computed state
         const progressStyle = window.getComputedStyle(progress)
         progress.style.strokeDasharray = progressStyle.getPropertyValue("stroke-dasharray")
         progress.style.strokeDashoffset = progressStyle.getPropertyValue("stroke-dashoffset")
         progress.classList.remove("anim")
-      } else {
+      }
+      if(timeoutRef.current){
+        clearTimeout(timeoutRef.current)
+        timeoutRef.current = undefined
+      }
+
+    } else {
+      if(progress){
         progress.classList.add("anim")
+      }
+      if(progrStartRef.current) {
+        const duration = Date.now() - progrStartRef.current
+        if(progress) progress.style.transition = `${duration/1000}s`
+        carouTimeout(duration)
       }
     }
   }, [pause])
@@ -173,6 +181,13 @@ function Carousel() {
 
 
   //change classes when "position" has changed
+  const progress = circleRef.current
+  if(progress){
+    //reset to original style
+    progress.style.transition = `${speed/1000}s`
+    progress.style.strokeDasharray = "1px, 200px"
+    progress.style.strokeDashoffset = "-60px"
+  }
   useEffect(() => {
     carouTimeout()
     console.log("position:", position)
@@ -293,14 +308,7 @@ function Carousel() {
 
   return (
     <div className='carousel-container'>
-      <div className='introduction'>
-        {/* <h1 className='title' data-title={`Web ${lang === "eng" ? "developer" : "Entwickler"}`}>
-          Web {lang === "eng" ? "developer" : "Entwickler"}
-        </h1>
-        <h2 className='describtion' data-shadow={lang === "eng" ? "I like to create webapps and games" : "Ich erstelle webapps und Spiele"}>
-          {lang === "eng" ? "I like to create webapps and games" : "Ich erstelle webapps und Spiele"}
-        </h2> */}
-      </div>
+      <div className={`introduction ${finished? "active" : ""}`} />
 
       <div className={`hero-main ${!finished ? "intro" : ""}`}>
         <div className="presentation" onClick={() => setFinished(true)}>

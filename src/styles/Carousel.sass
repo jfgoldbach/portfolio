@@ -150,20 +150,25 @@
                 fill: none
                 stroke: rgba(#ffffff, 0.25)
             circle.progress
-              fill: none
-              //stroke-dasharray: 1px, 200px
-              //stroke-dashoffset: -60px
-              stroke: rgba(#fff, 0.9)
-              stroke-linecap: round
-              &.anim
-                animation: progressAnim 3s linear
-                @keyframes progressAnim
-                  0%
-                      stroke-dasharray: 1px, 200px
-                      stroke-dashoffset: -60px
-                  100%
-                      stroke-dasharray: 75px, 200px
-                      stroke-dashoffset: -4px
+                fill: none
+                //stroke-dasharray: 1px, 200px
+                //stroke-dashoffset: -60px
+                stroke: rgba(#fff, 0.9)
+                stroke-linecap: round
+                transition: 8s
+                stroke-dasharray: 1px, 200px
+                stroke-dashoffset: -60px
+                &.anim
+                    stroke-dasharray: 75px, 200px !important
+                    stroke-dashoffset: -4px !important
+                    //animation: progressAnim 3s linear
+                    @keyframes progressAnim
+                      0%
+                          stroke-dasharray: 1px, 200px
+                          stroke-dashoffset: -60px
+                      100%
+                          stroke-dasharray: 75px, 200px
+                          stroke-dashoffset: -4px
     h3
         font-weight: normal
         font-size: 0.8rem
@@ -250,6 +255,7 @@ input
 
 /*Headings*/
 .introduction
+    opacity: 0
     display: flex
     flex-direction: column
     justify-content: flex-start
@@ -265,6 +271,9 @@ input
     animation: waving 50s linear infinite
     pointer-events: none
     z-index: 10
+    transition: 0.25s
+    &.active
+        opacity: 1
     &::after
         display: block //block
         position: absolute
