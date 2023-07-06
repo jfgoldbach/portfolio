@@ -1,6 +1,7 @@
 import { Stage, OrbitControls, useGLTF, PerspectiveCamera, Html, Sky, Bounds } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { Suspense, useEffect, useRef } from "react";
+import { Suspense, useContext, useEffect, useRef } from "react";
+import { LangContext } from "../../App";
 
 type viewerCanvasType = {
     modelPath: string,
@@ -9,6 +10,7 @@ type viewerCanvasType = {
 
 
 export default function ViewerCanvas({ modelPath, fov }: viewerCanvasType) {
+    const { lang } = useContext(LangContext)
     const cam = useRef<typeof PerspectiveCamera>(null)
     const { scene } = useGLTF(modelPath)
 
@@ -36,8 +38,13 @@ export default function ViewerCanvas({ modelPath, fov }: viewerCanvasType) {
                     </mesh>
                 </Bounds>
                 {modelPath === "/models/standard.glb" &&
-                    <Html>
-                        <p>Chose a model</p>
+                    <Html position={[0, 0.8, 0]}>
+                        <div className="pickHint">
+                            <p>{lang === "eng" ? 
+                            "Chose a model from the content browser" 
+                            : "Wähle ein Modell aus dem Modellverzeichnis"
+                            }</p>
+                        </div>
                     </Html>
                 }
             </Stage>

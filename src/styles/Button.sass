@@ -43,9 +43,12 @@ $btnTransition: all 0.125s ease-out
 .btn--outline
     background-color: transparent
     color: #fff
-    padding: 8px 20px
+    padding: 6px 18px
     border: 1px solid $light
     transition: $btnTransition
+    &:hover
+        background-color: rgba(#fff, 0.25)
+        box-shadow: 0 0 12px rgba(#fff, 0.66)
 
 
 .btn--small
@@ -58,5 +61,5 @@ $btnTransition: all 0.125s ease-out
 
 
 .btn--large
-    padding: 12px 26px
-    font-size: 1.5rem
+    padding: 10px 20px
+    font-size: 1.25rem

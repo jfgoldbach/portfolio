@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useContext, useRef } from 'react'
-//import '/styles/css/Carousel.css'
+import '../styles/css/Carousel.css'
 //import '/styles/css/App.css'
 //import '/styles/css/Subpages.css'
 import { Link } from 'react-router-dom'
 import { LangContext, OverviewContext, overviewType } from '../App'
 import { CarouselCard } from './frontpage/CarouselCard'
 import Button from './Button'
-import { dbDualangType } from '../types/types'
 import { homeContext, introContext } from './pages/Home'
-import { toast } from 'react-toastify'
 
 
 
@@ -30,38 +28,21 @@ function Carousel() {
 
   const progressRef = useRef<SVGSVGElement>(null)
   const progrStartRef = useRef<number | null>(null)
+  const timeLeftRef = useRef<number>(8000)
 
   const { lang } = useContext(LangContext)
   const { overview, error } = useContext(OverviewContext)
   const homeContent = useContext(homeContext)
   const { finished, setFinished } = useContext(introContext)
 
-  //const classes2 = ['img-back img-back-left', 'img-middle img-middle-left', 'img-front', 'img-middle img-middle-right', 'img-back img-back-right']
   const classes = ['img-front', 'img-middle img-middle-left', 'img-back img-back-left', 'img-back img-back-right', 'img-middle img-middle-right']
 
   useEffect(() => {
     setProjects(overview.slice(0, 5))
   }, [overview])
 
-  //change position every few seconds
-  /*   useEffect(() => {
-      const interval = setInterval(
-        rotateCarousel,
-        speed);
-      return () => clearInterval(interval)
-    }) */
-
-
 
   useEffect(() => {
-    setTimeout(() => {
-      setTimeout(() => {
-        setFinished(true)
-      }, 200);
-      carouTimeout()
-    }, 3500)
-
-
     //read values from local storage
     const carouSpeed = localStorage.getItem("carouSpeed")
     const carouVideo = localStorage.getItem("carouVideo")
@@ -69,6 +50,14 @@ function Carousel() {
     if (carouSpeed) setSpeed(Number(carouSpeed))
     if (carouVideo) setVideo(carouVideo === "true")
     if (carouStop) setStop(carouStop === "true")
+
+    //intro timeout
+    setTimeout(() => {
+      setFinished(true)
+      if (!carouStop) {
+        carouTimeout()
+      }
+    }, 3700)
 
     //check if tab is active
     const visChange = document.addEventListener('visibilitychange', () => {
@@ -119,7 +108,8 @@ function Carousel() {
 
 
   useEffect(() => {
-    if (speed !== 8000) localStorage.setItem("carouSpeed", Number.prototype.toString(speed))
+    console.log("speed", speed)
+    //if (speed !== 8000) localStorage.setItem("carouSpeed", Number.prototype.toString(speed))
     carouTimeout() //resets carousel timeout and adds one with new speed value
     if (circleRef.current) {
       circleRef.current.style.animationDuration = `${speed / 1000}s`
@@ -149,46 +139,49 @@ function Carousel() {
     console.log("timeoutRef", timeoutRef.current)
     const progress = circleRef.current
 
-    if(pause) {
-      if(progress){
+    if (pause) {
+      if (progress) {
         //set style to current computed state
         const progressStyle = window.getComputedStyle(progress)
         progress.style.strokeDasharray = progressStyle.getPropertyValue("stroke-dasharray")
         progress.style.strokeDashoffset = progressStyle.getPropertyValue("stroke-dashoffset")
         progress.classList.remove("anim")
+        
+        if(progrStartRef.current) { //calculate remaining time
+          const remaining = speed - (Date.now() - progrStartRef.current)
+          timeLeftRef.current = remaining
+          console.log("remaining time:", remaining)
+          progress.style.animationDuration = `${remaining / 1000}s`
+        }
       }
-      if(timeoutRef.current){
+      if (timeoutRef.current) {
         clearTimeout(timeoutRef.current)
         timeoutRef.current = undefined
       }
 
     } else {
-      if(progress){
+      if (progress) {
         progress.classList.add("anim")
       }
-      if(progrStartRef.current) {
-        const duration = Date.now() - progrStartRef.current
-        if(progress) progress.style.transition = `${duration/1000}s`
-        carouTimeout(duration)
-      }
+      carouTimeout(timeLeftRef.current)
+      progrStartRef.current = Date.now() - (speed - timeLeftRef.current) //re-adjust starting time for proper calculations
     }
   }, [pause])
 
 
-  useEffect(() => {
-    localStorage.setItem("carouVideo", video ? "true" : "false")
-  }, [video])
 
 
-  //change classes when "position" has changed
-  const progress = circleRef.current
-  if(progress){
-    //reset to original style
-    progress.style.transition = `${speed/1000}s`
-    progress.style.strokeDasharray = "1px, 200px"
-    progress.style.strokeDashoffset = "-60px"
-  }
   useEffect(() => {
+    //change classes when "position" has changed
+    const progress = circleRef.current
+    if (progress) {
+      //reset to original style
+      progress.classList.remove("anim")
+      progress.style.animationDuration = `${speed / 1000}s`
+      progress.style.strokeDasharray = "1px, 200px"
+      progress.style.strokeDashoffset = "-60px"
+    }
+
     carouTimeout()
     console.log("position:", position)
     if (projects.length !== 0) {
@@ -206,7 +199,7 @@ function Carousel() {
     }
 
     setTimeout(() => {
-      if (circleRef.current) circleRef.current.classList.add("anim")
+      if (progress) progress.classList.add("anim")
     }, 5);
 
   }, [position])
@@ -216,11 +209,13 @@ function Carousel() {
     for (let i = 0; i < 5; i++) {
       let video = document.getElementById(`vid${i}`) as HTMLVideoElement;
       if (scrolled) {
+        setPause(true)
         document.getElementById(`pic${i}`)?.classList.add("blackwhite");
         if (video) {
           video.pause();
         }
       } else {
+        setPause(false)
         document.getElementById(`pic${i}`)?.classList.remove("blackwhite");
         if (video) {
           video.play();
@@ -231,6 +226,7 @@ function Carousel() {
 
   //change if videos should be visible
   useEffect(() => {
+    localStorage.setItem("carouVideo", video ? "true" : "false")
     if (video) {
       for (let i = 0; i < 5; i++) {
         let vid = document.getElementById(`vid${i}`)
@@ -250,14 +246,16 @@ function Carousel() {
 
 
   function carouTimeout(value?: number) {
+    console.log("carouTimeout")
     const TO_Val = timeoutRef.current
-    if (TO_Val && value) {
+    if (TO_Val) {
       clearTimeout(TO_Val) //clears timeout once a speed is passed in, so that a new timeout wont overlap
     }
     progrStartRef.current = Date.now() //writes down time to be used for pausing (maybe implement this function as a class??)
     timeoutRef.current = setTimeout(() => {
       if (circleRef.current) {
         circleRef.current.classList.remove("anim")
+        circleRef.current.style.animationDuration = `${speed / 1000}s`
       }
       rotateCarousel()
     }, value ?? speed)
@@ -292,7 +290,7 @@ function Carousel() {
   }
 
   const resetSpeed = () => {
-    setSpeed(6000);
+    setSpeed(8000);
   }
 
   const clickWave = () => {
@@ -308,27 +306,34 @@ function Carousel() {
 
   return (
     <div className='carousel-container'>
-      <div className={`introduction ${finished? "active" : ""}`} />
+      <div className={`introduction ${finished ? "active" : ""}`} />
 
       <div className={`hero-main ${!finished ? "intro" : ""}`}>
         <div className="presentation" onClick={() => setFinished(true)}>
-          <div
-            className={`friendlyWave ${hand ? "active" : ""}`}
-            onClick={clickWave}
-            title={lang === "eng" ? hand ? "Remove it please!" : "I want the waving hand back!" : hand ? "Bitte entferne es!" : "Ich möchte die winkende Hand zurück!"}
-          >
-            <img src="/images/hand.png" className="hand" />
-            {!hand &&
-              <img src="/images/thumb.png" className="thumb" />
-            }
-          </div>
+
           {homeContent &&
-            <>
-              <h1>{homeContent?.heading[lang]}</h1>
+            <div className="presText">
+              <h1>
+                {homeContent?.heading[lang]}
+                <div
+                  className={`friendlyWave ${hand ? "active" : ""}`}
+                  onClick={clickWave}
+                  title={lang === "eng" ? hand ? "Remove it please!" : "I want the waving hand back!" : hand ? "Bitte entferne es!" : "Ich möchte die winkende Hand zurück!"}
+                >
+                  <img src="/images/hand.png" className="hand" />
+                  {!hand &&
+                    <img src="/images/thumb.png" className="thumb" />
+                  }
+                </div>
+              </h1>
               <h2 className="title" data-title={homeContent?.subheading[lang]}>{homeContent?.subheading[lang]}</h2>
-            </>
+              <div className="presBtns">
+                <Button buttonSize='btn--large' path="/webdev">Web Projekte</Button>
+                <Button buttonSize='btn--large' path="/gamedev" buttonStyle='btn--outline'>Game Projekte</Button>
+              </div>
+            </div>
           }
-          <div className={`scrollHint ${hint ? "active" : ""}`}>
+          {/* <div className={`scrollHint ${hint ? "active" : ""}`}>
             <div
               className="scrollHint-Wrapper"
               title={lang === "eng" ? `Got it!\nRemove this hint!` : `Ok!\nEntferne diesen Hinweis!`}
@@ -337,7 +342,7 @@ function Carousel() {
               <i className="fa-solid fa-computer-mouse"></i>
               <i className="fa-solid fa-arrow-down"></i>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="project-previews">
@@ -353,10 +358,6 @@ function Carousel() {
                 </div>
               </div>
             }
-
-            <h3>
-              {lang === "eng" ? "Selected projects" : "Ausgewählte Projekte"}
-            </h3>
 
             <form id="carouselSettings" className={`settings-form ${settings ? "showSettings" : ""}`}>
               <label htmlFor='stop'>{lang === "eng" ? "Stop Carousel" : "Karussell stoppen"}

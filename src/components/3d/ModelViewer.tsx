@@ -7,6 +7,7 @@ import MeshCard from "./MeshCard";
 import ViewerCanvas from "./ViewerCanvas";
 import request from '../../request.json'
 import instance from "../network/axios";
+import "../../styles/css/WebDev.css"
 //styling in WebDev.sass
 
 type modelInfos = {

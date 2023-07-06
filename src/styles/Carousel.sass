@@ -15,17 +15,8 @@
     flex-direction: column
     align-items: center
     justify-content: flex-start
-    height: 38.5vw
-    height: 80vh //calc(var(--mobileInnerWidth) - $navHeight - 20px)
+    height: calc((42vw - (10px + globals.$navHeight)))
     background: none
-    &::before
-        position: absolute
-        bottom: 100%
-        content: ""
-        width: 100vw
-        height: calc(globals.$navHeight + 10px)
-        background-color: #203e69
-        z-index: 4
 
 /*.img-container figure
  animation: divIn 1s /*fade in the loaded carousel cards */
@@ -91,47 +82,46 @@
     width: $size
     height: $size
     border: none
-    border-radius: 8px
-    background-color: white
+    border-radius: 12px
+    background: rgba(#fff, 0.8)
     cursor: pointer
     transition: 0.15s
     z-index: 15
-    opacity: 0.65
-    box-shadow: globals.$btnShadowSmall
+    //box-shadow: globals.$btnShadowSmall
     pointer-events: all
     margin-left: 6px //so that the icons to its left are alignes with equal spacing
+    i
+        color: #151515
+        transition: 0.5s
+        pointer-events: none
 
 .settings-active
-    border-radius: 8px 8px 0 0
+    border-radius: 12px 12px 0 0
     opacity: 1
+    background: white
     //border-top: 1px solid grey
-    box-shadow: 0 -10px 15px -15px black inset, globals.$btnShadowSmall
+    //box-shadow: 0 -10px 15px -15px black inset, globals.$btnShadowSmall
+    i
+        color: black
 
     .fa-solid.fa-gear
         rotate: 180deg
         transition: 0.5s
-
-.fa-solid.fa-gear
-    color: black
-    transition: 0.5s
-    pointer-events: none
+    
 
 .carouSet-btn:hover
     opacity: 1
     transition: 0.2s
 
 .setbtn-container
-    //width: 40vw
-    //height: 25.5vw
     position: relative
     display: flex
-    justify-content: flex-end
-    align-items: flex-start
-    //flex-direction: column
     @include globals.flexCenter
+    justify-content: flex-end
     z-index: 200
     pointer-events: none
     width: 100%
+    transition: 0.25s
     .progress-container
         //outline: 2px dashed red
         margin: 0 6px
@@ -151,21 +141,13 @@
                 stroke: rgba(#ffffff, 0.25)
             circle.progress
                 fill: none
-                //stroke-dasharray: 1px, 200px
-                //stroke-dashoffset: -60px
                 stroke: rgba(#fff, 0.9)
                 stroke-linecap: round
-                transition: 8s
                 stroke-dasharray: 1px, 200px
                 stroke-dashoffset: -60px
                 &.anim
-                    stroke-dasharray: 75px, 200px !important
-                    stroke-dashoffset: -4px !important
-                    //animation: progressAnim 3s linear
+                    animation: progressAnim 3s linear
                     @keyframes progressAnim
-                      0%
-                          stroke-dasharray: 1px, 200px
-                          stroke-dashoffset: -60px
                       100%
                           stroke-dasharray: 75px, 200px
                           stroke-dashoffset: -4px
@@ -287,6 +269,13 @@ input
         //background-color: red
         animation: wave2 37s infinite linear reverse
         z-index: -1
+    &::before
+        position: absolute
+        content: ""
+        bottom: 100%
+        width: 100%
+        height: calc(globals.$navHeight + 10px)
+        background: #203e69
 
 
 .hero-main
@@ -305,16 +294,22 @@ input
             margin-left: 25%
             transition: 0.2s
             h1
-                font-size: 3.5rem
+                font-size: 3.5rem !important
             h2
-                font-size: 2rem
+                font-size: 2rem !important
                 animation-delay: 1.5s
                 animation: rollTop 1s
             .friendlyWave
-                right: 106%
-                top: calc(50% - 45px)
+                right: 104.5%
+                top: 10px
                 img
-                    width: 80px !important
+                    width: 70px !important
+            .presBtns 
+                button
+                    transform: translateX(120px) !important
+                    opacity: 0 !important
+                    pointer-events: none !important
+
         .project-previews
             width: 0 !important
             opacity: 0
@@ -324,37 +319,26 @@ input
         @include globals.flexCenter
         flex-direction: column
         align-items: flex-start
-        justify-content: flex-end
         position: relative
         padding: 5px
         margin-left: 0
         width: 25vw
         min-width: 250px
-        //outline: 2px dashed orange
         color: white
-        //text-shadow: 0 0 30px rgba(black, 40%)
         transition: 0.2s
         .friendlyWave
             @keyframes handWave
                 0%
                     rotate: -45deg
-                    filter: blur(0)
-                10%
-                    filter: blur(0.75px)
                 50%
                     rotate: 45deg
-                    filter: blur(0)
-                60%
-                    filter: blur(0.75px)
                 100%
                     rotate: -45deg
-                    filter: blur(0)
             
             position: absolute
-            right: 102.5%
+            right: 103.5%
+            bottom: -25%
             cursor: pointer
-            //outline: 2px dashed red
-            top: calc(50% - 40px)
             transition: 0.2s
             &.active
                 animation: handWave 1.75s infinite
@@ -393,14 +377,24 @@ input
                 animation: thumbOk 0.66s forwards
                 position: absolute
                 left: 0
-        h1
-            font-size: 2.5rem
-            transition: 0.2s
-        h2
-            font-weight: normal
-            font-size: 1.25rem
-            transition: 0.2s
-            //color: #333
+        .presText
+            h1
+                font-size: 2.5rem
+                transition: 0.2s
+                position: relative
+            h2
+                font-weight: normal
+                font-size: 1.25rem
+                transition: 0.2s
+                //color: #333
+            .presBtns
+                margin-top: 20px
+                display: flex
+                gap: 12px
+                button
+                    pointer-events: all
+                    opacity: 1
+                    transform: none
         .scrollHint
             height: 40%
             width: 100%
@@ -455,6 +449,8 @@ input
             width: 40vw
         &:hover
             h3
+                opacity: 1
+            .setbtn-container
                 opacity: 1
 
 

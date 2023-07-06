@@ -42,18 +42,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  height: 38.5vw;
-  height: 80vh;
+  height: calc(42vw - 75px);
   background: none;
-}
-.carousel-container::before {
-  position: absolute;
-  bottom: 100%;
-  content: "";
-  width: 100vw;
-  height: 75px;
-  background-color: #203e69;
-  z-index: 4;
 }
 
 /*.img-container figure
@@ -120,31 +110,31 @@
   width: 30px;
   height: 30px;
   border: none;
-  border-radius: 8px;
-  background-color: white;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.8);
   cursor: pointer;
   transition: 0.15s;
   z-index: 15;
-  opacity: 0.65;
-  box-shadow: 0 2px rgba(0, 0, 0, 0.5);
   pointer-events: all;
   margin-left: 6px;
 }
+.carouSet-btn i {
+  color: #151515;
+  transition: 0.5s;
+  pointer-events: none;
+}
 
 .settings-active {
-  border-radius: 8px 8px 0 0;
+  border-radius: 12px 12px 0 0;
   opacity: 1;
-  box-shadow: 0 -10px 15px -15px black inset, 0 2px rgba(0, 0, 0, 0.5);
+  background: white;
+}
+.settings-active i {
+  color: black;
 }
 .settings-active .fa-solid.fa-gear {
   rotate: 180deg;
   transition: 0.5s;
-}
-
-.fa-solid.fa-gear {
-  color: black;
-  transition: 0.5s;
-  pointer-events: none;
 }
 
 .carouSet-btn:hover {
@@ -155,14 +145,14 @@
 .setbtn-container {
   position: relative;
   display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
   display: flex;
   align-items: center;
   justify-content: center;
+  justify-content: flex-end;
   z-index: 200;
   pointer-events: none;
   width: 100%;
+  transition: 0.25s;
 }
 .setbtn-container .progress-container {
   margin: 0 6px;
@@ -189,19 +179,13 @@
   fill: none;
   stroke: rgba(255, 255, 255, 0.9);
   stroke-linecap: round;
-  transition: 8s;
   stroke-dasharray: 1px, 200px;
   stroke-dashoffset: -60px;
 }
 .setbtn-container .progress-container svg.progressAnim circle.progress.anim {
-  stroke-dasharray: 75px, 200px !important;
-  stroke-dashoffset: -4px !important;
+  animation: progressAnim 3s linear;
 }
 @keyframes progressAnim {
-  0% {
-    stroke-dasharray: 1px, 200px;
-    stroke-dashoffset: -60px;
-  }
   100% {
     stroke-dasharray: 75px, 200px;
     stroke-dashoffset: -4px;
@@ -340,6 +324,14 @@ input {
   animation: wave2 37s infinite linear reverse;
   z-index: -1;
 }
+.introduction::before {
+  position: absolute;
+  content: "";
+  bottom: 100%;
+  width: 100%;
+  height: 75px;
+  background: #203e69;
+}
 
 .hero-main {
   display: flex;
@@ -356,19 +348,24 @@ input {
   transition: 0.2s;
 }
 .hero-main.intro .presentation h1 {
-  font-size: 3.5rem;
+  font-size: 3.5rem !important;
 }
 .hero-main.intro .presentation h2 {
-  font-size: 2rem;
+  font-size: 2rem !important;
   animation-delay: 1.5s;
   animation: rollTop 1s;
 }
 .hero-main.intro .presentation .friendlyWave {
-  right: 106%;
-  top: calc(50% - 45px);
+  right: 104.5%;
+  top: 10px;
 }
 .hero-main.intro .presentation .friendlyWave img {
-  width: 80px !important;
+  width: 70px !important;
+}
+.hero-main.intro .presentation .presBtns button {
+  transform: translateX(120px) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 .hero-main.intro .project-previews {
   width: 0 !important;
@@ -382,7 +379,6 @@ input {
   justify-content: center;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: flex-end;
   position: relative;
   padding: 5px;
   margin-left: 0;
@@ -393,29 +389,20 @@ input {
 }
 .hero-main .presentation .friendlyWave {
   position: absolute;
-  right: 102.5%;
+  right: 103.5%;
+  bottom: -25%;
   cursor: pointer;
-  top: calc(50% - 40px);
   transition: 0.2s;
 }
 @keyframes handWave {
   0% {
     rotate: -45deg;
-    filter: blur(0);
-  }
-  10% {
-    filter: blur(0.75px);
   }
   50% {
     rotate: 45deg;
-    filter: blur(0);
-  }
-  60% {
-    filter: blur(0.75px);
   }
   100% {
     rotate: -45deg;
-    filter: blur(0);
   }
 }
 .hero-main .presentation .friendlyWave.active {
@@ -469,14 +456,25 @@ input {
     opacity: 0;
   }
 }
-.hero-main .presentation h1 {
+.hero-main .presentation .presText h1 {
   font-size: 2.5rem;
   transition: 0.2s;
+  position: relative;
 }
-.hero-main .presentation h2 {
+.hero-main .presentation .presText h2 {
   font-weight: normal;
   font-size: 1.25rem;
   transition: 0.2s;
+}
+.hero-main .presentation .presText .presBtns {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+}
+.hero-main .presentation .presText .presBtns button {
+  pointer-events: all;
+  opacity: 1;
+  transform: none;
 }
 .hero-main .presentation .scrollHint {
   height: 40%;
@@ -550,6 +548,9 @@ input {
   width: 40vw;
 }
 .hero-main .project-previews:hover h3 {
+  opacity: 1;
+}
+.hero-main .project-previews:hover .setbtn-container {
   opacity: 1;
 }
 

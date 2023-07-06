@@ -43,19 +43,13 @@ figure
         transition: 0.2s
         content: attr(data-title)
         position: absolute
-        $distance: 3px
-        bottom: $distance
-        right: $distance
-        background: #fff
-        padding: 5px 15px
-        border-radius: 11px
-        text-align: center
+        $distance: 6px
+        bottom: calc(100% + 6px)
+        left: 0
         font-size: 0.85rem
-        font-weight: 600
-        color: #222
-        box-shadow: globals.$shadow inset
+        font-weight: 300
+        color: rgba(#fff, 0.8)
         z-index: 10
-        backdrop-filter: blur(6px) invert(0.25)
 
 /*Images*/
 .carouselImg

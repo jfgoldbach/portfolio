@@ -76,18 +76,12 @@ figure::after {
   transition: 0.2s;
   content: attr(data-title);
   position: absolute;
-  bottom: 3px;
-  right: 3px;
-  background: #fff;
-  padding: 5px 15px;
-  border-radius: 11px;
-  text-align: center;
+  bottom: calc(100% + 6px);
+  left: 0;
   font-size: 0.85rem;
-  font-weight: 600;
-  color: #222;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2) inset;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.8);
   z-index: 10;
-  backdrop-filter: blur(6px) invert(0.25);
 }
 
 /*Images*/

@@ -2,7 +2,6 @@ import './styles/css/Combined.css';
 import './styles/css/AboutMe.css'
 import './styles/css/Button.css'
 import './styles/css/Cards.css'
-import './styles/css/Carousel.css'
 import './styles/css/Contact.css'
 import './styles/css/Datenschutz.css'
 import './styles/css/DemandPick.css'
@@ -20,7 +19,6 @@ import './styles/css/SkillCard.css'
 import './styles/css/Subpages.css'
 import './styles/css/Tooltip.css'
 import './styles/css/UnderConstruction.css'
-import './styles/css/WebDev.css'
 import './styles/css/WebdevMain.css'
 import './styles/css/ZoomImage.css'
 import './styles/css/Changer.css'
@@ -141,7 +139,6 @@ function App() {
 
 
   useEffect(() => {
-    console.log("app useeffect")
     document.documentElement.style.setProperty("--initialHeight", `${window.innerHeight}px`)
 
     window.addEventListener("resize", updateVPsize)
@@ -191,7 +188,7 @@ function App() {
   }, [])
 
   useEffect(() => {
-    console.log("ready", ready)
+    //console.log("ready", ready)
     if (ready) {
       instance.get("?type=style&name=skillcards", { headers: { "jwt": sessionStorage.getItem("jwt") } })
         .then(response => response.data)
