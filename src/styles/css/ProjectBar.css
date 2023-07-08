@@ -59,21 +59,47 @@
   align-items: center;
   top: -20px;
   left: -15vw;
-  width: 15vw;
   max-height: 100vh;
   margin-top: 10px;
   transition: 0.2s;
   z-index: 50;
-  animation: slideLeft 0.5s;
   border-right: 2px dashed transparent;
 }
-.project-bar.webdev {
-  background: linear-gradient(90deg, #5e8aac 30%, transparent);
-  background-repeat: no-repeat;
-  background-position-x: -15vw;
+.project-bar.closed {
+  transform: translateX(calc(-100% + 40px));
 }
-.project-bar.gamedev {
-  background: linear-gradient(90deg, #5e8aac 30%, transparent);
+.project-bar .expandBtn {
+  padding: 10px 0;
+  width: 40px;
+  border-radius: 0 8px 8px 0;
+  border: none;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}
+.project-bar .expandBtn p {
+  writing-mode: vertical-lr;
+  text-orientation: sideways-right;
+  letter-spacing: 0.5px;
+  font-size: 0.7rem;
+  rotate: 180deg;
+  color: #333;
+  transition: 0.2s;
+  width: 12px;
+}
+.project-bar .expandBtn p.invis {
+  width: 0;
+  opacity: 0;
+}
+.project-bar .expandBtn i {
+  padding: 3px;
+  transition: 0.15s;
+}
+.project-bar .expandBtn i.open {
+  rotate: 180deg;
 }
 .project-bar.zero-height {
   height: 0px;
@@ -89,23 +115,6 @@
   }
   .project-bar:hover .thumbnail-container {
     aspect-ratio: 1/1;
-  }
-  .project-bar:hover .item-container {
-    opacity: 1;
-    filter: none;
-    max-height: calc(100% - 20px);
-    width: 105px;
-    padding: 15px 25px;
-    padding-bottom: 35px;
-    transition: 0.2s all;
-    gap: 50px;
-    overflow-y: auto;
-  }
-  .project-bar:hover .project-title {
-    display: block !important;
-  }
-  .project-bar:hover .thumbnailWrapper .fa-solid.fa-wrench {
-    display: block !important;
   }
 }
 @media screen and (max-width: 800px) {
@@ -126,16 +135,15 @@
   justify-content: space-between;
   gap: 12px;
   padding: 10px;
-  background-color: rgb(85, 81, 97);
+  background-color: rgba(255, 255, 255, 0.5);
   overflow: hidden;
   transition: 0.2s all;
-  border-radius: 0 16px 16px 0;
-  width: 75px;
+  border-radius: 16px;
   height: fit-content;
   max-height: 500px;
   overflow: hidden;
-  filter: saturate(0.5);
-  opacity: 0.8;
+  margin-left: 16px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
 }
 .item-container.zero-height {
   transition: 1.2s;

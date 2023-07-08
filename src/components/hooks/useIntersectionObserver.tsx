@@ -5,7 +5,7 @@ export default function useIntersectionObserver (targetRef: React.MutableRefObje
 
     const opts = useMemo(() => { //only change when options has different values
         return {
-            root: null,
+            root: null, // = viewport
             rootMargin: rootMargin,
             threshold: threshold
         }

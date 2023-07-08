@@ -26,13 +26,16 @@
         border-radius: 16px
         right: 16px
         top: 50%
-        transform: translateY(-50%)
+        transform: translateY(-50%) translateX(125%)
+        transition: transform 0.25s
         padding: 20px
         z-index: 100
         box-shadow: globals.$shadow
         display: flex
         flex-direction: column
         gap: 14px
+        &.active
+            transform: translateY(-50%) translateX(0)
         h1
             @include contentsH1
         .contentLinks

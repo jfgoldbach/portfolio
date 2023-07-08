@@ -31,33 +31,6 @@ function Overview({ notepads }: overviewProps) {
                             />
                         )
                     }
-                    {/* <StickyNote
-                        title="Web development"
-                        source="images/web_development.jpg"
-                        path="/webdev"
-                        text="Websites, applications that are accesiable through your browser and everything inbetween"
-                    />
-
-                    <StickyNote
-                        mirrored
-                        title="Game development"
-                        source="images/ue4.jpg"
-                        path="/gamedev"
-                        text="Making games and creating their gameplay, but also the technical side of it. Subpage is in construction."
-                    />
-
-                    <StickyNote
-                        title="Photography"
-                        source="images/photography.jpg"
-                        text="Taking photos. Coming soon."
-                    />
-
-                    <StickyNote
-                        mirrored
-                        title="CGI"
-                        source="images/cgi.jpg"
-                        text="Computer generated imagery: rendered pictures of 3D models or environments. Coming soon."
-                    /> */}
                 </div>
             }
         </>

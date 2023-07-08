@@ -49,13 +49,17 @@
   border-radius: 16px;
   right: 16px;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%) translateX(125%);
+  transition: transform 0.25s;
   padding: 20px;
   z-index: 100;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   gap: 14px;
+}
+.calculator-container .contents-side.active {
+  transform: translateY(-50%) translateX(0);
 }
 .calculator-container .contents-side h1 {
   font-weight: bold;

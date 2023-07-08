@@ -1,7 +1,7 @@
-import React, {useContext, useEffect} from 'react'
-import { OverviewContext } from '../App'
+import React, {useContext, useEffect, useState} from 'react'
+import { LangContext, OverviewContext } from '../App'
 import ProjectThumbnail from './ProjectThumbnail'
-//import '/styles/css/ProjectBar.css'
+import '../styles/css/ProjectBar.css'
 
 type barProps = {
   type: string
@@ -9,24 +9,25 @@ type barProps = {
 
 function ProjectBar(props: barProps) {
   const {overview} = useContext(OverviewContext)
-
-  //useEffect(() => {
-  //    if(props.scroll>50){
-  //      document.getElementById('bar')?.classList.add('zero-height');
-  //      document.getElementById('bar_item_container')?.classList.add('zero-height');
-  //    } else{
-  //      document.getElementById('bar')?.classList.remove('zero-height');
-  //      document.getElementById('bar_item_container')?.classList.remove('zero-height');
-  //    }
-  //}, [props.scroll])
+  const {lang} = useContext(LangContext)
+  const [open, setOpen] = useState(false)
 
   return (
-    <div id='bar' className={`project-bar ${props.type}`}>
+    <div id='bar' className={`project-bar ${props.type} ${open? "" : "closed"}`}>
         <div id='bar_item_container' className='item-container'>
           {overview.map(project => 
-            <ProjectThumbnail link={`/${project.link}`} source={project.thumbnail} name={project.name} wip={project.info === "inConstruction"} />
+            <ProjectThumbnail 
+              link={`/${project.link}`} 
+              source={project.thumbnail} 
+              name={project.name} 
+              wip={project.info === "inConstruction"} 
+            />
           )}
         </div>
+        <button className='expandBtn' onClick={() => setOpen(prev => !prev)}>
+          <p className={open? "invis" : ""}>{lang === "eng" ? "Projects" : "Projekte"}</p>
+          <i className={`fa-solid fa-angles-right ${open? "open" : ""}`}></i>
+        </button>
     </div>
   )
 }

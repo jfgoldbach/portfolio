@@ -9,6 +9,8 @@ import Loading from "../../helper/Loading"
 import Error from "../../Info/Error"
 import Button from "../../Button"
 import useIntersectionObserver from "../../hooks/useIntersectionObserver"
+import ErrorInfo from "../../helper/ErrorInfo"
+import BlurredBg from "../../visuals/BlurredBg"
 
 
 type pageProps = {
@@ -53,11 +55,11 @@ type err = {
 function Subpage({ index }: pageProps) {
 
   const [content, setContent] = useState<sects>({} as sects)
-  const [error, setError] = useState<err>()
+  const [error, setError] = useState<err | undefined>()
   const { lang } = useContext(LangContext)
   const { overview } = useContext(OverviewContext)
   const contentsRef = useRef<HTMLDivElement>(null)
-  const contentsVisible = useIntersectionObserver(contentsRef, 0)
+  //const contentsVisible = useIntersectionObserver(contentsRef, 0)
   const [sideCont, SetSideCont] = useState(false)
 
   //let contentsWidth = Math.ceil(content.sections.length/4) //error because sections has to be fetched and is not defined from the start
@@ -71,11 +73,9 @@ function Subpage({ index }: pageProps) {
       .catch(error => setError(error))
   }
 
-  useEffect(() => {
-    if(contentsVisible && !sideCont){
-      SetSideCont(true)
-    }
-  }, [contentsVisible, sideCont])
+  //useEffect(() => {
+  //  console.log("contentsVisible", contentsVisible)
+  //}, [contentsVisible])
 
   useEffect(() => {
     console.log("sideCont", sideCont)
@@ -92,6 +92,13 @@ function Subpage({ index }: pageProps) {
       metaIcon.href = "/images/favicon_webdev.ico"
     }
     document.title = `${lang === "eng" ? "Loading..." : "Lädt..."} | Julian Goldbach`
+
+    const scrollCont = () => { SetSideCont(window.scrollY > 100) }
+    window.addEventListener("scroll", scrollCont)
+
+    return (() => {
+      window.removeEventListener("scroll", scrollCont)
+    })
   }, [])
 
   useEffect(() => {
@@ -111,22 +118,12 @@ function Subpage({ index }: pageProps) {
     }
   }, [error])
 
-  {/* <div className="dbLoad info-container">
-              <img src="/images/loading.png" width={"10px"}></img>
-              <p>{lang === "eng"  ? "Loading article from database..." : "Lade Artikel aus Datenbank..."}</p>
-            </div>  */}
-
   return (
     <div className="calculator-container">
-      <div className="blurBackground">
-        <div className="object1"></div>
-        <div className="object3"></div>
-        <div className="object2"></div>
-        <div className="blurer"></div>
-      </div>
+      <BlurredBg />
 
-      {sideCont && content.name !== undefined && content.sections[lang as langs] !== undefined && content.sections[lang as langs].length > 2 &&
-        < div className="contents-side">
+      {content.name !== undefined && content.sections[lang as langs] !== undefined && content.sections[lang as langs].length > 2 &&
+        < div className={`contents-side ${sideCont ? "active" : ""}`}>
           <h1>{lang === "eng" ? "Contents" : "Inhalt"}</h1>
           <div className="contentLinks">
             {content.sections[lang as langs].map(i =>
@@ -145,7 +142,7 @@ function Subpage({ index }: pageProps) {
         }
 
         {error !== undefined &&
-          <Error error={error} />
+          <ErrorInfo />
         }
 
         {(content.info !== undefined && content.info !== "") &&
@@ -189,18 +186,11 @@ function Subpage({ index }: pageProps) {
                         <p>{lang === "eng" ? "View live" : "Live ansehen"}</p>
                         <p>🔴</p>
                       </Button>
-                      /*<a href={content.liveLink} target='_blank' className='btn'>
-                        <p>{lang === "eng" ? "View live" : "Live ansehen"}</p>
-                        <p>🔴</p>
-                      </a>*/
                     }
                     {content.githubLink !== "" &&
                       <Button buttonStyle="btn--dark" buttonSize="btn--medium" path={content.githubLink} outsidePath>
                         {lang === "eng" ? "View on Github" : "Auf Github ansehen"} <i className="fa-brands fa-github"></i>
                       </Button>
-                      /*<a href={content.githubLink} target='_blank' className='btn'>
-                        {lang === "eng" ? "View on Github" : "Auf Github ansehen"} <i className="fa-brands fa-github"></i>
-                      </a>*/
                     }
 
                   </div>
