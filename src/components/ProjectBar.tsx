@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useContext, useEffect, useRef, useState} from 'react'
 import { LangContext, OverviewContext } from '../App'
 import ProjectThumbnail from './ProjectThumbnail'
 import '../styles/css/ProjectBar.css'
@@ -11,12 +11,22 @@ function ProjectBar(props: barProps) {
   const {overview} = useContext(OverviewContext)
   const {lang} = useContext(LangContext)
   const [open, setOpen] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  /* useEffect(() => {
+    const elem = containerRef.current
+    if(elem){
+      elem.style.width = `${elem.scrollWidth}px`
+      console.log(elem.scrollWidth)
+    }
+  }, [containerRef]) */
 
   return (
-    <div id='bar' className={`project-bar ${props.type} ${open? "" : "closed"}`}>
+    <div id='bar' ref={containerRef} className={`project-bar ${props.type} ${open? "" : "closed"}`}>
         <div id='bar_item_container' className='item-container'>
           {overview.map(project => 
-            <ProjectThumbnail 
+            <ProjectThumbnail
+              showTitle 
               link={`/${project.link}`} 
               source={project.thumbnail} 
               name={project.name} 

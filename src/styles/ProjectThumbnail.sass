@@ -1,6 +1,6 @@
-@import globals
+@use 'globals'
 
-$height: calc($projbarHeight *0.9)
+$height: calc(globals.$projbarHeight *0.9)
 
 .thumbnailWrapper
     position: relative
@@ -8,7 +8,9 @@ $height: calc($projbarHeight *0.9)
     width: 100%
     overflow: visible
     display: flex
+    flex-direction: column
     align-items: center
+    gap: 2px
     .fa-solid.fa-wrench
         position: absolute
         z-index: 10
@@ -35,40 +37,28 @@ $height: calc($projbarHeight *0.9)
     cursor: pointer
     background-color: rgba(0,0,0,0.5)
     border-radius: 8px
-    box-shadow: $shadow2
-    @media screen and (min-width: $mobileBreakpoint)
+    box-shadow: globals.$shadow2
+    @media screen and (min-width: globals.$mobileBreakpoint)
         width: 50px
         height: 50px
         &:hover
-            outline: 2px solid $active
+            outline: 2px solid globals.$active
             transition: 0.1s
-            //.project-title
-            //    transition: 0.15s
-            //    font-weight: 600
-            //    font-size: 1.25rem
-            //    opacity: 1
-            //img
-            //    filter: blur(4px) saturate(0.5)
-            //    transition: 0.15s
-            //    opacity: 0.5
     &.small
         min-width: 130px
         height: 70px
         border-radius: 8px
-        //box-shadow: 0 0 8px -2px black
         img
             width: 100%
             height: 100%
             object-fit: cover
         &:hover
             border: 2px solid white
-        .project-title
-            display: none
         &.active
             box-shadow: none
     &.active
-        border: 2px solid $active
-        box-shadow: 0 0 10px $active
+        border: 2px solid globals.$active
+        //box-shadow: 0 0 10px globals.$active
     img
         border: none
         border-radius: 0
@@ -80,7 +70,7 @@ $height: calc($projbarHeight *0.9)
         transition: 0.15s
         opacity: 1
     
-    @media screen and (max-width: $mobileBreakpoint)
+    @media screen and (max-width: globals.$mobileBreakpoint)
         &.active
             border-width: 4px
             img
@@ -90,64 +80,21 @@ $height: calc($projbarHeight *0.9)
                 object-fit: cover
 
 
-//.project-title
-//    display: flex
-//    justify-content: center
-//    align-items: center
-//    position: absolute
-//    z-index: 3
-//    content: ''
-//    color: white
-//    text-shadow: 0 0 10px black
-//    transition: 0.075s
-//    max-width: 100%
-//    text-align: center
-//    opacity: 0
-//    font-weight: 600
-//    font-size: 1.25rem
-//    font-size: 1.5rem
-
 .project-title
-    position: absolute
-    top: 110%
-    left: 50%
-    transform: translateX(-50%)
     font-size: 0.75rem
     z-index: 100
-    color: white
-    width: 100px
+    color: #252525
+    max-width: 100px
+    padding: 1px 4px
+    border-radius: 12px
     text-align: center
-    display: none
-    opacity: 0.75
-    
+    background: rgba(#fff, 0.65)
+    box-shadow: globals.$shadow
+    &.active
+        background: globals.$active
+        color: #fff
 
 
 .thumbnail-container.small img
     filter: none
     opacity: 1
-
-//@media screen and (max-width: 900px)
-//    .thumbnail-container
-//        width: 25vw
-//        max-width: 125px
-//
-//    .thumbnail-container img
-//        height: $height
-//        width: auto
-//        filter: none
-//        opacity: 1
-//
-//    .project-title
-//        display: none
-//
-//    //.thumbnail-container:hover
-    //    transition: 0
-    //    filter: brightness(1.33)
-    //    box-shadow: 0 0 10px white
-//
-    //.thumbnail-container:hover .project-title
-    //    font-size: 1.125rem
-    //    transition: 0
-    //    opacity: 1
-    //    background: white
-    //    color: black

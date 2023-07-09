@@ -168,22 +168,22 @@
 
 .zoomimage-container
   background-color: rgba(#222, 0.9)
-  //border-radius: 16px 16px 0 0
   display: none
   align-items: center
   justify-content: center
   position: absolute
   z-index: 100
   width: 100vw
-  height: 100vh //calc(var(--viewportHeight) - globals.$navHeight - 15px)
+  height: 100vh
   left: 50%
-  top: -10px //calc(globals.$navHeight + 5px)
+  top: -10px
   transform: translateX(-50%)
   backdrop-filter: blur(12px)
   animation: none
-  //border-top: 3px solid #ddd
   box-shadow: globals.$shadow
-  //border-top: 1px solid #888
+  transition: 0.15s
+  &.fadeOut
+    opacity: 0
   button
     z-index: 100
     position: absolute
@@ -249,6 +249,10 @@
   box-shadow: 0 0 20px rgba(0,0,0,0.5)
   max-height: 99vh
   cursor: zoom-out
+  transition: 0.15s
+  &.fadeOut
+    //opacity: 0
+    scale: 0.5
 
 @keyframes zoom_in
   0%

@@ -228,6 +228,10 @@
   backdrop-filter: blur(12px);
   animation: none;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  transition: 0.15s;
+}
+.zoomimage-container.fadeOut {
+  opacity: 0;
 }
 .zoomimage-container button {
   z-index: 100;
@@ -302,6 +306,10 @@
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   max-height: 99vh;
   cursor: zoom-out;
+  transition: 0.15s;
+}
+.zoomed-image.fadeOut {
+  scale: 0.5;
 }
 
 @keyframes zoom_in {

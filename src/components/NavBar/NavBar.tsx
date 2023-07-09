@@ -71,7 +71,17 @@ function NavBar(props: navProps) {
 
 
     const zoomClickHandler = () => {
-        document.getElementById('zoomcontain')?.classList.remove('showFlex');
+        const container = document.getElementById('zoomcontain')
+        const img = document.getElementById("zoomimage")
+        if(container && img){
+            img.classList.add("fadeOut")
+            container.classList.add("fadeOut")
+            setTimeout(() => {
+                container.classList.remove('showFlex')
+                img.classList.remove("fadeOut")
+                container.classList.remove("fadeOut")
+            }, 150);
+        }
     }
 
     const contactHandler = () => {
@@ -150,11 +160,6 @@ function NavBar(props: navProps) {
                         <img id='zoomimage' className='zoomed-image' src='../images/DivBreakerDocs/levels.jpg'></img>
                         <i className="fa-solid fa-magnifying-glass-minus"></i>
                     </div>
-                    {/* <div className="btnBg1" />
-                    <div className="btnBg2" />
-                    <Button onClick={zoomClickHandler}>
-                        <p>&times;</p>
-                    </Button> */}
                 </div>
 
                 {pathMatches && pathMatches.length > 0 &&

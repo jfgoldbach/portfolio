@@ -189,7 +189,8 @@ function Subpage({ index }: pageProps) {
                     }
                     {content.githubLink !== "" &&
                       <Button buttonStyle="btn--dark" buttonSize="btn--medium" path={content.githubLink} outsidePath>
-                        {lang === "eng" ? "View on Github" : "Auf Github ansehen"} <i className="fa-brands fa-github"></i>
+                        {lang === "eng" ? "View on Github" : "Repository"} 
+                        <i className="fa-brands fa-github"></i>
                       </Button>
                     }
 

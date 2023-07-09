@@ -44,8 +44,10 @@
   }
 }
 .calculator-container .contents-side {
+  background-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(12px);
   position: fixed;
-  background: #fff;
   border-radius: 16px;
   right: 16px;
   top: 50%;
@@ -67,6 +69,7 @@
   font-size: 1.125rem;
   width: 100%;
   text-align: center;
+  color: #333;
 }
 .calculator-container .contents-side .contentLinks {
   display: flex;
@@ -77,6 +80,9 @@
   gap: 16px;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+}
+.calculator-container .contents-side .contentLinks a {
+  color: #585858;
 }
 .calculator-container .contents-side .contentLinks a:hover {
   text-decoration: underline;
@@ -113,20 +119,17 @@
 .info-container {
   display: flex;
   gap: 20px;
-  width: 35%;
   align-items: center;
   justify-content: space-between;
   padding: 14px;
   border-radius: 16px;
-  border: 2px solid white;
   background-color: rgba(0, 0, 0, 0.4);
   color: rgb(220, 220, 220);
-  backdrop-filter: blur(8px);
   max-width: 90%;
 }
 
 .info-container p {
-  width: 100%;
+  padding: 0 32px;
 }
 
 .info-container .fa-solid.fa-circle-info {
@@ -134,14 +137,47 @@
 }
 
 .info-container.mildWarn {
-  background-color: rgba(80, 0, 0, 0.4);
-  border-color: rgb(187, 136, 136);
+  background-color: rgb(255, 103, 79);
+  color: #151515;
+  position: relative;
+  animation: swinging 4s infinite alternate ease-in-out;
+}
+@keyframes swinging {
+  from {
+    rotate: -3deg;
+    transform: translateX(10px);
+  }
+  to {
+    rotate: 3deg;
+    transform: translateX(-10px);
+  }
+}
+.info-container.mildWarn::after {
+  position: absolute;
+  content: "";
+  background: #111;
+  width: 5px;
+  height: 200px;
+  bottom: 35%;
+  border-radius: 16px;
+  left: 100px;
+  rotate: 45deg;
+}
+.info-container.mildWarn::before {
+  position: absolute;
+  content: "";
+  background: #111;
+  width: 5px;
+  height: 200px;
+  bottom: 35%;
+  border-radius: 16px;
+  right: 100px;
+  rotate: -45deg;
 }
 
 .info-container.mildWarn .fa-solid.fa-circle-info,
 .info-container.mildWarn .fa-solid.fa-triangle-exclamation {
-  font-size: 2rem;
-  color: rgb(228, 158, 158);
+  font-size: 1.5rem;
 }
 
 .info-container.attention {

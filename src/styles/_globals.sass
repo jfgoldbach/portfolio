@@ -57,6 +57,11 @@ $mobileBreakpoint: 800px
     top: 50%
     transform: translate(-50%, -50%)
 
+@mixin hoverElem
+    background-color: rgba(#fff, 0.6)
+    box-shadow: $shadow
+    backdrop-filter: blur(12px)
+
 @keyframes rollBottom
     0%
         opacity: 0

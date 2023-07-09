@@ -9,6 +9,7 @@ type thumbnailProps = {
   small?: boolean
   title?: string
   wip?: boolean
+  showTitle?: boolean
 }
 
 function ProjectThumbnail(props: thumbnailProps) {
@@ -28,7 +29,7 @@ function ProjectThumbnail(props: thumbnailProps) {
         {props.wip &&
           <i className="fa-solid fa-wrench" />
         }
-        <p className='project-title'>{props.name}</p>
+        {props.showTitle && <p className={`project-title ${location.pathname === props.link? "active" : ""}`}>{props.name}</p>}
     </div>
   )
 }

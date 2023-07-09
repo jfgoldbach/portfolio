@@ -32,7 +32,9 @@
   width: 100%;
   overflow: visible;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  gap: 2px;
 }
 .thumbnailWrapper .fa-solid.fa-wrench {
   position: absolute;
@@ -85,15 +87,11 @@
 .thumbnail-container.small:hover {
   border: 2px solid white;
 }
-.thumbnail-container.small .project-title {
-  display: none;
-}
 .thumbnail-container.small.active {
   box-shadow: none;
 }
 .thumbnail-container.active {
   border: 2px solid #31a6ff;
-  box-shadow: 0 0 10px #31a6ff;
 }
 .thumbnail-container img {
   border: none;
@@ -119,17 +117,19 @@
 }
 
 .project-title {
-  position: absolute;
-  top: 110%;
-  left: 50%;
-  transform: translateX(-50%);
   font-size: 0.75rem;
   z-index: 100;
-  color: white;
-  width: 100px;
+  color: #252525;
+  max-width: 100px;
+  padding: 1px 4px;
+  border-radius: 12px;
   text-align: center;
-  display: none;
-  opacity: 0.75;
+  background: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}
+.project-title.active {
+  background: #31a6ff;
+  color: #fff;
 }
 
 .thumbnail-container.small img {
