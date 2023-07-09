@@ -1,6 +1,7 @@
 //import '/styles/css/ProjectThumbnail.css'
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import '../styles/css/ProjectThumbnail.css'
 
 type thumbnailProps = {
   link: string

@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { LangContext, OverviewContext } from '../App'
 import Loading from './helper/Loading'
-//import '/styles/css/NotFound.css'
+import '../styles/css/NotFound.css'
 
 function NotFound() {
   const {lang} = useContext(LangContext)

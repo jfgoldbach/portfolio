@@ -2,15 +2,13 @@ import { useContext, useEffect, useRef, useState } from "react"
 import SkillCard from "../../SkillCard"
 import ZoomImage from "../../ZoomImage"
 import Info from './Info.json'
-//import '/styles/css/Subpages.css'
 import { LangContext, OverviewContext } from "../../../App"
 import instance from "../../network/axios"
 import Loading from "../../helper/Loading"
-import Error from "../../Info/Error"
 import Button from "../../Button"
-import useIntersectionObserver from "../../hooks/useIntersectionObserver"
 import ErrorInfo from "../../helper/ErrorInfo"
 import BlurredBg from "../../visuals/BlurredBg"
+import '../../../styles/css/Subpages.css'
 
 
 type pageProps = {

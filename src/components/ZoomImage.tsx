@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import useIntersectionObserver from './hooks/useIntersectionObserver'
-//import 'styles/css/ZoomImage.css'
+import '../styles/css/ZoomImage.css'
 
 type imageProps = {
   source: string

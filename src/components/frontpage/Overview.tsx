@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react"
 import { LangContext, OverviewContext } from "../../App"
 import { dbNotepadsType } from "../../types/types"
 import { StickyNote } from "./StickyNote"
-//import "/styles/css/Overview.css"
+import '../../styles/css/Overview.css'
 
 type overviewProps = {
     notepads: dbNotepadsType

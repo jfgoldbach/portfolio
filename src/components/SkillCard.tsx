@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from 'react'
 import TooltipMatchProjects from './helper/TooltipMatchProjects'
 import { forwardRef } from 'react'
 import { skillstyleContext } from '../App'
-//import '/styles/css/SkillCard.css'
+import '../styles/css/SkillCard.css'
 
 type skillProps = {
   children?: any

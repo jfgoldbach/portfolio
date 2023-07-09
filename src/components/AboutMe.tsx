@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from 'react'
 import { LangContext } from '../App'
 import { dbDualangType, dbSkillSecType } from '../types/types'
 import CharCanvas from './3d/CharCanvas'
-//import 'src/styles/css/AboutMe.css'
+import '../styles/css/AboutMe.css'
 
 import SkillCard from './SkillCard'
 import { introContext } from './pages/Home'

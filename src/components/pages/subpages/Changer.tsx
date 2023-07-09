@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react"
-import { Navigate, Outlet, useLocation, useParams } from "react-router-dom"
+import { Navigate, Outlet, useParams } from "react-router-dom"
 import Button from "../../Button"
-import request from '../../../request.json'
-import axios from "axios"
 import useCheckJWT from "../../hooks/useCheckJWT"
 import LangChange from "../../NavBar/LangChange"
 import instance from "../../network/axios"
 import Loading from "../../helper/Loading"
 import { jwtPayload } from "../../../types/types"
+import '../../../styles/css/Changer.css'
 
 
 type apNavigation = {

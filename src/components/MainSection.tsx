@@ -1,6 +1,5 @@
-//import '/styles/css/App.css'
 import Button from './Button'
-//import '/styles/css/MainSection.css'
+import '../styles/css/MainSection.css'
 
 
 function MainSection() {

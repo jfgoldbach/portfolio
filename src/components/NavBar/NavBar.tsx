@@ -1,11 +1,11 @@
 import { useState, useEffect, useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-//import '/styles/css/NavBar.css'
 import Button from '../Button'
 import Datenschutz from '../Datenschutz'
 import { LangContext } from '../../App'
 import ProjectBar from '../ProjectBar'
 import LangChange from './LangChange'
+import '../../styles/css/NavBar.css'
 
 
 type navProps = {

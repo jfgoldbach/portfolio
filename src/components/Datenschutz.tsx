@@ -1,6 +1,7 @@
-//import "/styles/css/Datenschutz.css"
-
+import '../styles/css/Datenschutz.css'
 import { useEffect, useState } from "react"
+
+
 
 function Datenschutz() {
   const [lr, setLr] = useState("bottom")

@@ -1,5 +1,5 @@
 import ProjectThumbnail from "../ProjectThumbnail"
-//import "/styles/css/Tooltip.css"
+import '../../styles/css/Tooltip.css'
 import $ from 'jquery'
 import { useContext, useEffect, useState } from "react"
 import { LangContext, OverviewContext } from "../../App"

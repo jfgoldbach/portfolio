@@ -1,26 +1,4 @@
-import './styles/css/Combined.css';
-import './styles/css/AboutMe.css'
-import './styles/css/Button.css'
-import './styles/css/Cards.css'
-import './styles/css/Contact.css'
-import './styles/css/Datenschutz.css'
-import './styles/css/DemandPick.css'
-import './styles/css/Footer.css'
-import './styles/css/Loading.css'
-import './styles/css/MainSection.css'
-import './styles/css/NavBar.css'
-import './styles/css/NotFound.css'
-import './styles/css/Overview.css'
-import './styles/css/ParticleCode.css'
-import './styles/css/ProjectCards.css'
-import './styles/css/ProjectThumbnail.css'
-import './styles/css/SkillCard.css'
-import './styles/css/Subpages.css'
-import './styles/css/Tooltip.css'
-import './styles/css/UnderConstruction.css'
-import './styles/css/WebdevMain.css'
-import './styles/css/ZoomImage.css'
-import './styles/css/Changer.css'
+import './styles/css/Combined.css'
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -34,18 +12,14 @@ import NotFound from './components/NotFound';
 import Subpage from './components/pages/subpages/Subpage';
 import { createContext, useEffect, useState } from 'react';
 import WebdevMain from './components/pages/WebdevMain';
-import axios from 'axios';
 import GamedevMain from './components/pages/GamedevMain';
 import GameDev from './components/pages/GameDev';
 import ModelViewer from './components/3d/ModelViewer';
-import request from './request.json'
 import ChangerLogin from './components/pages/ChangerLogin';
 import Changer from './components/pages/subpages/Changer';
-import APlogin from './components/pages/adminPanel/APlogin';
 import useCheckJWT from './components/hooks/useCheckJWT';
 import instance from './components/network/axios';
 import APcontent from './components/pages/adminPanel/APcontent';
-import { dbSkillcardType } from './types/types';
 import { ToastContainer, toast } from 'react-toastify';
 
 

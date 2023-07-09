@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import { MouseEventHandler, useContext, useEffect, useState } from "react"
 import { LangContext, OverviewContext } from "../../App"
 import $ from 'jquery'
+import '../../styles/css/ProjectCards.css'
 
 type cardsprops = {
   index: number,
