@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Navigate, Outlet, useParams } from "react-router-dom"
 import Button from "../../Button"
 import useCheckJWT from "../../hooks/useCheckJWT"
@@ -7,6 +7,8 @@ import instance from "../../network/axios"
 import Loading from "../../helper/Loading"
 import { jwtPayload } from "../../../types/types"
 import '../../../styles/css/Changer.css'
+import { toast } from "react-toastify"
+import { LangContext } from "../../../App"
 
 
 type apNavigation = {
@@ -25,6 +27,7 @@ type apNavigation = {
 
 
 export default function Changer() {
+    const { lang } = useContext(LangContext)
     const { content_id } = useParams()
     const [apContent, setAPcontent] = useState<apNavigation>()
     const [error, setError] = useState<string>()
@@ -37,6 +40,7 @@ export default function Changer() {
     useEffect(() => {
         const token = sessionStorage.getItem("jwt")
         if (token) {
+            console.log(token)
             const payload: jwtPayload = JSON.parse(atob(token.split(".")[1]))
             if (payload.admin) {
                 setAdmin(payload.admin)
@@ -44,13 +48,14 @@ export default function Changer() {
                 console.error("Send access token doesn't have the admin property in its payload.")
             }
 
-            instance.get("?type=adminPanel",{headers: {"jwt": sessionStorage.getItem("jwt")}})
+            instance.get("?type=adminPanel", { headers: { "jwt": sessionStorage.getItem("jwt") } })
                 .then(response => response.data)
                 .then(result => setAPcontent(result))
                 .catch(error => setError(error))
         } else {
             console.error("No token found.")
             setError("No token found.")
+            toast.error(lang === "eng" ? "Cant access without valid token" : "Zugang ohne gültigen Token nicht gestatet")
         }
 
         document.title = "Julian Goldbach - Admin panel"
@@ -62,10 +67,10 @@ export default function Changer() {
 
     useEffect(() => {
         const metaIcon: HTMLLinkElement = document.getElementById("icon") as HTMLLinkElement
-        if(metaIcon){
-            metaIcon.href = admin? "/images/favicon_ap_admin.ico" : "/images/favicon_ap_guest.ico"
+        if (metaIcon) {
+            metaIcon.href = admin ? "/images/favicon_ap_admin.ico" : "/images/favicon_ap_guest.ico"
         }
-        document.title = `Admin panel as ${admin? "Admin" : "Guest"}`
+        document.title = `Admin panel as ${admin ? "Admin" : "Guest"}`
     }, [admin])
 
 

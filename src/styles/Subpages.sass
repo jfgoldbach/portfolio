@@ -98,30 +98,30 @@
     background-color: globals.$cancel
     color: #151515
     position: relative
-    animation: swinging 4s infinite alternate ease-in-out
-    @keyframes swinging
-        from
-            rotate: -3deg
-            transform: translateX(10px)
-        to 
-            rotate: 3deg
-            transform: translateX(-10px)
-    @mixin strings
-        position: absolute
-        content: ""
-        background: #111
-        width: 5px
-        height: 200px
-        bottom: 35%
-        border-radius: 16px
-    &::after
-        @include strings
-        left: 100px
-        rotate: 45deg
-    &::before
-        @include strings
-        right: 100px
-        rotate: -45deg
+    //animation: swinging 4s infinite alternate ease-in-out
+    //@keyframes swinging
+    //    from
+    //        rotate: -3deg
+    //        transform: translateX(10px)
+    //    to 
+    //        rotate: 3deg
+    //        transform: translateX(-10px)
+    //@mixin strings
+    //    position: absolute
+    //    content: ""
+    //    background: #111
+    //    width: 5px
+    //    height: 200px
+    //    bottom: 35%
+    //    border-radius: 16px
+    //&::after
+    //    @include strings
+    //    left: 100px
+    //    rotate: 45deg
+    //&::before
+    //    @include strings
+    //    right: 100px
+    //    rotate: -45deg
 
 .info-container.mildWarn .fa-solid.fa-circle-info,
 .info-container.mildWarn .fa-solid.fa-triangle-exclamation

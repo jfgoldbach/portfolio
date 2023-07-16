@@ -20,7 +20,10 @@ src/components/pages/Contact.tsx
 src/components/pages/subpages/Info.json
 /README.md
 public/api/db_connection.php
+public/api/jwt_key.php
 .bat
+start_api_on_local_network.bat
+
 
 # misc
 .DS_Store

@@ -78,6 +78,10 @@ body {
   animation: backgroundAnim 15s alternate infinite;
 }
 
+a {
+  text-decoration: none;
+}
+
 @keyframes backgroundAnim {
   0% {
     background-position: left;
@@ -225,15 +229,15 @@ button[type=submit] {
   border: none;
   height: 38px;
   background: #333;
-  color: white;
-  margin-top: 15px;
+  color: #fff;
   border-radius: 10px;
   cursor: pointer;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
-  transition: 0.25s;
+  transition: 0.125s;
 }
 button[type=submit]:hover {
-  font-size: 1.15rem;
+  background: #fff;
+  color: #333;
   box-shadow: 0 0 20px #31a6ff;
 }
 
@@ -344,12 +348,12 @@ button[type=submit]:hover {
   background: #eee;
   border: 2px solid #fff;
   border-radius: 12px;
-  box-shadow: 0 0 16px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
 }
 
 .inactive {
-  opacity: 0.2;
-  pointer-events: none;
+  opacity: 0.2 !important;
+  pointer-events: none !important;
 }
 
 .inactiveInvis {

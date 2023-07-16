@@ -5,6 +5,7 @@
   z-index: 999;
   top: calc(50% - 30px);
   left: calc(50% - 30px);
+  scale: 0.5;
 }
 @keyframes spin {
   0% {

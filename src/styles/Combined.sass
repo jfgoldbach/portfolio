@@ -45,6 +45,9 @@ body
   overflow-x: hidden
   animation: backgroundAnim 15s alternate infinite
 
+a
+  text-decoration: none
+
 @keyframes backgroundAnim
   0% 
     background-position: left
@@ -169,16 +172,19 @@ button[type="submit"]
   font-size: 1rem
   border: none
   height: 38px
-  background: #333
-  color: white
+  $bg: #333
+  $clr: #fff
+  background: $bg
+  color: $clr
   //font-weight: bold
-  margin-top: 15px
+  //margin-top: 15px
   border-radius: 10px
   cursor: pointer
   box-shadow: globals.$shadow
-  transition: 0.25s
+  transition: 0.125s
   &:hover
-    font-size: 1.15rem
+    background: $clr
+    color: $bg
     box-shadow: 0 0 20px globals.$active
 
 .deleteBtn
@@ -271,11 +277,11 @@ button[type="submit"]
   background: #eee
   border: 2px solid #fff
   border-radius: 12px
-  box-shadow: 0 0 16px rgba(#000, 0.25)
+  box-shadow: globals.$shadow
 
 .inactive
-  opacity: 0.2
-  pointer-events: none
+  opacity: 0.2 !important
+  pointer-events: none !important
 
 .inactiveInvis
   opacity: 0

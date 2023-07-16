@@ -4,9 +4,6 @@ import instance from "../network/axios"
 
 export default function useCheckJWT() {
 
-
-
-
     const check = new Promise((resolve, reject) => {
         //console.log("check")
         const jwt = sessionStorage.getItem("jwt")

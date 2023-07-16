@@ -37,11 +37,32 @@
     height: calc(var(--viewportHeight) - 65px - 10px);
   }
 }
+.login .window {
+  padding: 24px 10px;
+}
 .login form {
   position: relative;
+  padding: 30px 40px;
   gap: 10px;
   width: 350px;
-  padding: 30px 40px;
+}
+.login form .submitLogin {
+  margin-top: 15px;
+  position: relative;
+}
+.login form .submitLogin.loading {
+  pointer-events: none;
+}
+.login form.inactive label,
+.login form.inactive i {
+  color: red !important;
+}
+.login form.inactive button {
+  background: red;
+  opacity: 1 !important;
+}
+.login form.inactive input {
+  border-color: red;
 }
 .login form h1 {
   margin-bottom: 10px;
@@ -59,19 +80,22 @@
 .login form .input-container label {
   position: absolute;
   left: 12px;
-  bottom: -2px;
+  bottom: -1px;
   line-height: 0.8rem;
   padding: 0 3px;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   background: #eee;
   width: fit-content;
   pointer-events: none;
   color: #666;
-  transition: 0.25s;
+  transition: 0.125s;
+}
+.login form .input-container input:focus {
+  border-color: transparent;
 }
 .login form .input-container input:focus + label {
   left: 3px;
-  bottom: 1px;
+  bottom: 3px;
   background: none;
 }
 .login form .input-container input[value=""] + label {
@@ -108,6 +132,7 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
+  margin-top: 12px;
   font-weight: bold;
   color: rgb(255, 103, 79);
   font-size: 1.1rem;
@@ -143,8 +168,13 @@
   font-weight: bold;
 }
 .login a {
-  color: #555;
+  color: rgba(51, 51, 51, 0.65);
   font-size: 0.9rem;
+  text-decoration: underline;
+  transition: 0.08s;
+}
+.login a:hover {
+  color: #333333;
 }
 .login button.wrong {
   animation: wrongShake 0.33s;
