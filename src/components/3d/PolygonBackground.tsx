@@ -63,7 +63,7 @@ function PolygonMesh() {
     return (
         <mesh>
             <planeGeometry args={[18.0, 8.0, 18.0, 8.0]} />
-            <polygonMaterial ref={matRef} wireframe />
+            {/* <polygonMaterial ref={matRef} wireframe /> */}
         </mesh>
     )
 }

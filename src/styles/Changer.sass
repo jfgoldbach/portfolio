@@ -9,25 +9,48 @@ $sidebarColor: #020613 //#142252
         height: calc(var(--viewportHeight) - globals.$navHeight - 10px)
     .window
         padding: 24px 10px
+        gap: 12px
+        .tooMany
+            @include globals.flexCenter
+            animation: warningIn 0.25s forwards
+            gap: 3px
+            color: globals.$cancel
+            min-width: 100px
+            max-width: 300px
+            i
+                font-size: 1.5rem
+            p   
+                text-align: center
     form
         position: relative
-        padding: 30px 40px
+        padding: 0 40px
         gap: 10px
         width: globals.$loginWidth
+        @keyframes warningIn
+            from
+                height: 0
+            to
+                height: 25px
+        &.fetching
+            .input-container,
+            .submitLogin
+                opacity: 0 !important
+                pointer-events: none
         .submitLogin
             margin-top: 15px
             position: relative
             &.loading
                 pointer-events: none
         &.inactive
+            $color: #888
             label,
             i
-                color: red !important
+                color: $color !important
             button
-                background: red 
+                background: $color
                 opacity: 1 !important
             input
-                border-color: red
+                border-color: $color
         h1
             margin-bottom: 10px
         .input-container
@@ -84,11 +107,6 @@ $sidebarColor: #020613 //#142252
                         color: #000
                         background: #ccc
         .warning-message
-            @keyframes warningIn
-                from
-                    height: 0
-                to
-                    height: 25px
             @include globals.flexCenter
             gap: 12px
             margin-top: 12px

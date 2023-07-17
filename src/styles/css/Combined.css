@@ -266,13 +266,11 @@ button[type=submit]:hover {
 @keyframes move1 {
   0% {
     transform: translateX(-10%);
-    rotate: 0deg;
   }
   50% {
     transform: translateX(10%);
   }
   100% {
-    rotate: 360deg;
     transform: translateX(-10%);
   }
 }
@@ -312,7 +310,7 @@ button[type=submit]:hover {
   left: 40%;
   background: linear-gradient(90deg, rgba(0, 221, 255, 0.8), rgba(29, 160, 160, 0.1));
   z-index: -1;
-  animation: move1 30s infinite linear;
+  animation: move1 25s infinite linear;
   filter: blur(128px);
 }
 .blurBackground .blurer {

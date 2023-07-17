@@ -204,11 +204,9 @@ button[type="submit"]
   @keyframes move1
     0%
       transform: translateX(-10%)
-      rotate: 0deg
     50%
       transform: translateX(10%)
     100%
-      rotate: 360deg
       transform: translateX(-10%)
   position: fixed
   top: 0
@@ -249,7 +247,7 @@ button[type="submit"]
     left: 40%
     background: linear-gradient(90deg, rgba(globals.$ambient3, 0.8), rgba(#1da0a0, 0.1))
     z-index: -1
-    animation: move1 30s infinite linear
+    animation: move1 25s infinite linear
     filter: blur(128px)
   .blurer
     width: 100%

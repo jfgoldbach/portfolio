@@ -37,6 +37,18 @@ switch ($method) {
                 }
                 break;
 
+            case "attempts":
+                $sql = "SELECT attempts FROM remarkable_ips WHERE ip = '{$user_ip}'";
+                $result = $mysqli->query($sql)->fetch_assoc();
+                if (empty($result["attempts"])) {
+                    echo "[0, \"{$user_ip}\"]";
+                    http_response_code(200);
+                } else {
+                    echo "[{$result["attempts"]}, \"{$user_ip}\"]";
+                    http_response_code(200);
+                }
+                break;
+
 
             default:
                 $jwt = $headers["jwt"];
@@ -46,17 +58,7 @@ switch ($method) {
                         switch ($type) {
                                 //GET with jwt
 
-                            case "attempts":
-                                $sql = "SELECT attempts FROM remarkable_ips WHERE ip = '{$user_ip}'";
-                                $result = $mysqli->query($sql)->fetch_assoc();
-                                if (empty($response["attempts"])) {
-                                    echo 0;
-                                    http_response_code(200);
-                                } else {
-                                    echo $response["attempts"];
-                                    http_response_code(200);
-                                }
-                                break;
+
 
 
                             case "login":

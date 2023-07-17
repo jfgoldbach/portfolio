@@ -10,7 +10,7 @@ import Loading from "../helper/Loading";
 
 
 export default function ChangerLogin() {
-    const [fails, setFails] = useState(0)
+    const [fails, setFails] = useState<number | null>(null)
     const [timeLeft, setTimeLeft] = useState(5)
     const [pwVisible, setPwVisible] = useState(false)
     const [pw, setPw] = useState("")
@@ -60,10 +60,15 @@ export default function ChangerLogin() {
             setUser("")
             setPw("")
             nameRef.current?.focus()
-            setFails(prev => prev + 1)
+            setFails(prev => {
+                if(prev != null){
+                    return prev + 1
+                }
+                return prev
+            })
             const button = submitRef.current
 
-            if (fails > 1) {
+            if (fails && fails > 1) {
                 decrementTime()
             }
         }
@@ -76,12 +81,11 @@ export default function ChangerLogin() {
     }
 
     useEffect(() => {
-        nameRef.current?.focus()
-        instance.get(`?type=attempts&user=${user}&password=${pw}`, { headers: { "jwt": sessionStorage.getItem("jwt") } })
+        instance.get(`?type=attempts`, { headers: { "jwt": sessionStorage.getItem("jwt") } })
             .then(response => response.data)
             .then(result => {
-                console.log("attempts on this ip:", result)
-                setFails(result)
+                console.log("attempts, ip:", result)
+                setFails(result[0])
             })
         //check
         const metaIcon: HTMLLinkElement = document.getElementById("icon") as HTMLLinkElement
@@ -90,6 +94,18 @@ export default function ChangerLogin() {
         }
         setTitle()
     }, [])
+
+
+    useEffect(() => {
+        console.log("fails", fails)
+        const firstField = nameRef.current
+        //focus/unfocus name field depending on availability
+        if(fails && fails < 3 && firstField) {
+            firstField.focus()
+        } else if (firstField) {
+            firstField.blur()
+        }
+    }, [fails])
 
     useEffect(() => {
         setTitle()
@@ -127,7 +143,7 @@ export default function ChangerLogin() {
     }
 
     return (
-        <div className={`login ${fails > 2 ? "failed" : ""}`}>
+        <div className={`login`}>
             <BlurredBg />
             {(success || navigate) &&
                 <Navigate to="/changer/loggedin" />
@@ -136,7 +152,23 @@ export default function ChangerLogin() {
             <div className="window">
                 <h1>{lang === "eng" ? "Login" : "Anmeldung"}</h1>
 
-                <form onSubmit={submit} className="">
+                {(fails != null && fails > 2 ) &&
+                    <p className="tooMany">
+                        <i className="fa-solid fa-triangle-exclamation" />
+                        <p>
+                            {lang === "eng" ?
+                                "You have tried to log in as admin too many times."
+                                :
+                                "Es wurde zu oft versucht, sich als Admin anzumelden."
+                            }
+                        </p>
+                    </p>
+                }
+
+                <form onSubmit={submit} className={`${(fails && fails > 2) ? "inactive" : ""} ${fails == null ? "fetching" : ""}`}>
+                    {fails == null &&
+                        <Loading light />
+                    }
                     <div className="input-container">
                         <input
                             ref={nameRef}
@@ -157,8 +189,11 @@ export default function ChangerLogin() {
                         />
                         <label>{lang === "eng" ? "Password" : "Passwort"}</label>
                         <button
-                            title={lang === "eng" ? `The password is currently ${pwVisible ? "visible" : "hidden"}.\nClick to make the password ${pwVisible ? "hidden" : "visible"}.` :
-                                `Das Passwort ist gerade ${pwVisible ? "sichtbar" : "versteckt"}.\nDurch Klicken wird das Passwort ${pwVisible ? "versteckt" : "sichtbar"}.`}
+                            title={lang === "eng" ? 
+                                `The password is currently ${pwVisible ? "visible" : "hidden"}.\nClick to make the password ${pwVisible ? "hidden" : "visible"}.` 
+                                :
+                                `Das Passwort ist gerade ${pwVisible ? "sichtbar" : "versteckt"}.\nDurch Klicken wird das Passwort ${pwVisible ? "versteckt" : "sichtbar"}.`
+                            }
                             type="button"
                             onClick={toggleVisible}
                         >
@@ -169,7 +204,7 @@ export default function ChangerLogin() {
                             }
                         </button>
                     </div>
-                    {fails > 0 && fails < 3 &&
+                    {(fails != null && fails > 0 && fails < 3) &&
                         <p className="warning-message">
                             <i className="fa-solid fa-triangle-exclamation" />
                             {3 - fails} {lang === "eng" ? `attempt${fails === 2 ? "" : "s"} left` : `Versuch${fails === 2 ? "" : "e"} übrig`}

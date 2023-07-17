@@ -39,12 +39,42 @@
 }
 .login .window {
   padding: 24px 10px;
+  gap: 12px;
+}
+.login .window .tooMany {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: warningIn 0.25s forwards;
+  gap: 3px;
+  color: rgb(255, 103, 79);
+  min-width: 100px;
+  max-width: 300px;
+}
+.login .window .tooMany i {
+  font-size: 1.5rem;
+}
+.login .window .tooMany p {
+  text-align: center;
 }
 .login form {
   position: relative;
-  padding: 30px 40px;
+  padding: 0 40px;
   gap: 10px;
   width: 350px;
+}
+@keyframes warningIn {
+  from {
+    height: 0;
+  }
+  to {
+    height: 25px;
+  }
+}
+.login form.fetching .input-container,
+.login form.fetching .submitLogin {
+  opacity: 0 !important;
+  pointer-events: none;
 }
 .login form .submitLogin {
   margin-top: 15px;
@@ -55,14 +85,14 @@
 }
 .login form.inactive label,
 .login form.inactive i {
-  color: red !important;
+  color: #888 !important;
 }
 .login form.inactive button {
-  background: red;
+  background: #888;
   opacity: 1 !important;
 }
 .login form.inactive input {
-  border-color: red;
+  border-color: #888;
 }
 .login form h1 {
   margin-bottom: 10px;
@@ -138,14 +168,6 @@
   font-size: 1.1rem;
   overflow: hidden;
   animation: warningIn 0.25s forwards;
-}
-@keyframes warningIn {
-  from {
-    height: 0;
-  }
-  to {
-    height: 25px;
-  }
 }
 .login.failed form {
   background: red;
