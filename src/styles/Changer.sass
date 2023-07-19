@@ -1,6 +1,9 @@
 @use "globals"
 
-$sidebarColor: #020613 //#142252
+$changer_bg: #dce5ff
+$sidebarColor: #c3e3ff  //#96c9f6 #020613
+
+$changer_topbar_height: 80px
 
 .login
     @include globals.flexCenter
@@ -10,6 +13,8 @@ $sidebarColor: #020613 //#142252
     .window
         padding: 24px 10px
         gap: 12px
+        h1
+            margin-bottom: 20px
         .tooMany
             @include globals.flexCenter
             animation: warningIn 0.25s forwards
@@ -51,8 +56,6 @@ $sidebarColor: #020613 //#142252
                 opacity: 1 !important
             input
                 border-color: $color
-        h1
-            margin-bottom: 10px
         .input-container
             position: relative
             width: 100%
@@ -173,11 +176,13 @@ $sidebarColor: #020613 //#142252
             animation: checkIn 0.25s forwards
 
 .changer-container
-    height: 100vh
+    max-height: 100vh
     position: relative
     display: grid
     grid-template-columns: 180px auto
+    grid-template-rows: $changer_topbar_height auto
     background: $sidebarColor //linear-gradient($sidebarColor, $sidebarColor 50%, #060e2b 50%, #060e2b,)
+    overflow: hidden
     input[type="text"]
         font-weight: normal
         font-size: 1rem
@@ -187,108 +192,32 @@ $sidebarColor: #020613 //#142252
         background: white
         width: fit-content
         min-width: 4rem
-    &::before
-        position: absolute
-        content: ""
-        width: 100%
-        height: 32px
-        bottom: -32px
-        background-image: linear-gradient(270deg, #dce5ff, #060e2b)
-    &::after
-        @include globals.pseudoAbs
-        background: #dce5ff
-        height: 100%
-        width: 8px
-        right: 0
-    .changer-sidebar
-        @keyframes fromLeft
-            from
-                transform: translateX(-300px)
-            to
-                transform: translateX(0)
-        @mixin slideToRight
-            animation: fromLeft 0.25s
-        display: flex
-        flex-direction: column
-        color: white
-        background: $sidebarColor
-        $bgColor: rgba(#fff, 0.033)
-        h2
-            @include globals.flexCenter
-            @include slideToRight
-            box-shadow: 0 -5px 16px - 5px rgba(#000, 0.33)
-            justify-content: flex-start
-            //padding: 0 6px
-            //gap: 8px
-            margin-top: 40px
-            border-bottom: 1px solid rgba(#fff, 0.5)
-            border-radius: 6px 6px 0 0
-            font-size: 1.25rem
-            background: $bgColor
-            i
-                @include globals.flexCenter
-                width: 30px
-                font-size: 1.125rem
-        ul
-            @include globals.flexCenter
-            @include slideToRight
-            flex-direction: column
-            gap: 5px
-            padding-top: 8px
-            background-image: linear-gradient($bgColor, transparent)
-            li
-                width: 100%
-                &.forbidden
-                    pointer-events: none
-                    opacity: 0.5
-                    i,
-                    button
-                        color: globals.$cancel !important
-                button
-                    padding: 8px 4px 8px 30px
-                    color: white
-                    background: none
-                    width: 100%
-                    font-size: 0.95rem
-                    border-radius: 0
-                    text-align: left
-                    i
-                        margin: 0 4px
-                    &:hover
-                        background: #5e6890
-                &.active
-                    background: #dce5ff
-                    position: relative
-                    box-shadow: 0 0 16px rgba(#000, 0.33)
-                    &::before
-                        content: ""
-                        position: absolute
-                        height: 100%
-                        width: 30px
-                        right: -30px
-                        background: #dce5ff
-                        z-index: 100
-                    button
-                        color: black
-                        //font-weight: bold
-        .home-bg
-            height: 77px
-            //background: #303e72
-
-        h1
-            font-size: 1.3rem
-            padding: 8px 12px
-            $margin: 30px
-            margin-top: $margin
-            margin-bottom: $margin
-
+    //&::before
+    //    position: absolute
+    //    content: ""
+    //    width: 100%
+    //    height: 32px
+    //    bottom: -32px
+    //    background-image: linear-gradient(270deg, #dce5ff, #060e2b)
+    //&::after
+    //    @include globals.pseudoAbs
+    //    background: #dce5ff
+    //    height: 100%
+    //    width: 8px
+    //    right: 0
+    .changer-vertbar
+        @include globals.flexCenter
+        justify-content: flex-end
+        gap: 12px
+        padding: 12px
+        grid-column-start: 1
+        grid-column-end: end
         .changer-navigationBottom
             @include globals.flexCenter
             justify-content: space-between
             padding: 4px 6px
             margin: 6px
             border-radius: globals.$bordMed
-            margin-top: auto
             background: #4b475b //#060e2b
             button
                 @include globals.flexCenter
@@ -305,17 +234,116 @@ $sidebarColor: #020613 //#142252
                 &.warn
                     color: globals.$cancel
                     font-weight: bold
+
+    .changer-sidebar
+        @keyframes fromLeft
+            from
+                transform: translateX(-300px)
+            to
+                transform: translateX(0)
+        @mixin slideToRight
+            animation: fromLeft 0.25s
+        display: flex
+        flex-direction: column
+        padding-top: 30px
+        color: #000
+        background: $sidebarColor
+        direction: rtl
+        overflow-y: auto
+        $bgColor: rgba(#fff, 0.033)
+        height: calc(100vh - $changer_topbar_height)
+        *
+            direction: ltr
+        h2
+            @include globals.flexCenter
+            @include slideToRight
+            justify-content: flex-start
+            padding-left: 14px
+            gap: 10px
+            border-radius: 6px 6px 0 0
+            font-size: 1.1rem
+            font-weight: 600
+            background: $bgColor
+            i
+                @include globals.flexCenter
+                width: 20px
+                font-size: 1.15rem
+                color: rgba(#000, 0.65)
+        ul
+            @include globals.flexCenter
+            @include slideToRight
+            flex-direction: column
+            gap: 0
+            padding: 4px 0
+            background-image: linear-gradient($bgColor, transparent)
+            margin-bottom: 40px
+            li
+                list-style-type: none
+                width: 100%
+                padding: 4px 0
+                transition: 0.2s
+                &:hover
+                    button
+                        outline: 2px solid globals.$active
+                &.forbidden
+                    pointer-events: none
+                    opacity: 0.5
+                    i,
+                    button
+                        color: globals.$cancel !important
+                button
+                    outline: 2px solid transparent
+                    padding: 8px 4px 8px 30px
+                    padding: 6px 12px
+                    color: #151515
+                    background: none
+                    border-radius: 32px
+                    font-size: 0.95rem
+                    margin-left: 32px
+                    text-align: left
+                    box-shadow: none
+                    max-width: calc(180px - 32px - 4px)
+                    justify-content: flex-start
+                    overflow: hidden
+                    white-space: nowrap
+                    text-overflow: ellipsis !important
+                    i
+                        margin: 0 4px
+                &.active
+                    &::before
+                        content: ""
+                        position: absolute
+                        height: 100%
+                        width: 30px
+                        right: -30px
+                        top: 0
+                        background: #dce5ff
+                        z-index: 100
+                    button
+                        font-weight: bold
+                        color: #fff
+                        background: globals.$active
+
+        h1
+            font-size: 1.3rem
+            padding: 8px 12px
+            $margin: 30px
+            margin-top: $margin
+            margin-bottom: $margin
+
     .changer-main
+        grid-column-start: 2
+        grid-column-end: end
         position: relative
         overflow-y: auto
         overflow-x: hidden
-        background: #dce5ff
+        background: $changer_bg
         border-radius: 12px 0 0 12px
         //border-left: 1px solid #d6daeb
-        box-shadow: 12px 0 10px -6px rgba(#000, 0.33) inset
+        box-shadow: 12px 8px 10px -6px rgba(#000, 0.15) inset
         scrollbar-color: globals.$secondary transparent
         scrollbar-width: thin
-        margin-right: 8px
+        //margin-right: 8px
         & > .apSubmitContainer
             position: fixed
             bottom: 0

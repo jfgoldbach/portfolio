@@ -146,8 +146,23 @@ export default function Changer() {
             {(error || (timeLeft != null && timeLeft <= 0)) &&
                 <Navigate to="/changer" />
             }
+            <div className="changer-vertbar">
+                <p>
+                    {admin ? 
+                        "Admin"
+                        :
+                        lang === "eng" ? "Guest" : "Gast"
+                    }
+                </p>
+                <div className="changer-navigationBottom">
+                    <Button onClick={logout} title="Logout">
+                        <i className="fa-solid fa-arrow-right-from-bracket"></i>
+                    </Button>
+                    {getTimer(timeLeft)}
+                    <LangChange ></LangChange>
+                </div>
+            </div>
             <div className="changer-sidebar">
-                <div className="home-bg"></div>
                 {apContent && apContent.navigation ?
                     <>
                         {apContent.navigation.map((section, index) => {
@@ -159,7 +174,7 @@ export default function Changer() {
                                 <ul key={`${index}.2`}>
                                     {section.items.map((category, li) =>
                                         <li className={`${!admin && category.admin_only ? "forbidden" : ""} ${content_id === category.path ? "active" : ""}`} key={`${index}.2.${li}`}>
-                                            <Button path={category.path}>
+                                            <Button path={category.path} title={category.ger}>
                                                 {category.ger}
                                                 {!admin && category.admin_only &&
                                                     <i className="fa-solid fa-ban"></i>
@@ -175,13 +190,7 @@ export default function Changer() {
                     <Loading />
                 }
 
-                <div className="changer-navigationBottom">
-                    <Button onClick={logout} title="Logout">
-                        <i className="fa-solid fa-arrow-right-from-bracket"></i>
-                    </Button>
-                    {getTimer(timeLeft)}
-                    <LangChange ></LangChange>
-                </div>
+
             </div>
 
 

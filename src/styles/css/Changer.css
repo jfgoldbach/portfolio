@@ -41,6 +41,9 @@
   padding: 24px 10px;
   gap: 12px;
 }
+.login .window h1 {
+  margin-bottom: 20px;
+}
 .login .window .tooMany {
   display: flex;
   align-items: center;
@@ -93,9 +96,6 @@
 }
 .login form.inactive input {
   border-color: #888;
-}
-.login form h1 {
-  margin-bottom: 10px;
 }
 .login form .input-container {
   position: relative;
@@ -247,11 +247,13 @@
 }
 
 .changer-container {
-  height: 100vh;
+  max-height: 100vh;
   position: relative;
   display: grid;
   grid-template-columns: 180px auto;
-  background: #020613;
+  grid-template-rows: 80px auto;
+  background: #c3e3ff;
+  overflow: hidden;
 }
 .changer-container input[type=text] {
   font-weight: normal;
@@ -263,27 +265,55 @@
   width: fit-content;
   min-width: 4rem;
 }
-.changer-container::before {
-  position: absolute;
-  content: "";
-  width: 100%;
-  height: 32px;
-  bottom: -32px;
-  background-image: linear-gradient(270deg, #dce5ff, #060e2b);
+.changer-container .changer-vertbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 12px;
+  grid-column-start: 1;
+  grid-column-end: end;
 }
-.changer-container::after {
-  content: "";
-  position: absolute;
-  background: #dce5ff;
-  height: 100%;
-  width: 8px;
-  right: 0;
+.changer-container .changer-vertbar .changer-navigationBottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-between;
+  padding: 4px 6px;
+  margin: 6px;
+  border-radius: 12px;
+  background: #4b475b;
+}
+.changer-container .changer-vertbar .changer-navigationBottom button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: none;
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.33);
+}
+.changer-container .changer-vertbar .changer-navigationBottom .fa-arrow-right-from-bracket {
+  font-size: 1.25rem;
+}
+.changer-container .changer-vertbar .changer-navigationBottom .countdown {
+  color: rgba(255, 255, 255, 0.5);
+}
+.changer-container .changer-vertbar .changer-navigationBottom .countdown.warn {
+  color: rgb(255, 103, 79);
+  font-weight: bold;
 }
 .changer-container .changer-sidebar {
   display: flex;
   flex-direction: column;
-  color: white;
-  background: #020613;
+  padding-top: 30px;
+  color: #000;
+  background: #c3e3ff;
+  direction: rtl;
+  overflow-y: auto;
+  height: calc(100vh - 80px);
 }
 @keyframes fromLeft {
   from {
@@ -293,25 +323,29 @@
     transform: translateX(0);
   }
 }
+.changer-container .changer-sidebar * {
+  direction: ltr;
+}
 .changer-container .changer-sidebar h2 {
   display: flex;
   align-items: center;
   justify-content: center;
   animation: fromLeft 0.25s;
-  box-shadow: 0 -5px 11px rgba(0, 0, 0, 0.33);
   justify-content: flex-start;
-  margin-top: 40px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  padding-left: 14px;
+  gap: 10px;
   border-radius: 6px 6px 0 0;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
+  font-weight: 600;
   background: rgba(255, 255, 255, 0.033);
 }
 .changer-container .changer-sidebar h2 i {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  font-size: 1.125rem;
+  width: 20px;
+  font-size: 1.15rem;
+  color: rgba(0, 0, 0, 0.65);
 }
 .changer-container .changer-sidebar ul {
   display: flex;
@@ -319,12 +353,19 @@
   justify-content: center;
   animation: fromLeft 0.25s;
   flex-direction: column;
-  gap: 5px;
-  padding-top: 8px;
+  gap: 0;
+  padding: 4px 0;
   background-image: linear-gradient(rgba(255, 255, 255, 0.033), transparent);
+  margin-bottom: 40px;
 }
 .changer-container .changer-sidebar ul li {
+  list-style-type: none;
   width: 100%;
+  padding: 4px 0;
+  transition: 0.2s;
+}
+.changer-container .changer-sidebar ul li:hover button {
+  outline: 2px solid #31a6ff;
 }
 .changer-container .changer-sidebar ul li.forbidden {
   pointer-events: none;
@@ -335,24 +376,24 @@
   color: rgb(255, 103, 79) !important;
 }
 .changer-container .changer-sidebar ul li button {
+  outline: 2px solid transparent;
   padding: 8px 4px 8px 30px;
-  color: white;
+  padding: 6px 12px;
+  color: #151515;
   background: none;
-  width: 100%;
+  border-radius: 32px;
   font-size: 0.95rem;
-  border-radius: 0;
+  margin-left: 32px;
   text-align: left;
+  box-shadow: none;
+  max-width: 144px;
+  justify-content: flex-start;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis !important;
 }
 .changer-container .changer-sidebar ul li button i {
   margin: 0 4px;
-}
-.changer-container .changer-sidebar ul li button:hover {
-  background: #5e6890;
-}
-.changer-container .changer-sidebar ul li.active {
-  background: #dce5ff;
-  position: relative;
-  box-shadow: 0 0 16px rgba(0, 0, 0, 0.33);
 }
 .changer-container .changer-sidebar ul li.active::before {
   content: "";
@@ -360,14 +401,14 @@
   height: 100%;
   width: 30px;
   right: -30px;
+  top: 0;
   background: #dce5ff;
   z-index: 100;
 }
 .changer-container .changer-sidebar ul li.active button {
-  color: black;
-}
-.changer-container .changer-sidebar .home-bg {
-  height: 77px;
+  font-weight: bold;
+  color: #fff;
+  background: #31a6ff;
 }
 .changer-container .changer-sidebar h1 {
   font-size: 1.3rem;
@@ -375,47 +416,17 @@
   margin-top: 30px;
   margin-bottom: 30px;
 }
-.changer-container .changer-sidebar .changer-navigationBottom {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  justify-content: space-between;
-  padding: 4px 6px;
-  margin: 6px;
-  border-radius: 12px;
-  margin-top: auto;
-  background: #4b475b;
-}
-.changer-container .changer-sidebar .changer-navigationBottom button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  background: none;
-  color: #fff;
-  border: 2px solid rgba(255, 255, 255, 0.33);
-}
-.changer-container .changer-sidebar .changer-navigationBottom .fa-arrow-right-from-bracket {
-  font-size: 1.25rem;
-}
-.changer-container .changer-sidebar .changer-navigationBottom .countdown {
-  color: rgba(255, 255, 255, 0.5);
-}
-.changer-container .changer-sidebar .changer-navigationBottom .countdown.warn {
-  color: rgb(255, 103, 79);
-  font-weight: bold;
-}
 .changer-container .changer-main {
+  grid-column-start: 2;
+  grid-column-end: end;
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
   background: #dce5ff;
   border-radius: 12px 0 0 12px;
-  box-shadow: 12px 0 10px -6px rgba(0, 0, 0, 0.33) inset;
+  box-shadow: 12px 8px 10px -6px rgba(0, 0, 0, 0.15) inset;
   scrollbar-color: #203e69 transparent;
   scrollbar-width: thin;
-  margin-right: 8px;
 }
 .changer-container .changer-main > .apSubmitContainer {
   position: fixed;

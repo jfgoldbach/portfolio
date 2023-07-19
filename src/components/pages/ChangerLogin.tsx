@@ -143,7 +143,7 @@ export default function ChangerLogin() {
     }
 
     return (
-        <div className={`login`}>
+        <div className={`login scaleIn`}>
             <BlurredBg />
             {(success || navigate) &&
                 <Navigate to="/changer/loggedin" />

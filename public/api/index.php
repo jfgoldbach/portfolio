@@ -56,10 +56,7 @@ switch ($method) {
                     $valid = verify_jwt($jwt, $JWT_KEY);
                     if ($valid) {
                         switch ($type) {
-                                //GET with jwt
-
-
-
+                            //GET with jwt
 
                             case "login":
                                 $sql = sprintf(
@@ -71,6 +68,8 @@ switch ($method) {
                                 if (!empty($user)) {
                                     if (password_verify($_GET["password"], $user["password_hash"])) {
                                         //correct password
+                                        $sql = "UPDATE remarkable_ips SET attempts  = 0, remark = 'Logged in successfully as admin' WHERE ip = '{$user_ip}'"; //update if there is an entry
+                                        $mysqli->query($sql);
                                         $jwt = get_jwt($JWT_KEY, $user["user"], $user["password_hash"], true);
                                         echo $jwt;
                                         http_response_code(200);
