@@ -1,6 +1,8 @@
 import { useContext, useEffect, useRef, useState } from "react"
 import Button from "../../Button"
 import { apChanges } from "./APcontent"
+import "../../../styles/css/DualLang.css"
+import { LangContext } from "../../../App"
 
 type duallangProps = {
     name: string,
@@ -14,6 +16,7 @@ function APdualang({ name, ger, eng, index }: duallangProps) {
     const [english, setEng] = useState("")
     const gerRef = useRef<HTMLTextAreaElement>(null)
     const engRef = useRef<HTMLTextAreaElement>(null)
+    const {lang} = useContext(LangContext)
     const { setChangesList, submitRef } = useContext(apChanges)
 
     const gerChanged = german !== ger
@@ -27,7 +30,7 @@ function APdualang({ name, ger, eng, index }: duallangProps) {
             return newState
         })
         if (submitRef.current) {
-            submitRef.current[name] = {"type": "dualang", "ger": german, "eng": english}
+            submitRef.current[name] = { "type": "dualang", "ger": german, "eng": english }
         }
     }
 
@@ -61,34 +64,36 @@ function APdualang({ name, ger, eng, index }: duallangProps) {
 
 
     return (
-        <div className={`apcSection slide-in`} style={{ animationDelay: `${index * 0.05}s` }}>
+        <div className={`apcSection dualLang slide-in`} style={{ animationDelay: `${index * 0.05}s` }}>
             <h2 className={`${(gerChanged || engChanged) ? "changes" : ""}`}>
                 {(gerChanged || engChanged) &&
                     <i className="fa-solid fa-pen"></i>
                 }
                 {name.replaceAll("_", " ")}
             </h2>
-            <div className="ger">
-                <div className="flagContainer">
-                    <div className="flag" />
-                    {gerChanged &&
-                        <Button onClick={resetGer}>
-                            <i className="fa-solid fa-arrow-rotate-right"></i>
-                        </Button>
-                    }
+            <div className="textfields" title={lang === "eng"? "German" : "Deutsch"}>
+                <div className="ger">
+                    <div className="flagContainer">
+                        <div className="flag" />
+                        {gerChanged &&
+                            <Button onClick={resetGer}>
+                                <i className="fa-solid fa-arrow-rotate-right"></i>
+                            </Button>
+                        }
+                    </div>
+                    <textarea ref={gerRef} className={gerChanged ? "changed" : ""} value={german} onChange={changeGer} />
                 </div>
-                <textarea ref={gerRef} className={gerChanged ? "changed" : ""} value={german} onChange={changeGer} />
-            </div>
-            <div className="eng">
-                <div className="flagContainer">
-                    <div className="flag" />
-                    {engChanged &&
-                        <Button onClick={resetEng}>
-                            <i className="fa-solid fa-arrow-rotate-right"></i>
-                        </Button>
-                    }
+                <div className="eng" title={lang === "eng"? "English" : "Englisch"}>
+                    <div className="flagContainer">
+                        <div className="flag" />
+                        {engChanged &&
+                            <Button onClick={resetEng}>
+                                <i className="fa-solid fa-arrow-rotate-right"></i>
+                            </Button>
+                        }
+                    </div>
+                    <textarea ref={engRef} className={engChanged ? "changed" : ""} value={english} onChange={changeEng} />
                 </div>
-                <textarea ref={engRef} className={engChanged ? "changed" : ""} value={english} onChange={changeEng} />
             </div>
         </div>
     )

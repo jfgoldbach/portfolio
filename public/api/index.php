@@ -122,6 +122,7 @@ switch ($method) {
 
 
                             case "ap_content":
+                                $page = $_GET["page"];
                                 $protected = null;
                                 $sql = "SELECT content FROM pages WHERE name = 'admin_panel'";
                                 $response = $mysqli->query($sql);

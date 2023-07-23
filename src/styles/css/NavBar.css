@@ -66,8 +66,8 @@
   }
   .navbar.adminPanel {
     width: 168px;
-    left: 6px;
-    top: 6px;
+    left: 12px;
+    top: 12px;
     margin: 0;
   }
   .navbar.adminPanel .navbar-container {

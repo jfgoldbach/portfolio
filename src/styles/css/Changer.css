@@ -252,7 +252,7 @@
   display: grid;
   grid-template-columns: 180px auto;
   grid-template-rows: 80px auto;
-  background: #c3e3ff;
+  background: #dce5ff;
   overflow: hidden;
 }
 .changer-container input[type=text] {
@@ -271,19 +271,64 @@
   justify-content: center;
   justify-content: flex-end;
   gap: 12px;
-  padding: 12px;
+  padding: 24px;
   grid-column-start: 1;
   grid-column-end: end;
+  background: #13222f;
+  margin: 6px 6px 0 6px;
+  border-radius: 12px 12px 12px 0;
+  position: relative;
+}
+.changer-container .changer-vertbar::before {
+  position: absolute;
+  content: "";
+  left: 174px;
+  top: 100%;
+  z-index: 100;
+  background: #13222f;
+  height: 12px;
+  width: 12px;
+}
+.changer-container .changer-vertbar::after {
+  position: absolute;
+  content: "";
+  left: 174px;
+  top: 100%;
+  z-index: 100;
+  background: #dce5ff;
+  border-top-left-radius: 12px;
+  height: 12px;
+  width: 12px;
 }
 .changer-container .changer-vertbar .changer-navigationBottom {
   display: flex;
   align-items: center;
   justify-content: center;
   justify-content: space-between;
+  gap: 8px;
   padding: 4px 6px;
   margin: 6px;
   border-radius: 12px;
-  background: #4b475b;
+}
+.changer-container .changer-vertbar .changer-navigationBottom .nameContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.changer-container .changer-vertbar .changer-navigationBottom .nameContainer h3 {
+  font-weight: normal;
+  font-size: 1.2rem;
+  line-height: 1.1rem;
+  color: #fff;
+}
+.changer-container .changer-vertbar .changer-navigationBottom .nameContainer h3.admin {
+  color: #5ded00;
+}
+.changer-container .changer-vertbar .changer-navigationBottom .nameContainer h3.guest {
+  color: #ffd401;
+}
+.changer-container .changer-vertbar .changer-navigationBottom .nameContainer p {
+  font-size: 0.7rem;
 }
 .changer-container .changer-vertbar .changer-navigationBottom button {
   display: flex;
@@ -291,9 +336,6 @@
   justify-content: center;
   width: 32px;
   height: 32px;
-  background: none;
-  color: #fff;
-  border: 2px solid rgba(255, 255, 255, 0.33);
 }
 .changer-container .changer-vertbar .changer-navigationBottom .fa-arrow-right-from-bracket {
   font-size: 1.25rem;
@@ -306,14 +348,17 @@
   font-weight: bold;
 }
 .changer-container .changer-sidebar {
+  position: relative;
+  margin: 0 0 6px 6px;
+  border-radius: 0 0 12px 12px;
+  color: #fff;
   display: flex;
   flex-direction: column;
   padding-top: 30px;
-  color: #000;
-  background: #c3e3ff;
+  background: #13222f;
   direction: rtl;
   overflow-y: auto;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 80px - 6px);
 }
 @keyframes fromLeft {
   from {
@@ -332,12 +377,11 @@
   justify-content: center;
   animation: fromLeft 0.25s;
   justify-content: flex-start;
-  padding-left: 14px;
-  gap: 10px;
+  padding-left: 9px;
+  gap: 6px;
   border-radius: 6px 6px 0 0;
   font-size: 1.1rem;
   font-weight: 600;
-  background: rgba(255, 255, 255, 0.033);
 }
 .changer-container .changer-sidebar h2 i {
   display: flex;
@@ -345,7 +389,7 @@
   justify-content: center;
   width: 20px;
   font-size: 1.15rem;
-  color: rgba(0, 0, 0, 0.65);
+  color: rgba(255, 255, 255, 0.65);
 }
 .changer-container .changer-sidebar ul {
   display: flex;
@@ -355,35 +399,31 @@
   flex-direction: column;
   gap: 0;
   padding: 4px 0;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.033), transparent);
   margin-bottom: 40px;
 }
 .changer-container .changer-sidebar ul li {
   list-style-type: none;
   width: 100%;
-  padding: 4px 0;
+  border-radius: 8px;
+  margin-left: 58px;
+  padding: 4px 6px;
   transition: 0.2s;
 }
 .changer-container .changer-sidebar ul li:hover button {
-  outline: 2px solid #31a6ff;
+  color: #31a6ff;
 }
 .changer-container .changer-sidebar ul li.forbidden {
   pointer-events: none;
-  opacity: 0.5;
+  opacity: 0.33;
 }
-.changer-container .changer-sidebar ul li.forbidden i,
 .changer-container .changer-sidebar ul li.forbidden button {
-  color: rgb(255, 103, 79) !important;
+  gap: 0;
 }
 .changer-container .changer-sidebar ul li button {
-  outline: 2px solid transparent;
-  padding: 8px 4px 8px 30px;
-  padding: 6px 12px;
-  color: #151515;
+  padding: 6px 0;
+  color: #e6e6e6;
   background: none;
-  border-radius: 32px;
   font-size: 0.95rem;
-  margin-left: 32px;
   text-align: left;
   box-shadow: none;
   max-width: 144px;
@@ -394,6 +434,12 @@
 }
 .changer-container .changer-sidebar ul li button i {
   margin: 0 4px;
+}
+.changer-container .changer-sidebar ul li.active {
+  background: #dce5ff;
+}
+.changer-container .changer-sidebar ul li.active::hover {
+  cursor: default !important;
 }
 .changer-container .changer-sidebar ul li.active::before {
   content: "";
@@ -406,9 +452,7 @@
   z-index: 100;
 }
 .changer-container .changer-sidebar ul li.active button {
-  font-weight: bold;
-  color: #fff;
-  background: #31a6ff;
+  color: #151515;
 }
 .changer-container .changer-sidebar h1 {
   font-size: 1.3rem;
@@ -420,13 +464,11 @@
   grid-column-start: 2;
   grid-column-end: end;
   position: relative;
-  overflow-y: auto;
-  overflow-x: hidden;
-  background: #dce5ff;
-  border-radius: 12px 0 0 12px;
-  box-shadow: 12px 8px 10px -6px rgba(0, 0, 0, 0.15) inset;
+  overflow: auto;
+  height: calc(100vh - 80px);
   scrollbar-color: #203e69 transparent;
   scrollbar-width: thin;
+  margin-right: 8px;
 }
 .changer-container .changer-main > .apSubmitContainer {
   position: fixed;
@@ -500,8 +542,8 @@
   justify-content: center;
   justify-content: flex-start;
   align-items: flex-start;
-  padding: 32px 64px;
-  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 32px;
   gap: 32px;
   min-height: 100%;
   margin: 0;
@@ -516,15 +558,31 @@
   justify-content: center;
   align-items: flex-start;
   border-radius: 12px;
-  gap: 15px;
-  background-color: rgba(255, 255, 255, 0.5);
-  border: 2px solid rgba(255, 255, 255, 0.75);
+  gap: 18px;
+  padding: 12px;
+  background-color: white;
   width: 100%;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
   outline: 3px solid transparent;
   transition: outline 0.2s;
+  flex-wrap: wrap;
 }
 .changer-container .changer-main .apContent .apcSection.apcInfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: flex-start;
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  width: 100%;
+}
+.changer-container .changer-main .apContent .apcSection.apcInfo .content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border-radius: 12px;
   align-items: center;
   justify-content: space-between;
   width: unset;
@@ -533,11 +591,11 @@
   border-color: rgba(32, 62, 105, 0.75);
   color: rgba(32, 62, 105, 0.85);
 }
-.changer-container .changer-main .apContent .apcSection.apcInfo .fa-solid.fa-circle-info {
+.changer-container .changer-main .apContent .apcSection.apcInfo .content .fa-solid.fa-circle-info {
   font-size: 2rem;
 }
-.changer-container .changer-main .apContent .apcSection.apcInfo button {
-  padding: 3px 12px;
+.changer-container .changer-main .apContent .apcSection.apcInfo .content button {
+  padding: 6px 12px;
 }
 .changer-container .changer-main .apContent .apcSection.apcSkills {
   flex-direction: column;
@@ -759,78 +817,39 @@
   align-items: center;
   gap: 5px;
   align-self: flex-start;
-  font-weight: normal;
   font-size: 1.125rem;
-  min-width: 150px;
-  width: 12.5%;
-  min-height: 40px;
-  border-radius: 10px 0 12px 0;
-  padding: 0 12px;
-  background: rgba(255, 255, 255, 0.75);
-  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.125);
-  color: #444;
+  line-height: 1.125rem;
+  color: #151515;
+  width: 100%;
+  text-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
   transition: 0.125s;
+  text-transform: capitalize;
 }
 .changer-container .changer-main .apContent .apcSection h2.changes {
-  background: limegreen;
-  color: black;
+  color: green;
+}
+.changer-container .changer-main .apContent .apcSection h2.changes i {
+  color: green;
 }
 .changer-container .changer-main .apContent .apcSection h2 .fa-pen {
   color: black;
 }
-.changer-container .changer-main .apContent .apcSection textarea {
+.changer-container .logoutInfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
   width: 100%;
-  height: 100px;
-  font-family: "Arial";
-  resize: none;
-  padding: 3px;
-  border-radius: 4px;
-  line-height: 1.33rem;
-  border: 1px solid rgba(0, 0, 0, 0.25);
-  outline: 3px solid transparent;
-  transition: 0.2s;
+  height: 100%;
 }
-.changer-container .changer-main .apContent .apcSection .ger,
-.changer-container .changer-main .apContent .apcSection .eng {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  align-items: flex-start;
-  flex-direction: column;
-  gap: 3px;
-  width: 100%;
-  padding: 8px;
-}
-.changer-container .changer-main .apContent .apcSection .ger .flagContainer,
-.changer-container .changer-main .apContent .apcSection .eng .flagContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-.changer-container .changer-main .apContent .apcSection .ger .flagContainer button,
-.changer-container .changer-main .apContent .apcSection .eng .flagContainer button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
-  padding: 5px;
-  height: 20px;
-}
-.changer-container .changer-main .apContent .apcSection .flag {
-  background-size: 100%;
-  width: 40px;
-  height: 20px;
-  border-radius: 6px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
-}
-.changer-container .changer-main .apContent .apcSection .ger .flag {
-  background-image: url("./backgrounds/germany.svg.webp");
-  background-size: 90%;
-}
-.changer-container .changer-main .apContent .apcSection .eng .flag {
-  background-image: url("./backgrounds/uk.svg.webp");
+.changer-container .logoutInfo p {
+  font-size: 1.25rem;
+  margin-bottom: 95px;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 textarea.changed,
@@ -1009,10 +1028,6 @@ label.credentials input {
   background: #fff;
   border: 1px solid grey;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
-}
-
-.changes {
-  outline: 2px solid green;
 }
 
 .apcSection .category-container {

@@ -1,0 +1,98 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes rollBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(3vh);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes rollTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-3vh);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.apcSection.dualLang {
+  width: calc(50% - 16px) !important;
+}
+.apcSection.dualLang .textfields {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+}
+.apcSection.dualLang .textfields .ger .flag {
+  background-image: url("./backgrounds/germany.svg.webp");
+  background-size: 83%;
+}
+.apcSection.dualLang .textfields .eng .flag {
+  background-image: url("./backgrounds/uk.svg.webp");
+  background-size: 100%;
+}
+.apcSection.dualLang .textfields .ger,
+.apcSection.dualLang .textfields .eng {
+  position: relative;
+  width: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+}
+.apcSection.dualLang .textfields .ger .flagContainer,
+.apcSection.dualLang .textfields .eng .flagContainer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.apcSection.dualLang .textfields .ger .flagContainer button,
+.apcSection.dualLang .textfields .eng .flagContainer button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  padding: 5px;
+  height: 20px;
+}
+.apcSection.dualLang .textfields .ger .flag,
+.apcSection.dualLang .textfields .eng .flag {
+  width: 120px;
+  height: 60px;
+  border-radius: 6px;
+}
+.apcSection.dualLang .textfields .ger textarea,
+.apcSection.dualLang .textfields .eng textarea {
+  width: 100%;
+  height: 100px;
+  font-family: "Arial";
+  resize: none;
+  padding: 3px;
+  border-radius: 4px;
+  line-height: 1.33rem;
+  border: 1px solid #ccc;
+  outline: 3px solid transparent;
+  background: rgba(255, 255, 255, 0.8);
+  transition: 0.2s;
+  z-index: 100;
+}

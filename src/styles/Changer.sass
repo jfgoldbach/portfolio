@@ -1,7 +1,7 @@
 @use "globals"
 
 $changer_bg: #dce5ff
-$sidebarColor: #c3e3ff  //#96c9f6 #020613
+$sidebarColor: #13222f  //#c3e3ff
 
 $changer_topbar_height: 80px
 
@@ -176,12 +176,16 @@ $changer_topbar_height: 80px
             animation: checkIn 0.25s forwards
 
 .changer-container
+    $navColor: #fff
+    $navRadius: 12px
+    $navMargin: 6px
     max-height: 100vh
     position: relative
     display: grid
-    grid-template-columns: 180px auto
+    $sideWidth: 180px
+    grid-template-columns: $sideWidth auto
     grid-template-rows: $changer_topbar_height auto
-    background: $sidebarColor //linear-gradient($sidebarColor, $sidebarColor 50%, #060e2b 50%, #060e2b,)
+    background: $changer_bg //linear-gradient($sidebarColor, $sidebarColor 50%, #060e2b 50%, #060e2b,)
     overflow: hidden
     input[type="text"]
         font-weight: normal
@@ -192,41 +196,67 @@ $changer_topbar_height: 80px
         background: white
         width: fit-content
         min-width: 4rem
-    //&::before
-    //    position: absolute
-    //    content: ""
-    //    width: 100%
-    //    height: 32px
-    //    bottom: -32px
-    //    background-image: linear-gradient(270deg, #dce5ff, #060e2b)
-    //&::after
-    //    @include globals.pseudoAbs
-    //    background: #dce5ff
-    //    height: 100%
-    //    width: 8px
-    //    right: 0
     .changer-vertbar
         @include globals.flexCenter
         justify-content: flex-end
         gap: 12px
-        padding: 12px
+        padding: 24px
         grid-column-start: 1
         grid-column-end: end
+        background: $sidebarColor
+        margin: $navMargin $navMargin 0 $navMargin
+        border-radius: $navRadius $navRadius $navRadius 0
+        position: relative
+        &::before
+            position: absolute
+            content: ""
+            left: $sideWidth - 6px
+            top: 100%
+            z-index: 100
+            background: $sidebarColor
+            height: $navRadius
+            width: $navRadius
+        &::after
+            position: absolute
+            content: ""
+            left: $sideWidth - 6px
+            top: 100%
+            z-index: 100
+            background: $changer_bg
+            border-top-left-radius: $navRadius
+            height: $navRadius
+            width: $navRadius
         .changer-navigationBottom
             @include globals.flexCenter
             justify-content: space-between
+            gap: 8px
             padding: 4px 6px
             margin: 6px
             border-radius: globals.$bordMed
-            background: #4b475b //#060e2b
+            //background: #4b475b //#060e2b
+            .nameContainer
+                display: flex
+                flex-direction: column
+                gap: 2px
+                h3
+                    font-weight: normal
+                    font-size: 1.2rem
+                    line-height: 1.1rem
+                    color: #fff
+                    &.admin
+                        color: #5ded00
+                    &.guest
+                        color: #ffd401
+                p
+                    font-size: 0.7rem
             button
                 @include globals.flexCenter
                 $size: 32px
                 width: $size
                 height: $size
-                background: none
-                color: #fff
-                border: 2px solid rgba(#fff, 0.33)
+                //background: none
+                //color: #fff
+                //border: 2px solid rgba(#fff, 0.33)
             .fa-arrow-right-from-bracket
                 font-size: 1.25rem
             .countdown
@@ -243,63 +273,61 @@ $changer_topbar_height: 80px
                 transform: translateX(0)
         @mixin slideToRight
             animation: fromLeft 0.25s
+        position: relative
+        margin: 0 0 $navMargin $navMargin
+        border-radius: 0 0 $navRadius $navRadius
+        color: $navColor
         display: flex
         flex-direction: column
         padding-top: 30px
-        color: #000
         background: $sidebarColor
         direction: rtl
         overflow-y: auto
         $bgColor: rgba(#fff, 0.033)
-        height: calc(100vh - $changer_topbar_height)
+        height: calc(100vh - $changer_topbar_height - $navMargin)
         *
             direction: ltr
         h2
             @include globals.flexCenter
             @include slideToRight
             justify-content: flex-start
-            padding-left: 14px
-            gap: 10px
+            padding-left: 9px
+            gap: 6px
             border-radius: 6px 6px 0 0
             font-size: 1.1rem
             font-weight: 600
-            background: $bgColor
             i
                 @include globals.flexCenter
                 width: 20px
                 font-size: 1.15rem
-                color: rgba(#000, 0.65)
+                color: rgba($navColor, 0.65)
         ul
             @include globals.flexCenter
             @include slideToRight
             flex-direction: column
             gap: 0
             padding: 4px 0
-            background-image: linear-gradient($bgColor, transparent)
             margin-bottom: 40px
             li
                 list-style-type: none
                 width: 100%
-                padding: 4px 0
+                border-radius: 8px
+                margin-left: 58px
+                padding: 4px 6px
                 transition: 0.2s
                 &:hover
                     button
-                        outline: 2px solid globals.$active
+                        color: globals.$active
                 &.forbidden
                     pointer-events: none
-                    opacity: 0.5
-                    i,
+                    opacity: 0.33
                     button
-                        color: globals.$cancel !important
+                        gap: 0
                 button
-                    outline: 2px solid transparent
-                    padding: 8px 4px 8px 30px
-                    padding: 6px 12px
-                    color: #151515
+                    padding: 6px 0
+                    color: darken($navColor, 10%)
                     background: none
-                    border-radius: 32px
                     font-size: 0.95rem
-                    margin-left: 32px
                     text-align: left
                     box-shadow: none
                     max-width: calc(180px - 32px - 4px)
@@ -310,6 +338,9 @@ $changer_topbar_height: 80px
                     i
                         margin: 0 4px
                 &.active
+                    background: $changer_bg
+                    &::hover
+                        cursor: default !important
                     &::before
                         content: ""
                         position: absolute
@@ -320,9 +351,10 @@ $changer_topbar_height: 80px
                         background: #dce5ff
                         z-index: 100
                     button
-                        font-weight: bold
-                        color: #fff
-                        background: globals.$active
+                        //font-weight: bold
+                        color: #151515
+                        //color: #fff
+                        //background: globals.$active
 
         h1
             font-size: 1.3rem
@@ -335,15 +367,11 @@ $changer_topbar_height: 80px
         grid-column-start: 2
         grid-column-end: end
         position: relative
-        overflow-y: auto
-        overflow-x: hidden
-        background: $changer_bg
-        border-radius: 12px 0 0 12px
-        //border-left: 1px solid #d6daeb
-        box-shadow: 12px 8px 10px -6px rgba(#000, 0.15) inset
+        overflow: auto
+        height: calc(100vh - $changer_topbar_height)
         scrollbar-color: globals.$secondary transparent
         scrollbar-width: thin
-        //margin-right: 8px
+        margin-right: 8px
         & > .apSubmitContainer
             position: fixed
             bottom: 0
@@ -402,8 +430,9 @@ $changer_topbar_height: 80px
             @include globals.flexCenter
             justify-content: flex-start
             align-items: flex-start
-            padding: 32px 64px
-            flex-direction: column
+            flex-wrap: wrap
+            padding: 32px
+            //flex-direction: column
             gap: 32px
             min-height: 100%
             margin: 0
@@ -414,25 +443,36 @@ $changer_topbar_height: 80px
                 @include globals.flexCenter
                 align-items: flex-start
                 border-radius: 12px
-                gap: 15px
-                background-color: rgba(#fff, 0.5)
-                border: 2px solid rgba(#fff, 0.75)
+                gap: 18px
+                padding: 12px
+                background-color: lighten($changer_bg, 80%)
                 width: 100%
                 box-shadow: globals.$shadow
                 outline: 3px solid transparent
-                transition: outline 0.2s                    
+                transition: outline 0.2s              
+                flex-wrap: wrap
                 &.apcInfo
-                    align-items: center
-                    justify-content: space-between
-                    width: unset
-                    padding: 8px
-                    background: rgba(globals.$active, 0.5)
-                    border-color: rgba(globals.$secondary, 0.75)
-                    color: rgba(globals.$secondary, 0.85)
-                    .fa-solid.fa-circle-info
-                        font-size: 2rem
-                    button
-                        padding: 3px 12px
+                    @include globals.flexCenter
+                    justify-content: flex-start
+                    background: none
+                    box-shadow: none
+                    padding: 0
+                    width: 100%
+                    .content
+                        @include globals.flexCenter
+                        gap: 12px
+                        border-radius: 12px
+                        align-items: center
+                        justify-content: space-between
+                        width: unset
+                        padding: 8px
+                        background: rgba(globals.$active, 0.5)
+                        border-color: rgba(globals.$secondary, 0.75)
+                        color: rgba(globals.$secondary, 0.85)
+                        .fa-solid.fa-circle-info
+                            font-size: 2rem
+                        button
+                            padding: 6px 12px
                 &.apcSkills
                     flex-direction: column
                     //overflow: auto
@@ -621,64 +661,34 @@ $changer_topbar_height: 80px
                     align-items: center
                     gap: 5px
                     align-self: flex-start
-                    font-weight: normal
                     font-size: 1.125rem
-                    min-width: 150px
-                    width: 12.5%
-                    min-height: 40px
-                    border-radius: 10px 0 12px 0
-                    padding: 0 12px
-                    background: rgba(#fff, 0.75)
-                    box-shadow: 2px 2px 3px rgba(#000, 0.125)
-                    color: #444 
+                    line-height: 1.125rem
+                    color: #151515
+                    width: 100%
+                    text-shadow: globals.$shadow
                     transition: 0.125s
+                    text-transform: capitalize
                     &.changes
-                        background: limegreen
-                        color: black
+                        color: green
+                        i
+                            color: green
                     .fa-pen
                         color: black //rgba(#fff, 0.85)
-                textarea
-                    width: 100%
-                    //min-height: 2rem
-                    height: 100px
-                    font-family: "Arial"
-                    resize: none
-                    padding: 3px
-                    border-radius: 4px
-                    line-height: 1.33rem
-                    border: 1px solid rgba(#000, 0.25)
-                    outline: 3px solid transparent
-                    transition: 0.2s
-                .ger,
-                .eng
-                    @include globals.flexCenter
-                    align-items: flex-start
-                    flex-direction: column
-                    gap: 3px
-                    width: 100%
-                    padding: 8px
-                    .flagContainer
-                        @include globals.flexCenter
-                        gap: 6px
-                        button
-                            @include globals.flexCenter
-                            font-size: 1rem
-                            box-shadow: globals.$shadow
-                            padding: 5px
-                            height: 20px
-                .flag
-                    background-size: 100%
-                    width: 40px
-                    height: 20px
-                    border-radius: 6px
-                    box-shadow: globals.$shadow
-                .ger
-                    .flag
-                        background-image: url("./backgrounds/germany.svg.webp")
-                        background-size: 90%
-                .eng
-                    .flag
-                        background-image: url("./backgrounds/uk.svg.webp")
+
+    .logoutInfo
+        @include globals.flexCenter
+        position: absolute
+        backdrop-filter: blur(12px)
+        background: rgba(#000, 0.5)
+        z-index: 1000
+        width: 100%
+        height: 100%
+        p
+            font-size: 1.25rem
+            margin-bottom: 95px
+            color: #fff
+            text-shadow: globals.$shadow2
+
 
 textarea.changed,
 input.changed
@@ -802,9 +812,6 @@ label.credentials
         background: #fff
         border: 1px solid grey
         box-shadow: globals.$shadow
-
-.changes
-    outline: 2px solid green
 
 .apcSection
     .category-container

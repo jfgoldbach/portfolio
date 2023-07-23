@@ -31,6 +31,7 @@ export default function Changer() {
     const { content_id } = useParams()
     const [apContent, setAPcontent] = useState<apNavigation>()
     const [error, setError] = useState<string>()
+    const [showLogout, SetShowLogout] = useState(false)
     const [timeLeft, setTimeLeft] = useState<number | null>(null)
     const [admin, setAdmin] = useState(false) //could also be set in a hook (for the future)
 
@@ -83,6 +84,7 @@ export default function Changer() {
 
     useEffect(() => {
         let timeout: NodeJS.Timeout
+
         if (timeLeft) {
             if (timeLeft > 300) {
                 timeout = setTimeout(() => {
@@ -92,6 +94,14 @@ export default function Changer() {
                 timeout = setTimeout(() => {
                     setTimeLeft(prev => prev! - 1)
                 }, 1000);
+            }
+
+            if (timeLeft === 60) {
+                toast.warn(lang === "eng" ? "Automatic logout in 60 seconds" : "Automatischer Logout in 60 Sekunden")
+            }
+
+            if (timeLeft === 10) {
+                toast.warn(lang === "eng" ? "Automatic logout in 10 seconds" : "Automatischer Logout in 10 Sekunden")
             }
         }
 
@@ -120,6 +130,7 @@ export default function Changer() {
 
 
     function logout() {
+        SetShowLogout(true)
         sessionStorage.removeItem("jwt")
         genNew().then(() => setTimeLeft(-1))
     }
@@ -146,22 +157,28 @@ export default function Changer() {
             {(error || (timeLeft != null && timeLeft <= 0)) &&
                 <Navigate to="/changer" />
             }
+
             <div className="changer-vertbar">
-                <p>
-                    {admin ? 
-                        "Admin"
-                        :
-                        lang === "eng" ? "Guest" : "Gast"
-                    }
-                </p>
                 <div className="changer-navigationBottom">
-                    <Button onClick={logout} title="Logout">
+                    <div className="nameContainer">
+                        <h3 className={admin ? "admin" : "guest"}>
+                            {admin ?
+                                "Admin"
+                                :
+                                lang === "eng" ? "Guest" : "Gast"
+                            }
+                        </h3>
+                        <p>
+                            {getTimer(timeLeft)}
+                        </p>
+                    </div>
+                    <Button buttonStyle="btn--light" onClick={logout} title="Logout">
                         <i className="fa-solid fa-arrow-right-from-bracket"></i>
                     </Button>
-                    {getTimer(timeLeft)}
-                    <LangChange ></LangChange>
                 </div>
+                <LangChange />
             </div>
+
             <div className="changer-sidebar">
                 {apContent && apContent.navigation ?
                     <>
@@ -169,16 +186,16 @@ export default function Changer() {
                             return <>
                                 <h2 key={`${index}.1`}>
                                     <i className={section.fa_icon} />
-                                    {section.ger}
+                                    {lang === "eng" ? section.eng : section.ger}
                                 </h2>
                                 <ul key={`${index}.2`}>
                                     {section.items.map((category, li) =>
                                         <li className={`${!admin && category.admin_only ? "forbidden" : ""} ${content_id === category.path ? "active" : ""}`} key={`${index}.2.${li}`}>
                                             <Button path={category.path} title={category.ger}>
-                                                {category.ger}
                                                 {!admin && category.admin_only &&
                                                     <i className="fa-solid fa-ban"></i>
                                                 }
+                                                {lang === "eng" ? category.eng : category.ger}
                                             </Button>
                                         </li>
                                     )}
@@ -187,9 +204,8 @@ export default function Changer() {
                         })}
                     </>
                     :
-                    <Loading />
+                    <Loading light />
                 }
-
 
             </div>
 
@@ -197,6 +213,13 @@ export default function Changer() {
             <div className="changer-main">
                 <Outlet />
             </div>
+
+            {showLogout &&
+                <div className="logoutInfo">
+                    <p>{lang === "eng" ? "Logging out" : "Logge aus"}</p>
+                    <Loading light />
+                </div>
+            }
         </div>
     )
 }

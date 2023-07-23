@@ -42,7 +42,7 @@ function APcontent() {
       if (payload.admin) {
         setAdmin(payload.admin)
       } else {
-        console.error("Send access token doesn't have the admin property in its payload.")
+        console.error("Sent access token doesn't have the admin property in its payload.")
       }
     }
   }, [])

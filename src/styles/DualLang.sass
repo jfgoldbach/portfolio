@@ -1,0 +1,56 @@
+@use "globals"
+
+.apcSection.dualLang
+    width: calc(50% - 16px) !important
+    .textfields
+        @include globals.flexCenter
+        gap: 12px
+        width: 100%
+        .ger
+            .flag
+                background-image: url("./backgrounds/germany.svg.webp")
+                background-size: 83%
+        .eng
+            .flag
+                background-image: url("./backgrounds/uk.svg.webp")
+                background-size: 100%
+        .ger,
+        .eng
+            position: relative
+            width: 45%
+            @include globals.flexCenter
+            align-items: flex-start
+            flex-direction: column
+            gap: 3px
+            width: 100%
+            //padding: 8px
+            .flagContainer
+                position: absolute
+                bottom: 0
+                right: 0
+                @include globals.flexCenter
+                gap: 6px
+                button
+                    @include globals.flexCenter
+                    font-size: 1rem
+                    padding: 5px
+                    height: 20px
+            .flag
+                width: 120px
+                height: 60px
+                border-radius: 6px
+            textarea
+                width: 100%
+                height: 100px
+                font-family: "Arial"
+                resize: none
+                padding: 3px
+                border-radius: 4px
+                line-height: 1.33rem
+                border: 1px solid #ccc
+                outline: 3px solid transparent
+                background: rgba(#fff, 0.8)
+                transition: 0.2s
+                z-index: 100
+                .ger,
+                .eng
