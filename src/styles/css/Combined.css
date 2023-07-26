@@ -320,7 +320,7 @@ button[type=submit]:hover {
 }
 
 .scaleIn {
-  animation: transIn 0.2s;
+  animation: transIn 0.2s forwards;
 }
 @keyframes transIn {
   from {

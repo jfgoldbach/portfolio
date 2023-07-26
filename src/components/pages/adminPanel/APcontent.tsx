@@ -5,11 +5,12 @@ import instance from "../../network/axios"
 import APdualang from "./APdualang"
 import APinfo from "./APinfo"
 import APnotes from "./notes/APnotes"
-import APskillcards from "./skills/APskillcards"
+import APskillcards from "./DEPRECATEDskills/APskillcards"
 import Loading from "../../helper/Loading"
 import ErrorBoundary from "../../helper/ErrorBoundary"
 import Button from "../../Button"
 import { jwtPayload } from "../../../types/types"
+import APskills from "./APskills"
 
 type changesType = {
   [index: string]: boolean
@@ -129,7 +130,7 @@ function APcontent() {
                       return <APinfo index={index} path={item.path} ger={item.ger} eng={item.eng} />
 
                     case "skillcards":
-                      return <APskillcards name={item.name} sections={item.sections} hidden={item.hidden} id={index} />
+                      return <APskills name={item.name} sections={item.sections} hidden={item.hidden} id={index} />
 
                     case "notepads":
                       return <APnotes name={item.name} notes={item.notes} id={index} />

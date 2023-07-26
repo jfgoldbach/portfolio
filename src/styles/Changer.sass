@@ -207,25 +207,18 @@ $changer_topbar_height: 80px
         margin: $navMargin $navMargin 0 $navMargin
         border-radius: $navRadius $navRadius $navRadius 0
         position: relative
+        box-shadow: globals.$shadow2
         &::before
             position: absolute
             content: ""
             left: $sideWidth - 6px
             top: 100%
             z-index: 100
-            background: $sidebarColor
             height: $navRadius
             width: $navRadius
-        &::after
-            position: absolute
-            content: ""
-            left: $sideWidth - 6px
-            top: 100%
-            z-index: 100
-            background: $changer_bg
-            border-top-left-radius: $navRadius
-            height: $navRadius
-            width: $navRadius
+            background-image: url("./backgrounds/inverse_corner.svg")
+            background-size: 100%
+            filter: drop-shadow(globals.$shadow2)
         .changer-navigationBottom
             @include globals.flexCenter
             justify-content: space-between
@@ -281,8 +274,10 @@ $changer_topbar_height: 80px
         flex-direction: column
         padding-top: 30px
         background: $sidebarColor
+        box-shadow: 0 7px 10px rgba(#000 ,0.5)
         direction: rtl
-        overflow-y: auto
+        overflow: visible
+        //overflow-y: auto
         $bgColor: rgba(#fff, 0.033)
         height: calc(100vh - $changer_topbar_height - $navMargin)
         *
@@ -309,6 +304,7 @@ $changer_topbar_height: 80px
             padding: 4px 0
             margin-bottom: 40px
             li
+                position: relative
                 list-style-type: none
                 width: 100%
                 border-radius: 8px
@@ -330,7 +326,6 @@ $changer_topbar_height: 80px
                     font-size: 0.95rem
                     text-align: left
                     box-shadow: none
-                    max-width: calc(180px - 32px - 4px)
                     justify-content: flex-start
                     overflow: hidden
                     white-space: nowrap
@@ -339,22 +334,17 @@ $changer_topbar_height: 80px
                         margin: 0 4px
                 &.active
                     background: $changer_bg
-                    &::hover
-                        cursor: default !important
                     &::before
                         content: ""
                         position: absolute
                         height: 100%
-                        width: 30px
-                        right: -30px
+                        width: 20px
+                        left: 100%
                         top: 0
                         background: #dce5ff
                         z-index: 100
                     button
-                        //font-weight: bold
                         color: #151515
-                        //color: #fff
-                        //background: globals.$active
 
         h1
             font-size: 1.3rem
@@ -369,9 +359,10 @@ $changer_topbar_height: 80px
         position: relative
         overflow: auto
         height: calc(100vh - $changer_topbar_height)
-        scrollbar-color: globals.$secondary transparent
+        scrollbar-color: lighten(globals.$secondary, 15%) rgba(globals.$secondary, 0.4)
         scrollbar-width: thin
         margin-right: 8px
+        border-radius: 12px
         & > .apSubmitContainer
             position: fixed
             bottom: 0
@@ -379,8 +370,8 @@ $changer_topbar_height: 80px
             &::before
                 @include globals.pseudoAbs
                 $size: 600px
-                right: -$size / 4
-                bottom: -$size / 1.75
+                right: calc((-1 * $size) / 4)
+                bottom: calc((-1 * $size) / 1.75)
                 width: $size
                 height: $size
                 border-radius: 50%
@@ -431,7 +422,7 @@ $changer_topbar_height: 80px
             justify-content: flex-start
             align-items: flex-start
             flex-wrap: wrap
-            padding: 32px
+            padding: 40px 64px
             //flex-direction: column
             gap: 32px
             min-height: 100%
@@ -443,6 +434,7 @@ $changer_topbar_height: 80px
                 @include globals.flexCenter
                 align-items: flex-start
                 border-radius: 12px
+                opacity: 0
                 gap: 18px
                 padding: 12px
                 background-color: lighten($changer_bg, 80%)

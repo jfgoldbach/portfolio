@@ -12,7 +12,7 @@ type infoProps = {
 function APinfo({ index, path, ger, eng }: infoProps) {
   const { lang } = useContext(LangContext)
   return (
-    <div className="apcSection apcInfo slide-in" style={{ animationDelay: `${index * 0.05}s` }}>
+    <div className="apcSection apcInfo scaleIn" style={{ animationDelay: `${index * 0.05}s` }}>
       <div className="content">
         <i className="fa-solid fa-circle-info"></i>
         <p>{lang === "eng" ? eng : ger}</p>

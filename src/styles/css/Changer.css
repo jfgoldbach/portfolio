@@ -278,6 +278,7 @@
   margin: 6px 6px 0 6px;
   border-radius: 12px 12px 12px 0;
   position: relative;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 .changer-container .changer-vertbar::before {
   position: absolute;
@@ -285,20 +286,11 @@
   left: 174px;
   top: 100%;
   z-index: 100;
-  background: #13222f;
   height: 12px;
   width: 12px;
-}
-.changer-container .changer-vertbar::after {
-  position: absolute;
-  content: "";
-  left: 174px;
-  top: 100%;
-  z-index: 100;
-  background: #dce5ff;
-  border-top-left-radius: 12px;
-  height: 12px;
-  width: 12px;
+  background-image: url("./backgrounds/inverse_corner.svg");
+  background-size: 100%;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
 }
 .changer-container .changer-vertbar .changer-navigationBottom {
   display: flex;
@@ -356,8 +348,9 @@
   flex-direction: column;
   padding-top: 30px;
   background: #13222f;
+  box-shadow: 0 7px 10px rgba(0, 0, 0, 0.5);
   direction: rtl;
-  overflow-y: auto;
+  overflow: visible;
   height: calc(100vh - 80px - 6px);
 }
 @keyframes fromLeft {
@@ -402,6 +395,7 @@
   margin-bottom: 40px;
 }
 .changer-container .changer-sidebar ul li {
+  position: relative;
   list-style-type: none;
   width: 100%;
   border-radius: 8px;
@@ -426,7 +420,6 @@
   font-size: 0.95rem;
   text-align: left;
   box-shadow: none;
-  max-width: 144px;
   justify-content: flex-start;
   overflow: hidden;
   white-space: nowrap;
@@ -438,15 +431,12 @@
 .changer-container .changer-sidebar ul li.active {
   background: #dce5ff;
 }
-.changer-container .changer-sidebar ul li.active::hover {
-  cursor: default !important;
-}
 .changer-container .changer-sidebar ul li.active::before {
   content: "";
   position: absolute;
   height: 100%;
-  width: 30px;
-  right: -30px;
+  width: 20px;
+  left: 100%;
   top: 0;
   background: #dce5ff;
   z-index: 100;
@@ -466,9 +456,10 @@
   position: relative;
   overflow: auto;
   height: calc(100vh - 80px);
-  scrollbar-color: #203e69 transparent;
+  scrollbar-color: #3261a4 rgba(32, 62, 105, 0.4);
   scrollbar-width: thin;
   margin-right: 8px;
+  border-radius: 12px;
 }
 .changer-container .changer-main > .apSubmitContainer {
   position: fixed;
@@ -543,7 +534,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   flex-wrap: wrap;
-  padding: 32px;
+  padding: 40px 64px;
   gap: 32px;
   min-height: 100%;
   margin: 0;
@@ -558,6 +549,7 @@
   justify-content: center;
   align-items: flex-start;
   border-radius: 12px;
+  opacity: 0;
   gap: 18px;
   padding: 12px;
   background-color: white;

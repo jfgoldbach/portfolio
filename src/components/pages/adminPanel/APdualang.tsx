@@ -64,7 +64,7 @@ function APdualang({ name, ger, eng, index }: duallangProps) {
 
 
     return (
-        <div className={`apcSection dualLang slide-in`} style={{ animationDelay: `${index * 0.05}s` }}>
+        <div className={`apcSection dualLang scaleIn`} style={{ animationDelay: `${index * 0.05}s` }}>
             <h2 className={`${(gerChanged || engChanged) ? "changes" : ""}`}>
                 {(gerChanged || engChanged) &&
                     <i className="fa-solid fa-pen"></i>

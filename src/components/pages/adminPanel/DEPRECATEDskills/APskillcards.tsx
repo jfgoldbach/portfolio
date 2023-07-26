@@ -79,7 +79,7 @@ function APskillcards({ name, sections, hidden, id }: skillProps) {
 
 
   return (
-    <div className="apcSection apcSkills slide-in" style={{ animationDelay: `${id * 0.05}s` }}>
+    <div className="apcSection apcSkills scaleIn" style={{ animationDelay: `${id * 0.05}s` }}>
       <h2 className={changed ? "changes" : ""}>
         {changed &&
           <i className="fa-solid fa-pen"></i>
