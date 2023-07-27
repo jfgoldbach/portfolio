@@ -10,7 +10,7 @@ import Loading from "../../helper/Loading"
 import ErrorBoundary from "../../helper/ErrorBoundary"
 import Button from "../../Button"
 import { jwtPayload } from "../../../types/types"
-import APskills from "./APskills"
+import APskills from "./skillcards/APskills"
 
 type changesType = {
   [index: string]: boolean

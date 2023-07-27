@@ -252,7 +252,6 @@
   display: grid;
   grid-template-columns: 180px auto;
   grid-template-rows: 80px auto;
-  background: #dce5ff;
   overflow: hidden;
 }
 .changer-container input[type=text] {
@@ -429,17 +428,16 @@
   margin: 0 4px;
 }
 .changer-container .changer-sidebar ul li.active {
-  background: #dce5ff;
-}
-.changer-container .changer-sidebar ul li.active::before {
-  content: "";
-  position: absolute;
-  height: 100%;
-  width: 20px;
-  left: 100%;
-  top: 0;
-  background: #dce5ff;
-  z-index: 100;
+  background: #adb6d3;
+  /* &::before
+  *  content: ""
+  *  position: absolute
+  *  height: 100%
+  *  width: 20px
+  *  left: 100%
+  *  top: 0
+  *  background: #dce5ff
+  *  z-index: 100 */
 }
 .changer-container .changer-sidebar ul li.active button {
   color: #151515;
@@ -580,6 +578,7 @@
   width: unset;
   padding: 8px;
   background: rgba(49, 166, 255, 0.5);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
   border-color: rgba(32, 62, 105, 0.75);
   color: rgba(32, 62, 105, 0.85);
 }

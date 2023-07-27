@@ -185,7 +185,7 @@ $changer_topbar_height: 80px
     $sideWidth: 180px
     grid-template-columns: $sideWidth auto
     grid-template-rows: $changer_topbar_height auto
-    background: $changer_bg //linear-gradient($sidebarColor, $sidebarColor 50%, #060e2b 50%, #060e2b,)
+    //background: $changer_bg //linear-gradient($sidebarColor, $sidebarColor 50%, #060e2b 50%, #060e2b,)
     overflow: hidden
     input[type="text"]
         font-weight: normal
@@ -333,8 +333,8 @@ $changer_topbar_height: 80px
                     i
                         margin: 0 4px
                 &.active
-                    background: $changer_bg
-                    &::before
+                    background: #adb6d3
+                    /* &::before
                         content: ""
                         position: absolute
                         height: 100%
@@ -342,7 +342,7 @@ $changer_topbar_height: 80px
                         left: 100%
                         top: 0
                         background: #dce5ff
-                        z-index: 100
+                        z-index: 100 */
                     button
                         color: #151515
 
@@ -459,6 +459,7 @@ $changer_topbar_height: 80px
                         width: unset
                         padding: 8px
                         background: rgba(globals.$active, 0.5)
+                        box-shadow: globals.$shadow
                         border-color: rgba(globals.$secondary, 0.75)
                         color: rgba(globals.$secondary, 0.85)
                         .fa-solid.fa-circle-info

@@ -9,6 +9,7 @@ import { jwtPayload } from "../../../types/types"
 import '../../../styles/css/Changer.css'
 import { toast } from "react-toastify"
 import { LangContext } from "../../../App"
+import BlurredBg from "../../visuals/BlurredBg"
 
 
 type apNavigation = {
@@ -154,6 +155,7 @@ export default function Changer() {
 
     return (
         <div className="changer-container">
+            <BlurredBg adminPanel />
             {(error || (timeLeft != null && timeLeft <= 0)) &&
                 <Navigate to="/changer" />
             }

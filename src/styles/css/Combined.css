@@ -318,6 +318,18 @@ button[type=submit]:hover {
   height: 100%;
   backdrop-filter: blur(0);
 }
+.blurBackground.adminPanel * {
+  animation: none;
+}
+.blurBackground.adminPanel .object1 {
+  background: linear-gradient(#e48dd6, rgba(136, 24, 118, 0.1));
+}
+.blurBackground.adminPanel .object2 {
+  background: linear-gradient(90deg, rgba(220, 229, 255, 0.8), rgba(29, 50, 160, 0.1));
+}
+.blurBackground.adminPanel .object3 {
+  background: linear-gradient(90deg, rgba(128, 238, 255, 0.8), rgba(29, 160, 160, 0.1));
+}
 
 .scaleIn {
   animation: transIn 0.2s forwards;

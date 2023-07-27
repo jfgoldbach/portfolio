@@ -253,6 +253,15 @@ button[type="submit"]
     width: 100%
     height: 100%
     backdrop-filter: blur(0) //128px
+  &.adminPanel
+    *
+      animation: none
+    .object1
+      background: linear-gradient(rgba(lighten(globals.$ambient1, 25%), 1), rgba(#881876, 0.1))
+    .object2
+      background: linear-gradient(90deg, rgba(#dce5ff, 0.8), rgba(#1D32A0, 0.1))
+    .object3
+      background: linear-gradient(90deg, rgba(lighten(globals.$ambient3, 25%), 0.8), rgba(#1da0a0, 0.1))
 
 .scaleIn
   @keyframes transIn
