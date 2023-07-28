@@ -455,7 +455,6 @@
   overflow: auto;
   height: calc(100vh - 80px);
   scrollbar-color: #3261a4 rgba(32, 62, 105, 0.4);
-  scrollbar-width: thin;
   margin-right: 8px;
   border-radius: 12px;
 }
@@ -556,6 +555,10 @@
   outline: 3px solid transparent;
   transition: outline 0.2s;
   flex-wrap: wrap;
+}
+.changer-container .changer-main .apContent .apcSection.changed {
+  outline: 2px solid green;
+  box-shadow: 0 0 10px limegreen;
 }
 .changer-container .changer-main .apContent .apcSection.apcInfo {
   display: flex;

@@ -360,7 +360,7 @@ $changer_topbar_height: 80px
         overflow: auto
         height: calc(100vh - $changer_topbar_height)
         scrollbar-color: lighten(globals.$secondary, 15%) rgba(globals.$secondary, 0.4)
-        scrollbar-width: thin
+        //scrollbar-width: thin
         margin-right: 8px
         border-radius: 12px
         & > .apSubmitContainer
@@ -443,6 +443,9 @@ $changer_topbar_height: 80px
                 outline: 3px solid transparent
                 transition: outline 0.2s              
                 flex-wrap: wrap
+                &.changed
+                    outline: 2px solid green
+                    box-shadow: 0 0 10px limegreen
                 &.apcInfo
                     @include globals.flexCenter
                     justify-content: flex-start

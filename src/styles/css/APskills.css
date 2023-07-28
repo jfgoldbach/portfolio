@@ -35,4 +35,8 @@
   gap: 12px;
   background: rgba(170, 170, 170, 0.5);
   border-radius: 12px;
+  transition: 0.125s;
+}
+.apSkills .skillsRow.changed {
+  background: rgba(50, 205, 50, 0.75);
 }
