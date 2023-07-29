@@ -8,20 +8,24 @@ type errorInfoProps = {
     msg?: { eng: string, ger: string } | string
     request?: () => void
     countdown?: number
+    dark?: boolean
+    autoRetry?: boolean
 }
 
-function ErrorInfo({ msg, request, countdown }: errorInfoProps) {
+function ErrorInfo({ msg, request, countdown, dark, autoRetry }: errorInfoProps) {
     const { lang } = useContext(LangContext)
     const [time, setTime] = useState(countdown ?? 5)
 
     useEffect(() => {
-        if(request) countDown()
+        if (request && autoRetry) {
+            countDown()
+        }
     }, [])
 
     useEffect(() => {
-        if(time > 0) {
+        if (time > 0) {
             countDown()
-        } else if(request) {
+        } else if (request && autoRetry) {
             request()
         }
     }, [time])
@@ -37,13 +41,19 @@ function ErrorInfo({ msg, request, countdown }: errorInfoProps) {
     }
 
     return (
-        <div className="warn-container scaleIn">
+        <div className={`warn-container scaleIn ${dark ? "dark" : ""}`}>
             <i className="fa-solid fa-triangle-exclamation"></i>
             <h4>{msg ?? lang === "eng" ? "An error occured" : "Ein Fehler ist aufgetreten"}</h4>
             {request ?
-                <p className="time-display">{`${lang === "eng" ? "Trying again in" : "Erneuter Versuch in"} ${time}s`}</p>
+                autoRetry ?
+                    <p className="time-display">{`${lang === "eng" ? "Trying again in" : "Erneuter Versuch in"} ${time}s`}</p>
+                    :
+                    <Button onClick={request} buttonStyle={dark ? "btn--dark" : ""}>
+                        <p>{lang === "eng" ? "Try again" : "Erneut versuchen"}</p>
+                        <i className="fa-solid fa-arrow-right"></i>
+                    </Button>
                 :
-                <Button onClick={() => window.location.reload()}>
+                <Button onClick={() => window.location.reload()} buttonStyle={dark ? "btn--dark" : ""}>
                     <i className="fa-solid fa-rotate"></i>
                     <p>{lang === "eng" ? "Reload site" : "Seite neu laden"}</p>
                 </Button>

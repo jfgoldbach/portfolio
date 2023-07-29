@@ -1,11 +1,12 @@
 import { ChangeEvent, FormEvent, useContext, useEffect, useRef, useState } from "react"
 import { Link, Navigate } from "react-router-dom";
-import { LangContext } from "../../App";
+import { LangContext, errorType } from "../../App";
 import useCheckJWT from "../hooks/useCheckJWT";
 import instance from "../network/axios";
 import BlurredBg from "../visuals/BlurredBg";
 import { toast } from "react-toastify";
 import Loading from "../helper/Loading";
+import ErrorInfo from "../helper/ErrorInfo";
 //styles in Changer.sass
 
 
@@ -19,6 +20,7 @@ export default function ChangerLogin() {
     const [navigate, setNavigate] = useState(false)
     const { lang } = useContext(LangContext)
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState<errorType>({} as errorType)
     const submitRef = useRef<HTMLButtonElement>(null)
     const nameRef = useRef<HTMLInputElement>(null)
 
@@ -61,7 +63,7 @@ export default function ChangerLogin() {
             setPw("")
             nameRef.current?.focus()
             setFails(prev => {
-                if(prev != null){
+                if (prev != null) {
                     return prev + 1
                 }
                 return prev
@@ -80,13 +82,19 @@ export default function ChangerLogin() {
         })
     }
 
-    useEffect(() => {
+    function getAttempts() {
+        setError({} as errorType)
         instance.get(`?type=attempts`, { headers: { "jwt": sessionStorage.getItem("jwt") } })
             .then(response => response.data)
             .then(result => {
                 console.log("attempts, ip:", result)
                 setFails(result[0])
             })
+            .catch(error => setError({ "msg": error, "code": "" }))
+    }
+
+    useEffect(() => {
+        getAttempts()
         //check
         const metaIcon: HTMLLinkElement = document.getElementById("icon") as HTMLLinkElement
         if (metaIcon) {
@@ -100,7 +108,7 @@ export default function ChangerLogin() {
         console.log("fails", fails)
         const firstField = nameRef.current
         //focus/unfocus name field depending on availability
-        if(fails && fails < 3 && firstField) {
+        if (fails && fails < 3 && firstField) {
             firstField.focus()
         } else if (firstField) {
             firstField.blur()
@@ -152,7 +160,7 @@ export default function ChangerLogin() {
             <div className="window">
                 <h1>{lang === "eng" ? "Login" : "Anmeldung"}</h1>
 
-                {(fails != null && fails > 2 ) &&
+                {(fails != null && fails > 2) &&
                     <p className="tooMany">
                         <i className="fa-solid fa-triangle-exclamation" />
                         <p>
@@ -166,8 +174,11 @@ export default function ChangerLogin() {
                 }
 
                 <form onSubmit={submit} className={`${(fails && fails > 2) ? "inactive" : ""} ${fails == null ? "fetching" : ""}`}>
-                    {fails == null &&
+                    {(fails == null && error.msg === undefined) &&
                         <Loading light />
+                    }
+                    {error.msg !== undefined &&
+                        <ErrorInfo msg={error.msg} request={getAttempts} dark />
                     }
                     <div className="input-container">
                         <input
@@ -189,8 +200,8 @@ export default function ChangerLogin() {
                         />
                         <label>{lang === "eng" ? "Password" : "Passwort"}</label>
                         <button
-                            title={lang === "eng" ? 
-                                `The password is currently ${pwVisible ? "visible" : "hidden"}.\nClick to make the password ${pwVisible ? "hidden" : "visible"}.` 
+                            title={lang === "eng" ?
+                                `The password is currently ${pwVisible ? "visible" : "hidden"}.\nClick to make the password ${pwVisible ? "hidden" : "visible"}.`
                                 :
                                 `Das Passwort ist gerade ${pwVisible ? "sichtbar" : "versteckt"}.\nDurch Klicken wird das Passwort ${pwVisible ? "versteckt" : "sichtbar"}.`
                             }

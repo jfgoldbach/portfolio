@@ -54,10 +54,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 37px;
   background-color: black;
   color: white;
-  border-radius: 6px;
   transition: 0.125s;
   align-self: center;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);

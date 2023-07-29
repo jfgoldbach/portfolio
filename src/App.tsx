@@ -112,6 +112,13 @@ function App() {
 
 
   useEffect(() => {
+    /* async function testCall() {
+      const response = await fetch("http://192.168.178.101:8000/api/?type=test")
+      console.log(response)
+    }
+
+    testCall() */
+
     document.documentElement.style.setProperty("--initialHeight", `${window.innerHeight}px`)
 
     window.addEventListener("resize", updateVPsize)
@@ -183,6 +190,7 @@ function App() {
 
   useEffect(() => {
     if (error.msg) toast.warn(`${error.msg}`)
+    console.warn(error)
   }, [error])
 
 

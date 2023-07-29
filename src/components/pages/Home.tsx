@@ -48,22 +48,24 @@ function Home({ appError }: homeProps) {
         if (error.msg) toast.warn(`Home.tsx ${error.msg} (${error.msg})`)
     }, [error])
 
+    function getLandingpage() {
+        setError({} as errorType)
+        check.then(() => {
+            console.log("get landingpage content")
+            instance.get("?type=landingpage", { headers: { "jwt": sessionStorage.getItem("jwt") } })
+                .then(response => response.data)
+                .then(result => setContent(result))
+                .catch(error => setError({ "msg": error.message, "code": error.code }))
+        })
+    }
+
     useEffect(() => {
         console.log("home effect")
         if (ready && !content) {
-            check.then(() => {
-                console.log("get landingpage content")
-                instance.get("?type=landingpage", { headers: { "jwt": sessionStorage.getItem("jwt") } })
-                    .then(response => response.data)
-                    .then(result => setContent(result))
-                    .catch(error => window.alert({ "msg": error.message, "code": error.code }))
-            })
+            getLandingpage()
         }
     }, [ready])
 
-    /*     useEffect(() => {
-            if (content) console.log(content.heading)
-        }, [content]) */
 
     return (
         <homeContext.Provider value={content}>

@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const instance =  axios.create({
-    baseURL: "http://192.168.178.101:8000/api/",
+    baseURL: "http://192.168.178.101:8000/",
     timeout: 5000,
     headers: {
         "jwt": sessionStorage.getItem("jwt")
