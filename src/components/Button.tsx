@@ -8,7 +8,7 @@ const STYLES = ['btn--light', 'btn--outline', 'btn--dark'];
 const SIZES = ['btn--medium', 'btn--large'];
 
 type buttonProps = {
-    children: any
+    children?: any
     type?: string
     onClick?: any
     buttonStyle?: string

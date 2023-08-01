@@ -1,4 +1,6 @@
 export function arrEquals(array1: any[], array2: any[]) {
+    if(array1 === undefined || array2 === undefined) return false
+
     if (array1.length !== array2.length) return false
 
     try {

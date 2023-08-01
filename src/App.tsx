@@ -21,6 +21,7 @@ import useCheckJWT from './components/hooks/useCheckJWT';
 import instance from './components/network/axios';
 import APcontent from './components/pages/adminPanel/APcontent';
 import { ToastContainer, toast } from 'react-toastify';
+import axios from 'axios';
 
 
 type langProps = {
@@ -112,12 +113,6 @@ function App() {
 
 
   useEffect(() => {
-    /* async function testCall() {
-      const response = await fetch("http://192.168.178.101:8000/api/?type=test")
-      console.log(response)
-    }
-
-    testCall() */
 
     document.documentElement.style.setProperty("--initialHeight", `${window.innerHeight}px`)
 

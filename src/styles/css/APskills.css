@@ -26,17 +26,149 @@
     transform: translateY(0);
   }
 }
-.apSkills .skillsRow {
+.apSkills {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: flex-start !important;
+  flex-direction: column;
+}
+.apSkills h2 button {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  padding: 4px;
+}
+.apSkills h2 button i {
+  font-size: 0.9rem;
+}
+.apSkills h3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 18px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.apSkills h3 button {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  padding: 4px;
+}
+.apSkills h3 button i {
+  font-size: 0.9rem;
+}
+.apSkills .skillsLayout {
   display: flex;
   align-items: center;
   justify-content: center;
   justify-content: flex-start;
   width: 100%;
   gap: 12px;
-  background: rgba(170, 170, 170, 0.5);
-  border-radius: 12px;
   transition: 0.125s;
 }
-.apSkills .skillsRow.changed {
-  background: rgba(50, 205, 50, 0.75);
+.apSkills .skillsLayout.changed .skillsRow {
+  outline-color: limegreen;
+}
+.apSkills .skillsLayout.delete .skillsRow {
+  outline-color: transparent;
+}
+.apSkills .skillsLayout.delete .rstBtn {
+  opacity: 0 !important;
+}
+.apSkills .skillsLayout.delete .recoverBtn {
+  display: flex;
+}
+.apSkills .skillsLayout.delete .trashBtn {
+  display: none;
+}
+.apSkills .skillsLayout.delete .skillsRow {
+  opacity: 0.45;
+}
+.apSkills .skillsLayout.delete .skillsRow::before {
+  content: "";
+  position: absolute;
+  height: 2px;
+  width: calc(100% + 12px);
+  left: -6px;
+  background: black;
+  z-index: 100;
+}
+.apSkills .skillsLayout.delete .skillsRow button {
+  display: none;
+}
+.apSkills .skillsLayout button {
+  padding: 11px;
+}
+.apSkills .skillsLayout button i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+}
+.apSkills .skillsLayout button.trashBtn {
+  background: rgb(255, 103, 79);
+  color: #fff;
+}
+.apSkills .skillsLayout button.trashBtn:hover {
+  background: red;
+  color: #fff;
+  box-shadow: 0 0 6px rgb(255, 103, 79);
+}
+.apSkills .skillsLayout button.recoverBtn {
+  background: #cc8400;
+  color: #fff;
+  display: none;
+}
+.apSkills .skillsLayout button.recoverBtn:hover {
+  background: orange;
+}
+.apSkills .skillsLayout .skillsRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: flex-start;
+  position: relative;
+  width: 100%;
+  min-height: 37px;
+  border-radius: 8px;
+  gap: 12px;
+  background: rgba(170, 170, 170, 0.5);
+  transition: 0.2s;
+  outline: 2px solid transparent;
+}
+.apSkills .skillsLayout .skillsRow button {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  font-weight: bold;
+  font-size: 1.15rem;
+  color: #333;
+  background: none;
+  border: 2px solid #fff;
+  margin-left: 12px;
+}
+.apSkills .addRowBtn {
+  padding: 11px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.changeShield {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 100%;
+  top: 12px;
+  width: 0;
+  overflow: hidden;
+  height: 38px;
+  border-radius: 12px 0 0 12px;
+  background: limegreen;
+  color: #151515;
+  font-size: 1.15rem;
+  box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.33), -3px 0 5px -2px rgba(0, 0, 0, 0.25) inset;
+  transition: 0.2s;
+}
+.changeShield.active {
+  width: 38px;
 }

@@ -98,11 +98,15 @@ export default function Changer() {
             }
 
             if (timeLeft === 60) {
-                toast.warn(lang === "eng" ? "Automatic logout in 60 seconds" : "Automatischer Logout in 60 Sekunden")
+                toast.warn(lang === "eng" ? "Automatic logout in 60 seconds" : "Automatischer Logout in 60 Sekunden", {
+                    pauseOnFocusLoss: false
+                })
             }
 
             if (timeLeft === 10) {
-                toast.warn(lang === "eng" ? "Automatic logout in 10 seconds" : "Automatischer Logout in 10 Sekunden")
+                toast.warn(lang === "eng" ? "Automatic logout in 10 seconds" : "Automatischer Logout in 10 Sekunden", {
+                    pauseOnFocusLoss: false
+                })
             }
         }
 

@@ -5,7 +5,6 @@ import instance from "../../network/axios"
 import APdualang from "./APdualang"
 import APinfo from "./APinfo"
 import APnotes from "./notes/APnotes"
-import APskillcards from "./DEPRECATEDskills/APskillcards"
 import Loading from "../../helper/Loading"
 import ErrorBoundary from "../../helper/ErrorBoundary"
 import Button from "../../Button"
@@ -19,7 +18,7 @@ type changesType = {
 type changesContextType = {
   changesList: changesType,
   setChangesList: React.Dispatch<React.SetStateAction<changesType>>,
-  submitRef: React.MutableRefObject<{[index: string]: {}}>
+  submitRef: React.MutableRefObject<{ [index: string]: {} }>
 }
 
 export const apChanges = createContext<changesContextType>({} as changesContextType)
@@ -33,7 +32,7 @@ function APcontent() {
   const [diff, setDiff] = useState(false)
   const [admin, setAdmin] = useState(false)
 
-  const submitRef = useRef<{[index: string]: {}}>({}) //this ref is solely for submitting the changes
+  const submitRef = useRef<{ [index: string]: {} }>({}) //this ref is solely for submitting the changes
 
 
   useEffect(() => {
@@ -97,8 +96,8 @@ function APcontent() {
   function getChangesAmount() {
     const keys = Object.keys(changesList)
     let result = 0
-    for(let i = 0; i < keys.length; i++){
-      if(changesList[keys[i]]){
+    for (let i = 0; i < keys.length; i++) {
+      if (changesList[keys[i]]) {
         result++
       }
     }
@@ -115,40 +114,38 @@ function APcontent() {
 
 
   return (
-    <>
-      <ErrorBoundary>
-        <apChanges.Provider value={{ changesList, setChangesList, submitRef }}>
-          <div className="apContent">
-            {display ?
-              <>
-                {display.map((item, index) => {
-                  switch (item.type) {
-                    case "dualang":
-                      return <APdualang index={index} name={item.name} ger={item.ger} eng={item.eng} />
+    <ErrorBoundary>
+      <apChanges.Provider value={{ changesList, setChangesList, submitRef }}>
+        <div className="apContent">
+          {display ?
+            <>
+              {display.map((item, index) => {
+                switch (item.type) {
+                  case "dualang":
+                    return <APdualang index={index} name={item.name} ger={item.ger} eng={item.eng} />
 
-                    case "info_link":
-                      return <APinfo index={index} path={item.path} ger={item.ger} eng={item.eng} />
+                  case "info_link":
+                    return <APinfo index={index} path={item.path} ger={item.ger} eng={item.eng} />
 
-                    case "skillcards":
-                      return <APskills name={item.name} sections={item.sections} hidden={item.hidden} id={index} />
+                  case "skillcards":
+                    return <APskills name={item.name} sections={item.sections} hidden={item.hidden} id={index} />
 
-                    case "notepads":
-                      return <APnotes name={item.name} notes={item.notes} id={index} />
-                  }
-                })}
-              </>
-              :
-              !error.msg && <Loading />
-            }
-            {error.msg &&
-              <div className="info-container mildWarn fetchError scaleIn">
-                <i className="fa-solid fa-triangle-exclamation" />
-                <p>{`${error.msg}: ${error.code}`}</p>
-              </div>
-            }
-          </div>
-        </apChanges.Provider>
-      </ErrorBoundary>
+                  case "notepads":
+                    return <APnotes name={item.name} notes={item.notes} id={index} />
+                }
+              })}
+            </>
+            :
+            !error.msg && <Loading />
+          }
+          {error.msg &&
+            <div className="info-container mildWarn fetchError scaleIn">
+              <i className="fa-solid fa-triangle-exclamation" />
+              <p>{`${error.msg}: ${error.code}`}</p>
+            </div>
+          }
+        </div>
+      </apChanges.Provider>
 
 
       <div className={`apSubmitContainer ${diff ? "active" : ""}`}>
@@ -169,7 +166,7 @@ function APcontent() {
         </div>
       </div>
 
-    </>
+    </ErrorBoundary>
   )
 }
 
