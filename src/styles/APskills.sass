@@ -4,9 +4,11 @@
     @include globals.flexCenter
     justify-content: flex-start !important
     flex-direction: column
+    gap: 18px
     @mixin apSkillsBtn()
         padding: 11px
     h2
+        line-height: 1.5rem !important
         button
             box-shadow: globals.$shadow2
             padding: 4px
@@ -100,21 +102,3 @@
     .addRowBtn
         @include apSkillsBtn()
         box-shadow: globals.$shadow2
-
-.changeShield
-    @include globals.flexCenter
-    position: absolute
-    right: 100%
-    top: 12px
-    $size: 38px
-    width: 0
-    overflow: hidden
-    height: $size
-    border-radius: 12px 0 0 12px
-    background: limegreen
-    color: #151515
-    font-size: 1.15rem
-    box-shadow: -3px 3px 10px rgba(#000, 0.33), -3px 0 5px -2px rgba(#000, 0.25) inset
-    transition: 0.2s
-    &.active
-        width: $size

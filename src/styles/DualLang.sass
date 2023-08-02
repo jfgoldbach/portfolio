@@ -2,6 +2,13 @@
 
 .apcSection.dualLang
     width: calc(50% - 16px) !important
+    gap: 4px
+    .DLrstBtn
+        box-shadow: globals.$shadow2
+        border-radius: 6px 6px 0 0
+        padding: 1px 12px
+        margin-left: 4px
+        font-size: 0.9rem
     .textfields
         @include globals.flexCenter
         gap: 12px
@@ -35,6 +42,7 @@
                     font-size: 1rem
                     padding: 5px
                     height: 20px
+                    z-index: 1000
             .flag
                 width: 120px
                 height: 60px
@@ -48,9 +56,11 @@
                 border-radius: 4px
                 line-height: 1.33rem
                 border: 1px solid #ccc
-                outline: 3px solid transparent
+                outline: 2px solid transparent
                 background: rgba(#fff, 0.8)
-                transition: 0.2s
+                transition: 0.1s
                 z-index: 100
-                .ger,
-                .eng
+                &.changed
+                    outline-color: limegreen
+                &:focus
+                    outline-color: globals.$active

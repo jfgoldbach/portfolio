@@ -28,6 +28,14 @@
 }
 .apcSection.dualLang {
   width: calc(50% - 16px) !important;
+  gap: 4px;
+}
+.apcSection.dualLang .DLrstBtn {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 6px 6px 0 0;
+  padding: 1px 12px;
+  margin-left: 4px;
+  font-size: 0.9rem;
 }
 .apcSection.dualLang .textfields {
   display: flex;
@@ -74,6 +82,7 @@
   font-size: 1rem;
   padding: 5px;
   height: 20px;
+  z-index: 1000;
 }
 .apcSection.dualLang .textfields .ger .flag,
 .apcSection.dualLang .textfields .eng .flag {
@@ -91,8 +100,16 @@
   border-radius: 4px;
   line-height: 1.33rem;
   border: 1px solid #ccc;
-  outline: 3px solid transparent;
+  outline: 2px solid transparent;
   background: rgba(255, 255, 255, 0.8);
-  transition: 0.2s;
+  transition: 0.1s;
   z-index: 100;
+}
+.apcSection.dualLang .textfields .ger textarea.changed,
+.apcSection.dualLang .textfields .eng textarea.changed {
+  outline-color: limegreen;
+}
+.apcSection.dualLang .textfields .ger textarea:focus,
+.apcSection.dualLang .textfields .eng textarea:focus {
+  outline-color: #31a6ff;
 }

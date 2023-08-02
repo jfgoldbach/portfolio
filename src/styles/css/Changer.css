@@ -460,21 +460,20 @@
 }
 .changer-container .changer-main > .apSubmitContainer {
   position: fixed;
-  bottom: 0;
-  right: 0;
-}
-.changer-container .changer-main > .apSubmitContainer::before {
-  content: "";
-  position: absolute;
-  right: -150px;
-  bottom: -342.8571428571px;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  background-image: radial-gradient(rgba(49, 166, 255, 0.6) 25%, transparent 60%);
-  opacity: 0;
-  transition: 0.25s;
-  pointer-events: none;
+  top: 27px;
+  left: 245px;
+  /* &::before
+  *  @include globals.pseudoAbs
+  *  $size: 600px
+  *  right: calc((-1 * $size) / 4)
+  *  bottom: calc((-1 * $size) / 1.75)
+  *  width: $size
+  *  height: $size
+  *  border-radius: 50%
+  *  background-image: radial-gradient(rgba(globals.$active, 0.6) 25%, transparent 60%)
+  *  opacity: 0
+  *  transition: 0.25s
+  *  pointer-events: none */
 }
 .changer-container .changer-main > .apSubmitContainer.active::before {
   opacity: 1;
@@ -483,25 +482,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  scale: 0.5;
-  margin-right: 20px;
-  margin-bottom: 25px;
-  transform: translateY(130px) translateX(75px);
   z-index: 100;
   gap: 12px;
-  padding: 8px;
-  background: rgba(51, 51, 51, 0.8);
-  border: 2px solid #cccccc;
-  backdrop-filter: blur(6px);
-  border-radius: 12px;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
   transition: 0.1s;
 }
 .changer-container .changer-main > .apSubmitContainer .apSubmitBox.active {
-  scale: 1;
-  bottom: 25px;
-  transform: translateY(0px) translateX(0px);
-  transition: 0.25s;
+  opacity: 1;
 }
 .changer-container .changer-main > .apSubmitContainer .apSubmitBox button {
   display: flex;
@@ -509,7 +495,6 @@
   justify-content: center;
   gap: 8px;
   font-size: 1rem;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
 }
 .changer-container .changer-main > .apSubmitContainer .apSubmitBox button.submitBtn {
   background: #80ff80;
@@ -545,9 +530,9 @@
   align-items: center;
   justify-content: center;
   align-items: flex-start;
+  position: relative;
   border-radius: 12px;
   opacity: 0;
-  gap: 18px;
   padding: 12px;
   background-color: white;
   width: 100%;
@@ -846,9 +831,8 @@
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-textarea.changed,
 input.changed {
-  outline: 2px solid green !important;
+  outline: 2px limegreen !important;
 }
 
 .flag_ger {
@@ -1044,4 +1028,25 @@ label.credentials input {
 }
 .apcSection.changes {
   background: rgba(0, 0, 0, 0.06);
+}
+
+.changeFlag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 100%;
+  top: 12px;
+  width: 0;
+  overflow: hidden;
+  height: 38px;
+  border-radius: 12px 0 0 12px;
+  background: limegreen;
+  color: #151515;
+  font-size: 1.15rem;
+  box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.33), -3px 0 5px -2px rgba(0, 0, 0, 0.25) inset;
+  transition: 0.2s;
+}
+.changeFlag.active {
+  width: 30px;
 }

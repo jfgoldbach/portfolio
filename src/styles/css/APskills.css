@@ -32,6 +32,10 @@
   justify-content: center;
   justify-content: flex-start !important;
   flex-direction: column;
+  gap: 18px;
+}
+.apSkills h2 {
+  line-height: 1.5rem !important;
 }
 .apSkills h2 button {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -150,25 +154,4 @@
 .apSkills .addRowBtn {
   padding: 11px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-.changeShield {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  right: 100%;
-  top: 12px;
-  width: 0;
-  overflow: hidden;
-  height: 38px;
-  border-radius: 12px 0 0 12px;
-  background: limegreen;
-  color: #151515;
-  font-size: 1.15rem;
-  box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.33), -3px 0 5px -2px rgba(0, 0, 0, 0.25) inset;
-  transition: 0.2s;
-}
-.changeShield.active {
-  width: 38px;
 }

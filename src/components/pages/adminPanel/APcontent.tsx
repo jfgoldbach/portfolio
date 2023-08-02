@@ -150,11 +150,11 @@ function APcontent() {
 
       <div className={`apSubmitContainer ${diff ? "active" : ""}`}>
         <div className={`apSubmitBox ${diff ? "active" : ""}`}>
-          <Button>
+          <Button className={`${diff ? "" : "inactive"}`}>
             Reset all
             <i className="fa-solid fa-rotate"></i>
           </Button>
-          <Button className={`submitBtn ${admin ? "" : "forbidden"}`} onClick={submitChanges}>
+          <Button className={`submitBtn ${admin ? "" : "forbidden"} ${diff ? "" : "inactive"}`} onClick={submitChanges}>
             Submit &#40;{getChangesAmount()}&#41;
             {admin ?
               <i className="fa-solid fa-database"></i>

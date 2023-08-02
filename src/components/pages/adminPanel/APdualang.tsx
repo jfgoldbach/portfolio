@@ -3,6 +3,7 @@ import Button from "../../Button"
 import { apChanges } from "./APcontent"
 import "../../../styles/css/DualLang.css"
 import { LangContext } from "../../../App"
+import ChangeFlag from "./ChangeFlag"
 
 type duallangProps = {
     name: string,
@@ -16,7 +17,7 @@ function APdualang({ name, ger, eng, index }: duallangProps) {
     const [english, setEng] = useState("")
     const gerRef = useRef<HTMLTextAreaElement>(null)
     const engRef = useRef<HTMLTextAreaElement>(null)
-    const {lang} = useContext(LangContext)
+    const { lang } = useContext(LangContext)
     const { setChangesList, submitRef } = useContext(apChanges)
 
     const gerChanged = german !== ger
@@ -65,32 +66,37 @@ function APdualang({ name, ger, eng, index }: duallangProps) {
 
     return (
         <div className={`apcSection dualLang scaleIn`} style={{ animationDelay: `${index * 0.05}s` }}>
-            <h2 className={`${(gerChanged || engChanged) ? "changes" : ""}`}>
-                {(gerChanged || engChanged) &&
-                    <i className="fa-solid fa-pen"></i>
-                }
+            <ChangeFlag changes={gerChanged || engChanged} />
+
+            <h2>
                 {name.replaceAll("_", " ")}
             </h2>
-            <div className="textfields" title={lang === "eng"? "German" : "Deutsch"}>
+
+            <div className="textfields" title={lang === "eng" ? "German" : "Deutsch"}>
                 <div className="ger">
+                    <Button 
+                        onClick={resetGer} 
+                        className={`DLrstBtn ${gerChanged ? "" : "inactiveInvis"}`}
+                        title={lang === "eng" ? "Reset german text" : "Deutschen Text zurücksetzen"}
+                    >
+                        <i className="fa-solid fa-arrow-rotate-left"></i>
+                    </Button>
                     <div className="flagContainer">
                         <div className="flag" />
-                        {gerChanged &&
-                            <Button onClick={resetGer}>
-                                <i className="fa-solid fa-arrow-rotate-right"></i>
-                            </Button>
-                        }
                     </div>
                     <textarea ref={gerRef} className={gerChanged ? "changed" : ""} value={german} onChange={changeGer} />
                 </div>
-                <div className="eng" title={lang === "eng"? "English" : "Englisch"}>
+
+                <div className="eng" title={lang === "eng" ? "English" : "Englisch"}>
+                    <Button 
+                        onClick={resetEng} 
+                        className={`DLrstBtn ${engChanged ? "" : "inactiveInvis"}`}
+                        title={lang === "eng" ? "Reset english text" : "Englischen Text zurücksetzen"}
+                    >
+                        <i className="fa-solid fa-arrow-rotate-left"></i>
+                    </Button>
                     <div className="flagContainer">
                         <div className="flag" />
-                        {engChanged &&
-                            <Button onClick={resetEng}>
-                                <i className="fa-solid fa-arrow-rotate-right"></i>
-                            </Button>
-                        }
                     </div>
                     <textarea ref={engRef} className={engChanged ? "changed" : ""} value={english} onChange={changeEng} />
                 </div>

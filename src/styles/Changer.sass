@@ -365,9 +365,9 @@ $changer_topbar_height: 80px
         border-radius: 12px
         & > .apSubmitContainer
             position: fixed
-            bottom: 0
-            right: 0
-            &::before
+            top: 27px
+            left: 245px
+            /* &::before
                 @include globals.pseudoAbs
                 $size: 600px
                 right: calc((-1 * $size) / 4)
@@ -378,34 +378,20 @@ $changer_topbar_height: 80px
                 background-image: radial-gradient(rgba(globals.$active, 0.6) 25%, transparent 60%)
                 opacity: 0
                 transition: 0.25s
-                pointer-events: none
+                pointer-events: none */
             &.active::before
                 opacity: 1
             .apSubmitBox
                 @include globals.flexCenter
-                scale: 0.5
-                margin-right: 20px
-                margin-bottom: 25px
-                transform: translateY(130px) translateX(75px)
                 z-index: 100
                 gap: 12px
-                padding: 8px
-                background: rgba(lighten(#000, 20%), 0.8)
-                border: 2px solid darken(#fff, 20%)
-                backdrop-filter: blur(6px)
-                border-radius: 12px
-                box-shadow: 0 0 30px rgba(#000, 0.8)
                 transition: 0.1s
                 &.active
-                    scale: 1
-                    bottom: 25px
-                    transform: translateY(0px) translateX(0px)
-                    transition: 0.25s
+                    opacity: 1
                 button
                     @include globals.flexCenter
                     gap: 8px
                     font-size: 1rem
-                    box-shadow: globals.$shadow
                     &.submitBtn
                         background: lighten(green, 50%)
                         color: darken(green, 10%)
@@ -423,7 +409,6 @@ $changer_topbar_height: 80px
             align-items: flex-start
             flex-wrap: wrap
             padding: 40px 64px
-            //flex-direction: column
             gap: 32px
             min-height: 100%
             margin: 0
@@ -433,9 +418,9 @@ $changer_topbar_height: 80px
             .apcSection //= admin panel content
                 @include globals.flexCenter
                 align-items: flex-start
+                position: relative //necessary for the ChangeFlag
                 border-radius: 12px
                 opacity: 0
-                gap: 18px
                 padding: 12px
                 background-color: lighten($changer_bg, 80%)
                 width: 100%
@@ -686,9 +671,8 @@ $changer_topbar_height: 80px
             text-shadow: globals.$shadow2
 
 
-textarea.changed,
 input.changed
-    outline: 2px solid green !important
+    outline: 2px limegreen !important
 
 @mixin flagSmall
     background-size: 100%
@@ -826,3 +810,22 @@ label.credentials
                 font-size: 1.5rem
     &.changes
         background: rgba(#000, 0.06)
+
+
+.changeFlag
+    @include globals.flexCenter
+    position: absolute
+    right: 100%
+    top: 12px
+    $size: 38px
+    width: 0
+    overflow: hidden
+    height: $size
+    border-radius: 12px 0 0 12px
+    background: limegreen
+    color: #151515
+    font-size: 1.15rem
+    box-shadow: -3px 3px 10px rgba(#000, 0.33), -3px 0 5px -2px rgba(#000, 0.25) inset
+    transition: 0.2s
+    &.active
+        width: 30px

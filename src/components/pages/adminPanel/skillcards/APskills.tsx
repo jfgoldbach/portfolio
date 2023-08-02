@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from "react"
 import { arrEquals } from "../../../../helperfunctions"
 import Button from "../../../Button"
 import { LangContext } from "../../../../App"
+import ChangeFlag from "../ChangeFlag"
 
 type skillProps = {
     name: string,
@@ -165,9 +166,7 @@ function APskills({ name, sections, hidden, id }: skillProps) {
 
     return (
         <div className={`apcSection apSkills scaleIn`} style={{ animationDelay: `${id * 0.05}s` }}>
-            <div className={`changeShield ${anyChanges ? "active" : ""}`}>
-                <i className="fa-solid fa-pen-to-square" />
-            </div>
+            <ChangeFlag changes={anyChanges} />
 
             <h2>
                 {name.replaceAll("_", " ")}
