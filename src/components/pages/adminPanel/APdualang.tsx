@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react"
 import Button from "../../Button"
-import { apChanges } from "./APcontent"
+import { apChanges, changesType } from "./APcontent"
 import "../../../styles/css/DualLang.css"
 import { LangContext } from "../../../App"
 import ChangeFlag from "./ChangeFlag"
@@ -18,7 +18,7 @@ function APdualang({ name, ger, eng, index }: duallangProps) {
     const gerRef = useRef<HTMLTextAreaElement>(null)
     const engRef = useRef<HTMLTextAreaElement>(null)
     const { lang } = useContext(LangContext)
-    const { setChangesList, submitRef } = useContext(apChanges)
+    const { setChangesList, submitRef, resetAll } = useContext(apChanges)
 
     const gerChanged = german !== ger
     const engChanged = english !== eng
@@ -27,7 +27,14 @@ function APdualang({ name, ger, eng, index }: duallangProps) {
     function listChanges() {
         setChangesList(prev => {
             let newState = { ...prev }
-            newState[name] = gerChanged || engChanged
+            let changeObj: changesType = {}
+            if (gerChanged) changeObj["ger"] = german
+            if (engChanged) changeObj["eng"] = english
+            if (!gerChanged && !engChanged) {
+                delete newState[name]
+            } else {
+                newState[name] = changeObj
+            }
             return newState
         })
         if (submitRef.current) {
@@ -40,6 +47,13 @@ function APdualang({ name, ger, eng, index }: duallangProps) {
         setGer(ger)
         setEng(eng)
     }, [])
+
+    useEffect(() => {
+        if(resetAll) {
+            resetGer()
+            resetEng()
+        }
+    }, [resetAll])
 
     useEffect(() => {
         listChanges()
@@ -74,8 +88,8 @@ function APdualang({ name, ger, eng, index }: duallangProps) {
 
             <div className="textfields" title={lang === "eng" ? "German" : "Deutsch"}>
                 <div className="ger">
-                    <Button 
-                        onClick={resetGer} 
+                    <Button
+                        onClick={resetGer}
                         className={`DLrstBtn ${gerChanged ? "" : "inactiveInvis"}`}
                         title={lang === "eng" ? "Reset german text" : "Deutschen Text zurücksetzen"}
                     >
@@ -88,8 +102,8 @@ function APdualang({ name, ger, eng, index }: duallangProps) {
                 </div>
 
                 <div className="eng" title={lang === "eng" ? "English" : "Englisch"}>
-                    <Button 
-                        onClick={resetEng} 
+                    <Button
+                        onClick={resetEng}
                         className={`DLrstBtn ${engChanged ? "" : "inactiveInvis"}`}
                         title={lang === "eng" ? "Reset english text" : "Englischen Text zurücksetzen"}
                     >

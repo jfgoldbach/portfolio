@@ -483,11 +483,25 @@
   align-items: center;
   justify-content: center;
   z-index: 100;
-  gap: 12px;
+  gap: 18px;
   transition: 0.1s;
 }
 .changer-container .changer-main > .apSubmitContainer .apSubmitBox.active {
   opacity: 1;
+}
+.changer-container .changer-main > .apSubmitContainer .apSubmitBox.active .submitBtn {
+  background: #80ff80;
+  color: #004d00;
+}
+.changer-container .changer-main > .apSubmitContainer .apSubmitBox.active .submitBtn:hover {
+  color: #80ff80;
+  background: #004d00;
+}
+.changer-container .changer-main > .apSubmitContainer .apSubmitBox.active .submitBtn.forbidden {
+  background: rgb(255, 103, 79);
+}
+.changer-container .changer-main > .apSubmitContainer .apSubmitBox.active .submitBtn.forbidden:hover {
+  color: #444;
 }
 .changer-container .changer-main > .apSubmitContainer .apSubmitBox button {
   display: flex;
@@ -497,16 +511,38 @@
   font-size: 1rem;
 }
 .changer-container .changer-main > .apSubmitContainer .apSubmitBox button.submitBtn {
-  background: #80ff80;
-  color: #004d00;
   font-weight: bold;
+  position: relative;
+  margin-right: 24px;
 }
 .changer-container .changer-main > .apSubmitContainer .apSubmitBox button.submitBtn.forbidden {
-  background: rgb(255, 103, 79);
-  pointer-events: none;
   color: #444;
-  opacity: 0.5;
   cursor: not-allowed !important;
+}
+.changer-container .changer-main > .apSubmitContainer .apSubmitBox button.submitBtn.forbidden:hover {
+  box-shadow: none;
+}
+.changer-container .changer-main > .apSubmitContainer .apSubmitBox button.submitBtn.forbidden .submitCounter {
+  background: red;
+}
+.changer-container .changer-main > .apSubmitContainer .apSubmitBox button.submitBtn .submitCounter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 22px;
+  min-width: 22px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 11px;
+  background: green;
+  transform: translate(33%, -33%);
+  color: #fff;
+  padding: 3px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.changer-container .changer-main > .apSubmitContainer .apSubmitBox button.submitBtn .submitCounter p {
+  font-size: 0.9rem;
 }
 .changer-container .changer-main .apContent {
   position: relative;

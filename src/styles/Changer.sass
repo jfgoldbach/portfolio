@@ -384,24 +384,52 @@ $changer_topbar_height: 80px
             .apSubmitBox
                 @include globals.flexCenter
                 z-index: 100
-                gap: 12px
+                gap: 18px
                 transition: 0.1s
                 &.active
                     opacity: 1
+                    .submitBtn
+                        background: lighten(green, 50%)
+                        color: darken(green, 10%)
+                        &:hover
+                            color: lighten(green, 50%)
+                            background: darken(green, 10%)
+                        &.forbidden
+                            background: globals.$cancel
+                            &:hover
+                                color: #444
                 button
                     @include globals.flexCenter
                     gap: 8px
                     font-size: 1rem
                     &.submitBtn
-                        background: lighten(green, 50%)
-                        color: darken(green, 10%)
                         font-weight: bold
+                        position: relative
+                        margin-right: 24px
                         &.forbidden
-                            background: globals.$cancel
-                            pointer-events: none
+                            //pointer-events: none
                             color: #444
-                            opacity: 0.5
                             cursor: not-allowed !important
+                            &:hover
+                                box-shadow: none
+                            .submitCounter
+                                background: red
+                        .submitCounter
+                            @include globals.flexCenter
+                            $size: 22px
+                            height: $size
+                            min-width: $size
+                            position: absolute
+                            top: 0
+                            right: 0
+                            border-radius: calc($size / 2)
+                            background: green
+                            transform: translate(33%, -33%)
+                            color: #fff
+                            padding: 3px
+                            box-shadow: globals.$shadow2
+                            p
+                                font-size: 0.9rem
         .apContent
             position: relative
             @include globals.flexCenter

@@ -1,38 +1,47 @@
-import { createContext, useEffect, useRef, useState } from "react"
+import { createContext, useContext, useEffect, useRef, useState } from "react"
 import { useParams } from "react-router-dom"
-import { errorType } from "../../../App"
+import { LangContext, errorType } from "../../../App"
 import instance from "../../network/axios"
 import APdualang from "./APdualang"
 import APinfo from "./APinfo"
-import APnotes from "./notes/APnotes"
+import APnotes from "./DEPRECATEDnotes/APnotes"
 import Loading from "../../helper/Loading"
 import ErrorBoundary from "../../helper/ErrorBoundary"
 import Button from "../../Button"
 import { jwtPayload } from "../../../types/types"
 import APskills from "./skillcards/APskills"
+import APnoteCategories from "./APnoteCategories"
+import { toast } from "react-toastify"
 
-type changesType = {
-  [index: string]: boolean
+export type changesType = {
+  [index: string]: {}
 }
 
 type changesContextType = {
-  changesList: changesType,
-  setChangesList: React.Dispatch<React.SetStateAction<changesType>>,
+  resetAll: boolean
+  changesList: changesType
+  setChangesList: React.Dispatch<React.SetStateAction<changesType>>
   submitRef: React.MutableRefObject<{ [index: string]: {} }>
 }
 
 export const apChanges = createContext<changesContextType>({} as changesContextType)
 
+
+
 function APcontent() {
+  const { lang } = useContext(LangContext)
   const { content_id } = useParams()
   const [error, setError] = useState({} as errorType)
   const [content, setContent] = useState<{ [key: string]: any } | null>(null)
   const [display, setDisplay] = useState<any[] | null>(null)
   const [changesList, setChangesList] = useState<changesType>({} as changesType)
-  const [diff, setDiff] = useState(false)
+  const [diff, setDiff] = useState(0)
+  const [resetAll, setResetAll] = useState(false)
+  const [reloadActive, setReloadActive] = useState(false)
   const [admin, setAdmin] = useState(false)
 
   const submitRef = useRef<{ [index: string]: {} }>({}) //this ref is solely for submitting the changes
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
 
   useEffect(() => {
@@ -51,11 +60,9 @@ function APcontent() {
   useEffect(() => {
     setError({} as errorType)
     setContent(null)
-    setDiff(false)
-    instance.get(`?type=ap_content&page=${content_id}`, { headers: { "jwt": sessionStorage.getItem("jwt") } })
-      .then(response => response.data)
-      .then(result => setContent(result))
-      .catch(error => setError({ "msg": error.message, "code": error.code }))
+    setReloadActive(false)
+    getContent()
+    if(timeoutRef.current) timeoutRef.current = null
   }, [content_id])
 
 
@@ -74,48 +81,69 @@ function APcontent() {
 
 
   useEffect(() => {
-    console.log("effect")
+    console.log("changesList", changesList)
     if (changesList) {
-      const keys = Object.keys(changesList)
-      //check if an section object is marked as true (= changed)
-      for (let i = 0; i < keys.length; i++) {
-        if (changesList[keys[i]]) {
-          console.log("set true")
-          setDiff(true)
-          break
-        }
-        if (i >= keys.length - 1) {
-          console.log("set false")
-          setDiff(false)
-        }
-      }
+      const entries = Object.entries(changesList)
+      let result = 0
+      entries.forEach(entry => {
+        result += Object.keys(entry[1]).length
+      })
+      setDiff(result)
     }
   }, [changesList])
 
+  useEffect(() => {
+    setResetAll(false)
+  }, [resetAll])
 
-  function getChangesAmount() {
-    const keys = Object.keys(changesList)
-    let result = 0
-    for (let i = 0; i < keys.length; i++) {
-      if (changesList[keys[i]]) {
-        result++
-      }
+  function getContent() {
+    if (!timeoutRef.current) { //only load if we are not waiting for a timeout
+      console.log("getContent")
+      setContent(null)
+      setError({} as errorType)
+      instance.get(`?type=ap_content&page=${content_id}`, { headers: { "jwt": sessionStorage.getItem("jwt") } })
+        .then(response => response.data)
+        .then(result => {
+          setContent(result)
+          reloadTimeout()
+        })
+        .catch(error => {
+          setError({ "msg": error.message, "code": error.code })
+          reloadTimeout(1000)
+        })
     }
-    return result
   }
+
+  function reloadTimeout(delay?: number) {
+    const timeout = timeoutRef.current
+    if (timeout) {
+      clearTimeout(timeout)
+    }
+    setReloadActive(false)
+    timeoutRef.current = setTimeout(() => {
+      setReloadActive(true)
+      timeoutRef.current = null
+    }, delay ?? 5000)
+  }
+
 
   function submitChanges() {
-    instance.post(`?type=ap_update&row=${content_id}`, { headers: { "jwt": sessionStorage.getItem("jwt"), "content": submitRef.current } })
-      .then(response => response.data)
-      .then(result => window.alert(result))
-      .catch(error => window.alert(error))
+    if (admin) {
+      instance.post(`?type=ap_update&row=${content_id}`, { headers: { "jwt": sessionStorage.getItem("jwt"), "content": submitRef.current } })
+        .then(response => response.data)
+        .then(result => window.alert(result))
+        .catch(error => window.alert(error))
+    }
   }
 
+  function reset() {
+    setResetAll(true) //impulse
+  }
 
 
   return (
     <ErrorBoundary>
-      <apChanges.Provider value={{ changesList, setChangesList, submitRef }}>
+      <apChanges.Provider value={{ changesList, setChangesList, submitRef, resetAll }}>
         <div className="apContent">
           {display ?
             <>
@@ -131,7 +159,7 @@ function APcontent() {
                     return <APskills name={item.name} sections={item.sections} hidden={item.hidden} id={index} />
 
                   case "notepads":
-                    return <APnotes name={item.name} notes={item.notes} id={index} />
+                    return <APnoteCategories name={item.name} />
                 }
               })}
             </>
@@ -148,20 +176,41 @@ function APcontent() {
       </apChanges.Provider>
 
 
-      <div className={`apSubmitContainer ${diff ? "active" : ""}`}>
+      <div className={`apSubmitContainer`}>
         <div className={`apSubmitBox ${diff ? "active" : ""}`}>
-          <Button className={`${diff ? "" : "inactive"}`}>
-            Reset all
-            <i className="fa-solid fa-rotate"></i>
-          </Button>
-          <Button className={`submitBtn ${admin ? "" : "forbidden"} ${diff ? "" : "inactive"}`} onClick={submitChanges}>
-            Submit &#40;{getChangesAmount()}&#41;
+
+          <Button
+            className={`submitBtn ${admin ? "" : "forbidden"} ${diff > 0 ? "" : "inactive"}`}
+            onClick={submitChanges}
+            title={lang === "eng"
+              ? (admin ? "Save changes to database" : "Cant save changes without admin privileges")
+              : (admin ? "Änderungen in der Datenbank speichern" : "Für das speichern sind Adminprivilegien notwendig")}
+          >
+            {lang === "eng" ? "Save" : "Speichern"}
             {admin ?
-              <i className="fa-solid fa-database"></i>
+              <i className="fa-solid fa-floppy-disk"></i>
               :
               <i className="fa-solid fa-ban"></i>
             }
+            <div className={`submitCounter ${diff === 0 ? "inactiveInvis" : ""}`}>
+              <p>{diff}</p>
+            </div>
+          </Button>
 
+          <Button
+            className={`${diff ? "" : "inactive"}`}
+            onClick={reset}
+          >
+            {lang === "eng" ? "Reset all" : "Alles zurücksetzen"}
+            <i className="fa-solid fa-arrow-rotate-left"></i>
+          </Button>
+
+          <Button
+            className={`${reloadActive ? "" : "inactive"}`}
+            onClick={getContent}
+          >
+            {lang === "eng" ? "Reload" : "Neu laden"}
+            <i className="fa-solid fa-rotate" />
           </Button>
         </div>
       </div>
