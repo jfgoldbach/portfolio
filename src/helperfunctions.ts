@@ -15,3 +15,12 @@ export function arrEquals(array1: any[], array2: any[]) {
     }
 
 }
+
+
+export function entriesToJson(array: [string, any][]){
+    let result: {[index: string]: any} = new Object
+    array.forEach(entry => {
+        result[entry[0]] = entry[1]
+    })
+    return JSON.stringify(result)
+}

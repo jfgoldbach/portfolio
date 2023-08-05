@@ -18,7 +18,7 @@ function APdualang({ name, ger, eng, index }: duallangProps) {
     const gerRef = useRef<HTMLTextAreaElement>(null)
     const engRef = useRef<HTMLTextAreaElement>(null)
     const { lang } = useContext(LangContext)
-    const { setChangesList, submitRef, resetAll } = useContext(apChanges)
+    const { setChangesList, resetAll } = useContext(apChanges)
 
     const gerChanged = german !== ger
     const engChanged = english !== eng
@@ -37,9 +37,6 @@ function APdualang({ name, ger, eng, index }: duallangProps) {
             }
             return newState
         })
-        if (submitRef.current) {
-            submitRef.current[name] = { "type": "dualang", "ger": german, "eng": english }
-        }
     }
 
 

@@ -24,7 +24,7 @@ type dragobjProps = {
 
 function APnotes({ name, notes, id }: notesType) {
   const { lang } = useContext(LangContext)
-  const { setChangesList, submitRef } = useContext(apChanges)
+  const { setChangesList } = useContext(apChanges)
 
   const changedIndex = useRef<indexTrackType>([null, null]) //old index, new index
   const containerRef = useRef<HTMLDivElement>(null)
@@ -49,9 +49,9 @@ function APnotes({ name, notes, id }: notesType) {
       newState[`notes${id}`] = changed
       return newState
     })
-    if (submitRef.current && local) {
+    /* if (submitRef.current && local) {
       submitRef.current[name] = { type: "notepads", notes: [...local] }
-    }
+    } */
   }, [changed])
 
 

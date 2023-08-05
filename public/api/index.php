@@ -2,6 +2,19 @@
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 
+function errorHandler(
+    int $errno,
+    string $errstr,
+    ?string $file = null,
+    ?int $line = null
+) {
+    echo "#" . $errno . ": " . $errstr . " in " . $file . " on line " . $line ."\n";
+};
+
+set_error_handler('errorHandler', E_ALL);
+
+//error_reporting(0);
+
 /* // Allow from any origin
 if (isset($_SERVER['HTTP_ORIGIN'])) {
     // Decide if the origin in $_SERVER['HTTP_ORIGIN'] is one
@@ -79,7 +92,7 @@ switch ($method) {
                     $valid = verify_jwt($jwt, $JWT_KEY);
                     if ($valid) {
                         switch ($type) {
-                            //GET with jwt
+                                //GET with jwt
 
                             case "login":
                                 $sql = sprintf(
@@ -309,22 +322,25 @@ switch ($method) {
     case "POST":
         switch ($type) {
             case "ap_update":
+                echo($headers["changes"]);
                 $jwt = $headers["jwt"];
                 if ($jwt) {
-                    $content = $headers["content"];
+                    $changes;
+                    try {
+                        $changes = json_decode($headers["changes"], true);
+                    } catch (Exception $e) {
+                        die("Transmitted content hasn't the right format: " . $e);
+                        http_response_code(400);
+                    }
                     $valid = verify_jwt($jwt, $JWT_KEY) && check_admin($jwt, $JWT_KEY);
                     if ($valid) {
-                        if (is_object(json_decode($content))) {
-                            $sql = "UPDATE pages SET content='" . $content . "' WHERE name ='" . $_GET["row"] . "'";
-                            if ($mysqli->query($sql)) {
-                                echo ("Sucessfully updated");
-                                http_response_code(200);
-                            } else {
-                                die("Error");
-                            }
+                        $sql = "UPDATE pages SET content='" . $changes . "' WHERE name ='" . $_GET["row"] . "'";
+                        if ($sql) {;
+                            echo ("Sucessfully updated");
+                            http_response_code(200);
                         } else {
-                            die("Sent content is not an object");
-                            http_response_code(400);
+                            die("Database query wasn't successful.");
+                            http_response_code(500);
                         }
                     } else {
                         die("No permission to update the database.");

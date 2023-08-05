@@ -12,6 +12,7 @@ import { jwtPayload } from "../../../types/types"
 import APskills from "./skillcards/APskills"
 import APnoteCategories from "./APnoteCategories"
 import { toast } from "react-toastify"
+import { entriesToJson } from "../../../helperfunctions"
 
 export type changesType = {
   [index: string]: {}
@@ -21,7 +22,6 @@ type changesContextType = {
   resetAll: boolean
   changesList: changesType
   setChangesList: React.Dispatch<React.SetStateAction<changesType>>
-  submitRef: React.MutableRefObject<{ [index: string]: {} }>
 }
 
 export const apChanges = createContext<changesContextType>({} as changesContextType)
@@ -40,7 +40,6 @@ function APcontent() {
   const [reloadActive, setReloadActive] = useState(false)
   const [admin, setAdmin] = useState(false)
 
-  const submitRef = useRef<{ [index: string]: {} }>({}) //this ref is solely for submitting the changes
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
 
@@ -62,7 +61,7 @@ function APcontent() {
     setContent(null)
     setReloadActive(false)
     getContent()
-    if(timeoutRef.current) timeoutRef.current = null
+    if (timeoutRef.current) timeoutRef.current = null
   }, [content_id])
 
 
@@ -73,7 +72,6 @@ function APcontent() {
         iterable.push({ ...content[key], "name": key }) //converts to array for easier use
       }
       setDisplay(iterable)
-      submitRef.current = content
     } else {
       setDisplay(null)
     }
@@ -81,7 +79,6 @@ function APcontent() {
 
 
   useEffect(() => {
-    console.log("changesList", changesList)
     if (changesList) {
       const entries = Object.entries(changesList)
       let result = 0
@@ -129,10 +126,16 @@ function APcontent() {
 
   function submitChanges() {
     if (admin) {
-      instance.post(`?type=ap_update&row=${content_id}`, { headers: { "jwt": sessionStorage.getItem("jwt"), "content": submitRef.current } })
+      instance.post(`?type=ap_update&row=${content_id}`, {
+        headers:
+        {
+          jwt: sessionStorage.getItem("jwt"),
+          changes: entriesToJson(Object.entries(changesList))
+        }
+      })
         .then(response => response.data)
-        .then(result => window.alert(result))
-        .catch(error => window.alert(error))
+        .then(result => toast.info(result))
+        .catch(error => toast.error(error))
     }
   }
 
@@ -140,10 +143,18 @@ function APcontent() {
     setResetAll(true) //impulse
   }
 
+  function reload() {
+    if (window.confirm(lang === "eng"
+      ? `⚠ There ${diff > 1 ? "are" : "is"} ${diff} unsaved change${diff > 1 ? "s" : ""}.\nDo you want to continue?`
+      : `⚠ ${diff} Änderung${diff > 1 ? "en" : ""} wurde${diff > 1 ? "n" : ""} noch nicht gespeichert.\nSoll neu geladen werden?`)) {
+      getContent()
+    }
+  }
+
 
   return (
     <ErrorBoundary>
-      <apChanges.Provider value={{ changesList, setChangesList, submitRef, resetAll }}>
+      <apChanges.Provider value={{ changesList, setChangesList, resetAll }}>
         <div className="apContent">
           {display ?
             <>
@@ -207,7 +218,7 @@ function APcontent() {
 
           <Button
             className={`${reloadActive ? "" : "inactive"}`}
-            onClick={getContent}
+            onClick={reload}
           >
             {lang === "eng" ? "Reload" : "Neu laden"}
             <i className="fa-solid fa-rotate" />

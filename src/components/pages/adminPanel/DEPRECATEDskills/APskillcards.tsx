@@ -19,7 +19,7 @@ function APskillcards({ name, sections, hidden, id }: skillProps) {
   const [hidChanges, setHidChanges] = useState<dbSkillcardType[][]>()
   const [changed, setChanged] = useState(false)
 
-  const { setChangesList, submitRef } = useContext(apChanges)
+  const { setChangesList } = useContext(apChanges)
 
 
   useEffect(() => {
@@ -40,9 +40,9 @@ function APskillcards({ name, sections, hidden, id }: skillProps) {
 
   useEffect(() => {
     console.log("parent changes", secChanges, hidChanges)
-    if (submitRef.current && secChanges && hidChanges) {
+    /* if (submitRef.current && secChanges && hidChanges) {
       submitRef.current[name] = { type: "skillcards", sections: [...secChanges], hidden: [...hidChanges] }
-    }
+    } */
   }, [secChanges, hidChanges])
 
 
