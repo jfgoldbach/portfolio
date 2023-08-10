@@ -460,8 +460,12 @@
 }
 .changer-container .changer-main > .apSubmitContainer {
   position: fixed;
-  top: 27px;
-  left: 245px;
+  top: 20px;
+  left: 236px;
+  background: #13222f;
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: 0 0 6px #13222f;
   /* &::before
   *  @include globals.pseudoAbs
   *  $size: 600px
@@ -514,6 +518,12 @@
   font-weight: bold;
   position: relative;
   margin-right: 24px;
+}
+.changer-container .changer-main > .apSubmitContainer .apSubmitBox button.submitBtn.saving {
+  background: grey;
+}
+.changer-container .changer-main > .apSubmitContainer .apSubmitBox button.submitBtn.saving * {
+  display: none;
 }
 .changer-container .changer-main > .apSubmitContainer .apSubmitBox button.submitBtn.forbidden {
   color: #444;

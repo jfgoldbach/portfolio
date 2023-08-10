@@ -365,8 +365,12 @@ $changer_topbar_height: 80px
         border-radius: 12px
         & > .apSubmitContainer
             position: fixed
-            top: 27px
-            left: 245px
+            top: 20px
+            left: 236px
+            background: $sidebarColor
+            border-radius: 12px
+            padding: 8px
+            box-shadow: 0 0 6px $sidebarColor
             /* &::before
                 @include globals.pseudoAbs
                 $size: 600px
@@ -406,6 +410,10 @@ $changer_topbar_height: 80px
                         font-weight: bold
                         position: relative
                         margin-right: 24px
+                        &.saving
+                            background: grey
+                            *
+                                display: none
                         &.forbidden
                             //pointer-events: none
                             color: #444

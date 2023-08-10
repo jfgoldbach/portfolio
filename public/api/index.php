@@ -321,11 +321,14 @@ switch ($method) {
 
     case "POST":
         switch ($type) {
+
+
             case "ap_update":
-                echo($headers["changes"]);
                 $jwt = $headers["jwt"];
+
                 if ($jwt) {
                     $changes;
+                    //Convert provided "changes" object into associative array
                     try {
                         $changes = json_decode($headers["changes"], true);
                     } catch (Exception $e) {
@@ -333,15 +336,53 @@ switch ($method) {
                         http_response_code(400);
                     }
                     $valid = verify_jwt($jwt, $JWT_KEY) && check_admin($jwt, $JWT_KEY);
+
                     if ($valid) {
-                        $sql = "UPDATE pages SET content='" . $changes . "' WHERE name ='" . $_GET["row"] . "'";
-                        if ($sql) {;
+                        //jwt is valid, try to create and query the request
+                        $sql = "UPDATE pages SET content = JSON_REPLACE(content, ";
+
+                        function makeBranch ($next, $previous) {
+                            if(gettype($next) === "array"){
+                                $stick = "";
+                                foreach($next as $key => $value){
+                                    $prevAdded = $previous . "." . $key; //concat with following key
+                                    $stick .= makeBranch($value, $prevAdded);
+                                    if(!($key === array_key_last($next))){
+                                        $stick .=  ", "; //seperator
+                                    }
+                                }
+                                return $stick;
+                            } else {
+                                $result = ""; //finish statement
+                                if(gettype($next) === "string"){
+                                    $result = "'$." . $previous . "', " . "'" . $next . "'";
+                                } else {
+                                    $result = "'$." . $previous . "', " . $next;
+                                }
+                                return $result;
+                            }
+                        }
+
+                        $counter = 0;
+                        foreach ($changes as $key => $value){
+                            $counter++;
+                            $sql .= makeBranch($value, $key); //adding selector for json file
+                            if($counter === count($changes)){
+                                $sql .= ")"; //closing argument
+                            } else {
+                                $sql .= ", "; //adding seperator if not last entry
+                            }
+                        }
+
+                        echo($sql);
+                        if ($mysqli->query($sql)) {;
                             echo ("Sucessfully updated");
                             http_response_code(200);
                         } else {
                             die("Database query wasn't successful.");
                             http_response_code(500);
                         }
+
                     } else {
                         die("No permission to update the database.");
                         http_response_code(403);
@@ -351,6 +392,8 @@ switch ($method) {
                     http_response_code(400);
                 }
                 break;
+
+
         }
         break;
 };

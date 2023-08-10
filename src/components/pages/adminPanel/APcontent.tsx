@@ -13,6 +13,7 @@ import APskills from "./skillcards/APskills"
 import APnoteCategories from "./APnoteCategories"
 import { toast } from "react-toastify"
 import { entriesToJson } from "../../../helperfunctions"
+import axios from "axios"
 
 export type changesType = {
   [index: string]: {}
@@ -39,8 +40,13 @@ function APcontent() {
   const [resetAll, setResetAll] = useState(false)
   const [reloadActive, setReloadActive] = useState(false)
   const [admin, setAdmin] = useState(false)
+  const [saving, setSaving] = useState(false)
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  const plopAudio = new Audio("/sounds/plop.mp3")
+  const reloadAudio = new Audio("/sounds/reload.mp3")
+  const errorAudio = new Audio("/sounds/error.mp3")
 
 
   useEffect(() => {
@@ -60,8 +66,8 @@ function APcontent() {
     setError({} as errorType)
     setContent(null)
     setReloadActive(false)
-    getContent()
     if (timeoutRef.current) timeoutRef.current = null
+    getContent()
   }, [content_id])
 
 
@@ -102,10 +108,12 @@ function APcontent() {
         .then(response => response.data)
         .then(result => {
           setContent(result)
+          plopAudio.play()
           reloadTimeout()
         })
         .catch(error => {
           setError({ "msg": error.message, "code": error.code })
+          errorAudio.play()
           reloadTimeout(1000)
         })
     }
@@ -125,8 +133,9 @@ function APcontent() {
 
 
   function submitChanges() {
+    setSaving(true)
     if (admin) {
-      instance.post(`?type=ap_update&row=${content_id}`, {
+      instance.post(`?type=ap_update&doc=${content_id}`, {}, {
         headers:
         {
           jwt: sessionStorage.getItem("jwt"),
@@ -134,8 +143,17 @@ function APcontent() {
         }
       })
         .then(response => response.data)
-        .then(result => toast.info(result))
-        .catch(error => toast.error(error))
+        .then(result => {
+          toast.success(lang === "eng" ? "Sucessfuly saved all changes" : "Änderungen wurden erfolgreich gespeichert")
+          console.log(result)
+          setSaving(false)
+          reload(true)
+        })
+        .catch(error => {
+          toast.success(lang === "eng" ? "Changes couldn't be saved" : "Änderungen konnten nicht gespeichert werden")
+          console.warn(error)
+          setSaving(false)
+        })
     }
   }
 
@@ -143,11 +161,17 @@ function APcontent() {
     setResetAll(true) //impulse
   }
 
-  function reload() {
-    if (window.confirm(lang === "eng"
-      ? `⚠ There ${diff > 1 ? "are" : "is"} ${diff} unsaved change${diff > 1 ? "s" : ""}.\nDo you want to continue?`
-      : `⚠ ${diff} Änderung${diff > 1 ? "en" : ""} wurde${diff > 1 ? "n" : ""} noch nicht gespeichert.\nSoll neu geladen werden?`)) {
+  function reload(avoidCheck?: boolean) {
+    if (diff > 0 && (avoidCheck !== undefined && avoidCheck === false)) {
+      if (window.confirm(lang === "eng"
+        ? `⚠ There ${diff > 1 ? "are" : "is"} ${diff} unsaved change${diff > 1 ? "s" : ""}.\nDo you want to continue?`
+        : `⚠ ${diff} Änderung${diff > 1 ? "en" : ""} wurde${diff > 1 ? "n" : ""} noch nicht gespeichert.\nSoll neu geladen werden?`)) {
+        getContent()
+        reloadAudio.play()
+      }
+    } else {
       getContent()
+      reloadAudio.play()
     }
   }
 
@@ -191,12 +215,15 @@ function APcontent() {
         <div className={`apSubmitBox ${diff ? "active" : ""}`}>
 
           <Button
-            className={`submitBtn ${admin ? "" : "forbidden"} ${diff > 0 ? "" : "inactive"}`}
+            className={`submitBtn ${admin ? "" : "forbidden"} ${diff > 0 ? "" : "inactive"} ${saving? "saving" : ""}`}
             onClick={submitChanges}
             title={lang === "eng"
               ? (admin ? "Save changes to database" : "Cant save changes without admin privileges")
               : (admin ? "Änderungen in der Datenbank speichern" : "Für das speichern sind Adminprivilegien notwendig")}
           >
+            {saving && 
+              <Loading />
+            }
             {lang === "eng" ? "Save" : "Speichern"}
             {admin ?
               <i className="fa-solid fa-floppy-disk"></i>
