@@ -85,6 +85,7 @@ function APcontent() {
 
 
   useEffect(() => {
+    console.log(changesList)
     if (changesList) {
       const entries = Object.entries(changesList)
       let result = 0
@@ -132,10 +133,10 @@ function APcontent() {
   }
 
 
-  function submitChanges() {
+  async function submitChanges() {
     setSaving(true)
     if (admin) {
-      instance.post(`?type=ap_update&doc=${content_id}`, {}, {
+      await instance.post(`?type=ap_update&doc=${content_id}`, {}, {
         headers:
         {
           jwt: sessionStorage.getItem("jwt"),
@@ -146,15 +147,14 @@ function APcontent() {
         .then(result => {
           toast.success(lang === "eng" ? "Sucessfuly saved all changes" : "Änderungen wurden erfolgreich gespeichert")
           console.log(result)
-          setSaving(false)
           reload(true)
         })
         .catch(error => {
-          toast.success(lang === "eng" ? "Changes couldn't be saved" : "Änderungen konnten nicht gespeichert werden")
+          toast.warn(lang === "eng" ? "Changes couldn't be saved" : "Änderungen konnten nicht gespeichert werden")
           console.warn(error)
-          setSaving(false)
         })
     }
+    setSaving(false)
   }
 
   function reset() {
@@ -215,21 +215,24 @@ function APcontent() {
         <div className={`apSubmitBox ${diff ? "active" : ""}`}>
 
           <Button
-            className={`submitBtn ${admin ? "" : "forbidden"} ${diff > 0 ? "" : "inactive"} ${saving? "saving" : ""}`}
+            className={`submitBtn ${admin ? "" : "forbidden"} ${diff > 0 ? "" : "inactive"} ${saving ? "saving" : ""}`}
             onClick={submitChanges}
             title={lang === "eng"
               ? (admin ? "Save changes to database" : "Cant save changes without admin privileges")
               : (admin ? "Änderungen in der Datenbank speichern" : "Für das speichern sind Adminprivilegien notwendig")}
           >
-            {saving && 
-              <Loading />
+            {saving &&
+              <Loading small light />
             }
-            {lang === "eng" ? "Save" : "Speichern"}
-            {admin ?
-              <i className="fa-solid fa-floppy-disk"></i>
-              :
-              <i className="fa-solid fa-ban"></i>
-            }
+            <p>
+              {lang === "eng" ? "Save" : "Speichern"}
+              {admin ?
+                <i className="fa-solid fa-floppy-disk"></i>
+                :
+                <i className="fa-solid fa-ban"></i>
+              }
+            </p>
+
             <div className={`submitCounter ${diff === 0 ? "inactiveInvis" : ""}`}>
               <p>{diff}</p>
             </div>

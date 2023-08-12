@@ -515,15 +515,21 @@
   font-size: 1rem;
 }
 .changer-container .changer-main > .apSubmitContainer .apSubmitBox button.submitBtn {
+  position: relative;
   font-weight: bold;
   position: relative;
   margin-right: 24px;
 }
-.changer-container .changer-main > .apSubmitContainer .apSubmitBox button.submitBtn.saving {
-  background: grey;
+.changer-container .changer-main > .apSubmitContainer .apSubmitBox button.submitBtn p i {
+  margin-left: 6px;
 }
-.changer-container .changer-main > .apSubmitContainer .apSubmitBox button.submitBtn.saving * {
-  display: none;
+.changer-container .changer-main > .apSubmitContainer .apSubmitBox button.submitBtn.saving {
+  background: #444;
+  pointer-events: none;
+}
+.changer-container .changer-main > .apSubmitContainer .apSubmitBox button.submitBtn.saving .submitCounter,
+.changer-container .changer-main > .apSubmitContainer .apSubmitBox button.submitBtn.saving p {
+  opacity: 0;
 }
 .changer-container .changer-main > .apSubmitContainer .apSubmitBox button.submitBtn.forbidden {
   color: #444;

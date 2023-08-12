@@ -8,6 +8,7 @@ import { arrEquals } from "../../../../helperfunctions"
 import Button from "../../../Button"
 import { LangContext } from "../../../../App"
 import ChangeFlag from "../ChangeFlag"
+import { apChanges, changesType } from "../APcontent"
 
 type skillProps = {
     name: string,
@@ -22,18 +23,47 @@ function APskills({ name, sections, hidden, id }: skillProps) {
     const [delList, setDelList] = useState(new Map<number, boolean>())
     const [otherList, setOtherList] = useState(hidden)
     const [delOtherList, setDelOtherList] = useState(new Map<number, boolean>())
+    
     const { lang } = useContext(LangContext)
+    const { setChangesList, resetAll } = useContext(apChanges)
 
     const firstChange = !arrEquals(sections, list)
     const secondChange = !arrEquals(hidden, otherList)
     const anyChanges = firstChange || secondChange
+
+
+    useEffect(() => {
+        listChanges()
+    }, [list, otherList])
+    
+    useEffect(() => {
+        if(resetAll) {
+            setList(sections)
+            setOtherList(hidden)
+        }
+    }, [resetAll])
+
+    function listChanges() {
+        setChangesList(prev => {
+            let newState = { ...prev }
+            let changeObj: changesType = {}
+            if (firstChange) changeObj["sections"] = ["adoptArray", ...list]
+            if (secondChange) changeObj["hidden"] = ["adoptArray", ...otherList]
+            if (!firstChange && !secondChange) {
+                delete newState[name]
+            } else {
+                newState[name] = changeObj
+            }
+            return newState
+        })
+    }
 
     const sensors = useSensors(
         useSensor(PointerSensor)
     )
 
 
-    function handleDragEnd1(e: DragEndEvent) {
+    function handleDragEnd(e: DragEndEvent, dispatch: React.Dispatch<React.SetStateAction<dbSkillcardType[][]>>) {
         //this function can currenty only handle changes in the same row
         const { active, over } = e
 
@@ -44,10 +74,11 @@ function APskills({ name, sections, hidden, id }: skillProps) {
             newId = over.id as number
 
             if (newId && oldId !== newId) {
-                setList(prev => {
+                dispatch(prev => {
                     const changeArrIndex = Math.floor(oldId / 1000)
                     const oldIndex = oldId - (changeArrIndex * 1000)
                     const newIndex = newId - (changeArrIndex * 1000)
+                    console.log("dragend", oldIndex, newIndex)
                     let changeArray = arrayMove(prev[changeArrIndex], oldIndex, newIndex)
                     let result: dbSkillcardType[][] = []
                     prev.forEach((elem, index) => {
@@ -68,40 +99,6 @@ function APskills({ name, sections, hidden, id }: skillProps) {
         }
     }
 
-    function handleDragEnd2(e: DragEndEvent) {
-        //this function can currenty only handle changes in the same row
-        const { active, over } = e
-
-        const oldId = active.id as number
-        let newId: number
-
-        if (over) {
-            newId = over.id as number
-
-            if (newId && oldId !== newId) {
-                setOtherList(prev => {
-                    const changeArrIndex = Math.floor(oldId / 1000)
-                    const oldIndex = oldId - (changeArrIndex * 1000)
-                    const newIndex = newId - (changeArrIndex * 1000)
-                    let changeArray = arrayMove(prev[changeArrIndex], oldIndex, newIndex)
-                    let result: dbSkillcardType[][] = []
-                    prev.forEach((elem, index) => {
-                        if (index !== changeArrIndex) {
-                            result.push(elem)
-                        } else {
-                            result.push(changeArray)
-                        }
-                    })
-
-                    if (result[0] !== undefined) {
-                        return result
-                    } else {
-                        return prev
-                    }
-                })
-            }
-        }
-    }
 
 
     function resetRow(index: number, original: dbSkillcardType[][], dispatch: React.Dispatch<React.SetStateAction<dbSkillcardType[][]>>) {
@@ -157,10 +154,6 @@ function APskills({ name, sections, hidden, id }: skillProps) {
         dispatch(original)
     }
 
-    useEffect(() => {
-        console.log(list)
-    }, [list])
-
 
 
 
@@ -195,7 +188,7 @@ function APskills({ name, sections, hidden, id }: skillProps) {
             <DndContext
                 sensors={sensors}
                 collisionDetection={closestCenter}
-                onDragEnd={handleDragEnd1}
+                onDragEnd={(e) => handleDragEnd(e, setList)}
             >
                 {
                     list.map((sec, i) => {
@@ -273,7 +266,7 @@ function APskills({ name, sections, hidden, id }: skillProps) {
             <DndContext
                 sensors={sensors}
                 collisionDetection={closestCenter}
-                onDragEnd={handleDragEnd2}
+                onDragEnd={(e) => handleDragEnd(e, setOtherList)}
             >
                 {
                     otherList.map((sec, i) => {

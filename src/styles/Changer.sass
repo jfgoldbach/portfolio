@@ -407,13 +407,19 @@ $changer_topbar_height: 80px
                     gap: 8px
                     font-size: 1rem
                     &.submitBtn
+                        position: relative
                         font-weight: bold
                         position: relative
                         margin-right: 24px
+                        p
+                            i
+                                margin-left: 6px
                         &.saving
-                            background: grey
-                            *
-                                display: none
+                            background: #444
+                            pointer-events: none
+                            .submitCounter,
+                            p
+                                opacity: 0
                         &.forbidden
                             //pointer-events: none
                             color: #444

@@ -8,7 +8,7 @@ function errorHandler(
     ?string $file = null,
     ?int $line = null
 ) {
-    echo "#" . $errno . ": " . $errstr . " in " . $file . " on line " . $line ."\n";
+    echo "#" . $errno . ": " . $errstr . " in " . $file . " on line " . $line . "\n";
 };
 
 set_error_handler('errorHandler', E_ALL);
@@ -341,59 +341,73 @@ switch ($method) {
                         //jwt is valid, try to create and query the request
                         $sql = "UPDATE pages SET content = JSON_REPLACE(content, ";
 
-                        function makeBranch ($next, $previous) {
-                            if(gettype($next) === "array"){
-                                $stick = "";
-                                foreach($next as $key => $value){
-                                    $prevAdded = $previous . "." . $key; //concat with following key
-                                    $stick .= makeBranch($value, $prevAdded);
-                                    if(!($key === array_key_last($next))){
-                                        $stick .=  ", "; //seperator
-                                    }
-                                }
-                                return $stick;
+                        function createResult($path, $value, $mysqli, $escape, $isArray){
+                            $result = ""; //finish statement
+                            if(isset($escape) && $escape){
+                                $value = $mysqli->real_escape_string($value);
+                            }
+                            if($isArray) {
+                                $result = "'$." . $path . "', JSON_ARRAY('" . $value . "')";
+                            } else if (gettype($value) === "string") {
+                                $result = "'$." . $path . "', '" . $value . "'";
                             } else {
-                                $result = ""; //finish statement
-                                if(gettype($next) === "string"){
-                                    $result = "'$." . $previous . "', " . "'" . $next . "'";
+                                $result = "'$." . $path . "', " . $value;
+                            }
+                            return $result;
+                        }
+
+
+                        function createBranch($next, $path, $mysqli){
+                            if (gettype($next) === "array") {
+                                if (isset($next[0]) && $next[0] === "adoptArray") {
+                                    $value = $next;
+                                    array_shift($value); //removes adoptArray flag
+                                    $value = json_encode($value);
+                                    return createResult($path, $value, $mysqli, false, true);
                                 } else {
-                                    $result = "'$." . $previous . "', " . $next;
+                                    $stick = "";
+                                    foreach ($next as $key => $value) {
+                                        $prevAdded = $path . "." . $key; //concat with following key
+                                        $stick .= createBranch($value, $prevAdded, $mysqli);
+                                        if (!($key === array_key_last($next))) {
+                                            $stick .=  ", "; //seperator
+                                        }
+                                    }
+                                    return $stick;
                                 }
-                                return $result;
+                            } else {
+                                return createResult($path, $next, $mysqli, true, false);
                             }
                         }
 
-                        $counter = 0;
-                        foreach ($changes as $key => $value){
-                            $counter++;
-                            $sql .= makeBranch($value, $key); //adding selector for json file
-                            if($counter === count($changes)){
+
+                        foreach ($changes as $key => $value) {
+                            $sql .= createBranch($value, $key, $mysqli); //adding selector for json file
+                            if ($key === array_key_last($changes)) {
                                 $sql .= ")"; //closing argument
                             } else {
                                 $sql .= ", "; //adding seperator if not last entry
                             }
                         }
 
-                        echo($sql);
-                        if ($mysqli->query($sql)) {;
-                            echo ("Sucessfully updated");
+                        echo ($sql);
+                        try {
+                            $mysqli->query($sql);
                             http_response_code(200);
-                        } else {
-                            die("Database query wasn't successful.");
+                            echo ("Sucessfully updated");
+                        } catch(Exception $e) {
                             http_response_code(500);
+                            die("Database query wasn't successful: " . $e);
                         }
-
                     } else {
-                        die("No permission to update the database.");
                         http_response_code(403);
+                        die("No permission to update the database.");
                     }
                 } else {
-                    die("Access token is missing.");
                     http_response_code(400);
+                    die("Access token is missing.");
                 }
                 break;
-
-
         }
         break;
 };
