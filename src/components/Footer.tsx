@@ -1,17 +1,46 @@
 import '../styles/css/Footer.css'
 
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { ReadyContext } from "../App"
+import { LangContext, ReadyContext } from "../App"
+import instance from './network/axios'
+import LangChange from './NavBar/LangChange'
+import Loading from './helper/Loading'
 
 type footerProps = {
     setContact: React.Dispatch<React.SetStateAction<boolean>>
     setDaten: React.Dispatch<React.SetStateAction<boolean>>
 }
 
+type footerSmall = {
+    "type": "small"
+    "text": string
+}
+
+type footerAction = {
+    "type": "imprint" | "privacy_policy" | "login"
+}
+
+type footerSocial = {
+    "type": "social"
+    "symbol": {
+        "type": "fontawesome" | "image"
+        "path": string
+    }
+    "title": string
+    "path": string
+}
+
+
+type footerContent = {
+    "content": (footerSmall | footerAction | footerSocial)[][]
+}
+
 
 function Footer(props: footerProps) {
+    const [content, setContent] = useState<footerContent | null>(null)
     const { ready } = useContext(ReadyContext)
+    const { lang } = useContext(LangContext)
 
     const contactHandler = () => {
         props.setContact(true)
@@ -23,28 +52,82 @@ function Footer(props: footerProps) {
         props.setDaten(true)
     }
 
+    useEffect(() => {
+        if (ready) {
+            instance.get("?type=footer_content", { headers: { "jwt": sessionStorage.getItem("jwt") } })
+                .then(response => response.data)
+                .then(result => { setContent(result); console.log(result) })
+                .catch(error => console.warn(error))
+        }
+    }, [ready])
+
+
+
+    function footerSmall(text: string) {
+        return (
+            <small>{`${text}`}</small>
+        )
+    }
+
+    function footerAction(type: footerAction["type"]) {
+        let fill = { "action": () => { }, "eng": "", "ger": "" }
+        switch (type) {
+            case "imprint":
+                fill = { "action": contactHandler, "eng": "Imprint", "ger": "Impressum" }
+                break;
+            case "privacy_policy":
+                fill = { "action": datenHandler, "eng": "Privacy policy", "ger": "Datenschutzerklärung" }
+                break;
+        }
+        return (
+            <>
+                {type === "login" ?
+                    <Link className="contact-btn" to="/changer">Login</Link>
+                    :
+                    <button onClick={fill.action} className='contact-btn'>{lang === "eng" ? fill.eng : fill.ger}</button>
+                }
+            </>
+        )
+    }
+
+    function footerSocial(symbol: footerSocial["symbol"], title: string, path: string) {
+        return (
+            <a href={path} title={title} target='_blank' aria-label={title.replaceAll(" ", "-")} className='social-icon-link'>
+                {symbol.type === "fontawesome" ?
+                    <i className={symbol.path} />
+                    :
+                    <img src={symbol.path} className='social-symbol' />
+                }
+            </a>
+        )
+    }
+
+
 
     return (
         <div className='footer-container'>
-            <small className='website-right'>© 2023 Julian Goldbach</small>
-            <div className='social-media-wrap'>
-                <button className='contact-btn' onClick={contactHandler}>Impressum</button>
-                <button className='contact-btn' onClick={datenHandler}>Datenschutzerklärung</button>
-                <div className='social-icons'>
-                    <a href="https://github.com/jfgoldbach?tab=repositories" title='Github' target='_blank' aria-label='Github' className='social-icon-link'>
-                        <i className="fa-brands fa-github"></i>
-                    </a>
-                    <a href="https://www.get-in-it.de/profil/ryoWpZV4leZwzHsYG4TbtYBkrlvMMDnL" title='get in IT' target='_blank' aria-label='get-in-it' className='social-icon-link get-in-it'>
-                        {"{"}
-                        <p>IT</p>
-                        {"}"}
-                    </a>
-                    <a title="LinkedIn" href="https://www.linkedin.com/in/julian-goldbach-8a1050255" target="_blank" className='social-icon-link'>
-                        <i className="fa-brands fa-linkedin"></i>
-                    </a>
-                </div>
-                <Link className="contact-btn" to="/changer">Login</Link>
-            </div>
+            {content ?
+                content.content.map(row => {
+                    return (
+                        <div className='social-media-wrap'>
+                            {row.map(elem => {
+                                switch (elem.type) {
+                                    case "small":
+                                        return footerSmall(elem.text)
+                                    case "imprint":
+                                    case "privacy_policy":
+                                    case "login":
+                                        return footerAction(elem.type)
+                                    case "social":
+                                        return footerSocial(elem.symbol, elem.title, elem.path)
+                                }
+                            })}
+                        </div>
+                    )
+                })
+                :
+                <Loading light />
+            }
         </div>
     )
 }

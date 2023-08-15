@@ -61,3 +61,50 @@ export type jwtPayload = {
     "exp": number;
     "admin": boolean
 }
+
+
+export type errorType = {
+    msg: string,
+    code: string
+}
+
+export type overviewType = {
+    id: number,
+    name: string,
+    info: string,
+    link: string,
+    thumbnail: string,
+    video: string,
+    skillcards: {
+        name: string,
+        type: string
+    }[],
+    description: {
+        eng: string,
+        ger: string
+    },
+    priority: number
+}[]
+
+export type langProps = {
+    lang: string,
+    setLang: React.Dispatch<React.SetStateAction<string>>
+}
+
+export type projectType = {
+    id: number,
+    name: string,
+    info: string,
+    link: string,
+    thumbnail: string,
+    video: string,
+    skillcards: {
+        name: string,
+        type: string
+    }[],
+    description: {
+        eng: string,
+        ger: string
+    },
+    priority: number
+}

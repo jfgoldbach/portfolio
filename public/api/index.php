@@ -87,7 +87,14 @@ switch ($method) {
 
 
             default:
-                $jwt = $headers["jwt"];
+                $jwt;
+                //check for jwt in header
+                if(isset($headers["jwt"])) {
+                    $jwt = $headers["jwt"];
+                } else {
+                    http_response_code(400);
+                    die("JWT expected in header, but couldn't be found.");
+                }
                 if ($jwt) {
                     $valid = verify_jwt($jwt, $JWT_KEY);
                     if ($valid) {
@@ -97,8 +104,8 @@ switch ($method) {
                             case "login":
                                 $sql = sprintf(
                                     "SELECT * FROM user WHERE user = '%s'",
-                                    $mysqli->real_escape_string($_GET["user"])
-                                ); //to prevent injection of code
+                                    $mysqli->real_escape_string($_GET["user"]) //to prevent injection of code
+                                );
                                 $result = $mysqli->query($sql);
                                 $user = $result->fetch_assoc();
                                 if (!empty($user)) {
@@ -286,6 +293,13 @@ switch ($method) {
                                 //start whole object
                                 $stringExcepts = [0, 6, 7, 8];
                                 overviewToJSON($ordered, $stringExcepts, $cols);
+                                break;
+                            
+                            case "footer_content":
+                                $sql = "SELECT content FROM pages WHERE name = 'footer'";
+                                $result = $mysqli->query($sql);
+                                $response = $result->fetch_all();
+                                echo($response[0][0]);
                                 break;
 
 

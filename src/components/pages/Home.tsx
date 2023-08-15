@@ -7,8 +7,8 @@ import $ from "jquery"
 import Overview from '../frontpage/Overview';
 import useCheckJWT from '../hooks/useCheckJWT';
 import instance from '../network/axios';
-import { LangContext, ReadyContext, errorType } from '../../App';
-import { landingpageType } from '../../types/types';
+import { LangContext, ReadyContext } from '../../App';
+import { errorType, landingpageType } from '../../types/types';
 import Loading from '../helper/Loading';
 import { toast } from 'react-toastify';
 import Button from '../Button';

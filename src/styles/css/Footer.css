@@ -51,6 +51,8 @@
   text-decoration: underline;
   cursor: pointer;
   margin: 0 5px;
+  width: 140px;
+  text-align: center;
 }
 
 .footer-input {
@@ -114,8 +116,14 @@
 
 /*Social icon*/
 .social-icon-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: white;
   font-size: 25px;
+}
+.social-icon-link .social-symbol {
+  height: 25px;
 }
 
 .social-media {
@@ -125,22 +133,6 @@
   padding: 15px;
 }
 
-.get-in-it {
-  font-family: Arial, Helvetica, sans-serif;
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-  text-decoration: none;
-  font-weight: lighter;
-  font-style: italic;
-}
-
-.get-in-it p {
-  font-weight: bold;
-  font-size: 20px;
-  margin-left: 1px;
-}
-
 small {
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
   color: rgb(126, 122, 153);
@@ -148,15 +140,11 @@ small {
 
 .social-media-wrap {
   display: flex;
-  gap: 40px;
-  justify-content: space-between;
   align-items: center;
-  max-width: 1000px;
-  margin: 0 auto 0 auto;
+  justify-content: center;
+  gap: 18px;
+  justify-content: space-between;
   z-index: 200;
-}
-.social-media-wrap > * {
-  width: 200px;
 }
 
 .social-icons {
