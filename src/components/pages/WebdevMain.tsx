@@ -11,9 +11,10 @@ function WebdevMain() {
   const { overview, error } = useContext(OverviewContext)
 
   return (
-    <div className="webdevPick-Outer">
-      <div className="webdevPick-container">
-        <BlurredBg />
+    <div className="pick-Outer">
+      <BlurredBg />
+      <div className={`pick-container ${overview.length < 5 ? "oneLine" : ""}`}>
+        
         {overview.length !== 0 &&
           overview.map(item => {
             let index = overview.findIndex(proj => proj.id === item.id)
@@ -27,7 +28,7 @@ function WebdevMain() {
       </div>
       {error.msg &&
         /* <ErrorInfo /> */
-<Loading />
+        <Loading />
       }
     </div>
   )

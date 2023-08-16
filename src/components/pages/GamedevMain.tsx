@@ -8,9 +8,11 @@ export default function GamedevMain() {
     const { gameOverview, error } = useContext(OverviewContext)
     const { lang } = useContext(LangContext)
 
+    console.log(gameOverview.length)
+
     return (
-        <div className="webdevPick-Outer">
-            <div className="webdevPick-container">
+        <div className="pick-Outer">
+            <div className={`pick-container ${gameOverview.length < 5 ? "oneLine" : ""}`}>
                 {gameOverview.length !== 0 &&
                     gameOverview.map(item => {
                         let index = gameOverview.findIndex(proj => proj.id === item.id)

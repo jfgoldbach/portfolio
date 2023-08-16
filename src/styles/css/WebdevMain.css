@@ -1,4 +1,4 @@
-.webdevPick-Outer {
+.pick-Outer {
   padding: 5vh 0;
   display: flex;
   margin-top: var(--navHeight);
@@ -7,13 +7,16 @@
   justify-content: center;
 }
 
-.webdevPick-container {
+.pick-container {
   width: 1490px;
   display: flex;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 30px;
   flex-wrap: wrap;
+}
+.pick-container.oneLine {
+  justify-content: center;
 }
 
 .info-container {
