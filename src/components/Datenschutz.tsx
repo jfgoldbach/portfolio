@@ -1,32 +1,39 @@
 import '../styles/css/Datenschutz.css'
 import { useEffect, useState } from "react"
+import instance from './network/axios'
 
 
 
 function Datenschutz() {
   const [lr, setLr] = useState("bottom")
+  const [content, setContent] = useState<string | null>(null)
 
   useEffect(() => {
+    instance.get("?type=privacy_policy", { headers: { "jwt": sessionStorage.getItem("jwt") } })
+      .then(response => response.data)
+      .then(result => { setContent(result.content); console.log(result.content) })
+      .catch(error => console.warn(error))
+
     const container = document.getElementById("datenschutzContainer")
 
     const changeLr = () => {
       let classes = []
       if (container && container.scrollTop > 15) {
-          classes.push('top')
+        classes.push('top')
       }
       if (container && container.scrollHeight - container.scrollTop - container.clientHeight > 15) {
-          classes.push('bottom')
+        classes.push('bottom')
       }
       setLr(classes.toString().replace(",", " "))
     }
 
-    if(container){
+    if (container) {
       container.addEventListener("scroll", changeLr)
     }
 
-    return(() => {
+    return (() => {
       const container = document.getElementById("datenschutzContainer")
-      if(container){
+      if (container) {
         container.removeEventListener("scroll", changeLr)
       }
     })
@@ -34,8 +41,9 @@ function Datenschutz() {
 
   return (
     <div className={`datenschutz-lr ${lr}`}>
-    <div className="datenschutz-content" id="datenschutzContainer">
-      <h2>1. Datenschutz auf einen Blick</h2>
+      <div className="datenschutz-content" id="datenschutzContainer">
+        <>{content}</>
+        {/* <h2>1. Datenschutz auf einen Blick</h2>
       <br />
       <h3>Allgemeine Hinweise</h3>
       <p>Die folgenden Hinweise geben einen einfachen &Uuml;berblick dar&uuml;ber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie pers&ouml;nlich identifiziert werden k&ouml;nnen. Ausf&uuml;hrliche Informationen zum Thema Datenschutz entnehmen Sie unserer unter diesem Text aufgef&uuml;hrten Datenschutzerkl&auml;rung.</p>
@@ -107,8 +115,8 @@ function Datenschutz() {
       <p>Weitere Informationen zur genutzten Technologie "emailjs" finden sie hier: <a href="https://www.emailjs.com/legal/privacy-policy/" target={"_blank"} >emailjs privacy policy</a></p>
       <br />
       <h3>Anfrage per E-Mail, Telefon oder Telefax</h3> <p>Wenn Sie uns per E-Mail, Telefon oder Telefax kontaktieren, wird Ihre Anfrage inklusive aller daraus hervorgehenden personenbezogenen Daten (Name, Anfrage) zum Zwecke der Bearbeitung Ihres Anliegens bei uns gespeichert und verarbeitet. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.</p> <p>Die Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erf&uuml;llung eines Vertrags zusammenh&auml;ngt oder zur Durchf&uuml;hrung vorvertraglicher Ma&szlig;nahmen erforderlich ist. In allen &uuml;brigen F&auml;llen beruht die Verarbeitung auf unserem berechtigten Interesse an der effektiven Bearbeitung der an uns gerichteten Anfragen (Art. 6 Abs. 1 lit. f DSGVO) oder auf Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO) sofern diese abgefragt wurde; die Einwilligung ist jederzeit widerrufbar.</p> <p>Die von Ihnen an uns per Kontaktanfragen &uuml;bersandten Daten verbleiben bei uns, bis Sie uns zur L&ouml;schung auffordern, Ihre Einwilligung zur Speicherung widerrufen oder der Zweck f&uuml;r die Datenspeicherung entf&auml;llt (z.&nbsp;B. nach abgeschlossener Bearbeitung Ihres Anliegens). Zwingende gesetzliche Bestimmungen &ndash; insbesondere gesetzliche Aufbewahrungsfristen &ndash; bleiben unber&uuml;hrt.</p>
-      <br />
-    </div>
+      <br /> */}
+      </div>
     </div>
   )
 }

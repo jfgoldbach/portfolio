@@ -6,6 +6,7 @@ import { LangContext } from '../../App'
 import ProjectBar from '../ProjectBar'
 import LangChange from './LangChange'
 import '../../styles/css/NavBar.css'
+import Imprint from './Imprint'
 
 
 type navProps = {
@@ -73,7 +74,7 @@ function NavBar(props: navProps) {
     const zoomClickHandler = () => {
         const container = document.getElementById('zoomcontain')
         const img = document.getElementById("zoomimage")
-        if(container && img){
+        if (container && img) {
             img.classList.add("fadeOut")
             container.classList.add("fadeOut")
             setTimeout(() => {
@@ -84,12 +85,9 @@ function NavBar(props: navProps) {
         }
     }
 
-    const contactHandler = () => {
-        props.setContact(false)
-    }
-
-    const datenHandler = () => {
+    function closeWindow() {
         props.setDaten(false)
+        props.setContact(false)
     }
 
 
@@ -117,10 +115,10 @@ function NavBar(props: navProps) {
 
                     <ul className={click ? 'nav-menu active' : 'nav-menu'} id="navMenu">
                         <li className='nav-item'>
-                            <Link 
-                                to='/webdev' 
-                                className={`nav-links ${location.pathname === "/webdev" ? "active" : ""}`} 
-                                onClick={() => { navigationButtonPressed() }} 
+                            <Link
+                                to='/webdev'
+                                className={`nav-links ${location.pathname === "/webdev" ? "active" : ""}`}
+                                onClick={() => { navigationButtonPressed() }}
                                 id='link1'
                             >
                                 <p>Web</p>
@@ -128,10 +126,10 @@ function NavBar(props: navProps) {
                             </Link>
                         </li>
                         <li className='nav-item'>
-                            <Link 
-                                to='/gamedev' 
-                                className={`nav-links ${location.pathname === "/gamedev" ? "active" : ""}`} 
-                                onClick={() => { navigationButtonPressed() }} 
+                            <Link
+                                to='/gamedev'
+                                className={`nav-links ${location.pathname === "/gamedev" ? "active" : ""}`}
+                                onClick={() => { navigationButtonPressed() }}
                                 id='link2'
                             >
                                 <p>Game</p>
@@ -139,10 +137,10 @@ function NavBar(props: navProps) {
                             </Link>
                         </li>
                         <li className='nav-item' id="contactBtn">
-                            <Button 
-                                buttonStyle='btn--light' 
-                                path='/contact' 
-                                onClick={() => { navigationButtonPressed() }} 
+                            <Button
+                                buttonStyle='btn--light'
+                                path='/contact'
+                                onClick={() => { navigationButtonPressed() }}
                                 title={lang === "eng" ? "Contact" : "Kontakt"}
                             >
                                 <i className="fa-solid fa-envelope" />
@@ -170,37 +168,19 @@ function NavBar(props: navProps) {
                 <div className='contact-snap'>
                     {(props.contact || props.daten) &&
                         <div id='contact' className='impressum-container'>
-                            {props.contact &&
-                                <div className='info contact'>
-                                    <div className='contact-header'>
-                                        <h1>Impressum</h1>
-                                        <Button buttonStyle='btn--primary' onClick={contactHandler}>
-                                            <p>&times;</p>
-                                        </Button>
-                                    </div>
-                                    <div className="contact-info">
-                                        <h2>Angaben gemäß § 5 TMG</h2>
-                                        <p>Julian Goldbach</p>
-                                        <p>Residenzstraße 133a</p>
-                                        <p>13409 Berlin</p>
-                                    </div>
-                                    <div className="contact-info">
-                                        <h2>Kontakt</h2>
-                                        <p>E-Mail: kontakt@jfgoldbach.de </p>
-                                        <p>Telefon: +49 159 03789428</p>
-                                    </div>
-                                </div>}
-                            {props.daten &&
-                                <div className='info datenschutz'>
-                                    <div className='contact-header'>
-                                        <h1>Datenschutzerklärung</h1>
-                                        <Button buttonStyle='btn--primary' onClick={datenHandler}>
-                                            <p>&times;</p>
-                                        </Button>
-                                    </div>
-                                    <Datenschutz />
+                            <div className='info'>
+                                <div className='contact-header'>
+                                    <h1>{props.contact? "Impressum" : "Datenschutzerklärung"}</h1>
+                                    <Button buttonStyle='btn--primary' onClick={closeWindow}>
+                                        <p>&times;</p>
+                                    </Button>
                                 </div>
-                            }
+                                {props.contact ?
+                                    <Imprint />
+                                    :
+                                    <Datenschutz />
+                                }
+                            </div>
                         </div>
                     }
 
