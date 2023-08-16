@@ -93,7 +93,10 @@ function NavBar(props: navProps) {
 
     return (
         <>
-            <nav className={`navbar ${location.pathname.match(/\/changer/) ? "loginChange" : ""} ${location.pathname.match(/\/loggedin/) ? "adminPanel" : ""}`}>
+            <nav 
+                className={`navbar ${location.pathname.match(/\/changer/) ? "loginChange" : ""} 
+                    ${location.pathname.match(/\/loggedin/) ? "adminPanel" : ""}`}
+            >
                 <div className='navbar-container loginChange'>
                     <Link to='/' className='navbar-logo' onClick={() => { navigationButtonPressed() }}>
                         <div className='logo-main'>
@@ -155,7 +158,11 @@ function NavBar(props: navProps) {
                 {/*This part is for the zoom-in images*/}
                 <div id='zoomcontain' className='zoomimage-container' onClick={zoomClickHandler}>
                     <div className='img-contain'>
-                        <img id='zoomimage' className='zoomed-image' src='../images/DivBreakerDocs/levels.jpg'></img>
+                        <img 
+                            id='zoomimage' 
+                            className='zoomed-image' 
+                            src='../images/DivBreakerDocs/levels.jpg' 
+                        />
                         <i className="fa-solid fa-magnifying-glass-minus"></i>
                     </div>
                 </div>
@@ -186,10 +193,6 @@ function NavBar(props: navProps) {
 
                 </div>
             </nav>
-
-
-
-
 
             <a href='#' id="totop">
                 <i className={`fa-solid fa-caret-up ${totop ? "active" : ""}`}></i>

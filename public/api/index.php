@@ -302,6 +302,20 @@ switch ($method) {
                                 echo($response[0][0]);
                                 break;
 
+                            case "imprint":
+                                $sql = "SELECT content FROM pages WHERE name = 'imprint'";
+                                $result = $mysqli->query($sql);
+                                $response = $result->fetch_all();
+                                echo($response[0][0]);
+                                break;
+                        
+                            case "privacy_policy":
+                                $sql = "SELECT content FROM pages WHERE name = 'privacy_policy'";
+                                $result = $mysqli->query($sql);
+                                $response = $result->fetch_all();
+                                echo ($response[0][0]);
+                                break;
+
 
                             case "models":
                                 $cols = array("id", "name", "thumbnail", "path", "vertices");

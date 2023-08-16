@@ -96,11 +96,11 @@
   transform: translateZ(20px)
 
 .impressum-container
+  @include globals.flexCenter
   position: absolute
   height: 100vh !important
   background-color: rgba(17, 16, 21, 0.75)
   width: 100%
-  //height: calc(100vh - globals.$navHeight)
   left: 0
   top: 0
   backdrop-filter: blur(7px)
@@ -112,47 +112,43 @@
   border-radius: 12px
   padding: 15px
   display: flex
+  gap: 10px
   flex-direction: column
   justify-content: space-between
   box-shadow: 0 0 20px rgba(0,0,0,0.5)
   background-color: white
   transform: translateZ(20px)
   z-index: 999
+  min-width: 500px
+  min-height: 325px
+  max-width: 800px
+  max-height: calc(var(--viewportHeight) - 40px)
   button p
     transform: translateY(-0.2rem)
-
-.info.contact
-  width: 500px
-  height: 325px
-  top: calc(50% - 162.5px)
-  left: calc(50% - 250px)
-
-.info.datenschutz
-  //margin-top: calc(globals.$navHeight + 20px)
-  width: 800px
-  height: calc(100vh - 40px)
-  height: calc(var(--viewportHeight) - 40px)
-  margin: 20px 0
-  left: calc(50% - 400px)
-  gap: 10px
 
 .contact-header
   display: flex
   justify-content: space-between
 
-.contact-header Button
-  display: flex
-  align-items: center
-  justify-content: center
-  background-color: rgb(255, 95, 95)
-  font-size: 2.5rem
-  padding: 0
-  width: 2vw
-  min-width: 35px
-  height: 2vw
-  min-height: 35px
-  font-weight: bold
-  margin: 0
+.contact-header 
+  button
+    display: flex
+    align-items: center
+    justify-content: center
+    $color: rgb(255, 95, 95)
+    background-color: $color
+    font-size: 2.5rem
+    padding: 0
+    width: 2vw
+    min-width: 35px
+    height: 2vw
+    min-height: 35px
+    font-weight: bold
+    margin: 0
+    &:hover
+      color: $color
+      background: #333
+      box-shadow: 0 0 12px $color
 
 .contact-header a
   text-decoration: none
