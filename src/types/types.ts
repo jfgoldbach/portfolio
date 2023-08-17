@@ -108,3 +108,5 @@ export type projectType = {
     },
     priority: number
 }
+
+export type captchaVerify = "verify" | "valid" | "invalid"

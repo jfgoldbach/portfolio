@@ -374,3 +374,7 @@ button[type=submit]:hover {
 .Toastify__toast-container--top-right {
   top: calc(75px + 1em) !important;
 }
+
+.frc-captcha {
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}

@@ -89,6 +89,13 @@
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
   background-color: white;
 }
+.contact-container form .bottom-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
 
 .contact-container textarea {
   font-family: Arial, Helvetica, sans-serif;
@@ -96,7 +103,7 @@
   max-width: 100%;
   min-width: 100%;
   max-height: 50vh;
-  min-height: 10rem;
+  min-height: 17vh;
   border-radius: 32px;
   resize: none;
   border: none;
@@ -175,16 +182,26 @@
   padding: 8px 16px;
   cursor: pointer;
   margin-right: 31px;
-  margin-top: 6px;
   box-shadow: var(--btnShadow);
   transition: 0.1s;
   overflow: hidden;
 }
-.contact-container button.inactive {
+.contact-container button.verify {
+  background: rgba(0, 0, 0, 0.33);
+}
+.contact-container button.verify i.fa-paper-plane {
+  opacity: 0.33;
+  scale: 0.65;
+}
+.contact-container button.invalid {
+  background: rgba(255, 103, 79, 0.5);
+  pointer-events: none;
+}
+.contact-container button.invalid i.fa-paper-plane {
   opacity: 0.4;
 }
 .contact-container button i.fa-paper-plane {
-  transition: opacity 0.125s;
+  transition: 0.125s;
 }
 .contact-container button.loading {
   background: #0064b1;
@@ -226,7 +243,8 @@
 }
 
 .contact-container button:hover {
-  background-color: rgb(73, 72, 82);
+  background-color: #eee;
+  color: #31a6ff;
   transition: 0.2s;
 }
 
