@@ -12,20 +12,33 @@ type cardsprops = {
   className?: string
 }
 
+
+//remark: there may be some performance optimisations possible, like not using jQuery
 function ProjectCards({ index, type, className }: cardsprops) {
   const { overview, gameOverview } = useContext(OverviewContext)
   const { lang } = useContext(LangContext)
-  const project = type && type === 1? gameOverview[index - 1] : overview[index - 1] //temporary solution
+  const project = type && type === 1 ? gameOverview[index - 1] : overview[index - 1] //temporary solution
   const [loaded, setLoaded] = useState(false)
   const [over, setOver] = useState(false)
 
   let pos: [number, number], dims: [number, number]
 
   useEffect(() => {
-    //initialization of position and dimensions (jQuery is too slow to make it work on every mousemove event)
-    updateSizePosition()
+    console.log(over)
+    if (over) {
+      //initialization of position and dimensions (jQuery is too slow to make it work on every mousemove event)
+      updateSizePosition()
+      //console.log("add listeners")
+      document.addEventListener('mousemove', applyRotation)
+      window.addEventListener('resize', updateSizePosition) //update vars on window size change
+      document.addEventListener('scroll', offsetY) //adjust captured position based on vertical scroll
+    } else {
+      removeListeners()
+      const card = $(`#card${index}`)
+      card.css("transform", "unset")
+      card.css("filter", "unset")
+    }
 
-    document.addEventListener('mousemove', e => applyRotation(e))
     function applyRotation(e: MouseEvent) {
       const card = $(`#card${index}`)
 
@@ -41,15 +54,11 @@ function ProjectCards({ index, type, className }: cardsprops) {
           rotateX(${((e.clientY - pos[1] - dims[1] / 2) / dims[1]) * -strength}deg)
         `)
         card.css("filter", `brightness(${1.25 - (((e.clientY - pos[1]) / dims[1]) * 0.5)})`)
-      } else {
-        card.css("transform", "unset")
-        card.css("filter", "unset")
       }
     }
 
-    window.addEventListener('resize', updateSizePosition) //update vars on window size change
-
     function updateSizePosition() {
+      console.log("updateSizePosition")
       const card = $(`#card${index}`)
       if (card) {
         const posObj = card.offset()
@@ -62,45 +71,57 @@ function ProjectCards({ index, type, className }: cardsprops) {
           dims = [width, height]
         }
       }
+      offsetY() //recalculate y value on the spot (only updates if scrolled)
     }
 
-    document.addEventListener('scroll', scrollOffset) //adjust captured position based on vertical scroll
-
-    function scrollOffset() {
-      console.log("scroll")
-      const card = $(`#card${index}`)
-      const offs = card.offset()
-      if (card && offs) {
-        const offset = offs.top - window.scrollY
-        pos = [pos[0], offset]
-        console.log("scroll offset")
+    function offsetY() {
+      console.log("offsetY")
+      const scrollY = window.scrollY
+      if (scrollY !== 0) {
+        const card = $(`#card${index}`)
+        const offset = card.offset()
+        if (card && offset) {
+          const posY = offset.top - window.scrollY
+          pos = [pos[0], posY]
+        }
       }
     }
 
-    return (() => {
+    function removeListeners() {
       document.removeEventListener('mousemove', applyRotation)
-      document.removeEventListener('scroll', scrollOffset)
+      document.removeEventListener('scroll', offsetY)
       window.removeEventListener('resize', updateSizePosition)
+    }
+
+
+    return (() => {
+      removeListeners()
     })
   }, [over])
 
-  function overOut (e: React.MouseEvent) { //above listeners will only be created/triggered when mouse is over
+  function overOut(e: React.MouseEvent) { //above listeners will only be created/triggered when mouse is over
     setOver(e.type === "mouseover")
   }
 
 
 
   return (
-    <Link to={`/${project.link}`} className={`projectCard scaleIn ${className && ""}`} id={`card${index}`} onMouseOver={overOut} onMouseOut={overOut}>
+    <Link
+      to={`/${project.link}`}
+      className={`projectCard scaleIn ${className && ""}`}
+      id={`card${index}`}
+      onMouseOver={overOut}
+      onMouseOut={overOut}
+    >
       <div className="imgContainer">
         <img className={`
           projectImg
           ${project.info === "inConstruction" ? "greyscale" : ""} 
-          ${loaded? "" : "loading"}`
+          ${loaded ? "" : "loading"}`
         }
           onLoad={() => setLoaded(true)}
           src={project.thumbnail} /*project.thumbnail*/
-          alt={loaded? project.name : ""} 
+          alt={loaded ? project.name : ""}
         />
         {project.info === "inConstruction" &&
           <>
