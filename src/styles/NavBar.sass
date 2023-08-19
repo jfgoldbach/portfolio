@@ -24,9 +24,12 @@
     &.loginChange
       position: absolute
       top: 10px
-      left: calc(50% - globals.$loginWidth / 2)
+      $left: calc(50% - globals.$loginWidth / 2)
+      left: $left
       width: globals.$loginWidth
       margin: 0
+      .contact-snap
+        left: calc(-1 * (50vw - globals.$loginWidth / 2))
       .navbar-container
         width: 100%
       .nav-menu

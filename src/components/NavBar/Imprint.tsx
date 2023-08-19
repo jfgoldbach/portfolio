@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import instance from "../network/axios"
 import Loading from "../helper/Loading"
+import { errorType } from "../../types/types"
+import ErrorInfo from "../helper/ErrorInfo"
 
 type imprintElement = {
     "type": "header" | "paragraph"
@@ -12,12 +14,18 @@ type imprintContent = imprintElement[][]
 
 function Imprint() {
     const [content, setContent] = useState<imprintContent | null>(null)
+    const [error, setError] = useState<errorType>({} as errorType)
 
-    useEffect(() => {
+    function getData() {
+        setError({} as errorType)
         instance.get("?type=imprint", { headers: { "jwt": sessionStorage.getItem("jwt") } })
             .then(response => response.data)
             .then(result => { setContent(result.content); console.log(result.content) })
-            .catch(error => console.warn(error))
+            .catch(error => { console.warn(error); setError({ msg: error, code: "" }) })
+    }
+
+    useEffect(() => {
+        getData()
     }, [])
 
 
@@ -42,7 +50,10 @@ function Imprint() {
                     })}
                 </>
                 :
-                <Loading />
+                error.msg ?
+                    <ErrorInfo request={getData} autoRetry dark />
+                    :
+                    <Loading />
             }
         </>
     )

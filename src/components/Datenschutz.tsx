@@ -2,19 +2,28 @@ import '../styles/css/Datenschutz.css'
 import { useEffect, useRef, useState } from "react"
 import instance from './network/axios'
 import Loading from './helper/Loading'
+import { errorType } from '../types/types'
+import ErrorInfo from './helper/ErrorInfo'
 
 
 
 function Datenschutz() {
   const [lr, setLr] = useState("")
   const [content, setContent] = useState<string | null>(null)
+  const [error, setError] = useState<errorType>({} as errorType)
   const divRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    instance.get("?type=privacy_policy", { headers: { "jwt": sessionStorage.getItem("jwt") } })
+
+  function getData() {
+    setError({} as errorType)
+    instance.get("?type=privacy_policy", { headers: { "jwt": sessionStorage.getItem("jwt") } }) //privacy_policy
       .then(response => response.data)
-      .then(result => { setContent(result.content)})
-      .catch(error => console.warn(error))
+      .then(result => { setContent(result.content) })
+      .catch(error => { console.warn(error); setError({ msg: error, code: "" }) })
+  }
+
+  useEffect(() => {
+    getData()
 
     const container = document.getElementById("datenschutzContainer")
 
@@ -43,7 +52,7 @@ function Datenschutz() {
 
   useEffect(() => {
     const div = divRef.current
-    if(content && div) {
+    if (content && div) {
       div.innerHTML = content
       setLr("bottom")
     }
@@ -54,7 +63,12 @@ function Datenschutz() {
   return (
     <div className={`datenschutz-lr ${lr}`}>
       <div ref={divRef} className="datenschutz-content" id="datenschutzContainer">
-        {!content && <Loading />}
+        {!content &&
+          error.msg ?
+          <ErrorInfo request={getData} autoRetry dark />
+          :
+          <Loading />
+        }
       </div>
     </div>
   )

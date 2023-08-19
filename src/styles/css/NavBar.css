@@ -54,6 +54,9 @@
     width: 350px;
     margin: 0;
   }
+  .navbar.loginChange .contact-snap {
+    left: calc(-1 * (50vw - 175px));
+  }
   .navbar.loginChange .navbar-container {
     width: 100%;
   }

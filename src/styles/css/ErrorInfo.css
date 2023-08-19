@@ -56,6 +56,10 @@
   font-size: 1rem;
 }
 .warn-container .time-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   margin-top: 12px;
   border: 1px solid white;
   border-radius: 16px;
@@ -72,4 +76,12 @@
 }
 .warn-container.dark h4 {
   color: #222;
+}
+.warn-container.dark .time-display {
+  color: #333;
+  border-color: #333;
+}
+.warn-container .time-display i.fa-triangle-exclamation,
+.warn-container Button i.fa-triangle-exclamation {
+  font-size: 1.5rem;
 }

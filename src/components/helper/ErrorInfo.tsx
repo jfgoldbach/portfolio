@@ -7,26 +7,24 @@ import '../../styles/css/ErrorInfo.css'
 type errorInfoProps = {
     msg?: { eng: string, ger: string } | string
     request?: () => void
+    minimal?: boolean
     countdown?: number
     dark?: boolean
     autoRetry?: boolean
 }
 
-function ErrorInfo({ msg, request, countdown, dark, autoRetry }: errorInfoProps) {
+function ErrorInfo({ msg, request, minimal, countdown, dark, autoRetry }: errorInfoProps) {
     const { lang } = useContext(LangContext)
     const [time, setTime] = useState(countdown ?? 5)
 
-    useEffect(() => {
-        if (request && autoRetry) {
-            countDown()
-        }
-    }, [])
 
     useEffect(() => {
-        if (time > 0) {
-            countDown()
-        } else if (request && autoRetry) {
-            request()
+        if (autoRetry) {
+            if (time > 0) {
+                countDown()
+            } else if (request) {
+                request()
+            }
         }
     }, [time])
 
@@ -42,18 +40,33 @@ function ErrorInfo({ msg, request, countdown, dark, autoRetry }: errorInfoProps)
 
     return (
         <div className={`warn-container scaleIn ${dark ? "dark" : ""}`}>
-            <i className="fa-solid fa-triangle-exclamation"></i>
-            <h4>{msg ?? lang === "eng" ? "An error occured" : "Ein Fehler ist aufgetreten"}</h4>
+            {!minimal &&
+                <>
+                    <i className="fa-solid fa-triangle-exclamation" />
+                    <h4>{msg ?? lang === "eng" ? "An error occured" : "Ein Fehler ist aufgetreten"}</h4>
+                </>
+            }
             {request ?
                 autoRetry ?
-                    <p className="time-display">{`${lang === "eng" ? "Trying again in" : "Erneuter Versuch in"} ${time}s`}</p>
+                    <p className="time-display">
+                        {minimal &&
+                            <i className="fa-solid fa-triangle-exclamation" />
+                        }
+                        {`${lang === "eng" ? "Trying again in" : "Erneuter Versuch in"} ${time}s`}
+                    </p>
                     :
                     <Button onClick={request} buttonStyle={dark ? "btn--dark" : ""}>
-                        <p>{lang === "eng" ? "Try again" : "Erneut versuchen"}</p>
+                        {minimal &&
+                            <i className="fa-solid fa-triangle-exclamation" />
+                        }
+                        {lang === "eng" ? "Try again" : "Erneut versuchen"}
                         <i className="fa-solid fa-arrow-right"></i>
                     </Button>
                 :
                 <Button onClick={() => window.location.reload()} buttonStyle={dark ? "btn--dark" : ""}>
+                    {minimal &&
+                        <i className="fa-solid fa-triangle-exclamation" />
+                    }
                     <i className="fa-solid fa-rotate"></i>
                     <p>{lang === "eng" ? "Reload site" : "Seite neu laden"}</p>
                 </Button>
