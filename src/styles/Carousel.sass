@@ -44,8 +44,6 @@
     height: 20vw
     width: 35vw
     right: 0
-    //transform: translateX(-50%)
-    //top: calc(13.5vw + globals.$navHeight)
     z-index: 10
     color: white
     display: flex
@@ -281,12 +279,10 @@ input
 .hero-main
     display: flex
     justify-content: space-between
-    //outline: 2px dotted red
     height: 57vh
     width: calc(100% - (2 * globals.$navMargin))
     z-index: 100
     margin: auto
-    //margin: globals.$navMargin 0
     &.intro
         .presentation
             cursor: pointer
@@ -549,23 +545,50 @@ figure
 img::selection
     background-color: none
 
-/*Front image*/
-/* .img-front
-    width: 30vw
-    left: 50%
-    transform: translateX(-50%)
-    top: calc(13.5vw + globals.$navHeight)
-    z-index: 5
-    transition: 1.1s*/
-
-/* .img-front::after
-    left: 50%
-    transform: translateX(-50%) translateY(calc(50% - 4px))
-    min-width: 1%
-    transition: 1s  */
 
 /*          Screen adjust           */
 @media screen and (max-width: globals.$mobileBreakpoint)
+    .hero-main
+        flex-direction: column
+        justify-content: flex-start
+        gap: 64px
+        width: 100%
+        margin: 0
+        padding-top: 65px
+        height: calc(100dvh - (globals.$navHeight + 20px))
+        .presentation
+            text-align: center
+            width: 100%
+            .presBtns
+                @include globals.flexCenter
+        .project-previews
+            flex-direction: column-reverse
+            padding: 0 12px
+            height: 375px
+            width: 100%
+            .img-container
+                width: 100%
+        .friendlyWave
+            display: none
+        &.intro
+            .presentation
+                width: 100%
+                height: 100%
+                margin: 0
+                padding: 12px
+                h1
+                    font-size: 2.5rem !important
+                    .friendlyWave
+                        display: block
+                        left: calc(50vw - 40px)
+                        top: -16vh
+                        right: unset
+                        bottom: unset
+                        img
+                            width: 50px !important
+                h2
+                    font-size: 1.5rem !important
+
     .carouSet-btn:hover .fa-solid.fa-gear
         animation: none
 
@@ -573,29 +596,15 @@ img::selection
         rotate: 270deg
 
     .projectLink
-        width: 85vw
-        height: 50vw
-        left: 7.5vw
-        top: calc(69vw + globals.$navHeight)
+        width: 100%
+        height: calc((100vw - 24px) * 0.5625)
+        left: 0
+        top: 0
         transform: translateZ(-3px)
         border-radius: 16px
 
     .projectLink:hover
         opacity: 0
-
-    .setbtn-container
-        /*display: none*/
-        height: 100%
-        width: globals.$mobileInnerWidth
-        background-color: red
-        width: 0
-        align-self: flex-start
-        margin-left: 5vw
-        transform: translateZ(15px) /*For Safari*/
-
-    .carouSet-btn
-        padding: 8px 10px
-        margin-bottom: 20px
 
     .settings-form
         width: 75vw
@@ -608,22 +617,25 @@ img::selection
         gap: 8px
         padding: 0
         $height: calc(var(--initialHeight) / 3)
-        height: $height
+        height: 0
         background-image: url("./backgrounds/wave-haikei-mobile.png")
         background-size: 400%
-        background-position-y: calc(var(--initialHeight) * -0.6) //-100vw
+        background-position-y: calc(var(--initialHeight) * -0.3) //-100vw
         animation-name: wavesMobile
         animation-duration: 100s
         z-index: 4
+        &::before
+            bottom: 100%
+            height: calc(globals.$navHeight + 20px)
         &::after
             position: absolute
             content: ''
             width: 100%
-            height: 50vh
+            height: 70px
             top: 0
             background-image: url("./backgrounds/wave-haikei-mobile.png")
             background-size: 300%
-            background-position-y: calc(var(--initialHeight) * -0.28) //20vw
+            background-position-y: calc(var(--initialHeight) * -0.41) //20vw
             background-repeat: repeat-x
             animation-name: wave2Mobile
             animation-duration: 67s
@@ -642,7 +654,6 @@ img::selection
             background-position-x: 400%
 
     /*Second Wave*/
-
     @keyframes wave2Mobile
         from
             background-position-x: 0

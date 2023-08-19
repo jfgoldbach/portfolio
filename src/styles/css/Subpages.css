@@ -30,6 +30,7 @@
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   position: relative;
   width: 100%;
+  align-self: flex-start;
   align-items: center;
   justify-content: flex-start;
   display: flex;

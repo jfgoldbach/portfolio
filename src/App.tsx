@@ -21,49 +21,9 @@ import useCheckJWT from './components/hooks/useCheckJWT';
 import instance from './components/network/axios';
 import APcontent from './components/pages/adminPanel/APcontent';
 import { ToastContainer, toast } from 'react-toastify';
-import axios from 'axios';
+import { errorType, langProps, overviewType } from './types/types';
 
 
-type langProps = {
-  lang: string,
-  setLang: React.Dispatch<React.SetStateAction<string>>
-}
-
-export type projectType = {
-  id: number,
-  name: string,
-  info: string,
-  link: string,
-  thumbnail: string,
-  video: string,
-  skillcards: {
-    name: string,
-    type: string
-  }[],
-  description: {
-    eng: string,
-    ger: string
-  },
-  priority: number
-}
-
-export type overviewType = {
-  id: number,
-  name: string,
-  info: string,
-  link: string,
-  thumbnail: string,
-  video: string,
-  skillcards: {
-    name: string,
-    type: string
-  }[],
-  description: {
-    eng: string,
-    ger: string
-  },
-  priority: number
-}[]
 
 export type cardStyleType = {
   [index: string]: {
@@ -73,15 +33,10 @@ export type cardStyleType = {
   }
 }
 
-export type errorType = {
-  msg: string,
-  code: string
-}
-
 type overviewProps = {
   overview: overviewType,
   gameOverview: overviewType,
-  error: errorType
+  error: errorType[]
 }
 
 type readyProps = {
@@ -90,10 +45,14 @@ type readyProps = {
 }
 
 
+
 export const LangContext = createContext<langProps>({} as langProps)
 export const OverviewContext = createContext<overviewProps>({} as overviewProps)
 export const ReadyContext = createContext<readyProps>({} as readyProps)
 export const skillstyleContext = createContext<cardStyleType>({})
+
+
+
 
 function App() {
   //console.log(instance)
@@ -106,11 +65,20 @@ function App() {
   const [overview, setOverview] = useState<overviewType>([])
   const [gameOverview, setGameOverview] = useState<overviewType>([])
   const [cardStyle, setCardStyle] = useState<cardStyleType>({})
-  const [error, setError] = useState<errorType>({} as errorType)
+  const [error, setError] = useState<errorType[]>([] as errorType[])
   const [ready, setReady] = useState(false)
 
   const { check } = useCheckJWT()
 
+
+  function addError(msg: string, code?: string) {
+    console.log("addError")
+    setError(prev => {
+      let errors = [...prev]
+      errors.push({ "msg": msg, "code": code ?? "" })
+      return errors
+    })
+  }
 
   useEffect(() => {
 
@@ -153,7 +121,7 @@ function App() {
       })
       .catch(error => {
         console.error(error)
-        setError({ "msg": error, "code": "" })
+        addError(error)
       })
 
     return (() => {
@@ -168,24 +136,24 @@ function App() {
       instance.get("?type=style&name=skillcards", { headers: { "jwt": sessionStorage.getItem("jwt") } })
         .then(response => response.data)
         .then(result => setCardStyle(result))
-        .catch(error => setError({ "msg": error.message, "code": error.code })) //not really ideal!!!
+        .catch(error => addError(error.message, error.code))
 
       instance.get("?type=all_overview", { headers: { "jwt": sessionStorage.getItem("jwt") } })
         .then(response => response.data)
         .then(result => setOverview(result))
-        .catch(error => setError({ "msg": error.message, "code": error.code }))
+        .catch(error => addError(error.message, error.code))
 
       instance.get("?type=game_overview", { headers: { "jwt": sessionStorage.getItem("jwt") } })
         .then(response => response.data)
         .then(result => setGameOverview(result))
-        .catch(error => setError({ "msg": error.message, "code": error.code })) //not really ideal!!!
+        .catch(error => addError(error.message, error.code))
     }
   }, [ready])
 
 
   useEffect(() => {
-    if (error.msg) toast.warn(`${error.msg}`)
-    console.warn(error)
+    /* if (error.msg) toast.warn(`${error.msg}`) */
+    console.log(error)
   }, [error])
 
 

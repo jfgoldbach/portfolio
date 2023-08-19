@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react"
-import { errorType, OverviewContext, projectType } from "../../App"
+import { OverviewContext } from "../../App"
 import "../../styles/css/CarouselCard.css"
+import { projectType } from "../../types/types"
 
 type carouselCardProps = {
     project: projectType | undefined,
@@ -31,15 +32,15 @@ export function CarouselCard({ project, index, setPosition }: carouselCardProps)
 
     return (
         <figure
-            className={`${classes[index]} ${loaded ? "" : error.code? "error" : "loading"}`}
+            className={`${classes[index]} ${loaded ? "" : error.length > 0? "error" : "loading"}`}
             id={`pic${index}`}
             onClick={() => { setPosition(5 - index) }}
-            data-title={project ? project.name : error.code ? "Error" : "Loading..."}
+            data-title={project ? project.name : error.length > 0 ? "Error" : "Loading..."}
         >
             <img
                 className="carouselImg"
                 src={project ? project.thumbnail : ""}
-                alt={project ? project.name : error.code ? "" : "Loading..."}
+                alt={project ? project.name : error.length > 0 ? "" : "Loading..."}
                 onLoad={imageIsLoaded}
             />
             {project && project.video !== "" &&

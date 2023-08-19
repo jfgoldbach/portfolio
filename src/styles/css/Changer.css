@@ -30,6 +30,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  gap: 22px;
+  padding-top: 66px;
   height: 100dvh;
 }
 @media screen and (max-height: 800px) {

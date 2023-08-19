@@ -1,4 +1,3 @@
-@charset "UTF-8";
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -124,8 +123,6 @@ figure::after {
   padding: 7px 0;
 }
 
-/* .img-middle img
- *  opacity: 0.8 */
 .img-middle-left {
   right: 25.9975vw;
   transition: 1.5s;
@@ -162,75 +159,30 @@ figure::after {
 }
 
 @media screen and (max-width: 750px) {
-  .img-front {
-    width: 85vw;
-    left: 7.5vw;
-    top: 45%;
-    transform: translateZ(-3px);
-    border: 3px solid white;
+  figure img {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5) !important;
   }
-  .img-front::after {
-    content: attr(data-title) " ➜";
-    position: absolute;
-    text-align: left;
-    padding: 6px 10px;
-    left: 50%;
-    bottom: 2px;
-    color: black;
-    transform: translateY(8px) translateX(-50%);
+  figure::after {
+    bottom: unset;
+    top: 100%;
+  }
+  figure.img-front {
     width: 100%;
-    text-align: center;
-    transition: 0s;
-    border-radius: 12px;
-    background: white;
-    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.45);
+    bottom: calc(100% - (100vw - 24px) * 0.5625);
   }
-  .img-front:hover::before {
-    height: 0;
-    display: none;
+  figure.img-middle, figure.img-back {
+    width: calc((100% - 3.99vw - 5vw) / 4);
   }
-  .img-middle {
-    left: 15vw;
-    width: 70vw;
+  figure.img-middle-left {
+    right: calc(100% - (100% - 3.99vw - 5vw) / 4 - 12px);
   }
-  .img-middle::after {
-    opacity: 0;
-    width: 100%;
+  figure.img-middle-right {
+    right: 12px;
   }
-  .img-back {
-    width: 50vw;
-    left: 24.5vw;
+  figure.img-back-left {
+    right: calc(((100% - 3.99vw - 5vw) / 4 + 6px) * 2 + 12px);
   }
-  .img-back::after {
-    display: none;
-  }
-  .img-middle-left {
-    top: 40%;
-    transform: perspective(75em) rotateX(-25deg) translateZ(-30px);
-  }
-  .img-middle-right {
-    top: 55%;
-    transform: perspective(75em) rotateX(25deg) translateZ(-30px);
-    transition: 0.9s;
-  }
-  .img-back-left {
-    top: 38%;
-    transform: perspective(105em) rotateX(-40deg) translateZ(-70px);
-    transition: 1.5s;
-  }
-  .img-back-right {
-    top: 63%;
-    transform: perspective(105em) rotateX(40deg) translateZ(-70px);
-    transition: 1.5s;
-  }
-  .img-middle-left::after {
-    left: 50%;
-    transform: translateX(-50%);
-    transition: 0s;
-  }
-  .img-middle-right::after {
-    left: 50%;
-    transform: translateX(-50%);
-    transition: 0s;
+  figure.img-back-right {
+    right: calc((100% - 3.99vw - 5vw) / 4 + 6px + 12px);
   }
 }

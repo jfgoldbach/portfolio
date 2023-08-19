@@ -20,12 +20,12 @@ export default function GamedevMain() {
                     })
                 }
 
-                {gameOverview.length === 0 && !error.msg &&
+                {gameOverview.length === 0 && error.length === 0 &&
                     <Loading light />
                 }
             </div>
-            {error.msg &&
-                <ErrorInfo msg={error.msg} />
+            {error.length > 0 &&
+                <ErrorInfo />
             }
         </div>
     )

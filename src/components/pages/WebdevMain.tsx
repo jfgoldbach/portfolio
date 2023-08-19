@@ -4,6 +4,7 @@ import ProjectCards from "./ProjectCards"
 import Loading from "../helper/Loading"
 import BlurredBg from "../visuals/BlurredBg"
 import "../../styles/css/WebdevMain.css"
+import ErrorInfo from "../helper/ErrorInfo"
 
 
 
@@ -22,13 +23,12 @@ function WebdevMain() {
           })
         }
 
-        {overview.length === 0 && !error.msg &&
+        {overview.length === 0 && error.length === 0 &&
           <Loading />
         }
       </div>
-      {error.msg &&
-        /* <ErrorInfo /> */
-        <Loading />
+      {error.length > 0 &&
+        <ErrorInfo />
       }
     </div>
   )

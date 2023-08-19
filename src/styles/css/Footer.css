@@ -175,7 +175,7 @@ small {
     height: 175px;
     z-index: 50;
     gap: 10px;
-    padding: 20px 10px 10px 10px;
+    padding: 10px 0;
   }
   .footer-links {
     padding-top: 2rem;
@@ -186,10 +186,12 @@ small {
   .footer-link-wrapper {
     flex-direction: column;
   }
+  .contact-btn {
+    width: auto;
+  }
   .social-media-wrap {
-    gap: 10px;
+    gap: 14px;
     height: 100%;
-    flex-direction: column;
     justify-content: space-around;
   }
 }

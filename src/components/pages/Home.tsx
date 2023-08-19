@@ -19,7 +19,7 @@ export const homeContext = createContext<landingpageType | null | undefined>({} 
 export const introContext = createContext<introType>({} as introType)
 
 type homeProps = {
-    appError: errorType
+    appError: errorType[]
 }
 
 type introType = {
@@ -98,7 +98,7 @@ function Home({ appError }: homeProps) {
                         }
                         <Overview notepads={content.notepads} />
                     </>
-                    : appError.msg ?
+                    : appError.length > 0 ?
                         <ErrorInfo />
                         :
                         <Loading />

@@ -1,12 +1,14 @@
 import { ChangeEvent, FormEvent, useContext, useEffect, useRef, useState } from "react"
 import { Link, Navigate } from "react-router-dom";
-import { LangContext, errorType } from "../../App";
+import { LangContext } from "../../App";
 import useCheckJWT from "../hooks/useCheckJWT";
 import instance from "../network/axios";
 import BlurredBg from "../visuals/BlurredBg";
 import { toast } from "react-toastify";
 import Loading from "../helper/Loading";
 import ErrorInfo from "../helper/ErrorInfo";
+import { captchaVerify, errorType } from "../../types/types";
+import FriendlyCaptcha from "../helper/FriendlyCaptcha";
 //styles in Changer.sass
 
 
@@ -21,6 +23,7 @@ export default function ChangerLogin() {
     const { lang } = useContext(LangContext)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<errorType>({} as errorType)
+    const [valid, setValid] = useState<captchaVerify>("verify")
     const submitRef = useRef<HTMLButtonElement>(null)
     const nameRef = useRef<HTMLInputElement>(null)
 
@@ -94,14 +97,18 @@ export default function ChangerLogin() {
     }
 
     useEffect(() => {
-        getAttempts()
-        //check
         const metaIcon: HTMLLinkElement = document.getElementById("icon") as HTMLLinkElement
         if (metaIcon) {
             metaIcon.href = "/images/favicon.ico"
         }
         setTitle()
     }, [])
+
+    useEffect(() =>{
+        if(valid === "valid") {
+            getAttempts()
+        }
+    }, [valid])
 
 
     useEffect(() => {
@@ -173,7 +180,13 @@ export default function ChangerLogin() {
                     </p>
                 }
 
-                <form onSubmit={submit} className={`${(fails && fails > 2) ? "inactive" : ""} ${fails == null ? "fetching" : ""}`}>
+                <form 
+                    onSubmit={submit} 
+                    className={`
+                    ${(fails && fails > 2) || valid === "invalid" || valid === "verify" ? "inactive" : ""} 
+                    ${fails == null ? "fetching" : ""}
+                    `}
+                >
                     {(fails == null && error.msg === undefined) &&
                         <Loading light />
                     }
@@ -231,10 +244,14 @@ export default function ChangerLogin() {
                 </form>
 
 
-                <Link to="/changer" onClick={getDemoAccess}>
+                <Link to="/changer" onClick={getDemoAccess} className={valid === "verify" || valid === "invalid" ? "inactive" : ""}>
                     {lang === "eng" ? "Use demonstration access" : "Demonstrationszugang benutzen"}
                 </Link>
+
+                
             </div>
+            
+            <FriendlyCaptcha setValid={setValid} />
         </div>
     )
 }

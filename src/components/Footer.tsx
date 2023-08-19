@@ -2,10 +2,12 @@ import '../styles/css/Footer.css'
 
 import { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { LangContext, ReadyContext } from "../App"
+import { LangContext, OverviewContext, ReadyContext } from "../App"
 import instance from './network/axios'
 import LangChange from './NavBar/LangChange'
 import Loading from './helper/Loading'
+import { errorType } from '../types/types'
+import ErrorInfo from './helper/ErrorInfo'
 
 type footerProps = {
     setContact: React.Dispatch<React.SetStateAction<boolean>>
@@ -37,10 +39,13 @@ type footerContent = {
 }
 
 
+
 function Footer(props: footerProps) {
     const [content, setContent] = useState<footerContent | null>(null)
+    const [error, setError] = useState<errorType>({} as errorType)
     const { ready } = useContext(ReadyContext)
     const { lang } = useContext(LangContext)
+    const overviewError = useContext(OverviewContext).error
 
     const contactHandler = () => {
         props.setContact(true)
@@ -52,14 +57,23 @@ function Footer(props: footerProps) {
         props.setDaten(true)
     }
 
+    function getData() {
+        setError({} as errorType)
+        instance.get("?type=footer_content", { headers: { "jwt": sessionStorage.getItem("jwt") } }) //footer_content
+            .then(response => response.data)
+            .then(result => { setContent(result); console.log(result) })
+            .catch(error => { console.log(error); setError({ msg: error.message, code: "" }) })
+    }
+
     useEffect(() => {
         if (ready) {
-            instance.get("?type=footer_content", { headers: { "jwt": sessionStorage.getItem("jwt") } })
-                .then(response => response.data)
-                .then(result => { setContent(result); console.log(result) })
-                .catch(error => console.warn(error))
+            getData()
         }
     }, [ready])
+
+    useEffect(() => {
+        console.log("footer", error)
+    }, [error])
 
 
 
@@ -126,7 +140,15 @@ function Footer(props: footerProps) {
                     )
                 })
                 :
-                <Loading light />
+                error.msg ?
+                    <ErrorInfo
+                        msg={lang === "eng" ? "Error loading footer content" : "Fehler beim Laden des Footer Inhalts"}
+                        request={getData}
+                        autoRetry
+                        minimal
+                    />
+                    : overviewError.length === 0 &&
+                    <Loading light />
             }
         </div>
     )

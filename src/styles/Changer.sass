@@ -7,6 +7,9 @@ $changer_topbar_height: 80px
 
 .login
     @include globals.flexCenter
+    flex-direction: column
+    gap: 22px
+    padding-top: 66px
     height: 100dvh
     @media screen and (max-height: globals.$mobileBreakpoint)
         height: calc(var(--viewportHeight) - globals.$navHeight - 10px)
@@ -138,6 +141,7 @@ $changer_topbar_height: 80px
         font-size: 0.9rem
         text-decoration: underline
         transition: 0.08s
+        //margin-bottom: 18px
         &:hover
             color: rgba(#333, 1)
     button

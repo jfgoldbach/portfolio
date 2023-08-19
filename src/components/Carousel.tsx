@@ -3,10 +3,11 @@ import '../styles/css/Carousel.css'
 //import '/styles/css/App.css'
 //import '/styles/css/Subpages.css'
 import { Link } from 'react-router-dom'
-import { LangContext, OverviewContext, overviewType } from '../App'
+import { LangContext, OverviewContext } from '../App'
 import { CarouselCard } from './frontpage/CarouselCard'
 import Button from './Button'
 import { homeContext, introContext } from './pages/Home'
+import { overviewType } from '../types/types'
 
 
 
@@ -333,31 +334,10 @@ function Carousel() {
               </div>
             </div>
           }
-          {/* <div className={`scrollHint ${hint ? "active" : ""}`}>
-            <div
-              className="scrollHint-Wrapper"
-              title={lang === "eng" ? `Got it!\nRemove this hint!` : `Ok!\nEntferne diesen Hinweis!`}
-              onClick={removeHint}
-            >
-              <i className="fa-solid fa-computer-mouse"></i>
-              <i className="fa-solid fa-arrow-down"></i>
-            </div>
-          </div> */}
         </div>
 
         <div className="project-previews">
           <div className='setbtn-container'>
-            {error.msg &&
-              <div className='greeting-container'>
-                <div className="info-container mildWarn fetchError">
-                  <i className="fa-solid fa-triangle-exclamation" />
-                  <p>{`${lang === "eng" ? "Couldn't load data for Carousel:" : "Konnte Daten für das Karussell nicht laden: "} ${error.msg} (${error.code})`}</p>
-                  <Button title="Reload page" onClick={() => window.location.reload()}>
-                    <i className="fa-solid fa-rotate"></i>
-                  </Button>
-                </div>
-              </div>
-            }
 
             <form id="carouselSettings" className={`settings-form ${settings ? "showSettings" : ""}`}>
               <label htmlFor='stop'>{lang === "eng" ? "Stop Carousel" : "Karussell stoppen"}
@@ -418,22 +398,6 @@ function Carousel() {
 
           {/*Carousel cards*/}
           <div className='img-container noDivIn'>
-
-            {/* (projects.length > 0 && projects[0] !== undefined ) &&
-        projects.map((project, index) =>
-            <figure
-              className={classes[index]}
-              id={`pic${index}`}
-              onClick={() => { setPosition(5 - index) }}
-              data-title={project.name}
-            >
-              <img src={project.thumbnail} alt={project.name} />
-              {project.video !== "" &&
-                <video src={project.video} loop muted autoPlay playsInline id={`vid${index}`}></video>
-              }
-            </figure>
-            )
-            */}
 
             {[0, 0, 0, 0, 0].map((i, index) =>
               <CarouselCard project={projects[index]} index={index} setPosition={setPosition} />

@@ -140,7 +140,7 @@ function Subpage({ index }: pageProps) {
         }
 
         {error !== undefined &&
-          <ErrorInfo />
+          <ErrorInfo request={getContent} />
         }
 
         {(content.info !== undefined && content.info !== "") &&
@@ -187,7 +187,7 @@ function Subpage({ index }: pageProps) {
                     }
                     {content.githubLink !== "" &&
                       <Button buttonStyle="btn--dark" buttonSize="btn--medium" path={content.githubLink} outsidePath>
-                        {lang === "eng" ? "View on Github" : "Repository"} 
+                        {lang === "eng" ? "View on Github" : "Repository"}
                         <i className="fa-brands fa-github"></i>
                       </Button>
                     }
@@ -218,7 +218,9 @@ function Subpage({ index }: pageProps) {
                 if (i % 2 === 0) {
                   return (
                     <div id={section.title.toLowerCase().replaceAll(" ", "_")} className="section-wrapper">
-                      <ZoomImage source={section.image} />
+                      {section.image &&
+                        <ZoomImage source={section.image} />
+                      }
                       <div className="text-wrapper">
                         <h1 className="section-title">{section.title}</h1>
                         <div className="content-wrapper">
@@ -230,7 +232,9 @@ function Subpage({ index }: pageProps) {
                 } else {
                   return (
                     <div id={section.title.toLowerCase().replaceAll(" ", "_")} className={`section-wrapper dark`}>
-                      <ZoomImage source={section.image} />
+                      {section.image &&
+                        <ZoomImage source={section.image} />
+                      }
                       <div className="text-wrapper">
                         <h1 className="section-title">{section.title}</h1>
                         <div className="content-wrapper">

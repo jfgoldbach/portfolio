@@ -15,7 +15,7 @@ function Overview({ notepads }: overviewProps) {
 
     return (
         <>
-            {overview.length !== 0 && !error.msg &&
+            {overview.length !== 0 && error.length === 0 &&
                 <div className="overviewWrapper">
                     <div className="spikyDivider">
                         <img src="images/spiky-wave.svg" />

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ChangeEvent, createContext, Suspense, useContext, useEffect, useState } from "react";
-import { errorType, LangContext, ReadyContext } from "../../App";
+import { LangContext, ReadyContext } from "../../App";
 import Button from "../Button";
 import Loading from "../helper/Loading";
 import MeshCard from "./MeshCard";
@@ -8,6 +8,9 @@ import ViewerCanvas from "./ViewerCanvas";
 import request from '../../request.json'
 import instance from "../network/axios";
 import "../../styles/css/WebDev.css"
+import { errorType } from "../../types/types";
+import Error from "../Info/Error";
+import ErrorInfo from "../helper/ErrorInfo";
 //styling in WebDev.sass
 
 type modelInfos = {
@@ -35,7 +38,7 @@ export default function ModelViewer() {
 
     function loadData() {
         setError({} as errorType)
-        instance.get(`${request.url}?type=models`)
+        instance.get("?type=models", { headers: { "jwt": sessionStorage.getItem("jwt") } })
             .then(response => response.data)
             .then(result => { setModels(result); console.log(result) })
             .catch(error => setError({ "msg": error.message, "code": error.code }))
@@ -102,15 +105,10 @@ export default function ModelViewer() {
                                     verts={model.vertices}
                                 />
                             )
-                            : error.msg
-                                ? <div className="info-container mildWarn fetchError">
-                                    <i className="fa-solid fa-triangle-exclamation" />
-                                    <p>{`${lang === "eng" ? "Couldn't load model data:" : "Konnte Modelldaten nicht laden: "} ${error.msg} (${error.code})`}</p>
-                                    <Button title={lang === "eng" ? "Try again" : "Erneut versuchen"} onClick={loadData}>
-                                        <i className="fa-solid fa-rotate"></i>
-                                    </Button>
-                                </div>
-                                : <Loading light />
+                            : error.msg ? 
+                                <ErrorInfo request={loadData} />
+                                : 
+                                <Loading light />
                         }
                         <div className="viewer-label">
                             <i className="fa-regular fa-folder-open"></i>
