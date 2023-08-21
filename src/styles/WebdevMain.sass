@@ -1,3 +1,5 @@
+@use 'globals'
+    
 .pick-Outer
     padding: 5vh 0
     display: flex
@@ -36,3 +38,9 @@
     .webdevPick-Outer
         padding-top: 5vw
         padding-bottom: 20vw
+
+@media screen and (max-width: globals.$mobileBreakpoint)
+    .pick-Outer
+        padding: 5vh 10px
+        .pick-container
+            width: 100%

@@ -363,9 +363,7 @@ input {
   width: 70px !important;
 }
 .hero-main.intro .presentation .presBtns button {
-  transform: translateX(120px) !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
+  display: none;
 }
 .hero-main.intro .project-previews {
   width: 0 !important;
@@ -662,11 +660,10 @@ img::selection {
 @media screen and (max-width: 800px) {
   .hero-main {
     flex-direction: column;
-    justify-content: flex-start;
-    gap: 64px;
+    justify-content: space-evenly;
+    gap: 32px;
     width: 100%;
     margin: 0;
-    padding-top: 65px;
     height: calc(100dvh - 85px);
   }
   .hero-main .presentation {
@@ -678,11 +675,23 @@ img::selection {
     align-items: center;
     justify-content: center;
   }
+  .hero-main .presentation .presBtns button {
+    font-size: 1.15rem;
+  }
   .hero-main .project-previews {
     flex-direction: column-reverse;
     padding: 0 12px;
-    height: 375px;
+    height: 315px;
     width: 100%;
+  }
+  .hero-main .project-previews .setbtn-container .carouSet-btn.settings-active {
+    border-radius: 0 0 12px 12px;
+  }
+  .hero-main .project-previews .setbtn-container .settings-form {
+    top: unset;
+    bottom: 100%;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 8px;
   }
   .hero-main .project-previews .img-container {
     width: 100%;
@@ -690,11 +699,13 @@ img::selection {
   .hero-main .friendlyWave {
     display: none;
   }
+  .hero-main.intro .project-previews {
+    height: 0;
+  }
   .hero-main.intro .presentation {
     width: 100%;
-    height: 100%;
     margin: 0;
-    padding: 12px;
+    margin-top: calc(50dvh - 50%);
   }
   .hero-main.intro .presentation h1 {
     font-size: 2.5rem !important;
@@ -726,8 +737,8 @@ img::selection {
     transform: translateZ(-3px);
     border-radius: 16px;
   }
-  .projectLink:hover {
-    opacity: 0;
+  .projectLink i {
+    display: none;
   }
   .settings-form {
     width: 75vw;
@@ -737,6 +748,7 @@ img::selection {
     width: 20px;
   }
   .introduction {
+    display: none;
     gap: 8px;
     padding: 0;
     height: 0;

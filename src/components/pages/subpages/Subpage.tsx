@@ -118,7 +118,7 @@ function Subpage({ index }: pageProps) {
 
   return (
     <div className="calculator-container">
-      <BlurredBg />
+      {/* <BlurredBg /> */}
 
       {content.name !== undefined && content.sections[lang as langs] !== undefined && content.sections[lang as langs].length > 2 &&
         < div className={`contents-side ${sideCont ? "active" : ""}`}>

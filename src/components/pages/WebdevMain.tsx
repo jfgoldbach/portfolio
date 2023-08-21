@@ -13,7 +13,7 @@ function WebdevMain() {
 
   return (
     <div className="pick-Outer">
-      <BlurredBg />
+      {/* <BlurredBg /> */}
       <div className={`pick-container ${overview.length < 5 ? "oneLine" : ""}`}>
         
         {overview.length !== 0 &&

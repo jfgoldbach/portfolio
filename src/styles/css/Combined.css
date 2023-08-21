@@ -31,6 +31,17 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: rgb(27, 25, 38);
+  background-image: url("backgrounds/web_bg.jpg");
+  background-attachment: fixed;
+  background-size: cover;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+@media screen and (max-width: 800px) {
+  body {
+    background: #5936b9;
+  }
 }
 
 code {
@@ -68,14 +79,6 @@ code {
 
 html {
   scroll-behavior: smooth;
-}
-
-body {
-  background: #838aa4;
-  background-size: 400%;
-  max-width: 100vw;
-  overflow-x: hidden;
-  animation: backgroundAnim 15s alternate infinite;
 }
 
 a {
@@ -284,8 +287,6 @@ button[type=submit]:hover {
   right: -15%;
   background: linear-gradient(#c42eab, rgba(136, 24, 118, 0.1));
   z-index: -1;
-  animation: move1 20s infinite linear;
-  filter: blur(128px);
 }
 .blurBackground .object2 {
   content: "";
@@ -297,8 +298,6 @@ button[type=submit]:hover {
   left: -20%;
   background: linear-gradient(90deg, rgba(32, 59, 192, 0.8), rgba(29, 50, 160, 0.1));
   z-index: -1;
-  animation: move1 30s infinite linear;
-  filter: blur(128px);
 }
 .blurBackground .object3 {
   content: "";
@@ -310,8 +309,6 @@ button[type=submit]:hover {
   left: 40%;
   background: linear-gradient(90deg, rgba(0, 221, 255, 0.8), rgba(29, 160, 160, 0.1));
   z-index: -1;
-  animation: move1 25s infinite linear;
-  filter: blur(128px);
 }
 .blurBackground .blurer {
   width: 100%;

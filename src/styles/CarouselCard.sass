@@ -125,8 +125,8 @@ $nextImages: calc(($bigImage - ($gutter * 3) - ($paddingLR * 2)) / 4)
 @media screen and (max-width: 750px)
     $bigImage_mob: 100%
     $gutter_mob: 6px
-    $paddingLR_mob: 12px
-    $nextImages_mob: calc((100% - ($gutter * 3) - ($paddingLR * 2)) / 4)
+    $paddingLR_mob: 0px
+    $nextImages_mob: calc((100% - ($gutter_mob * 3) - ($paddingLR_mob * 2)) / 4)
 
     figure
         img
@@ -140,11 +140,11 @@ $nextImages: calc(($bigImage - ($gutter * 3) - ($paddingLR * 2)) / 4)
         &.img-middle,
         &.img-back
             width: $nextImages_mob
-        &.img-middle-left
+        &.img-middle-left //1st
             right: calc(100% - $nextImages_mob - $paddingLR_mob)
-        &.img-middle-right
-            right: $paddingLR_mob
-        &.img-back-left
+        &.img-back-left //2nd
             right: calc((($nextImages_mob + $gutter_mob) * 2) + $paddingLR_mob)
-        &.img-back-right
+        &.img-back-right //3rd
             right: calc($nextImages_mob + $gutter_mob + $paddingLR_mob)
+        &.img-middle-right //4th
+            right: $paddingLR_mob

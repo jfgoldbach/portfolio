@@ -171,18 +171,18 @@ figure::after {
     bottom: calc(100% - (100vw - 24px) * 0.5625);
   }
   figure.img-middle, figure.img-back {
-    width: calc((100% - 3.99vw - 5vw) / 4);
+    width: calc((100% - 18px - 0px) / 4);
   }
   figure.img-middle-left {
-    right: calc(100% - (100% - 3.99vw - 5vw) / 4 - 12px);
-  }
-  figure.img-middle-right {
-    right: 12px;
+    right: calc(100% - (100% - 18px - 0px) / 4 - 0px);
   }
   figure.img-back-left {
-    right: calc(((100% - 3.99vw - 5vw) / 4 + 6px) * 2 + 12px);
+    right: calc(((100% - 18px - 0px) / 4 + 6px) * 2 + 0px);
   }
   figure.img-back-right {
-    right: calc((100% - 3.99vw - 5vw) / 4 + 6px + 12px);
+    right: calc((100% - 18px - 0px) / 4 + 6px + 0px);
+  }
+  figure.img-middle-right {
+    right: 0px;
   }
 }

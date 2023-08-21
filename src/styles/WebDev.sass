@@ -83,11 +83,6 @@
         grid-template-columns: 4fr 3fr
         grid-template-rows: 7fr 1fr
         gap: 10px
-        @media screen and (max-width: globals.$mobileBreakpoint)
-            grid-template-columns: 1fr
-            grid-template-rows: 70vh auto 15vh 
-            height: fit-content
-            padding: 10px
         .contentBrowser
             @include viewerContainer
             position: relative
@@ -103,8 +98,6 @@
             justify-content: space-between
             gap: 15px
             flex-wrap: wrap
-            @media screen and (max-width: globals.$mobileBreakpoint)
-                min-height: 150px
             .info-container
                 position: absolute
                 top: 50%
@@ -165,9 +158,6 @@
             grid-row-start: 1
             grid-row-end: 3
             height: 100%
-            @media screen and (max-width: globals.$mobileBreakpoint)
-                grid-row-start: unset
-                grid-row-end: unset
             .viewCanvas
                 cursor: grab
                 z-index: 10
@@ -202,3 +192,39 @@
                 .inputContainer
                     @include globals.flexCenter
                     gap: 5px
+
+@media screen and (max-width: globals.$mobileBreakpoint)
+    .modelViewer-container
+        .content-wrapper
+            $browserHeight: 175px
+            $availSpace: calc(100dvh - globals.$navHeight - 30px - $browserHeight)
+            grid-template-columns: 1fr
+            grid-template-rows: $availSpace $browserHeight auto 
+            height: fit-content
+            padding: 10px
+            padding-top: 0
+            padding-bottom: 64px
+            gap: 0
+            .canvas-wrapper
+                grid-row-start: unset
+                grid-row-end: unset
+                border-bottom-left-radius: 0
+                border-bottom-right-radius: 0
+            .contentBrowser
+                @include globals.flexCenter
+                justify-content: flex-start
+                flex-wrap: nowrap
+                overflow: auto
+                min-height: 150px
+                border-top-left-radius: 0
+                border-top-right-radius: 0
+                border-top: none
+            .viewerSettings
+                margin-top: 10px
+
+    .meshCard
+        .img-container
+            background-image: none
+            $size: 90px
+            width: $size !important
+            height: $size !important

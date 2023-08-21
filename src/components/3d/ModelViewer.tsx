@@ -1,15 +1,12 @@
-import axios from "axios";
-import { ChangeEvent, createContext, Suspense, useContext, useEffect, useState } from "react";
+import { createContext, Suspense, useContext, useEffect, useState } from "react";
 import { LangContext, ReadyContext } from "../../App";
 import Button from "../Button";
 import Loading from "../helper/Loading";
 import MeshCard from "./MeshCard";
 import ViewerCanvas from "./ViewerCanvas";
-import request from '../../request.json'
 import instance from "../network/axios";
 import "../../styles/css/WebDev.css"
 import { errorType } from "../../types/types";
-import Error from "../Info/Error";
 import ErrorInfo from "../helper/ErrorInfo";
 //styling in WebDev.sass
 

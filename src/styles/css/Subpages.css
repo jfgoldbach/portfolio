@@ -574,4 +574,7 @@
   .preview-mobileFrame {
     border-radius: 3.8vw;
   }
+  .contents-side.active {
+    display: none;
+  }
 }

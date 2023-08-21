@@ -1,4 +1,4 @@
-@import globals
+@use 'globals'
 
 .datenschutz-lr
     position: relative
@@ -14,7 +14,7 @@
         position: absolute
         height: 30px
         width: 100%
-        background-image: linear-gradient(180deg, $active -100%, transparent)
+        background-image: linear-gradient(180deg, globals.$active -100%, transparent)
         pointer-events: none
 
     &.bottom::after
@@ -26,7 +26,7 @@
         position: absolute
         height: 30px
         width: 100%
-        background-image: linear-gradient(0deg, $active -100%, transparent)
+        background-image: linear-gradient(0deg, globals.$active -100%, transparent)
         pointer-events: none
     
 .datenschutz-content
@@ -52,3 +52,7 @@
     p
         color: #777
         font-size: 1rem
+
+@media screen and (max-width: globals.$mobileBreakpoint)
+    .datenschutz-content
+        width: 100%

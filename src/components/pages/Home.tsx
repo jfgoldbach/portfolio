@@ -70,7 +70,7 @@ function Home({ appError }: homeProps) {
     return (
         <homeContext.Provider value={content}>
             <div className="homeContainer">
-                <BlurredBg />
+                {/* <BlurredBg /> */}
                 {content ?
                     <>
                         <introContext.Provider value={{finished, setFinished}}>

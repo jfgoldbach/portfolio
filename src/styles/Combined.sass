@@ -6,6 +6,16 @@ body
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
+  background: globals.$footerColor
+  background-image: url("backgrounds/web_bg.jpg")
+  background-attachment: fixed
+  background-size: cover
+  max-width: 100vw
+  overflow-x: hidden
+  //animation: backgroundAnim 15s alternate infinite
+  @media screen and (max-width: globals.$mobileBreakpoint)
+    //background-image: linear-gradient(45deg, globals.$ambient2 15%, globals.$ambient1 125%)
+    background: mix(globals.$ambient2, globals.$ambient1, 65%)
 
 code
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace
@@ -35,15 +45,6 @@ code
 
 html
   scroll-behavior: smooth
-
-
-body
-  //background-image: globals.$background
-  background: globals.$background
-  background-size: 400%
-  max-width: 100vw
-  overflow-x: hidden
-  animation: backgroundAnim 15s alternate infinite
 
 a
   text-decoration: none
@@ -223,8 +224,8 @@ button[type="submit"]
     right: -15%
     background: linear-gradient(rgba(globals.$ambient1, 1), rgba(#881876, 0.1))
     z-index: -1
-    animation: move1 20s infinite linear
-    filter: blur(128px)
+    //animation: move1 20s infinite linear
+    //filter: blur(128px)
   .object2
     content: ""
     position: absolute
@@ -235,8 +236,8 @@ button[type="submit"]
     left: -20%
     background: linear-gradient(90deg, rgba(globals.$ambient2, 0.8), rgba(#1D32A0, 0.1))
     z-index: -1
-    animation: move1 30s infinite linear
-    filter: blur(128px)
+    //animation: move1 30s infinite linear
+    //filter: blur(128px)
   .object3
     content: ""
     position: absolute
@@ -247,8 +248,8 @@ button[type="submit"]
     left: 40%
     background: linear-gradient(90deg, rgba(globals.$ambient3, 0.8), rgba(#1da0a0, 0.1))
     z-index: -1
-    animation: move1 25s infinite linear
-    filter: blur(128px)
+    //animation: move1 25s infinite linear
+    //filter: blur(128px)
   .blurer
     width: 100%
     height: 100%

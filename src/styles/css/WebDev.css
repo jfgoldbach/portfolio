@@ -87,14 +87,6 @@
   grid-template-rows: 7fr 1fr;
   gap: 10px;
 }
-@media screen and (max-width: 800px) {
-  .modelViewer-container .content-wrapper {
-    grid-template-columns: 1fr;
-    grid-template-rows: 70vh auto 15vh;
-    height: fit-content;
-    padding: 10px;
-  }
-}
 .modelViewer-container .content-wrapper .contentBrowser {
   overflow: hidden;
   position: relative;
@@ -137,11 +129,6 @@
 .modelViewer-container .content-wrapper .contentBrowser .viewer-label i {
   color: #ddd;
   font-size: 1rem;
-}
-@media screen and (max-width: 800px) {
-  .modelViewer-container .content-wrapper .contentBrowser {
-    min-height: 150px;
-  }
 }
 .modelViewer-container .content-wrapper .contentBrowser .info-container {
   position: absolute;
@@ -241,12 +228,6 @@
   color: #ddd;
   font-size: 1rem;
 }
-@media screen and (max-width: 800px) {
-  .modelViewer-container .content-wrapper .canvas-wrapper {
-    grid-row-start: unset;
-    grid-row-end: unset;
-  }
-}
 .modelViewer-container .content-wrapper .canvas-wrapper .viewCanvas {
   cursor: grab;
   z-index: 10;
@@ -318,4 +299,42 @@
   align-items: center;
   justify-content: center;
   gap: 5px;
+}
+
+@media screen and (max-width: 800px) {
+  .modelViewer-container .content-wrapper {
+    grid-template-columns: 1fr;
+    grid-template-rows: calc(100dvh - 65px - 30px - 175px) 175px auto;
+    height: fit-content;
+    padding: 10px;
+    padding-top: 0;
+    padding-bottom: 64px;
+    gap: 0;
+  }
+  .modelViewer-container .content-wrapper .canvas-wrapper {
+    grid-row-start: unset;
+    grid-row-end: unset;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .modelViewer-container .content-wrapper .contentBrowser {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow: auto;
+    min-height: 150px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top: none;
+  }
+  .modelViewer-container .content-wrapper .viewerSettings {
+    margin-top: 10px;
+  }
+  .meshCard .img-container {
+    background-image: none;
+    width: 90px !important;
+    height: 90px !important;
+  }
 }

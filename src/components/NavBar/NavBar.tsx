@@ -93,11 +93,17 @@ function NavBar(props: navProps) {
 
     return (
         <>
+            {/* <div className={`menuCover ${click? "active" : ""}`} /> */}
             <nav 
-                className={`navbar ${location.pathname.match(/\/changer/) ? "loginChange" : ""} 
-                    ${location.pathname.match(/\/loggedin/) ? "adminPanel" : ""}`}
+                className={`
+                    navbar 
+                    ${location.pathname.match(/\/changer/) ? "loginChange" : ""} 
+                    ${location.pathname.match(/\/loggedin/) ? "adminPanel" : ""}
+                    ${click? "clicked" : ""}
+                `}
             >
-                <div className='navbar-container loginChange'>
+                
+                <div className={`navbar-container loginChange`}>
                     <Link to='/' className='navbar-logo' onClick={() => { navigationButtonPressed() }}>
                         <div className='logo-main'>
                             <img src="/images/jglogo.png" />
@@ -146,6 +152,7 @@ function NavBar(props: navProps) {
                                 onClick={() => { navigationButtonPressed() }}
                                 title={lang === "eng" ? "Contact" : "Kontakt"}
                             >
+                                <p>{lang === "eng" ? "Contact" : "Kontakt"}</p>
                                 <i className="fa-solid fa-envelope" />
                             </Button>
                         </li>
