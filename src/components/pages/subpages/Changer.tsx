@@ -40,6 +40,9 @@ export default function Changer() {
 
 
     useEffect(() => {
+        setError("not allowed at this moment")
+        toast.error(lang === "eng" ? "Not allowed at this moment" : "Zugang noch nicht erlaubt")
+
         const token = sessionStorage.getItem("jwt")
         if (token) {
             console.log(token)
@@ -159,7 +162,7 @@ export default function Changer() {
 
     return (
         <div className="changer-container">
-            <BlurredBg adminPanel />
+            {/* <BlurredBg adminPanel /> */}
             {(error || (timeLeft != null && timeLeft <= 0)) &&
                 <Navigate to="/changer" />
             }

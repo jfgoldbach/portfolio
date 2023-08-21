@@ -548,6 +548,9 @@
   align-items: center;
   justify-content: center;
 }
+.nav-item button p {
+  display: none;
+}
 
 .nav-links {
   color: #fff;
