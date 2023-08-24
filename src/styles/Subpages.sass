@@ -18,7 +18,7 @@
     flex-direction: column
     font-family: Arial, Helvetica, sans-serif
     z-index: 10
-    min-height: calc(100vh - var(--footerheight) - var(--navHeight) - var(--projbarHeight))
+    min-height: calc(100vh - var(--footerheight) - var(--navHeight))
     @media screen and (max-width: globals.$mobileBreakpoint)
         margin-top: globals.$navHeight
     .contents-side
@@ -99,30 +99,6 @@
     background-color: globals.$cancel
     color: #151515
     position: relative
-    //animation: swinging 4s infinite alternate ease-in-out
-    //@keyframes swinging
-    //    from
-    //        rotate: -3deg
-    //        transform: translateX(10px)
-    //    to 
-    //        rotate: 3deg
-    //        transform: translateX(-10px)
-    //@mixin strings
-    //    position: absolute
-    //    content: ""
-    //    background: #111
-    //    width: 5px
-    //    height: 200px
-    //    bottom: 35%
-    //    border-radius: 16px
-    //&::after
-    //    @include strings
-    //    left: 100px
-    //    rotate: 45deg
-    //&::before
-    //    @include strings
-    //    right: 100px
-    //    rotate: -45deg
 
 .info-container.mildWarn .fa-solid.fa-circle-info,
 .info-container.mildWarn .fa-solid.fa-triangle-exclamation
@@ -209,7 +185,7 @@
     .main-element
         display: flex
         flex-direction: column
-        gap: 30px
+        gap: 40px
         padding: 30px 0
         align-items: center
         text-align: center
@@ -217,6 +193,7 @@
         margin-bottom: 100px
         border-radius: 32px
         width: 100%
+        min-height: calc(100vh - globals.$navHeight - 20px)
     .section-title
         color: #151515
         width: fit-content
@@ -227,6 +204,7 @@
         border-radius: 12px
 
 .preview
+    z-index: -1
     display: flex
     justify-content: space-between
     align-items: center
@@ -234,7 +212,7 @@
     background-image: linear-gradient(#ddd, white 5%)
     border-radius: 0 0 32px 32px
     padding: 25px 3.25vw
-    margin-top: -30px //thats weird...
+    margin-top: -40px //thats weird...
     --reflectionGrad: linear-gradient( 130deg, rgba(255,255,255,0.15) 35%, transparent 35.3%)
 
 .preview-lessMargin
@@ -358,7 +336,7 @@
     background-image: linear-gradient(270deg, #496276 50%, transparent 90%)
 
 .fa-brands.fa-github
-    font-size: 1.5rem
+    font-size: 1.33rem
 
 @media screen and (max-width: 1000px)
     .calculator-container .main-element
@@ -423,11 +401,10 @@
     .header
         flex-direction: column
         align-items: center
-        background-color: transparent
-        box-shadow: none
         width: 100%
         height: auto
-        border-radius: 0
+        border-radius: 16px
+        margin-bottom: 24px
         padding: 0
         gap: 0
 
@@ -456,8 +433,8 @@
     .contents,
     .projectInfo
         padding: 25px
-        background-color: #eee
-        backdrop-filter: blur(7px)
+        //background-color: #eee
+        //backdrop-filter: blur(7px)
         min-width: 100%
         max-width: 100%
 
@@ -480,14 +457,24 @@
     .contentLinks a
         min-width: 100%
 
+
+
 @media screen and (max-width: globals.$mobileBreakpoint)
+    .calculator-container
+        margin-top: 0
+        min-height: calc(100dvh - globals.$navHeight - 20px)
+        .main-element
+            margin-top: 0
+            .info-container
+                margin-top: 35px
+
     .preview
         margin: 0
         width: calc(100% - 32px)
         position: relative
         padding: 12px
         border-radius: 0 0 16px 16px
-        margin-top: -35px
+        margin-top: -59px
 
     .preview-desktop
         width: auto

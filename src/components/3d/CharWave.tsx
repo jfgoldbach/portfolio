@@ -16,22 +16,19 @@ type GLTFResult = GLTF & {
 
 
 export default function CharWave({ visible }: charProps) {
-    const { nodes, animations } = useGLTF("/models/char.gltf") as unknown as GLTFResult //??ok typescript...
+    const { nodes, animations } = useGLTF("/models/char.glb") as unknown as GLTFResult //??ok typescript...
     const { ref, actions, names } = useAnimations(animations)
 
     const transitionSpeed = 0.3 //in seconds
 
-    useEffect(() => {
-        console.log(actions)
-    }, [actions])
 
     useEffect(() => {
         let timeout: NodeJS.Timeout
         if (visible) {
-            console.log(actions.waving)
             actions.waving?.reset().fadeIn(transitionSpeed).play()
             timeout = setTimeout(() => {
                 actions.waving?.reset().fadeOut(transitionSpeed).play()
+                console.log(actions)
                 actions.coding?.reset().fadeIn(transitionSpeed).play()
             }, 2250);
         } else {

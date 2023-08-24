@@ -8,7 +8,7 @@
     padding: 40px 4vw
     background-color: rgba(255,255,255,0.65)
     backdrop-filter: blur(12px)
-    margin: 14.5vw 10vw 3vw 10vw
+    margin: 29.25vh 10vw 3vw 10vw
     //margin-top: 12.5vw
     border-radius: 32px
     box-shadow: 5px 5px 10px 3px rgba(0,0,0,0.33)
@@ -133,8 +133,12 @@
         margin-bottom: 100px
         backdrop-filter: none
         align-items: center
+        .text-container
+            p
+                margin-top: 62px
     
-    .text-container, .skill-container
+    .text-container, 
+    .skill-container
         width: var(--mobileInnerWidth)
         border-radius: 32px
         background-color: rgba(255,255,255,0.65)
@@ -150,6 +154,6 @@
         $size: 250px
         width: $size !important
         height: $size !important
-        top: $size * -0.625
-        left: unset
-        right: $size / -4
+        top: $size * -0.61
+        //left: unset
+        //right: $size / -4

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { viewerContext } from "./ModelViewer";
 
 type meshcardProps = {
@@ -11,10 +11,59 @@ type meshcardProps = {
 
 export default function MeshCard({ id, img, name, verts, path }: meshcardProps) {
     const { setActiveModel } = useContext(viewerContext)
+    const containerRef = useRef<HTMLDivElement>(null)
+    const titleRef = useRef<HTMLHeadingElement>(null)
 
     function setModel() {
         setActiveModel(path)
     }
+
+    function checkScroll() {
+        console.log("checkScroll")
+        const container = containerRef.current
+        const title = titleRef.current
+        title?.getAnimations().map(anim => anim.cancel()) //remove all animations
+        if(container && title){
+            if(container.scrollWidth > container.clientWidth){
+                title.classList.add("scrolling")
+                const transform = title.clientWidth - container.clientWidth
+                title.style.animation = "none"
+                title.animate(
+                    [
+                        {transform: "translateX(6px)"},
+                        {transform: "translateX(6px)", offset: 0.2},
+                        {transform: `translateX(-${transform + 6}px)`, offset: 0.8},
+                        {transform: `translateX(-${transform + 6}px)`}
+                    ],
+                    {
+                        delay: 1000,
+                        duration: 3000,
+                        iterations: Infinity,
+                        direction: "alternate",
+                        easing: "linear"
+                    }
+                )
+            }
+        }
+    }
+
+    useEffect(() => {
+        window.addEventListener("resize", checkScroll)
+        return(() => {
+            window.removeEventListener("resize", checkScroll)
+        })
+    }, [])
+
+    useEffect(() => {
+        checkScroll()
+
+        return(() => {
+            const title = titleRef.current
+            title?.getAnimations().map(anim => anim.cancel())
+        })
+    }, [containerRef, titleRef])
+
+
 
     return (
         <div className="meshCard" style={{ animationDelay: `${id * 0.025}s` }} onClick={setModel}>
@@ -22,7 +71,11 @@ export default function MeshCard({ id, img, name, verts, path }: meshcardProps) 
                 <img src={img}></img>
                 <p>{verts} vertices</p>
             </div>
-            <h2>{name}</h2>
+            <div ref={containerRef} className="title-container">
+                <h2 ref={titleRef}>
+                    {name}
+                </h2>
+            </div>
         </div>
     )
 }

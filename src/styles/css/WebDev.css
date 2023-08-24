@@ -90,8 +90,6 @@
 .modelViewer-container .content-wrapper .contentBrowser {
   overflow: hidden;
   position: relative;
-  padding: 10px;
-  padding-top: 30px;
   background-color: #080808;
   border-radius: 12px;
   border: 2px solid #444;
@@ -99,12 +97,6 @@
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
   position: relative;
   height: 100%;
-  overflow-y: auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 150px);
-  grid-auto-flow: row;
-  grid-auto-rows: max-content;
-  grid-auto-columns: max-content;
   justify-items: center;
   justify-content: space-between;
   gap: 15px;
@@ -137,6 +129,18 @@
   transform: translate(-50%, -50%);
   width: fit-content;
 }
+.modelViewer-container .content-wrapper .contentBrowser .cardContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 10px;
+  max-height: 100%;
+  padding-top: 30px;
+  gap: 12px;
+  overflow-y: auto;
+}
 .modelViewer-container .content-wrapper .contentBrowser .meshCard {
   display: flex;
   flex-direction: column;
@@ -158,9 +162,11 @@
     opacity: 1;
   }
 }
-.modelViewer-container .content-wrapper .contentBrowser .meshCard:hover {
-  border-color: lightblue;
-  background-color: rgba(170, 170, 170, 0.1);
+@media screen and (min-width: 800px) {
+  .modelViewer-container .content-wrapper .contentBrowser .meshCard:hover {
+    border-color: lightblue;
+    background-color: rgba(170, 170, 170, 0.1);
+  }
 }
 .modelViewer-container .content-wrapper .contentBrowser .meshCard .img-container {
   position: relative;
@@ -185,17 +191,31 @@
   color: #222;
   width: 100%;
 }
-.modelViewer-container .content-wrapper .contentBrowser .meshCard h2 {
+.modelViewer-container .content-wrapper .contentBrowser .meshCard .title-container {
+  position: relative;
+  max-width: 150px;
+  height: 1.25rem;
+  overflow-x: hidden;
+  overflow-y: visible;
+}
+.modelViewer-container .content-wrapper .contentBrowser .meshCard .title-container h2 {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  white-space: nowrap;
+  transform: translateX(-50%);
   font-weight: normal;
   font-size: 1.25rem;
   text-align: center;
   color: #eee;
 }
+.modelViewer-container .content-wrapper .contentBrowser .meshCard .title-container h2.scrolling {
+  left: 0;
+  transform: translateX(6px);
+}
 .modelViewer-container .content-wrapper .canvas-wrapper {
   overflow: hidden;
   position: relative;
-  padding: 10px;
-  padding-top: 30px;
   background-color: #080808;
   border-radius: 12px;
   border: 2px solid #444;
@@ -255,13 +275,13 @@
 .modelViewer-container .content-wrapper .viewerSettings {
   overflow: hidden;
   position: relative;
-  padding: 10px;
-  padding-top: 30px;
   background-color: #080808;
   border-radius: 12px;
   border: 2px solid #444;
   height: 100%;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+  padding: 10px;
+  padding-top: 30px;
   background: #020202;
   color: white;
 }
@@ -302,6 +322,11 @@
 }
 
 @media screen and (max-width: 800px) {
+  .webdev-container,
+  .gamedev-container {
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
   .modelViewer-container .content-wrapper {
     grid-template-columns: 1fr;
     grid-template-rows: calc(100dvh - 65px - 30px - 175px) 175px auto;
@@ -329,6 +354,43 @@
     border-top-right-radius: 0;
     border-top: none;
   }
+  .modelViewer-container .content-wrapper .contentBrowser::before {
+    content: "";
+    position: absolute;
+    z-index: 10;
+    bottom: 0;
+    width: 30px;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0;
+    transition: 0.25s;
+    right: 0;
+    background-image: linear-gradient(270deg, #31a6ff -20%, transparent);
+  }
+  .modelViewer-container .content-wrapper .contentBrowser.right::before {
+    opacity: 1;
+  }
+  .modelViewer-container .content-wrapper .contentBrowser::after {
+    content: "";
+    position: absolute;
+    z-index: 10;
+    bottom: 0;
+    width: 30px;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0;
+    transition: 0.25s;
+    left: 0;
+    background-image: linear-gradient(90deg, #31a6ff -20%, transparent);
+  }
+  .modelViewer-container .content-wrapper .contentBrowser.left::after {
+    opacity: 1;
+  }
+  .modelViewer-container .content-wrapper .contentBrowser .cardContainer {
+    height: 100%;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
+  }
   .modelViewer-container .content-wrapper .viewerSettings {
     margin-top: 10px;
   }
@@ -336,5 +398,8 @@
     background-image: none;
     width: 90px !important;
     height: 90px !important;
+  }
+  .meshCard .title-container {
+    max-width: 102px !important;
   }
 }

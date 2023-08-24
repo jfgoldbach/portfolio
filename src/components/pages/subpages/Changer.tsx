@@ -9,7 +9,7 @@ import { jwtPayload } from "../../../types/types"
 import '../../../styles/css/Changer.css'
 import { toast } from "react-toastify"
 import { LangContext } from "../../../App"
-import BlurredBg from "../../visuals/BlurredBg"
+
 
 
 type apNavigation = {
@@ -27,6 +27,7 @@ type apNavigation = {
 }
 
 
+
 export default function Changer() {
     const { lang } = useContext(LangContext)
     const { content_id } = useParams()
@@ -40,7 +41,7 @@ export default function Changer() {
 
 
     useEffect(() => {
-        setError("not allowed at this moment")
+        //setError("not allowed at this moment")
         toast.error(lang === "eng" ? "Not allowed at this moment" : "Zugang noch nicht erlaubt")
 
         const token = sessionStorage.getItem("jwt")

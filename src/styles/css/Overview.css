@@ -97,6 +97,7 @@
 .spikyDivider img {
   width: 110%;
   display: block;
+  transform: translateY(2px);
 }
 
 @keyframes wave {

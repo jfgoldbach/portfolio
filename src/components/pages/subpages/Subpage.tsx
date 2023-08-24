@@ -7,11 +7,11 @@ import instance from "../../network/axios"
 import Loading from "../../helper/Loading"
 import Button from "../../Button"
 import ErrorInfo from "../../helper/ErrorInfo"
-import BlurredBg from "../../visuals/BlurredBg"
 import '../../../styles/css/Subpages.css'
 
 
 type pageProps = {
+  table: string
   index: number
 }
 
@@ -50,7 +50,7 @@ type err = {
 }
 
 
-function Subpage({ index }: pageProps) {
+function Subpage({ index, table }: pageProps) {
 
   const [content, setContent] = useState<sects>({} as sects)
   const [error, setError] = useState<err | undefined>()
@@ -65,15 +65,12 @@ function Subpage({ index }: pageProps) {
   function getContent() {
     setContent({} as sects)
     setError(undefined)
-    instance.get(`?type=single&id=${index}`, { headers: { "jwt": sessionStorage.getItem("jwt") } })
+    instance.get(`?type=single&category=${table}&id=${index}`, { headers: { "jwt": sessionStorage.getItem("jwt") } })
       .then(response => response.data)
       .then(result => setContent(result))
       .catch(error => setError(error))
   }
 
-  //useEffect(() => {
-  //  console.log("contentsVisible", contentsVisible)
-  //}, [contentsVisible])
 
   useEffect(() => {
     console.log("sideCont", sideCont)
@@ -118,8 +115,6 @@ function Subpage({ index }: pageProps) {
 
   return (
     <div className="calculator-container">
-      {/* <BlurredBg /> */}
-
       {content.name !== undefined && content.sections[lang as langs] !== undefined && content.sections[lang as langs].length > 2 &&
         < div className={`contents-side ${sideCont ? "active" : ""}`}>
           <h1>{lang === "eng" ? "Contents" : "Inhalt"}</h1>
@@ -152,7 +147,7 @@ function Subpage({ index }: pageProps) {
 
         {content.name !== undefined &&
           <div className={`header scaleIn ${content.info === "" ? "noInfo" : ""}`}>
-            <h1 className="heading">{content.name}</h1>
+            <h1 className={`heading`}>{content.name}</h1>
 
             {content.skillcards.length !== 0 && content.sections[lang as langs] !== undefined &&
               <>

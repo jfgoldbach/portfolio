@@ -42,7 +42,7 @@ function AboutMe({ heading, subheading, skillcards }: aboutmeProps) {
     return (
         <div className='main-container aboutMe'>
 
-            {/* {finished && <CharCanvas />} */}
+            {finished && <CharCanvas />}
 
             <div className='text-container'>
                 {/* <h1>{lang === "eng" ? heading.eng : heading.ger}</h1> */}

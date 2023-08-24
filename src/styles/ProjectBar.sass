@@ -142,18 +142,23 @@ $btnWidth: 40px
         margin: 0
         left: 0
         &.closed
-            left: -9px
+            left: -18px
             .expandBtn
                 background: #fff
                 i
                     font-size: 1rem
+            .item-container
+                box-shadow: none
         .item-container
             grid-template-rows: repeat(6, auto)
             padding: 10px
             gap: 12px
             margin-left: 0
         .expandBtn
+            box-shadow: globals.$shadow1
+            width: 30px
             color: #333
             background: globals.$cancel
             i
+                padding: 0
                 font-size: 1.5rem

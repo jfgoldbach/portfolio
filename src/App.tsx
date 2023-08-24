@@ -172,7 +172,7 @@ function App() {
                   <Route index element={<WebdevMain />}></Route>
                   {overview &&
                     <>
-                      {overview.map(project => <Route path={project.link.replaceAll("webdev/", "")} element={<Subpage index={project.id} />} />)}
+                      {overview.map(project => <Route path={project.link.replaceAll("webdev/", "")} element={<Subpage table='projects' index={project.id} />} />)}
                     </>
                   }
                 </Route>
@@ -181,7 +181,7 @@ function App() {
                   <Route index element={<GamedevMain />}></Route>
                   {gameOverview &&
                     <>
-                      {gameOverview.map(project => <Route path={project.link.replaceAll("gamedev/", "")} element={<Subpage index={project.id} />} />)}
+                      {gameOverview.map(project => <Route path={project.link.replaceAll("gamedev/", "")} element={<Subpage table='gameProjs' index={project.id} />} />)}
                     </>
                   }
                 </Route>

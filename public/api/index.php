@@ -229,8 +229,18 @@ switch ($method) {
 
                             case "single":
                                 $cols = array("id", "name", "info", "preview", "link", "skillcards", "liveLink", "githubLink", "sections");
+
                                 $id = $_GET['id'] != null ? $_GET['id'] : 1;
-                                $sql = "SELECT " . implode(",", $cols) . " FROM projects WHERE id = " . $id . ";";
+
+                                $table = "";
+                                if(isset($_GET['category'])){
+                                    $table = $_GET['category'];
+                                } else {
+                                    http_response_code(400);
+                                    die("A category needs to be provided.");
+                                }
+
+                                $sql = "SELECT " . implode(",", $cols) . " FROM " . $table . " WHERE id = " . $id . ";";
                                 $result = $mysqli->query($sql);
                                 $response = $result->fetch_assoc();
 

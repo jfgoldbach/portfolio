@@ -98,38 +98,6 @@
   }
 }
 
-#totop .fa-caret-up {
-  position: fixed;
-  right: 65px;
-  bottom: 115px;
-  font-size: 2.5rem;
-  background-color: rgba(47, 48, 56, 0.8);
-  width: 20px;
-  height: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  color: rgb(244, 244, 244);
-  backdrop-filter: blur(7px);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  opacity: 0;
-  pointer-events: none;
-  transition: 0.15s;
-  transform: translateZ(10px);
-  z-index: 100;
-}
-
-#totop .fa-caret-up.active {
-  width: 50px;
-  height: 50px;
-  pointer-events: all;
-  opacity: 1;
-  transition: 0.2s;
-  right: 50px;
-  bottom: 102px;
-}
-
 .contact-snap {
   position: absolute;
   width: 100vw;
@@ -225,7 +193,7 @@
   align-items: center;
   justify-content: center;
   position: absolute;
-  z-index: 100;
+  z-index: 200;
   width: 100vw;
   height: 100vh;
   left: 50%;
@@ -610,10 +578,6 @@
 }
 
 @media screen and (min-width: 960px) {
-  #totop .fa-caret-up.active:hover {
-    outline: 2px solid white;
-    transition: 0.05s;
-  }
   .navbar-logo:hover .logo-main {
     transform: translateY(50px);
   }
@@ -653,19 +617,6 @@
   }
   .navbar-logo:active, .nav-links:active {
     background-color: rgba(255, 255, 255, 0.33);
-  }
-  #totop .fa-caret-up {
-    bottom: 30px;
-    right: 30px;
-    transform: translateZ(20px);
-  }
-  #totop .fa-caret-up.active {
-    bottom: 15px;
-    right: 15px;
-  }
-  #totop .fa-caret-up.active:active {
-    border: 2px solid white;
-    transition: 0.05s;
   }
   .info {
     max-height: calc(100dvh - 20px) !important;

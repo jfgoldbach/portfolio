@@ -200,10 +200,6 @@ function NavBar(props: navProps) {
 
                 </div>
             </nav>
-
-            <a href='#' id="totop">
-                <i className={`fa-solid fa-caret-up ${totop ? "active" : ""}`}></i>
-            </a>
         </>
     )
 }

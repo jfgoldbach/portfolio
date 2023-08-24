@@ -15,7 +15,7 @@
     flex-direction: column
     align-items: center
     justify-content: flex-start
-    height: calc((42vw - (10px + globals.$navHeight)))
+    height: 76.5vh
     background: none
 
 /*.img-container figure
@@ -564,7 +564,11 @@ img::selection
         .project-previews
             flex-direction: column-reverse
             padding: 0 12px
-            height: 315px
+            $smallGutter: 6px
+            $cardsVertGap: 16px
+            $aspect: 0.5626
+            //big image height + margin top + gap + small image height + info bar height
+            height: calc(((100vw - 24px) * $aspect) + 10px + $cardsVertGap + ((((100vw - 24px) - (3 * $smallGutter)) / 4) * $aspect) + 42px)
             width: 100%
             .setbtn-container
                 .carouSet-btn

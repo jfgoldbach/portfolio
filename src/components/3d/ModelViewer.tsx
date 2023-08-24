@@ -1,4 +1,4 @@
-import { createContext, Suspense, useContext, useEffect, useState } from "react";
+import { createContext, Suspense, useContext, useEffect, useRef, useState } from "react";
 import { LangContext, ReadyContext } from "../../App";
 import Button from "../Button";
 import Loading from "../helper/Loading";
@@ -31,6 +31,8 @@ export default function ModelViewer() {
     const [error, setError] = useState<errorType>({} as errorType)
     const [activeModel, setActiveModel] = useState<string>("/models/standard.glb")
     const [fov, setFov] = useState(35)
+    const [lr, setLr] = useState("")
+    const browserRef = useRef<HTMLDivElement>(null)
     const { ready } = useContext(ReadyContext)
 
     function loadData() {
@@ -48,10 +50,53 @@ export default function ModelViewer() {
     useEffect(() => {
         if (ready) loadData()
         const metaIcon: HTMLLinkElement = document.getElementById("icon") as HTMLLinkElement
-        if(metaIcon){
+        if (metaIcon) {
             metaIcon.href = "/images/favicon_viewer.ico"
         }
+        
+
     }, [])
+
+    useEffect(() => {
+        console.log("browserRef", browserRef.current)
+        const cBrowser = browserRef.current
+
+        function checkLR() {
+            let classes = []
+            if (cBrowser) {
+                if (cBrowser.scrollLeft > 15) {
+                    classes.push("left")
+                }
+                if (cBrowser.scrollWidth - cBrowser.scrollLeft - cBrowser.clientWidth > 15) {
+                    classes.push("right")
+                }
+            }
+            setLr(classes.join(" "))
+        }
+
+        if (cBrowser) {
+            if (cBrowser.scrollWidth > cBrowser.clientWidth) {
+                setLr("right")
+            }
+            cBrowser.addEventListener('scroll', checkLR)
+        }
+
+        return(() => {
+            cBrowser?.removeEventListener('scroll', checkLR)
+        })
+    }, [browserRef])
+
+
+    useEffect(() => {
+        const cBrowser = browserRef.current
+        if (cBrowser) {
+            if (cBrowser.scrollWidth > cBrowser.clientWidth) {
+                setLr("right")
+            }
+        }
+    }, [models])
+
+
 
     function createCards(amount: number) {
         let result: JSX.Element[] = []
@@ -90,28 +135,32 @@ export default function ModelViewer() {
                             </Suspense>
                         }
                     </div>
-                    <div className="contentBrowser">
-                        {models
-                            ? models.map((model, index) =>
-                                <MeshCard
-                                    key={index}
-                                    id={index}
-                                    path={model.path}
-                                    img={model.thumbnail}
-                                    name={model.name}
-                                    verts={model.vertices}
-                                />
-                            )
-                            : error.msg ? 
-                                <ErrorInfo request={loadData} />
-                                : 
-                                <Loading light />
-                        }
+
+                    <div className={`contentBrowser ${lr}`}>
+                        <div ref={browserRef} className={`cardContainer`}>
+                            {models
+                                ? models.map((model, index) =>
+                                    <MeshCard
+                                        key={index}
+                                        id={index}
+                                        path={model.path}
+                                        img={model.thumbnail}
+                                        name={model.name}
+                                        verts={model.vertices}
+                                    />
+                                )
+                                : error.msg ?
+                                    <ErrorInfo request={loadData} />
+                                    :
+                                    <Loading light />
+                            }
+                        </div>
                         <div className="viewer-label">
                             <i className="fa-regular fa-folder-open"></i>
                             <p>{lang === "eng" ? "Content browser" : "Modellverzeichnis"}</p>
                         </div>
                     </div>
+
                     <div className="viewerSettings">
                         <div className="viewer-label">
                             <i className="fa-solid fa-gear"></i>

@@ -28,8 +28,6 @@
 @mixin viewerContainer
     overflow: hidden
     position: relative
-    padding: 10px
-    padding-top: 30px
     background-color: #080808
     border-radius: 12px
     border: 2px solid #444
@@ -87,13 +85,6 @@
             @include viewerContainer
             position: relative
             height: 100%
-            overflow-y: auto
-            display: grid
-            //grid-template-rows: repeat(5, auto)
-            grid-template-columns: repeat(auto-fill, 150px)
-            grid-auto-flow: row
-            grid-auto-rows: max-content
-            grid-auto-columns: max-content
             justify-items: center
             justify-content: space-between
             gap: 15px
@@ -104,6 +95,17 @@
                 left: 50%
                 transform: translate(-50%, -50%)
                 width: fit-content
+            .cardContainer
+                display: flex
+                justify-content: space-between
+                align-items: flex-start
+                flex-wrap: wrap
+                width: 100%
+                padding: 10px
+                max-height: 100%
+                padding-top: 30px
+                gap: 12px
+                overflow-y: auto
             .meshCard
                 display: flex
                 flex-direction: column
@@ -121,9 +123,10 @@
                     to
                         transform: translateY(0)
                         opacity: 1
-                &:hover
-                    border-color: lightblue
-                    background-color: rgba(#aaa, 0.1)
+                @media screen and (min-width: globals.$mobileBreakpoint)
+                    &:hover
+                        border-color: lightblue
+                        background-color: rgba(#aaa, 0.1)
                 .img-container
                     position: relative
                     $size: 138px
@@ -145,11 +148,25 @@
                         background: rgba(#555, 0.33)
                         color: #222
                         width: 100%
-                h2
-                    font-weight: normal
-                    font-size: 1.25rem
-                    text-align: center
-                    color: #eee
+                .title-container
+                    position: relative
+                    max-width: 150px
+                    height: 1.25rem
+                    overflow-x: hidden
+                    overflow-y: visible
+                    h2
+                        position: absolute
+                        bottom: 0
+                        left: 50%
+                        white-space: nowrap
+                        transform: translateX(-50%)
+                        font-weight: normal
+                        font-size: 1.25rem
+                        text-align: center
+                        color: #eee
+                        &.scrolling
+                            left: 0
+                            transform: translateX(6px)
         .canvas-wrapper
             @include viewerContainer
             padding: 0
@@ -180,6 +197,8 @@
                 z-index: 10
         .viewerSettings
             @include viewerContainer
+            padding: 10px
+            padding-top: 30px
             background: #020202
             color: white
             button
@@ -194,6 +213,11 @@
                     gap: 5px
 
 @media screen and (max-width: globals.$mobileBreakpoint)
+    .webdev-container,
+    .gamedev-container
+        justify-content: flex-start
+        align-items: flex-start
+
     .modelViewer-container
         .content-wrapper
             $browserHeight: 175px
@@ -219,6 +243,33 @@
                 border-top-left-radius: 0
                 border-top-right-radius: 0
                 border-top: none
+                @mixin sideGlow
+                    //animation: globals.divIn 0.25s
+                    content: ""
+                    position: absolute
+                    z-index: 10
+                    bottom: 0
+                    width: 30px
+                    height: 100%
+                    pointer-events: none
+                    opacity: 0
+                    transition: 0.25s
+                &::before
+                    @include sideGlow
+                    right: 0
+                    background-image: linear-gradient(270deg, globals.$active -20%, transparent)
+                &.right::before
+                    opacity: 1
+                &::after
+                    @include sideGlow
+                    left: 0
+                    background-image: linear-gradient(90deg, globals.$active -20%, transparent)
+                &.left::after
+                    opacity: 1
+                .cardContainer
+                    height: 100%
+                    overflow-y: hidden
+                    flex-wrap: nowrap
             .viewerSettings
                 margin-top: 10px
 
@@ -228,3 +279,6 @@
             $size: 90px
             width: $size !important
             height: $size !important
+        .title-container
+            max-width: 102px !important
+            h2

@@ -42,7 +42,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  height: calc(42vw - 75px);
+  height: 76.5vh;
   background: none;
 }
 
@@ -681,7 +681,7 @@ img::selection {
   .hero-main .project-previews {
     flex-direction: column-reverse;
     padding: 0 12px;
-    height: 315px;
+    height: calc((100vw - 24px) * 0.5626 + 10px + 16px + (100vw - 24px - 18px) / 4 * 0.5626 + 42px);
     width: 100%;
   }
   .hero-main .project-previews .setbtn-container .carouSet-btn.settings-active {
