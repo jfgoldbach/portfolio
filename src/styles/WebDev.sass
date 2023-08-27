@@ -297,7 +297,19 @@
                             &:hover
                                 color: #333
                                 text-shadow: 0 0 6px #fff
-                    
+                
+                .rangeContainer
+                    width: 100%
+                    position: relative
+                    overflow: hidden
+                    .rangeAfter
+                        position: absolute
+                        top: 6px
+                        width: 100%
+                        height: 4px
+                        background: #aaa
+                        pointer-events: none
+
                 .times-container
                     @include globals.flexCenter
                     padding: 0 6px
@@ -425,6 +437,7 @@
     .animation-bar
         width: calc(100% - 8px) !important
         max-width: 100% !important
+        min-width: unset !important
         input[type="range"]
             margin-bottom: 2px !important
         .select-container
@@ -433,14 +446,21 @@
             bottom: 4px !important
         &.minimized
             bottom: -70px !important
+            width: 50% !important
         select
             background: white !important
             color: #333 !important
+            width: unset !important
             &.speedBtn
                 background: none !important
                 color: #eee !important
         .time-buttons
             gap: 8px !important
+        .bottom-navigation
+            select,
+            .time-buttons
+                width: 33.33% !important
+                margin: 0 !important
 
     .modelViewer-container
         .content-wrapper

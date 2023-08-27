@@ -159,7 +159,7 @@ export default function ModelViewer() {
                         </div>
                         <div className="canvas-info">
                             <Button onClick={infoMessage}>
-                                <i className="fa-solid fa-gamepad" />
+                                i
                             </Button>
                         </div>
                         {activeModel !== "" &&

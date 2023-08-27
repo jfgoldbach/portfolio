@@ -16,10 +16,14 @@ type objectProps = {
         body: SkinnedMesh<BufferGeometry, Material | Material[]>;
         Bone: Bone;
     }
+    rangeStyle: {
+        container: HTMLDivElement | null
+        after: HTMLDivElement | null
+    }
 }
 
 function ViewerObject({ object, animations, nodes, playing, rangeRef,
-    duration, timeDisplayRef, paused, speed }: objectProps) {
+    duration, timeDisplayRef, paused, speed, rangeStyle }: objectProps) {
 
     const { actions, ref } = useAnimations(animations)
 
@@ -74,6 +78,12 @@ function ViewerObject({ object, animations, nodes, playing, rangeRef,
                 const minutes = Math.floor(animation.time / 60)
                 const seconds = Math.ceil(animation.time - (minutes * 60))
                 timeDisplay.innerHTML = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`
+            }
+            const rangeContainer = rangeStyle.container
+            const rangeAfter = rangeStyle.after
+            if (rangeContainer && rangeAfter) {
+                const percent = (animation.time / duration)
+                rangeAfter.style.transform = `translateX(${16 * (1 - percent) + (rangeContainer.clientWidth * percent)}px)`
             }
         }
 

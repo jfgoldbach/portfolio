@@ -406,6 +406,7 @@ input[type=range]::-webkit-slider-thumb {
   cursor: pointer;
   background: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  position: relative;
 }
 input[type=range]::-moz-range-thumb {
   width: 16px;
@@ -415,6 +416,7 @@ input[type=range]::-moz-range-thumb {
   cursor: pointer;
   background: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  position: relative;
 }
 input[type=range]::-ms-thumb {
   width: 16px;
@@ -424,6 +426,7 @@ input[type=range]::-ms-thumb {
   cursor: pointer;
   background: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  position: relative;
 }
 input[type=range]::-webkit-slider-runnable-track {
   width: 100%;

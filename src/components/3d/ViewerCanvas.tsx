@@ -20,8 +20,11 @@ export default function ViewerCanvas({ modelPath, fov }: viewerCanvasType) {
     const [speed, setSpeed] = useState(1)
     const [paused, setPaused] = useState(false)
     const [minim, setMinim] = useState(false)
+
     const rangeRef = useRef<HTMLInputElement>(null)
     const timeDisplayRef = useRef<HTMLParagraphElement>(null)
+    const rangeContainerRef = useRef<HTMLDivElement>(null)
+    const rangeAfterRef = useRef<HTMLDivElement>(null)
 
     const { lang } = useContext(LangContext)
     const { autoPlay, autoCam } = useContext(viewerContext)
@@ -132,6 +135,7 @@ export default function ViewerCanvas({ modelPath, fov }: viewerCanvasType) {
                             timeDisplayRef={timeDisplayRef}
                             paused={paused}
                             speed={speed}
+                            rangeStyle={{ container: rangeContainerRef.current, after: rangeAfterRef.current }}
                         />
 
                     </Bounds>
@@ -163,11 +167,18 @@ export default function ViewerCanvas({ modelPath, fov }: viewerCanvasType) {
                         </p>
                     </div>
                     <Button className={`minimizeBtn ${minim ? "minimized" : ""}`} onClick={() => setMinim(prev => !prev)}>
-                        {minim ? "^" : "-"}
+                        {minim ?
+                            <i className="fa-solid fa-caret-up" />
+                            :
+                            "-"
+                        }
                     </Button>
                 </div>
 
-                <input ref={rangeRef} type="range" />
+                <div ref={rangeContainerRef} className="rangeContainer">
+                    <input ref={rangeRef} type="range" step="any" />
+                    <div ref={rangeAfterRef} className="rangeAfter" />
+                </div>
 
                 <div className="bottom-navigation">
                     <select
