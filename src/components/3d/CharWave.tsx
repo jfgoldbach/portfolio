@@ -1,17 +1,10 @@
 import { useGLTF } from "@react-three/drei"
 import { useAnimations } from "@react-three/drei/web"
 import { useEffect } from "react"
-import { GLTF } from "three/examples/jsm/loaders/GLTFLoader"
+import { GLTFResult } from "../../types/types"
 
 type charProps = {
     visible: boolean
-}
-
-type GLTFResult = GLTF & {
-    nodes: {
-        body: THREE.SkinnedMesh,
-        Bone: THREE.Bone
-    }
 }
 
 

@@ -328,12 +328,12 @@ switch ($method) {
 
 
                             case "models":
-                                $cols = array("id", "name", "thumbnail", "path", "vertices");
+                                $cols = array("id", "name", "thumbnail", "path", "vertices", "anim");
                                 $sql = "SELECT * FROM models;";
                                 $result = $mysqli->query($sql);
                                 $response = $result->fetch_all();
 
-                                $stringExcepts = [0, 4];
+                                $stringExcepts = [0, 4, 5];
                                 overviewToJSON($response, $stringExcepts, $cols);
                                 break;
 

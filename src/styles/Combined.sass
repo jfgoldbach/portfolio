@@ -295,9 +295,65 @@ button[type="submit"]
   opacity: 0
   pointer-events: none
 
+.rotate180
+  rotate: 180deg
+
 
 .Toastify__toast-container--top-right
   top: calc(globals.$navHeight + 10px + 1em) !important
 
 .frc-captcha
   box-shadow: globals.$shadow
+
+
+input[type="range"]
+  $thumbSize: 16px
+  $trackHeight: 4px
+  -webkit-appearance: none
+  width: 100% //FF
+  background: transparent //Chromium
+  height: $thumbSize
+  @mixin rangeThumb
+    width: $thumbSize
+    height: $thumbSize
+    border: none
+    border-radius: 50%
+    cursor: pointer
+    background: #fff
+    box-shadow: globals.$shadow2
+  @mixin rangeTrack
+    width: 100%
+    height: $trackHeight
+    background: globals.$active
+    cursor: pointer
+
+  &:focus
+    outline: none
+  &::-ms-track
+    width: 100%
+    cursor: pointer
+    background: transparent
+    border-color: transparent
+    color: transparent
+
+  &::-webkit-slider-thumb
+    -webkit-appearance: none
+    margin-top: -6px
+    @include rangeThumb
+  &::-moz-range-thumb
+    @include rangeThumb
+  &::-ms-thumb
+    @include rangeThumb
+
+  &::-webkit-slider-runnable-track
+    @include rangeTrack
+  &::-moz-range-track
+    @include rangeTrack
+  &::-ms-track
+    @include rangeTrack
+    //width: 100%
+    //height: $trackHeight
+    //cursor: pointer
+    //background: transparent
+    //border-color: transparent
+    //color: transparent

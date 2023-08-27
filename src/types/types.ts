@@ -1,3 +1,6 @@
+import { AnimationAction } from "three";
+import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
+
 export type twoLang = {
     "ger": string;
     "eng": string
@@ -110,3 +113,12 @@ export type projectType = {
 }
 
 export type captchaVerify = "verify" | "valid" | "invalid"
+
+export type actionsType = {[key:string]: AnimationAction | null}
+
+export type GLTFResult = GLTF & {
+    nodes: {
+        body: THREE.SkinnedMesh,
+        Bone: THREE.Bone
+    }
+}

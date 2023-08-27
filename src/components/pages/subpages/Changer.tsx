@@ -41,7 +41,7 @@ export default function Changer() {
 
 
     useEffect(() => {
-        //setError("not allowed at this moment")
+        setError("not allowed at this moment")
         toast.error(lang === "eng" ? "Not allowed at this moment" : "Zugang noch nicht erlaubt")
 
         const token = sessionStorage.getItem("jwt")

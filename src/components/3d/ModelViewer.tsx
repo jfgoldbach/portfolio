@@ -6,21 +6,25 @@ import MeshCard from "./MeshCard";
 import ViewerCanvas from "./ViewerCanvas";
 import instance from "../network/axios";
 import "../../styles/css/WebDev.css"
-import { errorType } from "../../types/types";
+import { actionsType, errorType } from "../../types/types";
 import ErrorInfo from "../helper/ErrorInfo";
+import { AnimationAction } from "three";
 //styling in WebDev.sass
 
 type modelInfos = {
-    id: number,
-    name: string,
-    thumbnail: string,
-    path: string,
+    id: number
+    name: string
+    thumbnail: string
+    path: string
     vertices: number
+    anim: number
 }[]
 
 type viewerContextType = {
-    activeModel: string,
+    activeModel: string
     setActiveModel: React.Dispatch<string>
+    autoPlay: boolean
+    autoCam: boolean
 }
 
 export const viewerContext = createContext<viewerContextType>({} as viewerContextType)
@@ -32,14 +36,18 @@ export default function ModelViewer() {
     const [activeModel, setActiveModel] = useState<string>("/models/standard.glb")
     const [fov, setFov] = useState(35)
     const [lr, setLr] = useState("")
+    const [expand, setExpand] = useState(false)
+    const [autoPlay, setAutoPlay] = useState(true)
+    const [autoCam, setAutoCam] = useState(false)
     const browserRef = useRef<HTMLDivElement>(null)
     const { ready } = useContext(ReadyContext)
+
 
     function loadData() {
         setError({} as errorType)
         instance.get("?type=models", { headers: { "jwt": sessionStorage.getItem("jwt") } })
             .then(response => response.data)
-            .then(result => { setModels(result); console.log(result) })
+            .then(result => { setModels(result) })
             .catch(error => setError({ "msg": error.message, "code": error.code }))
     }
 
@@ -53,7 +61,7 @@ export default function ModelViewer() {
         if (metaIcon) {
             metaIcon.href = "/images/favicon_viewer.ico"
         }
-        
+
 
     }, [])
 
@@ -81,13 +89,14 @@ export default function ModelViewer() {
             cBrowser.addEventListener('scroll', checkLR)
         }
 
-        return(() => {
+        return (() => {
             cBrowser?.removeEventListener('scroll', checkLR)
         })
     }, [browserRef])
 
 
     useEffect(() => {
+        console.log(models)
         const cBrowser = browserRef.current
         if (cBrowser) {
             if (cBrowser.scrollWidth > cBrowser.clientWidth) {
@@ -119,15 +128,39 @@ export default function ModelViewer() {
         setFov(35)
     }
 
+    function autoPlayChange() {
+        setAutoPlay(prev => !prev)
+    }
+
+    function autoCamChange() {
+        setAutoCam(prev => !prev)
+    }
+
+    function infoMessage() {
+        window.alert(lang === "eng" ? 
+            "Controls with a mouse:\nLeft button + drag: rotate\nRight button + drag: move\nScrollwheel: Zoom\n\nControls on a touchscreen device:\nPinch 2 fingers: Zoom\nDrag 1 finger: rotate\nDrag 2 fingers: move" :
+            "Steuerung mit Maus:\nLinke Taste + ziehen: Drehen\nRechte Taste + ziehen: Bewegen\nScrollrad: Zoom\n\nSteuerung mit einem mobilen Gerät:\n2 Finger zusammenziehen: Zoom\n1 Finger bewegen: Drehen\n2 Finger bewegen: Bewegen")
+    }
+
 
     return (
-        <viewerContext.Provider value={{ activeModel, setActiveModel }} >
+        <viewerContext.Provider value={{ activeModel, setActiveModel, autoPlay, autoCam }} >
             <div className="modelViewer-container">
-                <div className="content-wrapper">
+                <div className={`content-wrapper ${expand ? "settings-expand" : ""}`}>
                     <div className="canvas-wrapper">
                         <div className="viewer-label">
                             <i className="fa-solid fa-eye"></i>
                             <p>{lang === "eng" ? "3D view" : "3D Ansicht"}</p>
+                        </div>
+                        <div className="model-info">
+                            <p>
+                                {activeModel ?? "none"}
+                            </p>
+                        </div>
+                        <div className="canvas-info">
+                            <Button onClick={infoMessage}>
+                                <i className="fa-solid fa-gamepad" />
+                            </Button>
                         </div>
                         {activeModel !== "" &&
                             <Suspense fallback={<Loading light />}>
@@ -147,6 +180,7 @@ export default function ModelViewer() {
                                         img={model.thumbnail}
                                         name={model.name}
                                         verts={model.vertices}
+                                        anim={model.anim}
                                     />
                                 )
                                 : error.msg ?
@@ -161,21 +195,38 @@ export default function ModelViewer() {
                         </div>
                     </div>
 
-                    <div className="viewerSettings">
+                    <div className="viewerSettings" onClick={() => setExpand(prev => !prev)}>
                         <div className="viewer-label">
                             <i className="fa-solid fa-gear"></i>
                             <p>{lang === "eng" ? "Settings" : "Einstellungen"}</p>
                         </div>
-                        <label title="changes the cameras field of view">
-                            <p>fov</p>
-                            <div className="inputContainer">
-                                <input type="number" value={fov} onChange={changeFov} />
-                                <Button onClick={resetFov}>
-                                    <i className="fa-solid fa-arrow-rotate-right"></i>
-                                </Button>
-                            </div>
-
-                        </label>
+                        <div className="settings-list">
+                            <label title="changes the cameras field of view">
+                                <p>Field of view</p>
+                                <div className="inputContainer">
+                                    <input type="number" value={fov} onChange={changeFov} />
+                                    <Button
+                                        className="resetBtn"
+                                        onClick={resetFov}
+                                        title={lang === "eng" ? "Reset FOV" : "FOV zurücksetzen"}
+                                    >
+                                        <i className="fa-solid fa-arrow-rotate-right"></i>
+                                    </Button>
+                                </div>
+                            </label>
+                            <label>
+                                <p>{lang === "eng" ? "Auto play animations" : "Animationen automatisch abspielen"}</p>
+                                <div className="inputContainer">
+                                    <input type="checkbox" checked={autoPlay} onChange={autoPlayChange}></input>
+                                </div>
+                            </label>
+                            <label>
+                                <p>{lang === "eng" ? "Adjust camera to model" : "Kamera am Modell ausrichten"}</p>
+                                <div className="inputContainer">
+                                    <input type="checkbox" checked={autoCam} onChange={autoCamChange}></input>
+                                </div>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
