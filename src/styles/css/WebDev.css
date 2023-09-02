@@ -26,6 +26,56 @@
     transform: translateY(0);
   }
 }
+@container (min-width: calc(1 * 154px + ((1 - 1) * 12px))) {
+  .cardContainer {
+    grid-template-columns: repeat(auto-fill, calc(100% / 1));
+  }
+}
+@container (min-width: calc(2 * 154px + ((2 - 1) * 12px))) {
+  .cardContainer {
+    grid-template-columns: repeat(auto-fill, calc(100% / 2));
+  }
+}
+@container (min-width: calc(3 * 154px + ((3 - 1) * 12px))) {
+  .cardContainer {
+    grid-template-columns: repeat(auto-fill, calc(100% / 3));
+  }
+}
+@container (min-width: calc(4 * 154px + ((4 - 1) * 12px))) {
+  .cardContainer {
+    grid-template-columns: repeat(auto-fill, calc(100% / 4));
+  }
+}
+@container (min-width: calc(5 * 154px + ((5 - 1) * 12px))) {
+  .cardContainer {
+    grid-template-columns: repeat(auto-fill, calc(100% / 5));
+  }
+}
+@container (min-width: calc(6 * 154px + ((6 - 1) * 12px))) {
+  .cardContainer {
+    grid-template-columns: repeat(auto-fill, calc(100% / 6));
+  }
+}
+@container (min-width: calc(7 * 154px + ((7 - 1) * 12px))) {
+  .cardContainer {
+    grid-template-columns: repeat(auto-fill, calc(100% / 7));
+  }
+}
+@container (min-width: calc(8 * 154px + ((8 - 1) * 12px))) {
+  .cardContainer {
+    grid-template-columns: repeat(auto-fill, calc(100% / 8));
+  }
+}
+@container (min-width: calc(9 * 154px + ((9 - 1) * 12px))) {
+  .cardContainer {
+    grid-template-columns: repeat(auto-fill, calc(100% / 9));
+  }
+}
+@container (min-width: calc(10 * 154px + ((10 - 1) * 12px))) {
+  .cardContainer {
+    grid-template-columns: repeat(auto-fill, calc(100% / 10));
+  }
+}
 .webdev-container,
 .gamedev-container,
 .modelViewer-container {
@@ -84,7 +134,7 @@
   height: calc(100vh - 65px - 10px);
   display: grid;
   grid-template-columns: 4fr 3fr;
-  grid-template-rows: 7fr 1fr;
+  grid-template-rows: 8fr 2fr;
   transition: 0.2s;
   gap: 6px;
 }
@@ -134,18 +184,18 @@
   width: fit-content;
 }
 .modelViewer-container .content-wrapper .contentBrowser .cardContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  display: grid;
   flex-wrap: wrap;
   width: 100%;
   padding: 10px;
   max-height: 100%;
   padding-top: 30px;
-  gap: 12px;
+  gap: 12px 0;
   overflow-y: auto;
+  container-type: inline-size;
 }
 .modelViewer-container .content-wrapper .contentBrowser .meshCard {
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   width: fit-content;
@@ -543,8 +593,8 @@
 }
 .modelViewer-container .content-wrapper .viewerSettings button.resetBtn {
   font-size: 0.95rem;
-  width: 20px;
-  height: 20px;
+  width: 18px-;
+  height: 18px-;
   border-radius: 4px;
 }
 .modelViewer-container .content-wrapper .viewerSettings label {
@@ -673,6 +723,9 @@
     opacity: 1;
   }
   .modelViewer-container .content-wrapper .contentBrowser .cardContainer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
     height: 100%;
     overflow-y: hidden;
     flex-wrap: nowrap;

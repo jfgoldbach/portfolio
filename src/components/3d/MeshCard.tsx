@@ -22,32 +22,36 @@ export default function MeshCard({ id, img, name, verts, path, anim }: meshcardP
     }
 
     function checkScroll() {
-        console.log("checkScroll")
-        const container = containerRef.current
-        const title = titleRef.current
-        title?.getAnimations().map(anim => anim.cancel()) //remove all animations
-        if (container && title) {
-            if (container.scrollWidth > container.clientWidth) {
-                title.classList.add("scrolling")
-                const transform = title.clientWidth - container.clientWidth
-                title.style.animation = "none"
-                title.animate(
-                    [
-                        { transform: "translateX(6px)" },
-                        { transform: "translateX(6px)", offset: 0.2 },
-                        { transform: `translateX(-${transform + 6}px)`, offset: 0.8 },
-                        { transform: `translateX(-${transform + 6}px)` }
-                    ],
-                    {
-                        delay: 1000,
-                        duration: 3000,
-                        iterations: Infinity,
-                        direction: "alternate",
-                        easing: "linear"
-                    }
-                )
+        setTimeout(() => { //this is necesarry because it needs some time to register the new size after maximazing
+            console.log("checkScroll")
+            const container = containerRef.current
+            const title = titleRef.current
+            title?.getAnimations().map(anim => anim.cancel()) //remove all animations
+            if (container && title) {
+                if (container.scrollWidth > container.clientWidth) {
+                    console.log(title.innerHTML, container.clientWidth)
+                    title.classList.add("scrolling")
+                    const transform = title.clientWidth - container.clientWidth
+                    title.style.animation = "none"
+                    title.animate(
+                        [
+                            { transform: "translateX(6px)" },
+                            { transform: "translateX(6px)", offset: 0.2 },
+                            { transform: `translateX(-${transform + 6}px)`, offset: 0.8 },
+                            { transform: `translateX(-${transform + 6}px)` }
+                        ],
+                        {
+                            delay: 1000,
+                            duration: 3000,
+                            iterations: Infinity,
+                            direction: "alternate",
+                            easing: "linear"
+                        }
+                    )
+                }
             }
-        }
+        }, 180);
+
     }
 
     useEffect(() => {
@@ -70,17 +74,17 @@ export default function MeshCard({ id, img, name, verts, path, anim }: meshcardP
 
 
     return (
-        <div 
-            className={`meshCard ${activeModel === path ? "active" : ""}`} 
-            style={{ animationDelay: `${id * 0.025}s` }} 
+        <div
+            className={`meshCard ${activeModel === path ? "active" : ""}`}
+            style={{ animationDelay: `${id * 0.025}s` }}
             onClick={setModel}
         >
             <div className="img-container">
                 <img src={img}></img>
                 <p>{verts} vertices</p>
                 {anim &&
-                    <i className="fa-solid fa-person-running" 
-                        title={lang === "eng" ? "Model has animations" : "Modell hat Animationen"} 
+                    <i className="fa-solid fa-person-running"
+                        title={lang === "eng" ? "Model has animations" : "Modell hat Animationen"}
                     />
                 }
             </div>

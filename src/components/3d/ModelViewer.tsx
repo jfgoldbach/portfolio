@@ -30,17 +30,24 @@ type viewerContextType = {
 export const viewerContext = createContext<viewerContextType>({} as viewerContextType)
 
 export default function ModelViewer() {
-    const { lang } = useContext(LangContext)
+    const initialFOV = 45
     const [models, setModels] = useState<modelInfos>()
     const [error, setError] = useState<errorType>({} as errorType)
     const [activeModel, setActiveModel] = useState<string>("/models/standard.glb")
-    const [fov, setFov] = useState(35)
+    const [fov, setFov] = useState(initialFOV)
     const [lr, setLr] = useState("")
     const [expand, setExpand] = useState(false)
     const [autoPlay, setAutoPlay] = useState(true)
     const [autoCam, setAutoCam] = useState(false)
+    const [floor, setFloor] = useState(true)
+
     const browserRef = useRef<HTMLDivElement>(null)
+    const settingsWindowRef = useRef<HTMLDivElement>(null)
+    const settingsListRef = useRef<HTMLDivElement>(null)
+    const browserGridTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
     const { ready } = useContext(ReadyContext)
+    const { lang } = useContext(LangContext)
 
 
     function loadData() {
@@ -49,6 +56,21 @@ export default function ModelViewer() {
             .then(response => response.data)
             .then(result => { setModels(result) })
             .catch(error => setError({ "msg": error.message, "code": error.code }))
+    }
+
+    function adjustBrowserGrid(duration?: number) {
+        const browser = browserRef.current
+        const timeout = browserGridTimeoutRef.current
+        if (timeout) {
+            clearTimeout(timeout)
+            browserGridTimeoutRef.current = null
+        }
+        if (browser) {
+            browserGridTimeoutRef.current = setTimeout(() => {
+                const width = browser.clientWidth
+                browser.style.gridTemplateColumns = `repeat(auto-fill, ${100 / (Math.floor(width / 160))}%)`
+            }, duration ?? 0);
+        }
     }
 
     useEffect(() => {
@@ -61,8 +83,15 @@ export default function ModelViewer() {
         if (metaIcon) {
             metaIcon.href = "/images/favicon_viewer.ico"
         }
+        adjustBrowserGrid()
+        function gridWidthTime() {
+            adjustBrowserGrid(0)
+        }
+        window.addEventListener('resize', gridWidthTime)
 
-
+        return (() => {
+            window.removeEventListener('resize', gridWidthTime)
+        })
     }, [])
 
     useEffect(() => {
@@ -124,22 +153,23 @@ export default function ModelViewer() {
         setFov(parseFloat(e.target.value))
     }
 
-    function resetFov() {
-        setFov(35)
-    }
-
-    function autoPlayChange() {
-        setAutoPlay(prev => !prev)
-    }
-
-    function autoCamChange() {
-        setAutoCam(prev => !prev)
+    function boolStateSwitch(dispatch: React.Dispatch<React.SetStateAction<boolean>>){
+        dispatch(prev => !prev)
     }
 
     function infoMessage() {
-        window.alert(lang === "eng" ? 
+        window.alert(lang === "eng" ?
             "Controls with a mouse:\nLeft button + drag: rotate\nRight button + drag: move\nScrollwheel: Zoom\n\nControls on a touchscreen device:\nPinch 2 fingers: Zoom\nDrag 1 finger: rotate\nDrag 2 fingers: move" :
             "Steuerung mit Maus:\nLinke Taste + ziehen: Drehen\nRechte Taste + ziehen: Bewegen\nScrollrad: Zoom\n\nSteuerung mit einem mobilen Gerät:\n2 Finger zusammenziehen: Zoom\n1 Finger bewegen: Drehen\n2 Finger bewegen: Bewegen")
+    }
+
+    function settingsExpand(e: React.MouseEvent<HTMLDivElement>) {
+        const window = settingsWindowRef.current
+        const list = settingsListRef.current
+        if (window && list && (window === e.target || list === e.target)) {
+
+            setExpand(prev => !prev)
+        }
     }
 
 
@@ -164,15 +194,20 @@ export default function ModelViewer() {
                         </div>
                         {activeModel !== "" &&
                             <Suspense fallback={<Loading light />}>
-                                <ViewerCanvas modelPath={activeModel} fov={fov} />
+                                <ViewerCanvas modelPath={activeModel} fov={fov} showFloor={floor} />
                             </Suspense>
                         }
                     </div>
 
                     <div className={`contentBrowser ${lr}`}>
-                        <div ref={browserRef} className={`cardContainer`}>
-                            {models
-                                ? models.map((model, index) =>
+                        {error.msg ?
+                            <ErrorInfo request={loadData} />
+                            :
+                            !models && <Loading light />
+                        }
+                        <div ref={browserRef} className="cardContainer">
+                            {models &&
+                                models.map((model, index) =>
                                     <MeshCard
                                         key={index}
                                         id={index}
@@ -183,10 +218,6 @@ export default function ModelViewer() {
                                         anim={model.anim}
                                     />
                                 )
-                                : error.msg ?
-                                    <ErrorInfo request={loadData} />
-                                    :
-                                    <Loading light />
                             }
                         </div>
                         <div className="viewer-label">
@@ -195,35 +226,80 @@ export default function ModelViewer() {
                         </div>
                     </div>
 
-                    <div className="viewerSettings" onClick={() => setExpand(prev => !prev)}>
+                    <div
+                        ref={settingsWindowRef}
+                        className="viewerSettings"
+                        onClick={settingsExpand}
+                    >
                         <div className="viewer-label">
                             <i className="fa-solid fa-gear"></i>
                             <p>{lang === "eng" ? "Settings" : "Einstellungen"}</p>
                         </div>
-                        <div className="settings-list">
+                        <div
+                            ref={settingsListRef}
+                            className="settings-list"
+                        >
                             <label title="changes the cameras field of view">
                                 <p>Field of view</p>
                                 <div className="inputContainer">
+                                    {fov !== initialFOV &&
+                                        <Button
+                                            className="resetBtn"
+                                            onClick={() => setFov(initialFOV)}
+                                            title={lang === "eng" ? "Reset FOV" : "FOV zurücksetzen"}
+                                        >
+                                            <i className="fa-solid fa-arrow-rotate-right"></i>
+                                        </Button>
+                                    }
                                     <input type="number" value={fov} onChange={changeFov} />
-                                    <Button
-                                        className="resetBtn"
-                                        onClick={resetFov}
-                                        title={lang === "eng" ? "Reset FOV" : "FOV zurücksetzen"}
-                                    >
-                                        <i className="fa-solid fa-arrow-rotate-right"></i>
-                                    </Button>
                                 </div>
                             </label>
+
                             <label>
                                 <p>{lang === "eng" ? "Auto play animations" : "Animationen automatisch abspielen"}</p>
                                 <div className="inputContainer">
-                                    <input type="checkbox" checked={autoPlay} onChange={autoPlayChange}></input>
+                                    {autoPlay === false &&
+                                        <Button
+                                            className="resetBtn"
+                                            onClick={() => setAutoPlay(true)}
+                                            title={lang === "eng" ? "Reset auto play" : "Automatisches Abspielen zurücksetzen"}
+                                        >
+                                            <i className="fa-solid fa-arrow-rotate-right"></i>
+                                        </Button>
+                                    }
+                                    <input type="checkbox" checked={autoPlay} onChange={() => boolStateSwitch(setAutoPlay)}></input>
                                 </div>
                             </label>
+
                             <label>
                                 <p>{lang === "eng" ? "Adjust camera to model" : "Kamera am Modell ausrichten"}</p>
                                 <div className="inputContainer">
-                                    <input type="checkbox" checked={autoCam} onChange={autoCamChange}></input>
+                                    {autoCam === true &&
+                                        <Button
+                                            className="resetBtn"
+                                            onClick={() => setAutoCam(false)}
+                                            title={lang === "eng" ? "Reset auto cam" : "Automatische Kamera zurücksetzen"}
+                                        >
+                                            <i className="fa-solid fa-arrow-rotate-right"></i>
+                                        </Button>
+                                    }
+                                    <input type="checkbox" checked={autoCam} onChange={() => boolStateSwitch(setAutoCam)}></input>
+                                </div>
+                            </label>
+
+                            <label>
+                                <p>{lang === "eng" ? "Show floor" : "Boden anzeigen"}</p>
+                                <div className="inputContainer">
+                                    {floor === false &&
+                                        <Button
+                                            className="resetBtn"
+                                            onClick={() => setFloor(true)}
+                                            title={lang === "eng" ? "Reset showing floor" : "Anzeigen des Bodens zurücksetzen"}
+                                        >
+                                            <i className="fa-solid fa-arrow-rotate-right"></i>
+                                        </Button>
+                                    }
+                                    <input type="checkbox" checked={floor} onChange={() => boolStateSwitch(setFloor)} />
                                 </div>
                             </label>
                         </div>

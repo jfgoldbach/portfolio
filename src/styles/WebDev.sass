@@ -1,5 +1,10 @@
 @use "globals"
 
+@for $i from 1 through 10
+    @container (min-width: calc(#{$i} * 154px + ((#{$i} - 1) * 12px)))
+        .cardContainer
+            grid-template-columns: repeat(auto-fill, calc(100% / #{$i}))
+
 .webdev-container,
 .gamedev-container,
 .modelViewer-container
@@ -79,7 +84,7 @@
         height: calc(100vh - globals.$navHeight - 10px)
         display: grid
         grid-template-columns: 4fr 3fr
-        grid-template-rows: 7fr 1fr
+        grid-template-rows: 8fr 2fr
         transition: 0.2s
         gap: 6px
         @media screen and (min-width: globals.$mobileBreakpoint)
@@ -100,17 +105,23 @@
                 transform: translate(-50%, -50%)
                 width: fit-content
             .cardContainer
-                display: flex
-                justify-content: space-between
-                align-items: flex-start
+                display: grid
+                //grid-template-columns: repeat(auto-fill, 25%)
+                //display: flex
+                //justify-content: flex-start
+                //align-items: flex-start
                 flex-wrap: wrap
                 width: 100%
                 padding: 10px
                 max-height: 100%
                 padding-top: 30px
-                gap: 12px
+                gap: 12px 0
                 overflow-y: auto
+                container-type: inline-size
+
             .meshCard
+                //width: 100% !important
+                margin: 0 auto
                 display: flex
                 flex-direction: column
                 width: fit-content
@@ -406,7 +417,7 @@
             button
                 padding: 1px 6px
                 &.resetBtn
-                    $size: 20px
+                    $size: 18px-
                     font-size: 0.95rem
                     width: $size
                     height: $size
@@ -492,7 +503,6 @@
                 border-top-right-radius: 0
                 border-top: none
                 @mixin sideGlow
-                    //animation: globals.divIn 0.25s
                     content: ""
                     position: absolute
                     z-index: 10
@@ -515,6 +525,9 @@
                 &.left::after
                     opacity: 1
                 .cardContainer
+                    display: flex
+                    justify-content: flex-start
+                    align-items: flex-start
                     height: 100%
                     overflow-y: hidden
                     flex-wrap: nowrap

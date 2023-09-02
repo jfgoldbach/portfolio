@@ -10,10 +10,11 @@ import { viewerContext } from "./ModelViewer";
 type viewerCanvasType = {
     modelPath: string
     fov: number
+    showFloor: boolean
 }
 
 
-export default function ViewerCanvas({ modelPath, fov }: viewerCanvasType) {
+export default function ViewerCanvas({ modelPath, fov, showFloor }: viewerCanvasType) {
     const [anim, setAnim] = useState("")
     const [duration, setDuration] = useState({ minutes: 0, seconds: 0 })
     const [durSec, setDurSec] = useState(0)
@@ -32,6 +33,7 @@ export default function ViewerCanvas({ modelPath, fov }: viewerCanvasType) {
     const cam = useRef<typeof PerspectiveCamera>(null)
 
     const { scene, animations, nodes } = useGLTF(modelPath) as unknown as GLTFResult
+    const floor = useGLTF("/models/floor.glb").scene
 
 
     useEffect(() => {
@@ -116,39 +118,27 @@ export default function ViewerCanvas({ modelPath, fov }: viewerCanvasType) {
                     adjustCamera={autoCam}
                     intensity={0.5}
                     preset="rembrandt"
-                    shadows={true}
+                    shadows={{ type: 'accumulative', color: 'skyblue', colorBlend: 2, opacity: 1 }}
                     environment="city"
                 >
-                    <mesh rotation={[-Math.PI / 2, 0, 0]}>
-                        <planeBufferGeometry args={[50, 50, 50, 50]} />
-                        <meshStandardMaterial wireframe color={"#555"} />
-                    </mesh>
-                    <Bounds>
+                    {showFloor &&
+                        <mesh receiveShadow>
+                            <primitive object={floor}></primitive>
+                        </mesh>
+                    }
 
-                        <ViewerObject
-                            object={scene}
-                            animations={animations}
-                            nodes={nodes}
-                            playing={anim}
-                            duration={durSec}
-                            rangeRef={rangeRef}
-                            timeDisplayRef={timeDisplayRef}
-                            paused={paused}
-                            speed={speed}
-                            rangeStyle={{ container: rangeContainerRef.current, after: rangeAfterRef.current }}
-                        />
-
-                    </Bounds>
-                    {/* {modelPath === "/models/standard.glb" &&
-                        <Html position={[0, 0.8, 0]}>
-                            <div className="pickHint">
-                                <p>{lang === "eng" ?
-                                    "Chose a model from the content browser"
-                                    : "Wähle ein Modell aus dem Modellverzeichnis"
-                                }</p>
-                            </div>
-                        </Html>
-                    } */}
+                    <ViewerObject
+                        object={scene}
+                        animations={animations}
+                        nodes={nodes}
+                        playing={anim}
+                        duration={durSec}
+                        rangeRef={rangeRef}
+                        timeDisplayRef={timeDisplayRef}
+                        paused={paused}
+                        speed={speed}
+                        rangeStyle={{ container: rangeContainerRef.current, after: rangeAfterRef.current }}
+                    />
                 </Stage>
                 <PerspectiveCamera position={[-4, 2, 8]} ref={cam} makeDefault fov={fov} />
                 <OrbitControls />
