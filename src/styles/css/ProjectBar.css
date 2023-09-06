@@ -124,7 +124,6 @@
   backdrop-filter: blur(12px);
   display: grid;
   grid-auto-flow: column;
-  grid-template-rows: repeat(7, auto);
   gap: 26px;
   padding: 10px;
   transition: 0.2s all;

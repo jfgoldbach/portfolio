@@ -36,7 +36,6 @@
 }
 
 .pick-container {
-  width: 1490px;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -53,20 +52,7 @@
   text-align: center;
 }
 
-@media screen and (max-width: 1550px) {
-  .webdevPick-container {
-    width: 1110px;
-  }
-}
-@media screen and (max-width: 1170px) {
-  .webdevPick-container {
-    width: 730px;
-  }
-}
 @media screen and (max-width: 790px) {
-  .webdevPick-container {
-    width: 90%;
-  }
   .webdevPick-Outer {
     padding-top: 5vw;
     padding-bottom: 20vw;
@@ -77,6 +63,6 @@
     padding: 5vh 10px;
   }
   .pick-Outer .pick-container {
-    width: 100%;
+    width: 100% !important;
   }
 }

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useRef, useState} from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { LangContext, OverviewContext } from '../App'
 import ProjectThumbnail from './ProjectThumbnail'
 import '../styles/css/ProjectBar.css'
@@ -8,36 +8,63 @@ type barProps = {
 }
 
 function ProjectBar(props: barProps) {
-  const {overview} = useContext(OverviewContext)
-  const {lang} = useContext(LangContext)
+  const { overview } = useContext(OverviewContext)
+  const { lang } = useContext(LangContext)
   const [open, setOpen] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
+  const outerRef = useRef<HTMLDivElement>(null)
 
-  /* useEffect(() => {
-    const elem = containerRef.current
-    if(elem){
-      elem.style.width = `${elem.scrollWidth}px`
-      console.log(elem.scrollWidth)
+  function calcGrid(delay?: number) {
+    const container = containerRef.current
+    const outer = outerRef.current
+    if (container && outer) {
+      setTimeout(() => {
+        const rows = Math.floor((outer.clientHeight * 0.8) / 100)
+        container.style.gridTemplateRows = `repeat(${rows}, auto)`
+        console.log("new rows", rows)
+      }, delay ?? 0);
+
     }
-  }, [containerRef]) */
+  }
+
+  useEffect(() => {
+    calcGrid(0)
+    function calcWithDelay() {
+      calcGrid(400)
+    }
+    window.addEventListener('resize', calcWithDelay)
+
+    return (() => {
+      window.removeEventListener('resize', calcWithDelay)
+    })
+  }, [])
+
 
   return (
-    <div id='bar' ref={containerRef} className={`project-bar ${props.type} ${open? "" : "closed"}`}>
-        <div id='bar_item_container' className='item-container'>
-          {overview.map(project => 
-            <ProjectThumbnail
-              showTitle 
-              link={`/${project.link}`} 
-              source={project.thumbnail} 
-              name={project.name} 
-              wip={project.info === "inConstruction"} 
-            />
-          )}
-        </div>
-        <button className='expandBtn' onClick={() => setOpen(prev => !prev)}>
-          <p className={open? "invis" : ""}>{lang === "eng" ? "Projects" : "Projekte"}</p>
-          <i className={`fa-solid fa-angles-right ${open? "open" : ""}`}></i>
-        </button>
+    <div
+      ref={outerRef}
+      id='bar'
+      className={`project-bar ${props.type} ${open ? "" : "closed"}`}
+    >
+      <div
+        ref={containerRef}
+        id='bar_item_container'
+        className='item-container'
+      >
+        {overview.map(project =>
+          <ProjectThumbnail
+            showTitle
+            link={`/${project.link}`}
+            source={project.thumbnail}
+            name={project.name}
+            wip={project.info === "inConstruction"}
+          />
+        )}
+      </div>
+      <button className='expandBtn' onClick={() => setOpen(prev => !prev)}>
+        <p className={open ? "invis" : ""}>{lang === "eng" ? "Projects" : "Projekte"}</p>
+        <i className={`fa-solid fa-angles-right ${open ? "open" : ""}`}></i>
+      </button>
     </div>
   )
 }

@@ -93,7 +93,6 @@ function NavBar(props: navProps) {
 
     return (
         <>
-            {/* <div className={`menuCover ${click? "active" : ""}`} /> */}
             <nav 
                 className={`
                     navbar 
