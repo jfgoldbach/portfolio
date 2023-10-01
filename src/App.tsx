@@ -92,12 +92,14 @@ function App() {
     updateVPsize() //initialize
 
     //set or read language
+    console.log("Browser lang: ", navigator.language)
     const language = localStorage.getItem("language")
     if (language) {
       setLang(language === "ger" ? "ger" : "eng")
     } else {
       switch (navigator.language) {
         case "de":
+        case "de-DE":
           setLang("ger")
           localStorage.setItem("language", "ger")
           toast.info("Sprache auf Deutsch gesetzt", {
