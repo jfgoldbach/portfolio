@@ -22,6 +22,7 @@ import instance from './components/network/axios';
 import APcontent from './components/pages/adminPanel/APcontent';
 import { ToastContainer, toast } from 'react-toastify';
 import { errorType, langProps, overviewType } from './types/types';
+import Cookies from './components/Info/Cookies';
 
 
 
@@ -165,6 +166,7 @@ function App() {
         <OverviewContext.Provider value={{ overview, error, gameOverview }}>
           <ReadyContext.Provider value={{ ready, setReady }}>
             <skillstyleContext.Provider value={cardStyle} >
+              <Cookies />
               <NavBar scroll={scroll} contact={contact} setContact={setContact} daten={daten} setDaten={setDaten} />
               <Routes>
                 <Route path='/' element={<Home appError={error} />} />

@@ -1,0 +1,141 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes rollBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(3vh);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes rollTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-3vh);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.cookies {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  right: 13px;
+  bottom: 13px;
+  z-index: 999;
+  background: #B58F63;
+  border-radius: 16px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  width: 400px;
+  animation: cookiesIn 0.33s;
+}
+@keyframes cookiesIn {
+  from {
+    right: -450px;
+  }
+  to {
+    right: 13px;
+  }
+}
+.cookies .cookieHeader {
+  border-radius: 16px 16px 0 0;
+  background: #784421;
+  position: relative;
+  padding: 8px;
+}
+.cookies .cookieHeader img {
+  width: 112px;
+  position: absolute;
+  left: -24px;
+  top: -22px;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+  animation: cookieWobble 3s infinite alternate;
+}
+@keyframes cookieWobble {
+  from {
+    rotate: -8deg;
+  }
+  to {
+    rotate: 8deg;
+  }
+}
+.cookies .cookieHeader h1 {
+  color: #fff;
+  font-size: 1.33rem;
+  margin-left: 80px;
+  text-align: center;
+  line-height: 1.33rem;
+  text-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+}
+.cookies .cookieExplain {
+  width: 100%;
+  color: #eee;
+  padding: 12px;
+  text-align: center;
+}
+.cookies .cookiesDetails {
+  width: calc(100% - 24px);
+  margin: 0 12px;
+  padding: auto;
+  position: relative;
+}
+.cookies .cookiesDetails > p {
+  position: absolute;
+  font-size: 0.85rem;
+  right: 6px;
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cookies .cookiesDetails .CDetailsList {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  text-align: left;
+  bottom: 100%;
+  left: 12px;
+  position: absolute;
+  width: calc(100% - 24px);
+  padding: 12px;
+  background: #fff;
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.25), 0 -4px 6px rgba(0, 0, 0, 0.25) inset;
+  color: black;
+  overflow: auto;
+  transition: 0.2s;
+  opacity: 0;
+  max-height: 85vh;
+  pointer-events: none;
+}
+.cookies .cookiesDetails .CDetailsList.open {
+  pointer-events: all;
+  opacity: 1;
+}
+.cookies .cookiesDetails .CDetailsList ul {
+  padding: 0 12px;
+}
+.cookies .cookiesDetails .CDetailsList p.CListDisclaimer {
+  font-size: 0.75rem;
+  color: #555;
+  margin-top: 24px;
+}
+.cookies .cookiesDecisions {
+  margin: 12px;
+  display: flex;
+  gap: 6px;
+}
+.cookies .cookiesDecisions button {
+  width: 100%;
+}

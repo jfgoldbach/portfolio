@@ -6,9 +6,8 @@ import MeshCard from "./MeshCard";
 import ViewerCanvas from "./ViewerCanvas";
 import instance from "../network/axios";
 import "../../styles/css/WebDev.css"
-import { actionsType, errorType } from "../../types/types";
+import { errorType } from "../../types/types";
 import ErrorInfo from "../helper/ErrorInfo";
-import { AnimationAction } from "three";
 //styling in WebDev.sass
 
 type modelInfos = {
@@ -153,7 +152,7 @@ export default function ModelViewer() {
         setFov(parseFloat(e.target.value))
     }
 
-    function boolStateSwitch(dispatch: React.Dispatch<React.SetStateAction<boolean>>){
+    function boolStateSwitch(dispatch: React.Dispatch<React.SetStateAction<boolean>>) {
         dispatch(prev => !prev)
     }
 

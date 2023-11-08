@@ -1,0 +1,99 @@
+@use 'globals'
+
+.cookies
+    display: flex
+    flex-direction: column
+    $margin: 13px
+    position: fixed
+    right: $margin
+    bottom: $margin
+    z-index: 999
+    //outline: 2px dashed red
+    background: #B58F63
+    border-radius: globals.$borderMedium
+    box-shadow: globals.$shadow2
+    width: 400px
+    @keyframes cookiesIn
+        from
+            right: -450px
+        to
+            right: $margin
+    animation: cookiesIn 0.33s
+    .cookieHeader
+        border-radius: globals.$borderMedium globals.$borderMedium 0 0
+        background: #784421
+        position: relative
+        padding: 8px
+        img
+            width: 112px
+            position: absolute
+            left: -24px
+            top: -22px
+            filter: drop-shadow(globals.$shadow2)
+            @keyframes cookieWobble
+                from
+                    rotate: -8deg
+                to
+                    rotate: 8deg
+            animation: cookieWobble 3s infinite alternate
+        h1
+            color: #fff
+            font-size: 1.33rem
+            margin-left: 80px
+            text-align: center
+            line-height: 1.33rem
+            text-shadow: globals.$shadow1
+
+    .cookieExplain
+        width: 100%
+        color: #eee
+        padding: 12px
+        text-align: center
+
+    .cookiesDetails
+        width: calc(100% - 24px)
+        margin: 0 12px
+        padding: auto
+        position: relative
+        > p
+            position: absolute
+            font-size: 0.85rem
+            right: 6px
+            top: 0
+            height: 100%
+            @include globals.flexCenter
+        .CDetailsList
+            display: flex
+            flex-direction: column
+            gap: 13px
+            text-align: left
+            bottom: 100%
+            left: 12px
+            position: absolute
+            width: calc(100% - 24px)
+            padding: 12px
+            background: #fff
+            border-radius: globals.$borderMedium globals.$borderMedium 0 0
+            box-shadow: 0 -5px 5px rgba(#000, 0.25), 0 -4px 6px rgba(#000, 0.25) inset
+            color: black
+            overflow: auto
+            transition: 0.2s
+            opacity: 0
+            max-height: 85vh
+            pointer-events: none
+            &.open
+                pointer-events: all
+                opacity: 1
+            ul
+                padding: 0 12px
+                li
+            p.CListDisclaimer
+                font-size: 0.75rem
+                color: #555
+                margin-top: 24px
+    .cookiesDecisions
+        margin: 12px
+        display: flex
+        gap: 6px
+        button
+            width: 100%
