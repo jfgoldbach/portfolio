@@ -21,7 +21,7 @@ import useCheckJWT from './components/hooks/useCheckJWT';
 import instance from './components/network/axios';
 import APcontent from './components/pages/adminPanel/APcontent';
 import { ToastContainer, toast } from 'react-toastify';
-import { errorType, langProps, overviewType } from './types/types';
+import { cookieProps, errorType, langProps, overviewType } from './types/types';
 import Cookies from './components/Info/Cookies';
 
 
@@ -51,6 +51,7 @@ export const LangContext = createContext<langProps>({} as langProps)
 export const OverviewContext = createContext<overviewProps>({} as overviewProps)
 export const ReadyContext = createContext<readyProps>({} as readyProps)
 export const skillstyleContext = createContext<cardStyleType>({})
+export const cookieContext = createContext<cookieProps>({} as cookieProps)
 
 
 
@@ -63,6 +64,7 @@ function App() {
   const [scroll, setScroll] = useState(0) //remove
 
   const [lang, setLang] = useState("eng")
+  const [cookie, setCookie] = useState(false)
   const [overview, setOverview] = useState<overviewType>([])
   const [gameOverview, setGameOverview] = useState<overviewType>([])
   const [cardStyle, setCardStyle] = useState<cardStyleType>({})
@@ -166,42 +168,44 @@ function App() {
         <OverviewContext.Provider value={{ overview, error, gameOverview }}>
           <ReadyContext.Provider value={{ ready, setReady }}>
             <skillstyleContext.Provider value={cardStyle} >
-              <Cookies />
-              <NavBar scroll={scroll} contact={contact} setContact={setContact} daten={daten} setDaten={setDaten} />
-              <Routes>
-                <Route path='/' element={<Home appError={error} />} />
-                <Route path='/contact' element={<Contact />} />
+              <cookieContext.Provider value={{ cookie, setCookie }}>
+                <Cookies />
+                <NavBar scroll={scroll} contact={contact} setContact={setContact} daten={daten} setDaten={setDaten} />
+                <Routes>
+                  <Route path='/' element={<Home appError={error} />} />
+                  <Route path='/contact' element={<Contact />} />
 
-                <Route path='/webdev' element={<WebDev scroll={scroll} />}>
-                  <Route index element={<WebdevMain />}></Route>
-                  {overview &&
-                    <>
-                      {overview.map(project => <Route path={project.link.replaceAll("webdev/", "")} element={<Subpage table='projects' index={project.id} />} />)}
-                    </>
-                  }
-                </Route>
-
-                <Route path='/gamedev' element={<GameDev />}>
-                  <Route index element={<GamedevMain />}></Route>
-                  {gameOverview &&
-                    <>
-                      {gameOverview.map(project => <Route path={project.link.replaceAll("gamedev/", "")} element={<Subpage table='gameProjs' index={project.id} />} />)}
-                    </>
-                  }
-                </Route>
-
-                <Route path="/modelviewer" element={<ModelViewer />}></Route>
-
-                <Route path="/changer">
-                  <Route index element={<ChangerLogin />}></Route>
-                  <Route path="loggedin" element={<Changer />}>
-                    <Route path=":content_id" element={<APcontent />} />
+                  <Route path='/webdev' element={<WebDev scroll={scroll} />}>
+                    <Route index element={<WebdevMain />}></Route>
+                    {overview &&
+                      <>
+                        {overview.map(project => <Route path={project.link.replaceAll("webdev/", "")} element={<Subpage table='projects' index={project.id} />} />)}
+                      </>
+                    }
                   </Route>
-                </Route>
 
-                <Route path='*' element={<NotFound />}></Route>
-              </Routes>
-              <Footer setContact={setContact} setDaten={setDaten} />
+                  <Route path='/gamedev' element={<GameDev />}>
+                    <Route index element={<GamedevMain />}></Route>
+                    {gameOverview &&
+                      <>
+                        {gameOverview.map(project => <Route path={project.link.replaceAll("gamedev/", "")} element={<Subpage table='gameProjs' index={project.id} />} />)}
+                      </>
+                    }
+                  </Route>
+
+                  <Route path="/modelviewer" element={<ModelViewer />}></Route>
+
+                  <Route path="/changer">
+                    <Route index element={<ChangerLogin />}></Route>
+                    <Route path="loggedin" element={<Changer />}>
+                      <Route path=":content_id" element={<APcontent />} />
+                    </Route>
+                  </Route>
+
+                  <Route path='*' element={<NotFound />}></Route>
+                </Routes>
+                <Footer setContact={setContact} setDaten={setDaten} />
+              </cookieContext.Provider>
             </skillstyleContext.Provider>
           </ReadyContext.Provider>
         </OverviewContext.Provider>
