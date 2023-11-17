@@ -81,7 +81,7 @@ function Cookies() {
 
 
     return (
-        <div className={`cookies ${cookie ? "decided" : "animIn"}`}> 
+        <div className={`cookies ${cookie!== undefined ? "decided" : "animIn"}`}> 
             <div className="cookieHeader">
                 <img src="images/cookies_data.svg" alt="Cookie symbol" />
                 <h1>Cookies &amp; Personenbezogene Daten</h1>

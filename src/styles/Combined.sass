@@ -358,3 +358,34 @@ input[type="range"]
     //background: transparent
     //border-color: transparent
     //color: transparent
+
+.unavailBlur > *
+  filter: blur(4px) saturate(0.5)
+  pointer-events: none
+
+.cookieMsgContainer
+  min-width: 500px
+  max-width: 75%
+  padding: 12px
+  background: rgba(#888, 0.5)
+  border: 1px solid rgba(#000, 0.25)
+  border-radius: globals.$bordMed
+  position: absolute
+  bottom: 50%
+  z-index: 500
+  transform: translateY(50%)
+  color: #222
+  @include globals.flexCenter
+  flex-direction: column
+  gap: 16px
+  .ContainerBundle
+    @include globals.flexCenter
+    gap: 12px
+  .cookieMsg
+    font-size: 1.25rem
+    text-align: center
+    font-weight: bold
+  .fa-solid.fa-circle-info
+    font-size: 2rem
+  .cookieDetails
+    text-align: center

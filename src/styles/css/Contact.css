@@ -170,7 +170,7 @@
   font-weight: bold !important;
 }
 
-.contact-container button {
+.contact-container button.contactBtn {
   display: flex;
   position: relative;
   align-items: center;
@@ -189,31 +189,31 @@
   transition: 0.1s;
   overflow: hidden;
 }
-.contact-container button.verify {
+.contact-container button.contactBtn.verify {
   background: rgba(0, 0, 0, 0.33);
 }
-.contact-container button.verify i.fa-paper-plane {
+.contact-container button.contactBtn.verify i.fa-paper-plane {
   opacity: 0.33;
   scale: 0.65;
 }
-.contact-container button.invalid {
+.contact-container button.contactBtn.invalid {
   background: rgba(255, 103, 79, 0.5);
   pointer-events: none;
 }
-.contact-container button.invalid i.fa-paper-plane {
+.contact-container button.contactBtn.invalid i.fa-paper-plane {
   opacity: 0.4;
 }
-.contact-container button i.fa-paper-plane {
+.contact-container button.contactBtn i.fa-paper-plane {
   transition: 0.125s;
 }
-.contact-container button.loading {
+.contact-container button.contactBtn.loading {
   background: #0064b1;
   pointer-events: none;
 }
-.contact-container button.loading i {
+.contact-container button.contactBtn.loading i {
   opacity: 0;
 }
-.contact-container button.error {
+.contact-container button.contactBtn.error {
   animation: btnError 1s;
 }
 @keyframes btnError {
@@ -224,7 +224,7 @@
     background: black;
   }
 }
-.contact-container button.done {
+.contact-container button.contactBtn.done {
   animation: btnDone 2s;
 }
 @keyframes btnDone {
@@ -287,7 +287,7 @@
     width: 100%;
     padding: 15px 0;
   }
-  .contact-container button {
+  .contact-container .contactBtn {
     align-self: flex-start;
   }
   .contact-container input,

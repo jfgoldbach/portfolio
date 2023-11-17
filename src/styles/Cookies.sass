@@ -5,9 +5,9 @@
     flex-direction: column
     $margin: 13px
     position: fixed
-    right: $margin
     bottom: $margin
     z-index: 999
+    right: $margin
     //outline: 2px dashed red
     background: #B58F63
     border-radius: globals.$borderMedium
@@ -16,12 +16,7 @@
     transition: right 0.2s, bottom 0.33s
     
     &.animIn
-        @keyframes cookiesIn
-            from
-                right: -450px
-            to
-                right: $margin
-        animation: cookiesIn 0.33s forwards
+        bottom: $margin
     &.decided
         @keyframes cookiesOut
             0%
