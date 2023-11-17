@@ -1,15 +1,15 @@
 import { ChangeEvent, FormEvent, useContext, useEffect, useRef, useState } from "react"
 import { Link, Navigate } from "react-router-dom";
-import { LangContext } from "../../App";
+import { LangContext, cookieContext } from "../../App";
 import useCheckJWT from "../hooks/useCheckJWT";
 import instance from "../network/axios";
-import BlurredBg from "../visuals/BlurredBg";
 import { toast } from "react-toastify";
 import Loading from "../helper/Loading";
 import ErrorInfo from "../helper/ErrorInfo";
 import { captchaVerify, errorType } from "../../types/types";
 import FriendlyCaptcha from "../helper/FriendlyCaptcha";
-//styles in Changer.sass
+import CookieMsg from "../Info/CookieMsg";
+
 
 
 export default function ChangerLogin() {
@@ -24,8 +24,13 @@ export default function ChangerLogin() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<errorType>({} as errorType)
     const [valid, setValid] = useState<captchaVerify>("verify")
+    const [width, setWidth] = useState<number>(500)
+
     const submitRef = useRef<HTMLButtonElement>(null)
     const nameRef = useRef<HTMLInputElement>(null)
+    const windowRef = useRef<HTMLDivElement>(null)
+
+    const { cookie } = useContext(cookieContext)
 
     const { check } = useCheckJWT()
 
@@ -104,8 +109,8 @@ export default function ChangerLogin() {
         setTitle()
     }, [])
 
-    useEffect(() =>{
-        if(valid === "valid") {
+    useEffect(() => {
+        if (valid === "valid") {
             getAttempts()
         }
     }, [valid])
@@ -157,14 +162,31 @@ export default function ChangerLogin() {
         setPw(e.target.value)
     }
 
+    function getWidth() {
+        const window = windowRef.current
+        if(window) {
+            const windowWidth = window.clientWidth
+            if(windowWidth > 300){
+                setWidth(window.clientWidth * 0.9)
+            } else {
+                setWidth(window.clientWidth)
+            }
+        }
+    }
+
+    useEffect(() => {
+        getWidth()
+    }, [])
+
     return (
         <div className={`login scaleIn`}>
-            {/* <BlurredBg /> */}
             {(success || navigate) &&
                 <Navigate to="/changer/loggedin" />
             }
 
-            <div className="window">
+            <CookieMsg width={width} />
+
+            <div ref={windowRef} className={`window ${cookie ? "" : "unavailBlur"}`}>
                 <h1>{lang === "eng" ? "Login" : "Anmeldung"}</h1>
 
                 {(fails != null && fails > 2) &&
@@ -180,8 +202,8 @@ export default function ChangerLogin() {
                     </p>
                 }
 
-                <form 
-                    onSubmit={submit} 
+                <form
+                    onSubmit={submit}
                     className={`
                     ${(fails && fails > 2) || valid === "invalid" || valid === "verify" ? "inactive" : ""} 
                     ${fails == null ? "fetching" : ""}
@@ -248,10 +270,10 @@ export default function ChangerLogin() {
                     {lang === "eng" ? "Use demonstration access" : "Demonstrationszugang benutzen"}
                 </Link>
 
-                
+
             </div>
-            
-            <FriendlyCaptcha setValid={setValid} />
+
+            {cookie && <FriendlyCaptcha setValid={setValid} />}
         </div>
     )
 }

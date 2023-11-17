@@ -2,7 +2,12 @@ import { useContext } from "react"
 import { LangContext, cookieContext } from "../../App"
 import Button from "../Button"
 
-function CookieMsg() {
+
+type cmsgProps = {
+    width?: number
+}
+
+function CookieMsg({ width }: cmsgProps) {
     const { lang } = useContext(LangContext)
     const { cookie, setCookie } = useContext(cookieContext)
 
@@ -13,13 +18,13 @@ function CookieMsg() {
 
     if (cookie === false) {
         return (
-            <div className="cookieMsgContainer scaleIn">
+            <div className="cookieMsgContainer scaleIn" style={width? {width: `${width}px`}: {}}>
                 <div className="ContainerBundle">
-                    <i className="fa-solid fa-circle-info"></i>
+                    <i className="fa-solid fa-circle-info" />
                     <p className="cookieMsg">
                         {
                             lang === "ger"
-                                ? "Funktion nicht verfügbar, da dem Sammeln bzw. Weitergeben von Daten nicht zu gestimmt wurde."
+                                ? "Funktion nicht verfügbar, da dem erfassen deiner Daten nicht zu gestimmt wurde."
                                 : "Feature unavailble due to not accepting the collection of your personal data."
                         }
                     </p>

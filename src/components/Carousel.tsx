@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from 'react'
 import '../styles/css/Carousel.css'
-//import '/styles/css/App.css'
-//import '/styles/css/Subpages.css'
 import { Link } from 'react-router-dom'
 import { LangContext, OverviewContext } from '../App'
 import { CarouselCard } from './frontpage/CarouselCard'

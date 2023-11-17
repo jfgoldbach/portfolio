@@ -2,7 +2,7 @@ import '../styles/css/Footer.css'
 
 import { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { LangContext, OverviewContext, ReadyContext } from "../App"
+import { LangContext, OverviewContext, ReadyContext, cookieContext } from "../App"
 import instance from './network/axios'
 import LangChange from './NavBar/LangChange'
 import Loading from './helper/Loading'
@@ -20,7 +20,7 @@ type footerSmall = {
 }
 
 type footerAction = {
-    "type": "imprint" | "privacy_policy" | "login"
+    "type": "imprint" | "privacy_policy" | "login" | "cookies"
 }
 
 type footerSocial = {
@@ -45,7 +45,9 @@ function Footer(props: footerProps) {
     const [error, setError] = useState<errorType>({} as errorType)
     const { ready } = useContext(ReadyContext)
     const { lang } = useContext(LangContext)
+
     const overviewError = useContext(OverviewContext).error
+    const { cookie, setCookie } = useContext(cookieContext)
 
     const contactHandler = () => {
         props.setContact(true)
@@ -55,6 +57,11 @@ function Footer(props: footerProps) {
     const datenHandler = () => {
         props.setContact(false)
         props.setDaten(true)
+    }
+
+    const resetCookies = () => {
+        localStorage.removeItem("dataConsent")
+        setCookie(undefined)
     }
 
     function getData() {
@@ -91,6 +98,9 @@ function Footer(props: footerProps) {
                 break;
             case "privacy_policy":
                 fill = { "action": datenHandler, "eng": "Privacy policy", "ger": "Datenschutzerklärung" }
+                break;
+            case "cookies":
+                fill = { "action": resetCookies, "eng": `Data privacy settings (${cookie === undefined ? "Not set" : cookie? "Accepted" : "Declined"})`, "ger": `Datenschutzeinstellungen (${cookie === undefined ? "Nicht festgelegt" : cookie? "Angenommen" : "Abgelehnt"})`}
                 break;
         }
         return (
@@ -131,6 +141,7 @@ function Footer(props: footerProps) {
                                     case "imprint":
                                     case "privacy_policy":
                                     case "login":
+                                    case "cookies":
                                         return footerAction(elem.type)
                                     case "social":
                                         return footerSocial(elem.symbol, elem.title, elem.path)

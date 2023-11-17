@@ -163,7 +163,6 @@ export default function Changer() {
 
     return (
         <div className="changer-container">
-            {/* <BlurredBg adminPanel /> */}
             {(error || (timeLeft != null && timeLeft <= 0)) &&
                 <Navigate to="/changer" />
             }

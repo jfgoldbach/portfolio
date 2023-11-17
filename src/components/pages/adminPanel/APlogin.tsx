@@ -1,7 +1,7 @@
 import Button from "../../Button";
-import BlurredBg from "../../visuals/BlurredBg";
 
 export default function APlogin() {
+
     return (
         <div className="AP-main-container">
             <section>

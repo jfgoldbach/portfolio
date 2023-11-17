@@ -33,8 +33,7 @@
   height: 100px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 12px;
+  justify-content: space-evenly;
   align-items: center;
   z-index: 200;
   transform: translateZ(2px);
