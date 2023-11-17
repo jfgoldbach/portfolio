@@ -94,6 +94,11 @@ export type langProps = {
     setLang: React.Dispatch<React.SetStateAction<string>>
 }
 
+export type cookieProps = {
+    cookie: boolean|undefined
+    setCookie: React.Dispatch<React.SetStateAction<boolean|undefined>>
+}
+
 export type projectType = {
     id: number,
     name: string,

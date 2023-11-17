@@ -37,7 +37,10 @@
   border-radius: 16px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   width: 400px;
-  animation: cookiesIn 0.33s;
+  transition: right 0.2s, bottom 0.33s;
+}
+.cookies.animIn {
+  animation: cookiesIn 0.33s forwards;
 }
 @keyframes cookiesIn {
   from {
@@ -45,6 +48,20 @@
   }
   to {
     right: 13px;
+  }
+}
+.cookies.decided {
+  bottom: -300px;
+}
+@keyframes cookiesOut {
+  0% {
+    bottom: 13px;
+  }
+  25% {
+    bottom: 63px;
+  }
+  100% {
+    bottom: -300px;
   }
 }
 .cookies .cookieHeader {
@@ -72,8 +89,9 @@
 .cookies .cookieHeader h1 {
   color: #fff;
   font-size: 1.33rem;
-  margin-left: 80px;
-  text-align: center;
+  margin-left: 100px;
+  padding: 9px 0;
+  text-align: left;
   line-height: 1.33rem;
   text-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
 }
@@ -99,34 +117,42 @@
   align-items: center;
   justify-content: center;
 }
-.cookies .cookiesDetails .CDetailsList {
+.cookies .CDetailsList_wrapper {
+  position: relative;
+}
+.cookies .CDetailsList_wrapper .CDetailsList {
   display: flex;
   flex-direction: column;
   gap: 13px;
   text-align: left;
   bottom: 100%;
-  left: 12px;
+  left: 24px;
   position: absolute;
-  width: calc(100% - 24px);
+  width: calc(100% - 48px);
   padding: 12px;
   background: #fff;
   border-radius: 16px 16px 0 0;
   box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.25), 0 -4px 6px rgba(0, 0, 0, 0.25) inset;
   color: black;
-  overflow: auto;
   transition: 0.2s;
   opacity: 0;
   max-height: 85vh;
   pointer-events: none;
 }
-.cookies .cookiesDetails .CDetailsList.open {
+.cookies .CDetailsList_wrapper .CDetailsList.open {
   pointer-events: all;
   opacity: 1;
 }
-.cookies .cookiesDetails .CDetailsList ul {
+.cookies .CDetailsList_wrapper .CDetailsList ul {
+  display: flex;
+  flex-direction: column;
   padding: 0 12px;
+  gap: 8px;
 }
-.cookies .cookiesDetails .CDetailsList p.CListDisclaimer {
+.cookies .CDetailsList_wrapper .CDetailsList a:hover {
+  text-decoration: underline;
+}
+.cookies .CDetailsList_wrapper .CDetailsList p.CListDisclaimer {
   font-size: 0.75rem;
   color: #555;
   margin-top: 24px;

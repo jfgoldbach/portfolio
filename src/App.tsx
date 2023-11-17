@@ -64,7 +64,7 @@ function App() {
   const [scroll, setScroll] = useState(0) //remove
 
   const [lang, setLang] = useState("eng")
-  const [cookie, setCookie] = useState(false)
+  const [cookie, setCookie] = useState<boolean|undefined>(undefined)
   const [overview, setOverview] = useState<overviewType>([])
   const [gameOverview, setGameOverview] = useState<overviewType>([])
   const [cardStyle, setCardStyle] = useState<cardStyleType>({})

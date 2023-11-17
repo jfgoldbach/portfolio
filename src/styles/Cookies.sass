@@ -13,12 +13,25 @@
     border-radius: globals.$borderMedium
     box-shadow: globals.$shadow2
     width: 400px
-    @keyframes cookiesIn
-        from
-            right: -450px
-        to
-            right: $margin
-    animation: cookiesIn 0.33s
+    transition: right 0.2s, bottom 0.33s
+    
+    &.animIn
+        @keyframes cookiesIn
+            from
+                right: -450px
+            to
+                right: $margin
+        animation: cookiesIn 0.33s forwards
+    &.decided
+        @keyframes cookiesOut
+            0%
+                bottom: $margin
+            25%
+                bottom: calc($margin + 50px)
+            100%
+                bottom: -300px
+        //animation: cookiesOut 0.4s forwards
+        bottom: -300px
     .cookieHeader
         border-radius: globals.$borderMedium globals.$borderMedium 0 0
         background: #784421
@@ -39,8 +52,9 @@
         h1
             color: #fff
             font-size: 1.33rem
-            margin-left: 80px
-            text-align: center
+            margin-left: 100px
+            padding: 9px 0
+            text-align: left
             line-height: 1.33rem
             text-shadow: globals.$shadow1
 
@@ -62,21 +76,23 @@
             top: 0
             height: 100%
             @include globals.flexCenter
+    .CDetailsList_wrapper
+        position: relative
         .CDetailsList
             display: flex
             flex-direction: column
             gap: 13px
             text-align: left
             bottom: 100%
-            left: 12px
+            left: 24px
             position: absolute
-            width: calc(100% - 24px)
+            width: calc(100% - 48px)
             padding: 12px
             background: #fff
             border-radius: globals.$borderMedium globals.$borderMedium 0 0
             box-shadow: 0 -5px 5px rgba(#000, 0.25), 0 -4px 6px rgba(#000, 0.25) inset
             color: black
-            overflow: auto
+            //overflow: auto
             transition: 0.2s
             opacity: 0
             max-height: 85vh
@@ -85,8 +101,13 @@
                 pointer-events: all
                 opacity: 1
             ul
+                display: flex
+                flex-direction: column
                 padding: 0 12px
+                gap: 8px
                 li
+            a:hover
+                text-decoration: underline
             p.CListDisclaimer
                 font-size: 0.75rem
                 color: #555
