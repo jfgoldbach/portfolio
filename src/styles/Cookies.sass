@@ -5,7 +5,7 @@
     flex-direction: column
     $margin: 13px
     position: fixed
-    bottom: $margin
+    bottom: -300px
     z-index: 999
     right: $margin
     //outline: 2px dashed red
@@ -18,14 +18,6 @@
     &.animIn
         bottom: $margin
     &.decided
-        @keyframes cookiesOut
-            0%
-                bottom: $margin
-            25%
-                bottom: calc($margin + 50px)
-            100%
-                bottom: -300px
-        //animation: cookiesOut 0.4s forwards
         bottom: -300px
     .cookieHeader
         border-radius: globals.$borderMedium globals.$borderMedium 0 0

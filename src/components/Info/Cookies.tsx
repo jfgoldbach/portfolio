@@ -2,24 +2,25 @@ import { useContext, useEffect, useRef, useState } from "react"
 import "../../styles/css/Cookies.css"
 import Button from "../Button"
 import { Link } from "react-router-dom"
-import { cookieContext } from "../../App"
+import { LangContext, cookieContext } from "../../App"
+import { toast } from "react-toastify"
 
 
 function Cookies() {
     const storageName = "dataConsent"
     const [details, setDetails] = useState(false)
-    const [show, setShow] = useState(true)
     const cookieListRef = useRef<HTMLDivElement>(null)
     const timeoutRef = useRef<NodeJS.Timeout>()
 
-    const {cookie, setCookie} = useContext(cookieContext)
+    const { cookie, setCookie } = useContext(cookieContext)
+    const { lang } = useContext(LangContext)
 
 
 
     function initLSConsent() { //local storage consent
         console.log("init ls consent")
         const consent = localStorage.getItem(storageName)
-        if(consent){
+        if (consent) {
             console.log(consent)
             return consent === "true" ? true : false
         } else {
@@ -43,7 +44,15 @@ function Cookies() {
     }
 
     function consent(consent: boolean) {
+        setDetails(false)
         localStorage.setItem(storageName, consent.toString())
+        toast.success(`
+            ${lang === "ger" ? "Du hast " : "You have "} 
+            ${lang === "ger" ? (consent? "zugestimmt" : "abgelehnt") : (consent ? "accepted" : "declined")} 
+            ${lang === "ger" 
+                ? ", dass deine Daten verarbeitet werden können.\nWenn du das ändern willst, klicke auf den Link am Ende der Seite." 
+                : " to have your data collected.\nIf you want to change this, click on the button on the end of this site."
+            }`)
         setCookie(consent)
     }
 
@@ -58,9 +67,9 @@ function Cookies() {
     useEffect(() => {
         setCookie(initLSConsent) //sets the apps cookie value to whatever is in storage initialy
         checkConsent()
-        return(() => {
+        return (() => {
             const timeout = timeoutRef.current
-            if(timeout) clearTimeout(timeout)
+            if (timeout) clearTimeout(timeout)
         })
     }, [])
 
@@ -81,7 +90,7 @@ function Cookies() {
 
 
     return (
-        <div className={`cookies ${cookie!== undefined ? "decided" : "animIn"}`}> 
+        <div className={`cookies ${cookie !== undefined ? "decided" : "animIn"}`}>
             <div className="cookieHeader">
                 <img src="images/cookies_data.svg" alt="Cookie symbol" />
                 <h1>Cookies &amp; Personenbezogene Daten</h1>
