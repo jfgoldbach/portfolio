@@ -4,7 +4,6 @@ import { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { LangContext, OverviewContext, ReadyContext, cookieContext } from "../App"
 import instance from './network/axios'
-import LangChange from './NavBar/LangChange'
 import Loading from './helper/Loading'
 import { errorType } from '../types/types'
 import ErrorInfo from './helper/ErrorInfo'

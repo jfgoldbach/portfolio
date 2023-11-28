@@ -11,9 +11,7 @@ import { LangContext, ReadyContext } from '../../App';
 import { errorType, landingpageType } from '../../types/types';
 import Loading from '../helper/Loading';
 import { toast } from 'react-toastify';
-import Button from '../Button';
 import ErrorInfo from '../helper/ErrorInfo';
-import BlurredBg from '../visuals/BlurredBg';
 
 export const homeContext = createContext<landingpageType | null | undefined>({} as landingpageType)
 export const introContext = createContext<introType>({} as introType)
@@ -35,14 +33,23 @@ function Home({ appError }: homeProps) {
     const [finished, setFinished] = useState(false)
     const { check } = useCheckJWT()
 
+    function title() {
+        document.title = lang === "eng" ? "Home" : "Startseite"
+    }
+
 
     useEffect(() => {
         const metaIcon: HTMLLinkElement = document.getElementById("icon") as HTMLLinkElement
         if (metaIcon) {
             metaIcon.href = "/images/favicon.ico"
         }
-        document.title = "Julian Goldbach - Home"
+            title()
     }, [])
+
+    useEffect(() => {
+      title()
+    }, [lang])
+    
 
     useEffect(() => {
         if (error.msg) toast.warn(`Home.tsx ${error.msg} (${error.msg})`)

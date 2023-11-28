@@ -15,19 +15,22 @@ type webProps = {
 function WebDev(props: webProps) {
   const location = useLocation()
   const {lang} = useContext(LangContext)
-  const title = lang === "eng" ? "Web projects | Julian Goldbach" : "Web Projekte | Julian Goldbach"
+
+  function title() {
+    document.title = lang === "eng" ? "Web projects" : "Web Projekte"
+  }
 
   useEffect(() => {
     const metaIcon: HTMLLinkElement = document.getElementById("icon") as HTMLLinkElement
     if (metaIcon) {
       metaIcon.href = "/images/favicon_webdev.ico"
     }
-    document.title = title
+    title()
   }, [])
 
   useEffect(() => {
-    document.title = title
-  }, [location])
+    title()
+  }, [location, lang])
 
   return (
     <div className='webdev-container'>

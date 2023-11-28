@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import PolygonBackground from "../3d/PolygonBackground";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { LangContext } from "../../App";
 
 export default function GameDev() {
     useEffect(() => {
@@ -8,7 +9,7 @@ export default function GameDev() {
         if(metaIcon){
             metaIcon.href = "/images/favicon_gamedev.ico"
         }
-        document.title = "Julian Goldbach - GameDev"
+        document.title = "GameDev"
     }, [])
     
     return (

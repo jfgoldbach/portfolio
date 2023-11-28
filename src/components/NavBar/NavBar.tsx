@@ -107,7 +107,7 @@ function NavBar(props: navProps) {
                         <div className='logo-main'>
                             <img src="/images/jglogo.png" />
                             <div className='flex-col'>
-                                <p style={{ opacity: "0.85" }}>Julian</p>
+                                <p style={{ opacity: "0.85" }}>Ju</p>
                                 <p style={{ opacity: "0.65" }}>Goldbach</p>
                             </div>
                         </div>
