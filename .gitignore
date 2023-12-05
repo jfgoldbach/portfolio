@@ -13,6 +13,7 @@
 /public/videos
 
 # production
+vendor
 build
 public/images
 public/videos
@@ -21,6 +22,8 @@ src/components/pages/subpages/Info.json
 /README.md
 public/api/db_connection.php
 public/api/jwt_key.php
+jwt_key.php
+mailSetup.php
 start_api_on_local_network.bat
 
 
@@ -34,3 +37,4 @@ start_api_on_local_network.bat
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+public/api/jwt_key.php

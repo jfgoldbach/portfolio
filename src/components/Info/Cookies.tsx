@@ -18,13 +18,13 @@ function Cookies() {
 
 
     function initLSConsent() { //local storage consent
-        console.log("init ls consent")
+        //console.log("init ls consent")
         const consent = localStorage.getItem(storageName)
         if (consent) {
-            console.log(consent)
+            //console.log(consent)
             return consent === "true" ? true : false
         } else {
-            console.log("cookies undefined")
+            //console.log("cookies undefined")
             return undefined
         }
     }
@@ -58,7 +58,7 @@ function Cookies() {
 
     function checkConsent() {
         timeoutRef.current = setTimeout(() => {
-            console.log("check consent")
+            ////console.log("check consent")
             setCookie(initLSConsent)
             checkConsent()
         }, 3000);
@@ -103,7 +103,7 @@ function Cookies() {
                         <li>Beim Benutzen der Anmeldefunktion deine <strong>IP-Adresse</strong> auf <strong>unbestimmte Zeit</strong> gespeichert wird</li>
                         <li>An <strong>Friendly Captcha</strong> die <strong>Request Headers</strong> User-Agent, Origin und Referer weitergeleitet werden. Mehr <a href="https://friendlycaptcha.com/de/legal/privacy-end-users/" target="_blank">hier</a>.</li>
                     </ul>
-                    <p className="CListDisclaimer">Wenn du willst, dass all deine Daten gelöscht werden oder du weitere Fragen hast, kontaktiere bitte <a href="mailto:kontakt@jfgoldbach.de" target="_blank">kontakt@jfgoldbach.de</a> oder verwende das <Link to="contact">Kontaktformular</Link>.</p>
+                    <p className="CListDisclaimer">Wenn du willst, dass all deine Daten gelöscht werden oder du weitere Fragen hast, kontaktiere bitte <a href="mailto:kontakt@jfgoldbach.de" target="_blank">kontakt@jfgoldbach.de</a> oder verwende das <Link to="contact?ip_checkbox=true">Kontaktformular</Link>.</p>
                 </div>
             </div>
             <Button className="cookiesDetails" onClick={detailList}>

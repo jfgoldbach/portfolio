@@ -111,6 +111,20 @@
   padding: 5px
   small
     //margin-right: auto
+  &.checkbox
+    justify-content: flex-end
+    gap: 12px
+    margin-right: 42px
+    & > p
+      @include globals.flexCenter
+      gap: 4px
+      span.ip
+        color: rgba(0,0,0,0.4)
+        font-size: 0.75rem
+        position: relative
+        min-width: 32px
+    input[type="checkbox"]
+      width: unset
 
 .contact-container .message
   margin-top: 1.5vh
@@ -240,10 +254,6 @@
     width: 100%
     padding: 15px 0
 
-  .contact-container 
-    .contactBtn
-      align-self: flex-start
-
   .contact-container input,
   .contact-container textarea
     width: 100%
@@ -263,6 +273,17 @@
         width: unset
     &.message
       border: none
+    &.checkbox
+      border: none
+      margin-right: 32px
+      width: calc(100% - 32px)
+      i
+        display: none
+      p
+        width: unset
+        flex-direction: column
+        gap: 0
+        align-items: flex-end
 
   .contact-container .message
     align-items: center

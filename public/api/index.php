@@ -1,4 +1,5 @@
 <?php
+
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 
@@ -13,34 +14,11 @@ function errorHandler(
 
 set_error_handler('errorHandler', E_ALL);
 
-//error_reporting(0);
-
-/* // Allow from any origin
-if (isset($_SERVER['HTTP_ORIGIN'])) {
-    // Decide if the origin in $_SERVER['HTTP_ORIGIN'] is one
-    // you want to allow, and if so:
-    header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
-    header('Access-Control-Allow-Credentials: true');
-    header('Access-Control-Max-Age: 86400');    // cache for 1 day
-}
-
-// Access-Control headers are received during OPTIONS requests
-if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-    
-    if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
-        // may also be using PUT, PATCH, HEAD etc
-        header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-    
-    if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']))
-        header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
-
-    exit(0);
-} */
-
 
 $mysqli = require __DIR__ . "/db_connection.php";
 $JWT_KEY = require __DIR__ . "/jwt_key.php";
 require __DIR__ . "/functions.php";
+require __DIR__ . "/sendMail.php";
 
 $method = $_SERVER['REQUEST_METHOD'];
 $type = $_GET['type'];
@@ -61,6 +39,12 @@ switch ($method) {
                 echo "hello";
                 break;
 
+            case "sendMail":
+                    echo sendMail($_GET["message"] ?? "message not provided", $_GET["altMessage"] ?? $_GET["message"],
+                        $_GET["recipient"] ?? null, $_GET["recipientName"] ?? null,
+                        $_GET["subject"] ?? null,
+                        $_GET["reply"] ?? null, $_GET["replyName"] ?? null);
+                break;
 
             case "guestToken":
                 $jwt = get_jwt($JWT_KEY, "Guest", "-", false);
@@ -71,6 +55,10 @@ switch ($method) {
                     die("Error while getting jwt token.");
                     http_response_code(400);
                 }
+                break;
+
+            case "getIP":
+                echo $user_ip;
                 break;
 
             case "attempts":

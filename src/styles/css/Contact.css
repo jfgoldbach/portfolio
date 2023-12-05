@@ -137,6 +137,27 @@
   font-size: 1rem;
   padding: 5px;
 }
+.contact-container label.checkbox {
+  justify-content: flex-end;
+  gap: 12px;
+  margin-right: 42px;
+}
+.contact-container label.checkbox > p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.contact-container label.checkbox > p span.ip {
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 0.75rem;
+  position: relative;
+  min-width: 32px;
+}
+.contact-container label.checkbox input[type=checkbox] {
+  width: unset;
+}
+
 .contact-container .message {
   margin-top: 1.5vh;
   display: flex;
@@ -287,9 +308,6 @@
     width: 100%;
     padding: 15px 0;
   }
-  .contact-container .contactBtn {
-    align-self: flex-start;
-  }
   .contact-container input,
   .contact-container textarea {
     width: 100%;
@@ -312,6 +330,20 @@
   }
   .contact-container label.message {
     border: none;
+  }
+  .contact-container label.checkbox {
+    border: none;
+    margin-right: 32px;
+    width: calc(100% - 32px);
+  }
+  .contact-container label.checkbox i {
+    display: none;
+  }
+  .contact-container label.checkbox p {
+    width: unset;
+    flex-direction: column;
+    gap: 0;
+    align-items: flex-end;
   }
   .contact-container .message {
     align-items: center;
