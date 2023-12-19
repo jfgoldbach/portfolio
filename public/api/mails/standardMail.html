@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mail von jfgoldbach.de</title>
+    <style>
+        body{
+            padding: 16px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body > div {
+            background-color: #6bbdff;
+            border-radius: 12px;
+            box-shadow: 0 0 12px rgba(0,0,0, 0.33);
+            overflow: hidden;
+        }
+        header{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 12px;
+            background-color: #1f3f69;
+            box-shadow: 0 0 8px rgba(0,0,0, 0.33);
+        }
+        header img{
+            transition: 0.1s;
+            background-color: #974bb2;
+            border-bottom-right-radius: 12px;
+            width: 54px;
+            height: 54px;
+            padding: 8px;
+        }
+        header img:hover{
+            background-color: #c379de;
+        }
+        header h1{
+            color: white;
+            margin: 0;
+        }
+        header a{
+            height: 54px;
+            box-shadow: -4px 18px 8px rgba(0,0,0, 0.33);
+        }
+        .msgContainer{
+            padding: 32px;
+        }
+        .msgContainer p{
+            white-space: pre-wrap;
+            line-height: 1.125rem;
+        }
+        .endLink{
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 6px;
+            margin: 8px;
+            font-size: 0.8rem;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <header>
+            <a href="https://jfgoldbach.de" target="_blank" title="jfgoldbach.de besuchen">
+                <img src="https://jfgoldbach.de/images/favicon.ico">
+            </a>
+            <h1>Nachricht</h1>
+        </header>
+        <div class="msgContainer">
+            <h2>Nachricht:</h2>
+            <p>&quot;hellot here&#10;&#13;testing&#10;&#13;newlines/multilines&#10;&#13;meow&#10;&#13;:3&quot;</p>
+        </div>
+        <div class="endLink">
+            <span>gesendet von</span>
+            <a href="https://jfgoldbach.de" target="_blank">
+                jfgoldbach.de
+            </a>
+        </div>
+    </div>
+</body>
+</html>

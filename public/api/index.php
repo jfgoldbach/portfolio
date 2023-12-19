@@ -39,13 +39,6 @@ switch ($method) {
                 echo "hello";
                 break;
 
-            case "sendMail":
-                    echo sendMail($_GET["message"] ?? "message not provided", $_GET["altMessage"] ?? $_GET["message"],
-                        $_GET["recipient"] ?? null, $_GET["recipientName"] ?? null,
-                        $_GET["subject"] ?? null,
-                        $_GET["reply"] ?? null, $_GET["replyName"] ?? null);
-                break;
-
             case "guestToken":
                 $jwt = get_jwt($JWT_KEY, "Guest", "-", false);
                 if ($jwt) {
@@ -347,6 +340,14 @@ switch ($method) {
 
     case "POST":
         switch ($type) {
+
+            case "sendMail":
+                echo sendMail($headers["message"] ?? "message not provided", $headers["type"] ?? null, 
+                    $headers["altMessage"] ?? $headers["message"] ?? null,
+                    $headers["recipient"] ?? null, $headers["recipientName"] ?? null,
+                    $headers["subject"] ?? null,
+                    $headers["reply"] ?? null, $headers["replyName"] ?? null);
+            break;
 
 
             case "ap_update":

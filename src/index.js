@@ -3,6 +3,13 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+if (process.env.NODE_ENV === 'production') {
+    console.log = () => { }
+    console.error = () => { }
+    console.debug = () => { }
+}
+
 root.render(
     <App />
 );
