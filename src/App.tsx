@@ -64,7 +64,7 @@ function App() {
   const [scroll, setScroll] = useState(0) //remove
 
   const [lang, setLang] = useState("eng")
-  const [cookie, setCookie] = useState<boolean|undefined>(undefined)
+  const [cookie, setCookie] = useState<boolean | undefined>(undefined)
   const [overview, setOverview] = useState<overviewType>([])
   const [gameOverview, setGameOverview] = useState<overviewType>([])
   const [cardStyle, setCardStyle] = useState<cardStyleType>({})
@@ -82,6 +82,8 @@ function App() {
       return errors
     })
   }
+
+
 
   useEffect(() => {
 
@@ -118,42 +120,27 @@ function App() {
       }
     }
 
+    instance.get("?type=style&name=skillcards", { headers: { "jwt": sessionStorage.getItem("jwt") } })
+      .then(response => response.data)
+      .then(result => setCardStyle(result))
+      .catch(error => addError(error.message, error.code))
 
-    check //check for non expired jwt or request a new one
-      .then(() => {
-        setReady(true) //intial set of jwt, so that other components know about it
+    instance.get("?type=all_overview", { headers: { "jwt": sessionStorage.getItem("jwt") } })
+      .then(response => response.data)
+      .then(result => setOverview(result))
+      .catch(error => addError(error.message, error.code))
 
-      })
-      .catch(error => {
-        console.error(error)
-        addError(error)
-      })
+    instance.get("?type=game_overview", { headers: { "jwt": sessionStorage.getItem("jwt") } })
+      .then(response => response.data)
+      .then(result => setGameOverview(result))
+      .catch(error => addError(error.message, error.code))
+
 
     return (() => {
       window.removeEventListener("resize", updateVPsize)
       //sessionStorage.removeItem("jwt")
     })
   }, [])
-
-  useEffect(() => {
-    //console.log("ready", ready)
-    if (ready) {
-      instance.get("?type=style&name=skillcards", { headers: { "jwt": sessionStorage.getItem("jwt") } })
-        .then(response => response.data)
-        .then(result => setCardStyle(result))
-        .catch(error => addError(error.message, error.code))
-
-      instance.get("?type=all_overview", { headers: { "jwt": sessionStorage.getItem("jwt") } })
-        .then(response => response.data)
-        .then(result => setOverview(result))
-        .catch(error => addError(error.message, error.code))
-
-      instance.get("?type=game_overview", { headers: { "jwt": sessionStorage.getItem("jwt") } })
-        .then(response => response.data)
-        .then(result => setGameOverview(result))
-        .catch(error => addError(error.message, error.code))
-    }
-  }, [ready])
 
 
   useEffect(() => {

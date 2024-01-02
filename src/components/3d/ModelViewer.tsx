@@ -45,7 +45,6 @@ export default function ModelViewer() {
     const settingsListRef = useRef<HTMLDivElement>(null)
     const browserGridTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-    const { ready } = useContext(ReadyContext)
     const { lang } = useContext(LangContext)
 
 
@@ -73,11 +72,7 @@ export default function ModelViewer() {
     }
 
     useEffect(() => {
-        if (ready) loadData()
-    }, [ready])
-
-    useEffect(() => {
-        if (ready) loadData()
+        loadData()
         const metaIcon: HTMLLinkElement = document.getElementById("icon") as HTMLLinkElement
         if (metaIcon) {
             metaIcon.href = "/images/favicon_viewer.ico"

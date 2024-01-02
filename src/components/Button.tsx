@@ -18,6 +18,7 @@ type buttonProps = {
     outsidePath?: boolean
     className?: string
     title?: string
+    style?: React.CSSProperties
 }
 
 const Button: React.FC<buttonProps> = (props) => {
@@ -42,6 +43,7 @@ const Button: React.FC<buttonProps> = (props) => {
                 props.outsidePath ?
                     <a href={props.path} target="_blank" style={{textDecoration: "none"}}>
                         <button
+                            style={props.style}
                             title={props.title}
                             className={`btn ${checkButtonSize} ${checkButtonStyle} ${props.className}`} //fill in all passed in values
                             onClick={props.onClick}
@@ -52,6 +54,7 @@ const Button: React.FC<buttonProps> = (props) => {
                     :
                     <Link to={link} target={targetPath}>
                         <button
+                            style={props.style}
                             title={props.title}
                             className={`btn ${checkButtonSize} ${checkButtonStyle} ${props.className}`} //fill in all passed in values
                             onClick={props.onClick}
@@ -61,6 +64,7 @@ const Button: React.FC<buttonProps> = (props) => {
                     </Link>
                 :
                 <button
+                    style={props.style}
                     title={props.title}
                     className={`btn ${checkButtonSize} ${checkButtonStyle} ${props.className}`} //fill in all passed in values
                     onClick={props.onClick}

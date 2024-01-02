@@ -8,6 +8,7 @@ export default function useCheckJWT() {
         const jwt = sessionStorage.getItem("jwt")
         if (jwt) {
             const expires = JSON.parse(atob(jwt.split(".")[1])).exp
+            console.warn(expires)
             const now = Math.floor(new Date().getTime() / 1000)
             if ((expires - 30) <= now) {
                 return instance.get("?type=guestToken")

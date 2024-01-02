@@ -36,8 +36,15 @@ type sects = {
     name: string,
     type: string
   }[];
-  liveLink: string;
-  githubLink: string;
+  externalLinks: {
+    name: string,
+    imgType: string,
+    faClass?: string,
+    src?: string,
+    link: string,
+    bgColor?: string,
+    color?: string
+  }[]
   sections: {
     eng: section[],
     ger: section[]
@@ -65,7 +72,7 @@ function Subpage({ index, table }: pageProps) {
   function getContent() {
     setContent({} as sects)
     setError(undefined)
-    instance.get(`?type=single&category=${table}&id=${index}`, { headers: { "jwt": sessionStorage.getItem("jwt") } })
+    instance.get(`?type=single&category=${table}&id=${index}`)
       .then(response => response.data)
       .then(result => setContent(result))
       .catch(error => setError(error))
@@ -174,18 +181,28 @@ function Subpage({ index, table }: pageProps) {
                     }
                   </div>
                   <div className='examine'>
-                    {content.liveLink !== "" &&
-                      <Button buttonStyle="btn--dark" path={content.liveLink} outsidePath>
-                        <p>{lang === "eng" ? "View live" : "Live ansehen"}</p>
-                        <p>🔴</p>
-                      </Button>
-                    }
-                    {content.githubLink !== "" &&
-                      <Button buttonStyle="btn--dark" buttonSize="btn--medium" path={content.githubLink} outsidePath>
-                        {lang === "eng" ? "View on Github" : "Repository"}
-                        <i className="fa-brands fa-github"></i>
-                      </Button>
-                    }
+
+                    {content.externalLinks && content.externalLinks.map(elem => {
+                      return (
+                        <Button 
+                          path={elem.link} 
+                          outsidePath 
+                          style={
+                            elem.bgColor && elem.color 
+                              ? {background: elem.bgColor, color: elem.color} 
+                              : {}
+                          }
+                        >
+                          {elem.name}
+                          {elem.imgType === "Fontawesome" || elem.imgType === "fontawesome"
+                            ? <i className={elem.faClass} />
+                            : elem.imgType === undefined 
+                              ? null
+                              : <img src={elem.src} />
+                          }
+                        </Button>
+                      )
+                    })}
 
                   </div>
                 </div>

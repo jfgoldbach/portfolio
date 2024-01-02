@@ -39,6 +39,116 @@ switch ($method) {
                 echo "hello";
                 break;
 
+            case "single":
+                $cols = array("id", "name", "info", "preview", "link", "skillcards", "externalLinks", "sections");
+
+                $id = $_GET['id'] != null ? $_GET['id'] : 1;
+
+                $table = "";
+                if (isset($_GET['category'])) {
+                    $table = $_GET['category'];
+                } else {
+                    http_response_code(400);
+                    die("A category needs to be provided.");
+                }
+
+                $sql = "SELECT " . implode(",", $cols) . " FROM " . $table . " WHERE id = " . $id . ";";
+                $result = $mysqli->query($sql);
+                $response = $result->fetch_assoc();
+
+                echo "{";
+                foreach ($response as $col => $value) {
+                    echo "\"" . $col . "\": ";
+                    if ($col === "skillcards" || $col === "sections" || $col === "preview" || $col === "externalLinks") { //skillcards and sections arent strings
+                        if ($value !== "") {
+                            echo $value;
+                        } else {
+                            echo "\"\""; //value is empty, replace it with two quotes
+                        }
+                    } else {
+                        echo "\"" . $value . "\"";
+                    }
+                    if ($col !== array_key_last($response)) { //only add comma when not on last index
+                        echo ", ";
+                    }
+                };
+                echo "}";
+                break;
+
+
+            case "all_overview":
+                $cols = array("id", "name", "info", "link", "thumbnail", "video", "skillcards", "description", "priority");
+                $sql = "SELECT " . implode(",", $cols) . " FROM projects;";
+                $result = $mysqli->query($sql);
+                $response = $result->fetch_all();
+
+                //sorting the response by priority:
+                function priority($project)
+                {
+                    return $project[8]; //cant access key of original object, only index
+                }
+
+                $prios = array_map("priority", $response);
+                $ordered = sortByPriority($response, $prios); //order
+
+                //start whole object
+                $stringExcepts = [0, 6, 7];
+                overviewToJSON($ordered, $stringExcepts, $cols);
+                break;
+
+
+            case "game_overview":
+                $cols = array("id", "name", "info", "link", "thumbnail", "video", "skillcards", "description", "priority");
+                $sql = "SELECT " . implode(",", $cols) . " FROM gameProjs;";
+                $result = $mysqli->query($sql);
+                $response = $result->fetch_all();
+
+                //sorting the response by priority:
+                function priority($project)
+                {
+                    return $project[8]; //cant access key of original object, only index
+                }
+
+                $prios = array_map("priority", $response);
+                $ordered = sortByPriority($response, $prios); //order
+
+                //start whole object
+                $stringExcepts = [0, 6, 7, 8];
+                overviewToJSON($ordered, $stringExcepts, $cols);
+                break;
+
+            case "footer_content":
+                $sql = "SELECT content FROM pages WHERE name = 'footer'";
+                $result = $mysqli->query($sql);
+                $response = $result->fetch_all();
+                echo ($response[0][0]);
+                break;
+
+            case "imprint":
+                $sql = "SELECT content FROM pages WHERE name = 'imprint'";
+                $result = $mysqli->query($sql);
+                $response = $result->fetch_all();
+                echo ($response[0][0]);
+                break;
+
+            case "privacy_policy":
+                $sql = "SELECT content FROM pages WHERE name = 'privacy_policy'";
+                $result = $mysqli->query($sql);
+                $response = $result->fetch_all();
+                echo ($response[0][0]);
+                break;
+
+
+            case "models":
+                $cols = array("id", "name", "thumbnail", "path", "vertices", "anim");
+                $sql = "SELECT * FROM models;";
+                $result = $mysqli->query($sql);
+                $response = $result->fetch_all();
+
+                $stringExcepts = [0, 4, 5];
+                overviewToJSON($response, $stringExcepts, $cols);
+                break;
+
             case "guestToken":
                 $jwt = get_jwt($JWT_KEY, "Guest", "-", false);
                 if ($jwt) {
@@ -70,7 +180,7 @@ switch ($method) {
             default:
                 $jwt;
                 //check for jwt in header
-                if(isset($headers["jwt"])) {
+                if (isset($headers["jwt"])) {
                     $jwt = $headers["jwt"];
                 } else {
                     http_response_code(400);
@@ -208,117 +318,6 @@ switch ($method) {
                                 break;
 
 
-                            case "single":
-                                $cols = array("id", "name", "info", "preview", "link", "skillcards", "liveLink", "githubLink", "sections");
-
-                                $id = $_GET['id'] != null ? $_GET['id'] : 1;
-
-                                $table = "";
-                                if(isset($_GET['category'])){
-                                    $table = $_GET['category'];
-                                } else {
-                                    http_response_code(400);
-                                    die("A category needs to be provided.");
-                                }
-
-                                $sql = "SELECT " . implode(",", $cols) . " FROM " . $table . " WHERE id = " . $id . ";";
-                                $result = $mysqli->query($sql);
-                                $response = $result->fetch_assoc();
-
-                                echo "{";
-                                foreach ($response as $col => $value) {
-                                    echo "\"" . $col . "\": ";
-                                    if ($col === "skillcards" || $col === "sections" || $col === "preview") { //skillcards and sections arent strings
-                                        if ($value !== "") {
-                                            echo $value;
-                                        } else {
-                                            echo "\"\""; //value is empty, replace it with two quotes
-                                        }
-                                    } else {
-                                        echo "\"" . $value . "\"";
-                                    }
-                                    if ($col !== array_key_last($response)) { //only add comma when not on last index
-                                        echo ", ";
-                                    }
-                                };
-                                echo "}";
-                                break;
-
-
-                            case "all_overview":
-                                $cols = array("id", "name", "info", "link", "thumbnail", "video", "skillcards", "description", "priority");
-                                $sql = "SELECT " . implode(",", $cols) . " FROM projects;";
-                                $result = $mysqli->query($sql);
-                                $response = $result->fetch_all();
-
-                                //sorting the response by priority:
-                                function priority($project)
-                                {
-                                    return $project[8]; //cant access key of original object, only index
-                                }
-
-                                $prios = array_map("priority", $response);
-                                $ordered = sortByPriority($response, $prios); //order
-
-                                //start whole object
-                                $stringExcepts = [0, 6, 7];
-                                overviewToJSON($ordered, $stringExcepts, $cols);
-                                break;
-
-
-                            case "game_overview":
-                                $cols = array("id", "name", "info", "link", "thumbnail", "video", "skillcards", "description", "priority");
-                                $sql = "SELECT " . implode(",", $cols) . " FROM gameProjs;";
-                                $result = $mysqli->query($sql);
-                                $response = $result->fetch_all();
-
-                                //sorting the response by priority:
-                                function priority($project)
-                                {
-                                    return $project[8]; //cant access key of original object, only index
-                                }
-
-                                $prios = array_map("priority", $response);
-                                $ordered = sortByPriority($response, $prios); //order
-
-                                //start whole object
-                                $stringExcepts = [0, 6, 7, 8];
-                                overviewToJSON($ordered, $stringExcepts, $cols);
-                                break;
-                            
-                            case "footer_content":
-                                $sql = "SELECT content FROM pages WHERE name = 'footer'";
-                                $result = $mysqli->query($sql);
-                                $response = $result->fetch_all();
-                                echo($response[0][0]);
-                                break;
-
-                            case "imprint":
-                                $sql = "SELECT content FROM pages WHERE name = 'imprint'";
-                                $result = $mysqli->query($sql);
-                                $response = $result->fetch_all();
-                                echo($response[0][0]);
-                                break;
-                        
-                            case "privacy_policy":
-                                $sql = "SELECT content FROM pages WHERE name = 'privacy_policy'";
-                                $result = $mysqli->query($sql);
-                                $response = $result->fetch_all();
-                                echo ($response[0][0]);
-                                break;
-
-
-                            case "models":
-                                $cols = array("id", "name", "thumbnail", "path", "vertices", "anim");
-                                $sql = "SELECT * FROM models;";
-                                $result = $mysqli->query($sql);
-                                $response = $result->fetch_all();
-
-                                $stringExcepts = [0, 4, 5];
-                                overviewToJSON($response, $stringExcepts, $cols);
-                                break;
-
-
                             default:
                                 echo "Method not found.";
                                 http_response_code(400);
@@ -342,12 +341,17 @@ switch ($method) {
         switch ($type) {
 
             case "sendMail":
-                echo sendMail($headers["message"] ?? "message not provided", $headers["type"] ?? null, 
+                echo sendMail(
+                    $headers["message"] ?? "message not provided",
+                    $headers["type"] ?? null,
                     $headers["altMessage"] ?? $headers["message"] ?? null,
-                    $headers["recipient"] ?? null, $headers["recipientName"] ?? null,
+                    $headers["recipient"] ?? null,
+                    $headers["recipientName"] ?? null,
                     $headers["subject"] ?? null,
-                    $headers["reply"] ?? null, $headers["replyName"] ?? null);
-            break;
+                    $headers["reply"] ?? null,
+                    $headers["replyName"] ?? null
+                );
+                break;
 
 
             case "ap_update":
@@ -368,12 +372,13 @@ switch ($method) {
                         //jwt is valid, try to create and query the request
                         $sql = "UPDATE pages SET content = JSON_REPLACE(content, ";
 
-                        function createResult($path, $value, $mysqli, $escape, $isArray){
+                        function createResult($path, $value, $mysqli, $escape, $isArray)
+                        {
                             $result = ""; //finish statement
-                            if(isset($escape) && $escape){
+                            if (isset($escape) && $escape) {
                                 $value = $mysqli->real_escape_string($value);
                             }
-                            if($isArray) {
+                            if ($isArray) {
                                 $result = "'$." . $path . "', JSON_ARRAY('" . $value . "')";
                             } else if (gettype($value) === "string") {
                                 $result = "'$." . $path . "', '" . $value . "'";
@@ -384,7 +389,8 @@ switch ($method) {
                         }
 
 
-                        function createBranch($next, $path, $mysqli){
+                        function createBranch($next, $path, $mysqli)
+                        {
                             if (gettype($next) === "array") {
                                 if (isset($next[0]) && $next[0] === "adoptArray") {
                                     $value = $next;
@@ -422,7 +428,7 @@ switch ($method) {
                             $mysqli->query($sql);
                             http_response_code(200);
                             echo ("Sucessfully updated");
-                        } catch(Exception $e) {
+                        } catch (Exception $e) {
                             http_response_code(500);
                             die("Database query wasn't successful: " . $e);
                         }

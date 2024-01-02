@@ -43,13 +43,13 @@ function Home({ appError }: homeProps) {
         if (metaIcon) {
             metaIcon.href = "/images/favicon.ico"
         }
-            title()
+        title()
     }, [])
 
     useEffect(() => {
-      title()
+        title()
     }, [lang])
-    
+
 
     useEffect(() => {
         if (error.msg) toast.warn(`Home.tsx ${error.msg} (${error.msg})`)
@@ -68,9 +68,7 @@ function Home({ appError }: homeProps) {
 
     useEffect(() => {
         console.log("home effect")
-        if (ready && !content) {
-            getLandingpage()
-        }
+        getLandingpage()
     }, [ready])
 
 
@@ -80,7 +78,7 @@ function Home({ appError }: homeProps) {
                 {/* <BlurredBg /> */}
                 {content ?
                     <>
-                        <introContext.Provider value={{finished, setFinished}}>
+                        <introContext.Provider value={{ finished, setFinished }}>
                             <Carousel />
                             <AboutMe
                                 heading={content.aboutme_heading}

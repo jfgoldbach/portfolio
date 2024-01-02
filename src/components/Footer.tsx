@@ -71,11 +71,10 @@ function Footer(props: footerProps) {
             .catch(error => { console.log(error); setError({ msg: error.message, code: "" }) })
     }
 
+
     useEffect(() => {
-        if (ready) {
-            getData()
-        }
-    }, [ready])
+        getData()
+    }, [])
 
     useEffect(() => {
         console.log("footer", error)
