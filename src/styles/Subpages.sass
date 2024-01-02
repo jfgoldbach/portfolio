@@ -214,6 +214,32 @@
     padding: 25px 3.25vw
     margin-top: -40px //thats weird...
     --reflectionGrad: linear-gradient( 130deg, rgba(255,255,255,0.15) 35%, transparent 35.3%)
+    &.bigPicture
+        z-index: 500
+        a
+            cursor: pointer
+            max-width: 65%
+            margin: auto
+            position: relative
+            & > *
+                transition: 0.075s
+            &:hover
+                i
+                    font-size: 6rem
+                img.thumbnail
+                    box-shadow: 0 0 12px
+            img.thumbnail
+                pointer-events: none
+                max-width: 100%
+                border-radius: 12px
+            i
+                position: absolute
+                left: 50%
+                top: 50%
+                transform: translate(-50%, -50%)
+                font-size: 4rem
+                color: white
+                text-shadow: 0 0 8px black
 
 .preview-lessMargin
     margin-bottom: 0

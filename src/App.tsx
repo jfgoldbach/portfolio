@@ -123,7 +123,7 @@ function App() {
     instance.get("?type=style&name=skillcards", { headers: { "jwt": sessionStorage.getItem("jwt") } })
       .then(response => response.data)
       .then(result => setCardStyle(result))
-      .catch(error => addError(error.message, error.code))
+      //.catch(error => addError(error.message, error.code))
 
     instance.get("?type=all_overview", { headers: { "jwt": sessionStorage.getItem("jwt") } })
       .then(response => response.data)
@@ -145,7 +145,7 @@ function App() {
 
   useEffect(() => {
     /* if (error.msg) toast.warn(`${error.msg}`) */
-    console.log(error)
+    console.error(error)
   }, [error])
 
 

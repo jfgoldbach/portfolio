@@ -23,13 +23,23 @@ type section = {
 
 type langs = "eng" | "ger"
 
+type imgTypes = "Fontawesome" | "img"
+
 type sects = {
   id: string | number;
   name: string;
   info: string;
-  preview: {
+  preview?: {
     desktop: string,
     mobile: string
+  }
+  bigPictureLink?: {
+    link: string,
+    src: string,
+    imgType?: imgTypes,
+    faClass?: string,
+    color?: string,
+    iconSrc?: string
   }
   link: string;
   skillcards: {
@@ -60,7 +70,7 @@ type err = {
 function Subpage({ index, table }: pageProps) {
 
   const [content, setContent] = useState<sects>({} as sects)
-  const [error, setError] = useState<err | undefined>()
+  const [error, setError] = useState<err | undefined>(undefined)
   const { lang } = useContext(LangContext)
   const { overview } = useContext(OverviewContext)
   const contentsRef = useRef<HTMLDivElement>(null)
@@ -184,19 +194,19 @@ function Subpage({ index, table }: pageProps) {
 
                     {content.externalLinks && content.externalLinks.map(elem => {
                       return (
-                        <Button 
-                          path={elem.link} 
-                          outsidePath 
+                        <Button
+                          path={elem.link}
+                          outsidePath
                           style={
-                            elem.bgColor && elem.color 
-                              ? {background: elem.bgColor, color: elem.color} 
+                            elem.bgColor && elem.color
+                              ? { background: elem.bgColor, color: elem.color }
                               : {}
                           }
                         >
                           {elem.name}
                           {elem.imgType === "Fontawesome" || elem.imgType === "fontawesome"
                             ? <i className={elem.faClass} />
-                            : elem.imgType === undefined 
+                            : elem.imgType === undefined
                               ? null
                               : <img src={elem.src} />
                           }
@@ -211,8 +221,8 @@ function Subpage({ index, table }: pageProps) {
           </div>
         }
 
-        {content.preview &&
-          <div className={`preview scaleIn ${content.info === "" ? "" : "preview-lessMargin"}`}>
+        {content.preview
+          ? <div className={`preview scaleIn ${content.info === "" ? "" : "preview-lessMargin"}`}>
             <div className="preview-desktop loading">
               <img src={content.preview.desktop}></img>
             </div>
@@ -221,6 +231,21 @@ function Subpage({ index, table }: pageProps) {
               <img className="preview-mobileFrame" src="/images/mobile/smartphone2.svg"></img>
             </div>
           </div>
+
+          : content.bigPictureLink
+            ? <div className={`preview bigPicture scaleIn ${content.info === "" ? "" : "preview-lessMargin"}`}>
+              <a href={content.bigPictureLink.link} target="_blank" title={`${lang === "eng" ? "Open in new tab:" : "In neuem Tab öffnen:"}\n${content.bigPictureLink.link}`}>
+                <img 
+                  className="thumbnail"
+                  src={content.bigPictureLink.src}
+                />
+                {content.bigPictureLink.imgType === "Fontawesome"
+                  ? <i className={content.bigPictureLink.faClass} style={content.bigPictureLink.color ? {color: content.bigPictureLink.color} : {}} />
+                  : <img className="icon" src={content.bigPictureLink.iconSrc} />
+                }
+              </a>
+            </div>
+            : null
         }
 
         {content.sections &&

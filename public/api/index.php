@@ -39,8 +39,23 @@ switch ($method) {
                 echo "hello";
                 break;
 
+            case "landingpage":
+                $sql = "SELECT content FROM pages WHERE name = 'landingpage'";
+                $response = $mysqli->query($sql);
+                $result = $response->fetch_assoc();
+                echo $result["content"];
+                break;
+
+
+            case "style":
+                $sql = "SELECT content FROM styles WHERE name = '" . $_GET["name"] . "'";
+                $response = $mysqli->query($sql);
+                $result = $response->fetch_assoc();
+                echo $result["content"];
+                break;
+
             case "single":
-                $cols = array("id", "name", "info", "preview", "link", "skillcards", "externalLinks", "sections");
+                $cols = array("id", "name", "info", "preview", "link", "skillcards", "externalLinks", "sections", "bigPictureLink");
 
                 $id = $_GET['id'] != null ? $_GET['id'] : 1;
 
@@ -59,7 +74,7 @@ switch ($method) {
                 echo "{";
                 foreach ($response as $col => $value) {
                     echo "\"" . $col . "\": ";
-                    if ($col === "skillcards" || $col === "sections" || $col === "preview" || $col === "externalLinks") { //skillcards and sections arent strings
+                    if ($col === "skillcards" || $col === "sections" || $col === "preview" || $col === "externalLinks" || $col === "bigPictureLink") { //these arent strings
                         if ($value !== "") {
                             echo $value;
                         } else {
@@ -299,22 +314,6 @@ switch ($method) {
                                     case "landingpage":
                                         $sql = "SELECT content FROM pages WHERE name = ''";
                                 }
-                                break;
-
-
-                            case "landingpage":
-                                $sql = "SELECT content FROM pages WHERE name = 'landingpage'";
-                                $response = $mysqli->query($sql);
-                                $result = $response->fetch_assoc();
-                                echo $result["content"];
-                                break;
-
-
-                            case "style":
-                                $sql = "SELECT content FROM styles WHERE name = '" . $_GET["name"] . "'";
-                                $response = $mysqli->query($sql);
-                                $result = $response->fetch_assoc();
-                                echo $result["content"];
                                 break;
 
 
