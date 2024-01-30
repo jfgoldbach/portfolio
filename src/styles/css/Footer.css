@@ -28,12 +28,15 @@
 }
 .footer-container {
   position: absolute;
-  width: 100%;
+  width: 98%;
+  left: 1%;
   background: rgb(27, 25, 38);
-  height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  padding: 12px;
+  padding-top: 17px;
+  gap: 24px;
   align-items: center;
   z-index: 200;
   transform: translateZ(2px);
@@ -118,11 +121,38 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-size: 25px;
+  color: rgb(27, 25, 38);
+  background: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 14px;
+  font-size: 25.2px;
+  margin: 0 12px;
+  transition: 0.125s;
+  position: relative;
 }
-.social-icon-link .social-symbol {
-  height: 25px;
+.social-icon-link .fa-square-up-right {
+  opacity: 0;
+  transition: opacity 0.075s;
+  position: absolute;
+  font-size: 1.125rem;
+  color: #bbb;
+  right: -8px;
+  top: -8px;
+  background: rgb(27, 25, 38);
+  border-radius: 12px;
+  box-shadow: -2px 2px 6px black;
+}
+.social-icon-link .social-img {
+  height: 25.2px;
+  width: 25.2px;
+  fill: rgb(27, 25, 38);
+}
+.social-icon-link:hover {
+  box-shadow: 0 0 12px #31a6ff;
+}
+.social-icon-link:hover .fa-square-up-right {
+  opacity: 1;
 }
 
 .social-media {
@@ -134,18 +164,18 @@
 
 small {
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
-  color: rgb(126, 122, 153);
+  color: rgba(126, 122, 153, 0.5);
 }
 
 .social-media-wrap {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 18px;
   justify-content: space-between;
   z-index: 200;
+  display: flex;
+  flex-wrap: wrap;
   max-width: 100%;
-  overflow-x: auto;
 }
 
 .social-icons {
@@ -173,9 +203,10 @@ small {
 
 @media screen and (max-width: 820px) {
   .footer-container {
-    height: 175px;
+    width: 99%;
+    left: 0.5%;
     z-index: 50;
-    gap: 10px;
+    gap: 32px;
     padding: 10px 0;
   }
   .footer-links {
@@ -195,5 +226,8 @@ small {
     height: 100%;
     justify-content: space-around;
     padding: 0 12px;
+  }
+  .social-icon-link {
+    margin: 0 6px;
   }
 }

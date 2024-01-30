@@ -88,6 +88,9 @@
 .calculator-container .contents-side .contentLinks a:hover {
   text-decoration: underline;
 }
+.calculator-container .fa-brands.fa-github {
+  font-size: 1.33rem;
+}
 
 .header {
   display: flex;
@@ -446,10 +449,6 @@
 
 .section-wrapper.dark .line {
   background-image: linear-gradient(270deg, #496276 50%, transparent 90%);
-}
-
-.fa-brands.fa-github {
-  font-size: 1.33rem;
 }
 
 @media screen and (max-width: 1000px) {

@@ -118,8 +118,9 @@ function Footer(props: footerProps) {
                 {symbol.type === "fontawesome" ?
                     <i className={symbol.path} />
                     :
-                    <img src={symbol.path} className='social-symbol' />
+                    <img src={symbol.path} className='social-img' style={{fill: "red"}}  />
                 }
+                <i className="fa-solid fa-square-up-right" />
             </a>
         )
     }
