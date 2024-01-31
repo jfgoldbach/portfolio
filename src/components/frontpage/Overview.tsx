@@ -20,17 +20,22 @@ function Overview({ notepads }: overviewProps) {
                     <div className="spikyDivider">
                         <img src="images/spiky-wave.svg" />
                     </div>
-                    {
-                        notepads.notes.map((note, index) =>
-                            <StickyNote
-                                mirrored={(index % 2) === 0}
-                                title={lang === "eng" ? note.heading.eng : note.heading.ger}
-                                source={note.img}
-                                path={note.path}
-                                text={lang === "eng" ? note.description.eng : note.description.ger}
-                            />
-                        )
-                    }
+                    <div className="sectionWrapper">
+                        {
+                            notepads.notes.map((note, index) =>
+                                <StickyNote
+                                    mirrored={(index % 2) === 0}
+                                    title={lang === "eng" ? note.heading.eng : note.heading.ger}
+                                    source={note.img}
+                                    path={note.path}
+                                    text={lang === "eng" ? note.description.eng : note.description.ger}
+                                />
+                            )
+                        }
+                    </div>
+                    <div className="spikyDivider-bottom">
+                        <img src="images/spiky-wave.svg" />
+                    </div>
                 </div>
             }
         </>
