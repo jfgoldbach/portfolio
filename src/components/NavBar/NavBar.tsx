@@ -106,10 +106,6 @@ function NavBar(props: navProps) {
                     <Link to='/' className='navbar-logo' onClick={() => { navigationButtonPressed() }}>
                         <div className='logo-main'>
                             <img src="/images/jglogo.png" />
-                            <div className='flex-col'>
-                                <p style={{ opacity: "0.85" }}>Ju</p>
-                                <p style={{ opacity: "0.65" }}>Goldbach</p>
-                            </div>
                         </div>
                         <div className='logo-house'>
                             <i className='fa-solid fa-house'></i>
@@ -130,7 +126,6 @@ function NavBar(props: navProps) {
                                 id='link1'
                             >
                                 <p>Web</p>
-                                <p>{lang === "eng" ? "projects" : "Projekte"}</p>
                             </Link>
                         </li>
                         <li className='nav-item'>
@@ -140,20 +135,18 @@ function NavBar(props: navProps) {
                                 onClick={() => { navigationButtonPressed() }}
                                 id='link2'
                             >
-                                <p>Game</p>
-                                <p>{lang === "eng" ? "projects" : "Projekte"}</p>
+                                <p>Gaming</p>
                             </Link>
                         </li>
                         <li className='nav-item' id="contactBtn">
-                            <Button
-                                buttonStyle='btn--light'
-                                path='/contact'
+                            <Link
+                                to='/contact'
+                                className={`nav-links ${location.pathname === "/contact" ? "active" : ""}`}
                                 onClick={() => { navigationButtonPressed() }}
                                 title={lang === "eng" ? "Contact" : "Kontakt"}
                             >
                                 <p>{lang === "eng" ? "Contact" : "Kontakt"}</p>
-                                <i className="fa-solid fa-envelope" />
-                            </Button>
+                            </Link>
                         </li>
                         <li className='nav-item' id="langSelect">
                             <LangChange />
@@ -197,6 +190,12 @@ function NavBar(props: navProps) {
                         </div>
                     }
 
+                </div>
+
+                <div className="navExtra">
+                    <Button path='/changer' title="Login">
+                        <i className="fa-solid fa-right-to-bracket" />
+                    </Button>
                 </div>
             </nav>
         </>

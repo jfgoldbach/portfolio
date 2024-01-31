@@ -31,23 +31,22 @@
 }
 
 .navbar {
-  --opacity: 0.8;
-  background: rgba(15, 11, 24, 0.5);
-  height: 65px;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  --opacity: 0.8;
+  background: rgba(16, 10, 32, 0.5);
+  border-radius: 32px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+  height: 65px;
+  backdrop-filter: invert(0.35) blur(15px);
   font-size: 1.2rem;
   position: sticky;
   margin: 10px 15vw 0 15vw;
   padding: 3px;
-  border-radius: 32px;
-  width: 70vw;
+  width: calc(70vw - 65px - 16px);
   top: 10px;
   z-index: 500;
-  backdrop-filter: invert(0.33) blur(15px);
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
   transition: 0.25s;
 }
 @media screen and (min-width: 800px) {
@@ -69,6 +68,9 @@
   }
   .navbar.loginChange .nav-links,
   .navbar.loginChange #contactBtn {
+    display: none;
+  }
+  .navbar.loginChange .navExtra {
     display: none;
   }
   .navbar.adminPanel {
@@ -96,6 +98,25 @@
     top: -18px;
     transform: translateY(6px);
   }
+}
+.navbar .navExtra {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  --opacity: 0.8;
+  background: rgba(16, 10, 32, 0.5);
+  border-radius: 32px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+  height: 65px;
+  backdrop-filter: invert(0.35) blur(15px);
+  position: absolute;
+  left: calc(100% + 16px);
+  width: 65px;
+}
+.navbar .navExtra button {
+  height: 49px;
+  width: 49px;
+  border-radius: 50%;
 }
 
 .contact-snap {
@@ -340,24 +361,23 @@
 .navbar-logo {
   position: relative;
   color: white;
-  margin-left: 1.15vw;
+  margin-left: 6px;
   cursor: pointer;
   text-decoration: none;
   font-size: 1.3rem;
   display: flex;
-  border-radius: 8px;
   transition: 0.1s;
-  width: 190px;
+  border-radius: 32px;
   overflow: hidden;
 }
-
 .navbar-logo .logo-main {
   display: flex;
-  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
   gap: 10px;
   transition: transform 0.15s;
 }
-
 .navbar-logo .logo-house {
   position: absolute;
   display: flex;
@@ -368,22 +388,18 @@
   transform: translateY(-50px);
   transition: transform 0.15s;
 }
-
 .navbar-logo .fa-house {
   font-size: 2rem;
   height: fit-content;
 }
-
 .navbar-logo img {
   height: 53px;
 }
-
 .navbar-logo:hover {
   background-color: rgba(255, 255, 255, 0.15);
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
   transition: 0.15s;
 }
-
 .navbar-logo::selection {
   background-color: none;
 }
