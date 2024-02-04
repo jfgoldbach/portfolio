@@ -31,7 +31,7 @@ function Home({ appError }: homeProps) {
     const [content, setContent] = useState<landingpageType | null>()
     const [error, setError] = useState<errorType>({} as errorType)
     const [finished, setFinished] = useState(false)
-    const { check } = useCheckJWT()
+    //const { check } = useCheckJWT()
 
     function title() {
         document.title = lang === "eng" ? "Home" : "Startseite"
@@ -57,13 +57,10 @@ function Home({ appError }: homeProps) {
 
     function getLandingpage() {
         setError({} as errorType)
-        check.then(() => {
-            console.log("get landingpage content")
-            instance.get("?type=landingpage", { headers: { "jwt": sessionStorage.getItem("jwt") } })
-                .then(response => response.data)
-                .then(result => setContent(result))
-                .catch(error => setError({ "msg": error.message, "code": error.code }))
-        })
+        instance.get("?type=landingpage", { headers: { "jwt": sessionStorage.getItem("jwt") } })
+            .then(response => response.data)
+            .then(result => setContent(result))
+            .catch(error => setError({ "msg": error.message, "code": error.code }))
     }
 
     useEffect(() => {

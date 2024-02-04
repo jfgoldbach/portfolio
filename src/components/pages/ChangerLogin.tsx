@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useContext, useEffect, useRef, useState } from "react"
 import { Link, Navigate } from "react-router-dom";
-import { LangContext, cookieContext } from "../../App";
+import { AccountContext, LangContext, cookieContext } from "../../App";
 import useCheckJWT from "../hooks/useCheckJWT";
 import instance from "../network/axios";
 import { toast } from "react-toastify";
@@ -20,11 +20,13 @@ export default function ChangerLogin() {
     const [user, setUser] = useState("")
     const [success, setSuccess] = useState(false)
     const [navigate, setNavigate] = useState(false)
-    const { lang } = useContext(LangContext)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<errorType>({} as errorType)
     const [valid, setValid] = useState<captchaVerify>("verify")
     const [width, setWidth] = useState<number>(500)
+
+    const { lang } = useContext(LangContext)
+    const { setAccount } = useContext(AccountContext)
 
     const submitRef = useRef<HTMLButtonElement>(null)
     const nameRef = useRef<HTMLInputElement>(null)
@@ -32,7 +34,7 @@ export default function ChangerLogin() {
 
     const { cookie } = useContext(cookieContext)
 
-    const { check } = useCheckJWT()
+    //const { check } = useCheckJWT()
 
 
     function decrementTime() {
@@ -85,9 +87,13 @@ export default function ChangerLogin() {
     }
 
     function getDemoAccess() {
-        check.then(() => {
-            setNavigate(true)
-        })
+        instance.get("?type=guestToken")
+            .then(response => response.data)
+            .then(result => {
+                sessionStorage.setItem("jwt", result)
+                const payload = JSON.parse(atob(result.split(".")[1]))
+                setAccount({ name: payload.name, exp: payload.exp, admin: payload.admin })
+            })
     }
 
     function getAttempts() {
@@ -112,6 +118,11 @@ export default function ChangerLogin() {
     useEffect(() => {
         if (valid === "valid") {
             getAttempts()
+            const jwt = sessionStorage.getItem("jwt")
+            if (jwt !== null) {
+                const payload = JSON.parse(atob(jwt.split(".")[1]))
+                setAccount({ name: payload.name, exp: payload.exp, admin: payload.admin })
+            }
         }
     }, [valid])
 
@@ -164,9 +175,9 @@ export default function ChangerLogin() {
 
     function getWidth() {
         const window = windowRef.current
-        if(window) {
+        if (window) {
             const windowWidth = window.clientWidth
-            if(windowWidth > 300){
+            if (windowWidth > 300) {
                 setWidth(window.clientWidth * 0.9)
             } else {
                 setWidth(window.clientWidth)
@@ -180,9 +191,9 @@ export default function ChangerLogin() {
 
     return (
         <div className={`login scaleIn`}>
-            {(success || navigate) &&
+            {/* {(success || navigate) &&
                 <Navigate to="/changer/loggedin" />
-            }
+            } */}
 
             <CookieMsg width={width} />
 

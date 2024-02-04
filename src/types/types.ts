@@ -89,6 +89,12 @@ export type overviewType = {
     priority: number
 }[]
 
+export type accountType = {
+    name: string,
+    exp: number,
+    admin: boolean
+  }
+
 export type langProps = {
     lang: string,
     setLang: React.Dispatch<React.SetStateAction<string>>

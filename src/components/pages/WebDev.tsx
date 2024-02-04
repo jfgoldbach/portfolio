@@ -7,12 +7,8 @@ import { useContext, useEffect } from 'react'
 import { LangContext } from '../../App'
 
 
-type webProps = {
-  scroll: number
-}
 
-
-function WebDev(props: webProps) {
+function WebDev() {
   const location = useLocation()
   const {lang} = useContext(LangContext)
 

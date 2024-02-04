@@ -2,11 +2,12 @@ import { useState, useEffect, useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import Button from '../Button'
 import Datenschutz from '../Datenschutz'
-import { LangContext } from '../../App'
+import { AccountContext, LangContext } from '../../App'
 import ProjectBar from '../ProjectBar'
 import LangChange from './LangChange'
 import '../../styles/css/NavBar.css'
 import Imprint from './Imprint'
+import { useCombineActivators } from '@dnd-kit/core/dist/hooks/utilities'
 
 
 type navProps = {
@@ -14,7 +15,6 @@ type navProps = {
     setContact: React.Dispatch<React.SetStateAction<boolean>>
     daten: boolean
     setDaten: React.Dispatch<React.SetStateAction<boolean>>
-    scroll: number
 }
 
 function NavBar(props: navProps) {
@@ -23,6 +23,7 @@ function NavBar(props: navProps) {
     const [totop, setTotop] = useState(false)
     const location = useLocation()
     const { lang } = useContext(LangContext)
+    const { account } = useContext(AccountContext)
 
     const path = useLocation()
     const pathMatches = path.pathname.match("\/webdev\/..*")
@@ -49,10 +50,6 @@ function NavBar(props: navProps) {
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [location])
-
-    useEffect(() => {
-        setTotop(props.scroll > 150)
-    }, [props.scroll])
 
     const handleClick = () => {
         setClick(!click)
@@ -93,15 +90,15 @@ function NavBar(props: navProps) {
 
     return (
         <>
-            <nav 
+            <nav
                 className={`
                     navbar 
                     ${location.pathname.match(/\/changer/) ? "loginChange" : ""} 
                     ${location.pathname.match(/\/loggedin/) ? "adminPanel" : ""}
-                    ${click? "clicked" : ""}
+                    ${click ? "clicked" : ""}
                 `}
             >
-                
+
                 <div className={`navbar-container loginChange`}>
                     <Link to='/' className='navbar-logo' onClick={() => { navigationButtonPressed() }}>
                         <div className='logo-main'>
@@ -157,10 +154,10 @@ function NavBar(props: navProps) {
                 {/*This part is for the zoom-in images*/}
                 <div id='zoomcontain' className='zoomimage-container' onClick={zoomClickHandler}>
                     <div className='img-contain'>
-                        <img 
-                            id='zoomimage' 
-                            className='zoomed-image' 
-                            src='../images/DivBreakerDocs/levels.jpg' 
+                        <img
+                            id='zoomimage'
+                            className='zoomed-image'
+                            src='../images/DivBreakerDocs/levels.jpg'
                         />
                         <i className="fa-solid fa-magnifying-glass-minus"></i>
                     </div>
@@ -176,7 +173,7 @@ function NavBar(props: navProps) {
                         <div id='contact' className='impressum-container'>
                             <div className='info'>
                                 <div className='contact-header'>
-                                    <h1>{props.contact? "Impressum" : "Datenschutzerklärung"}</h1>
+                                    <h1>{props.contact ? "Impressum" : "Datenschutzerklärung"}</h1>
                                     <Button buttonStyle='btn--primary' onClick={closeWindow}>
                                         <p>&times;</p>
                                     </Button>
@@ -193,9 +190,17 @@ function NavBar(props: navProps) {
                 </div>
 
                 <div className="navExtra">
-                    <Button path='/changer' title="Login">
-                        <i className="fa-solid fa-right-to-bracket" />
-                    </Button>
+                    {account.name !== undefined
+                        ? 
+                            <div className='loggedIn'>
+                                <i className="fa-solid fa-user" />
+                                <p>{account.name}</p>
+                            </div>   
+                        : 
+                        <Button path='/changer' title="Login">
+                            <i className="fa-solid fa-right-to-bracket" />
+                        </Button>
+                    }
                 </div>
             </nav>
         </>

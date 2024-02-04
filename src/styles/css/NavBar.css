@@ -54,7 +54,7 @@
     position: absolute;
     top: 10px;
     left: calc(50% - 175px);
-    width: 350px;
+    width: 269px;
     margin: 0;
   }
   .navbar.loginChange .contact-snap {
@@ -68,9 +68,6 @@
   }
   .navbar.loginChange .nav-links,
   .navbar.loginChange #contactBtn {
-    display: none;
-  }
-  .navbar.loginChange .navExtra {
     display: none;
   }
   .navbar.adminPanel {
@@ -117,6 +114,39 @@
   height: 49px;
   width: 49px;
   border-radius: 50%;
+}
+.navbar .navExtra .loggedIn {
+  color: white;
+  animation: zoomIn 0.25s forwards;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: 50%;
+  font-size: 1rem;
+  background: rgba(0, 0, 0, 0.75);
+  overflow: hidden;
+}
+@keyframes zoomIn {
+  0% {
+    width: 0;
+    height: 0;
+  }
+  100% {
+    height: 55px;
+    width: 55px;
+  }
+}
+.navbar .navExtra .loggedIn p {
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-shadow: 0 0 8px black;
+}
+.navbar .navExtra .loggedIn i {
+  position: absolute;
+  bottom: -6px;
+  color: rgba(255, 255, 255, 0.33);
+  font-size: 3rem;
 }
 
 .contact-snap {

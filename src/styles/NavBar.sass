@@ -29,7 +29,7 @@
       top: 10px
       $left: calc(50% - globals.$loginWidth / 2)
       left: $left
-      width: globals.$loginWidth
+      width: calc(globals.$loginWidth - globals.$navHeight - 16px)
       margin: 0
       .contact-snap
         left: calc(-1 * (50vw - globals.$loginWidth / 2))
@@ -39,8 +39,6 @@
         width: unset
       .nav-links,
       #contactBtn
-        display: none
-      .navExtra
         display: none
     &.adminPanel
       width: 168px
@@ -74,6 +72,33 @@
       height: $size
       width: $size
       border-radius: 50%
+    .loggedIn
+      $size: calc(globals.$navHeight - 10px)
+      color: white
+      @keyframes zoomIn
+        0%
+          width: 0
+          height: 0
+        100%
+          height: $size
+          width: $size
+      animation: zoomIn 0.25s forwards
+      @include globals.flexCenter
+      position: relative
+      border-radius: 50%
+      font-size: 1rem
+      background: rgba(#000, 0.75)
+      overflow: hidden
+      p
+        font-size: 0.8rem
+        font-weight: bold
+        text-shadow: 0 0 8px black
+      i
+        position: absolute
+        bottom: -6px
+        color: rgba(#fff, 0.33)
+        font-size: 3rem
+
 
 
 
