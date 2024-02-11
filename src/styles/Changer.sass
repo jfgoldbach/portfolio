@@ -9,8 +9,7 @@ $changer_topbar_height: 80px
     @include globals.flexCenter
     flex-direction: column
     gap: 22px
-    padding-top: 66px
-    height: 100dvh
+    height: calc(100dvh - globals.$navHeight)
     @media screen and (max-width: globals.$mobileBreakpoint)
         height: calc(var(--viewportHeight) - globals.$navHeight - 10px)
         padding: 0

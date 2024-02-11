@@ -59,7 +59,7 @@ function NavBar(props: navProps) {
 
     useEffect(() => {
         const timeout = timerTORef.current
-        if(timeout) clearTimeout(timeout)
+        if (timeout) clearTimeout(timeout)
         if (account) setTimeLeft(getTimeLeft(account.exp))
     }, [account])
 
@@ -123,8 +123,16 @@ function NavBar(props: navProps) {
 
     function logOut() {
         sessionStorage.removeItem("jwt")
-        setAccount(undefined)
-        toast.success(lang === "eng" ? "Logged out" : "Abgemeldet")
+        if (!sessionStorage.getItem("jwt")) {
+            setAccount(undefined)
+            toast.info(lang === "eng" ? "Logged out successfully" : "Erfolgreich abgemeldet")
+        }
+        else {
+            toast.warn(lang === "eng"
+                ? "Couldn't log out. Try again in a while!"
+                : "Ausloggen fehlgeschlagen. Versuche es später erneut!"
+            )
+        }
     }
 
 
@@ -185,9 +193,33 @@ function NavBar(props: navProps) {
                                 <p>{lang === "eng" ? "Contact" : "Kontakt"}</p>
                             </Link>
                         </li>
-                        <li className='nav-item' id="langSelect">
+                        <div className="vertMoreOpts">
                             <LangChange />
-                        </li>
+                            {account ?
+                                <Button onClick={logOut}>
+                                    <i className={`fa-solid fa-user admin_${account.admin}`} />
+                                    <div className="flexCVert">
+                                        <div className='flexCHorz'>
+                                            <p>{account.name}</p>
+                                            <p>|</p>
+                                            <p className={(timeLeft && timeLeft <= 60) ? "danger" : ""}>
+                                                {timeLeft
+                                                    ? `${Math.ceil(timeLeft / 60)}min`
+                                                    : "Error"
+                                                }
+                                            </p>
+                                        </div>
+                                        <p className='logoutInfo'>{lang === "eng" ? "Click to logout" : "Klicken zum ausloggen"}</p>
+                                    </div>
+                                </Button>
+                                :
+                                <Button path='/changer'>
+                                    <i className="fa-solid fa-right-to-bracket" />
+                                    <span>Login</span>
+                                </Button>
+                            }
+
+                        </div>
                     </ul>
                 </div>
 
@@ -237,7 +269,7 @@ function NavBar(props: navProps) {
                             <div className='infoContainer'>
                                 <p>invisble head</p>
                                 <p>{account.name}</p>
-                                <p className={(timeLeft && timeLeft < 60) ? "danger" : ""}>
+                                <p className={(timeLeft && timeLeft <= 60) ? "danger" : ""}>
                                     {timeLeft
                                         ? `${Math.ceil(timeLeft / 60)}min`
                                         : "Error"

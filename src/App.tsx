@@ -156,6 +156,7 @@ function App() {
         setAccount(undefined)
       }
       if (exp) {
+        toast.success(lang === "eng" ? `Logged in as "${account.name}"!` : `Erfolgreich als "${account.name}" eingeloggt!`)
         const now = Math.floor(new Date().getTime() / 1000)
         setTimeout(() => {
           console.info("This session has timed out.")
