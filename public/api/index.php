@@ -191,6 +191,54 @@ switch ($method) {
                 }
                 break;
 
+            case "login":
+                $sql = sprintf(
+                    "SELECT * FROM user WHERE user = '%s'",
+                    $mysqli->real_escape_string($_GET["user"]) //to prevent injection of code
+                );
+                $result = $mysqli->query($sql);
+                $user = $result->fetch_assoc();
+                if (!empty($user)) {
+                    if (password_verify($_GET["password"], $user["password_hash"])) {
+                        //correct password
+                        $sql = "UPDATE remarkable_ips SET attempts  = 0, remark = 'Logged in successfully as admin' WHERE ip = '{$user_ip}'"; //update if there is an entry
+                        $mysqli->query($sql);
+                        $jwt = get_jwt($JWT_KEY, $user["user"], $user["password_hash"], true);
+                        echo $jwt;
+                        http_response_code(200);
+                    } else {
+                        //wrong password
+                        $sql = "SELECT * FROM remarkable_ips WHERE ip = '{$user_ip}'";
+                        $ip_info = $mysqli->query($sql)->fetch_assoc();
+                        if (empty($ip_info)) {
+                            //insert entry
+                            $sql = "INSERT INTO remarkable_ips (ip, attempts, remark) VALUES ('{$user_ip}', 1, 'Entered wrong login credentials')";
+                            $mysqli->query($sql);
+                        } else {
+                            //update entry
+                            $attempts = $ip_info["attempts"] + 1;
+                            $sql = "UPDATE remarkable_ips SET attempts  = {$attempts}, remark = 'Entered wrong login credentials' WHERE ip = '{$user_ip}'";
+                            $mysqli->query($sql);
+                        }
+                        http_response_code(404);
+                    }
+                } else {
+                    $sql = "SELECT * FROM remarkable_ips WHERE ip = '{$user_ip}'";
+                    $ip_info = $mysqli->query($sql)->fetch_assoc();
+                    if (empty($ip_info)) {
+                        //insert entry
+                        $sql = "INSERT INTO remarkable_ips (ip, attempts, remark) VALUES ('{$user_ip}', 1, 'Entered wrong login credentials')";
+                        $mysqli->query($sql);
+                    } else {
+                        //update entry
+                        $attempts = $ip_info["attempts"] + 1;
+                        $sql = "UPDATE remarkable_ips SET attempts  = {$attempts}, remark = 'Entered wrong login credentials' WHERE ip = '{$user_ip}'";
+                        $mysqli->query($sql);
+                    }
+                    http_response_code(404); //could also bee 500 but this would gave away info about the username
+                }
+                break;
+
 
             default:
                 $jwt;
@@ -206,54 +254,6 @@ switch ($method) {
                     if ($valid) {
                         switch ($type) {
                                 //GET with jwt
-
-                            case "login":
-                                $sql = sprintf(
-                                    "SELECT * FROM user WHERE user = '%s'",
-                                    $mysqli->real_escape_string($_GET["user"]) //to prevent injection of code
-                                );
-                                $result = $mysqli->query($sql);
-                                $user = $result->fetch_assoc();
-                                if (!empty($user)) {
-                                    if (password_verify($_GET["password"], $user["password_hash"])) {
-                                        //correct password
-                                        $sql = "UPDATE remarkable_ips SET attempts  = 0, remark = 'Logged in successfully as admin' WHERE ip = '{$user_ip}'"; //update if there is an entry
-                                        $mysqli->query($sql);
-                                        $jwt = get_jwt($JWT_KEY, $user["user"], $user["password_hash"], true);
-                                        echo $jwt;
-                                        http_response_code(200);
-                                    } else {
-                                        //wrong password
-                                        $sql = "SELECT * FROM remarkable_ips WHERE ip = '{$user_ip}'";
-                                        $ip_info = $mysqli->query($sql)->fetch_assoc();
-                                        if (empty($ip_info)) {
-                                            //insert entry
-                                            $sql = "INSERT INTO remarkable_ips (ip, attempts, remark) VALUES ('{$user_ip}', 1, 'Entered wrong login credentials')";
-                                            $mysqli->query($sql);
-                                        } else {
-                                            //update entry
-                                            $attempts = $ip_info["attempts"] + 1;
-                                            $sql = "UPDATE remarkable_ips SET attempts  = {$attempts}, remark = 'Entered wrong login credentials' WHERE ip = '{$user_ip}'";
-                                            $mysqli->query($sql);
-                                        }
-                                        http_response_code(404);
-                                    }
-                                } else {
-                                    $sql = "SELECT * FROM remarkable_ips WHERE ip = '{$user_ip}'";
-                                    $ip_info = $mysqli->query($sql)->fetch_assoc();
-                                    if (empty($ip_info)) {
-                                        //insert entry
-                                        $sql = "INSERT INTO remarkable_ips (ip, attempts, remark) VALUES ('{$user_ip}', 1, 'Entered wrong login credentials')";
-                                        $mysqli->query($sql);
-                                    } else {
-                                        //update entry
-                                        $attempts = $ip_info["attempts"] + 1;
-                                        $sql = "UPDATE remarkable_ips SET attempts  = {$attempts}, remark = 'Entered wrong login credentials' WHERE ip = '{$user_ip}'";
-                                        $mysqli->query($sql);
-                                    }
-                                    http_response_code(404); //could also bee 500 but this would gave away info about the username
-                                }
-                                break;
 
 
                             case "adminPanel":

@@ -67,12 +67,16 @@
     position: absolute
     left: calc(100% + 16px)
     width: globals.$navHeight
+    &.glow
+      box-shadow: globals.$shadow1, 0 0 16px globals.$active inset
     button
       $size: calc(globals.$navHeight - 16px)
       height: $size
       width: $size
       border-radius: 50%
     .loggedIn
+      cursor: pointer
+      position: relative
       $size: calc(globals.$navHeight - 10px)
       color: white
       @keyframes zoomIn
@@ -82,6 +86,39 @@
         100%
           height: $size
           width: $size
+      &:hover
+        .logoutInfo
+          bottom: 0%
+      .logoutInfo
+        z-index: 100
+        @include globals.flexCenter
+        position: absolute
+        bottom: 100%
+        border-radius: 50%
+        width: 100%
+        height: 100%
+        background: globals.$cancel
+        transition: 0.125s
+        p
+          font-size: 0.66rem
+      .infoContainer
+        @include globals.flexCenter
+        flex-direction: column
+        width: 100%
+        height: 100%
+        p
+          @include globals.flexCenter
+        p:nth-child(1)
+          opacity: 0
+          height: 30%
+        p:nth-child(2)
+          height: 40%
+        p:nth-child(3)
+          font-size: 0.6rem
+          font-weight: normal
+          color: #ccc
+          width: 100%
+          height: 30%
       animation: zoomIn 0.25s forwards
       @include globals.flexCenter
       position: relative
@@ -90,14 +127,19 @@
       background: rgba(#000, 0.75)
       overflow: hidden
       p
+        z-index: 1
         font-size: 0.8rem
         font-weight: bold
         text-shadow: 0 0 8px black
       i
+        z-index: 0
         position: absolute
         bottom: -6px
         color: rgba(#fff, 0.33)
         font-size: 3rem
+        transition: color 0.125s
+        &.admin_true
+          color: rgba(#355dff, 0.8)
 
 
 
@@ -317,7 +359,7 @@
 .navbar-logo
   position: relative
   color: white
-  margin-left: 6px
+  margin-left: 4px
   cursor: pointer
   text-decoration: none
   font-size: 1.3rem

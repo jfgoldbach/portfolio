@@ -93,7 +93,7 @@ export type accountType = {
     name: string,
     exp: number,
     admin: boolean
-  }
+  } | undefined
 
 export type langProps = {
     lang: string,

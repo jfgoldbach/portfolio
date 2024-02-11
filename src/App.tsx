@@ -74,7 +74,7 @@ function App() {
   const [cardStyle, setCardStyle] = useState<cardStyleType>({})
   const [error, setError] = useState<errorType[]>([] as errorType[])
   const [ready, setReady] = useState(false)
-  const [account, setAccount] = useState<accountType>({} as accountType)
+  const [account, setAccount] = useState<accountType>(undefined)
 
   //const { check } = useCheckJWT()
 
@@ -146,6 +146,27 @@ function App() {
       //sessionStorage.removeItem("jwt")
     })
   }, [])
+
+
+  useEffect(() => {
+    if (account) {
+      const exp = account.exp
+      const deleteAcc = () => {
+        sessionStorage.removeItem("jwt")
+        setAccount(undefined)
+      }
+      if (exp) {
+        const now = Math.floor(new Date().getTime() / 1000)
+        setTimeout(() => {
+          console.info("This session has timed out.")
+          deleteAcc()
+        }, (exp - now) * 1000);
+      } else {
+        console.warn("There is no 'exp' property on the account object. The JWT will be deleted, as it may not be valid.")
+        deleteAcc()
+      }
+    }
+  }, [account])
 
 
   useEffect(() => {

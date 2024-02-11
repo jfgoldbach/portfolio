@@ -1,3 +1,5 @@
+@use 'globals'
+  
 .loadingWheel
   animation: spin 1s steps(16, end) infinite
   width: 60px
@@ -13,6 +15,7 @@
       transform: rotate(360deg)
 
 svg.loadAnim
+  pointer-events: none
   fill: none
   position: absolute
   transform-origin: center
@@ -39,4 +42,8 @@ svg.loadAnim
         stroke-dashoffset: 0
       100%
         stroke-dashoffset: -125px
-        
+  &.bg
+        background: white
+        border-radius: 50%
+        border: 2px solid #dedede
+        box-shadow: globals.$shadow2

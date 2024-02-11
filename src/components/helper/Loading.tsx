@@ -3,13 +3,14 @@ import '../../styles/css/Loading.css'
 type loadingProps = {
   light?: boolean
   small?: boolean
+  background?: boolean
 }
 
 
 
-function Loading({ light, small }: loadingProps) {
+function Loading({ light, small, background }: loadingProps) {
   return (
-    <svg height="50" width="50" viewBox="25 25 50 50" className="loadAnim" style={small? {scale: "0.65"} : {}}>
+    <svg height="50" width="50" viewBox="25 25 50 50" className={`loadAnim ${background ? "bg" : ""}`} style={{ scale: small ? "0.65" : "1"}}>
       <defs>
         <linearGradient id="loadGradient">
           <stop offset="0%" stop-color="#252525" />

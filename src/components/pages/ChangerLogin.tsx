@@ -1,7 +1,6 @@
 import { ChangeEvent, FormEvent, useContext, useEffect, useRef, useState } from "react"
 import { Link, Navigate } from "react-router-dom";
 import { AccountContext, LangContext, cookieContext } from "../../App";
-import useCheckJWT from "../hooks/useCheckJWT";
 import instance from "../network/axios";
 import { toast } from "react-toastify";
 import Loading from "../helper/Loading";
@@ -33,8 +32,6 @@ export default function ChangerLogin() {
     const windowRef = useRef<HTMLDivElement>(null)
 
     const { cookie } = useContext(cookieContext)
-
-    //const { check } = useCheckJWT()
 
 
     function decrementTime() {
@@ -87,12 +84,14 @@ export default function ChangerLogin() {
     }
 
     function getDemoAccess() {
+        setLoading(true)
         instance.get("?type=guestToken")
             .then(response => response.data)
             .then(result => {
                 sessionStorage.setItem("jwt", result)
                 const payload = JSON.parse(atob(result.split(".")[1]))
                 setAccount({ name: payload.name, exp: payload.exp, admin: payload.admin })
+                setLoading(false)
             })
     }
 
@@ -118,11 +117,7 @@ export default function ChangerLogin() {
     useEffect(() => {
         if (valid === "valid") {
             getAttempts()
-            const jwt = sessionStorage.getItem("jwt")
-            if (jwt !== null) {
-                const payload = JSON.parse(atob(jwt.split(".")[1]))
-                setAccount({ name: payload.name, exp: payload.exp, admin: payload.admin })
-            }
+            setJWTinSession()
         }
     }, [valid])
 
@@ -156,6 +151,7 @@ export default function ChangerLogin() {
 
     useEffect(() => {
         if (success) {
+            setJWTinSession()
             setNavigate(true)
             console.log("success")
         }
@@ -163,6 +159,14 @@ export default function ChangerLogin() {
 
     function toggleVisible() {
         setPwVisible(prev => !prev)
+    }
+
+    function setJWTinSession () {
+        const jwt = sessionStorage.getItem("jwt")
+        if (jwt !== null) {
+            const payload = JSON.parse(atob(jwt.split(".")[1]))
+            setAccount({ name: payload.name, exp: payload.exp, admin: payload.admin })
+        }
     }
 
     function changeUser(e: ChangeEvent<HTMLInputElement>) {
@@ -267,21 +271,47 @@ export default function ChangerLogin() {
                             {3 - fails} {lang === "eng" ? `attempt${fails === 2 ? "" : "s"} left` : `Versuch${fails === 2 ? "" : "e"} übrig`}
                         </p>
                     }
-                    <button ref={submitRef} type="submit" className={`submitLogin ${user.length > 2 && pw.length > 7 ? "" : "inactive"} ${loading ? "loading" : ""}`}>
-                        {loading ?
-                            <Loading light small />
-                            :
+                    <button
+                        ref={submitRef}
+                        type="submit"
+                        className={`submitLogin 
+                            ${user.length > 2 && pw.length > 7 ? "" : "inactive"} 
+                            ${loading ? "loading" : ""}`
+                        }
+                    >
+                        {
                             lang === "eng" ? "Sign in" : "Anmelden"
                         }
                     </button>
                 </form>
 
 
-                <Link to="/changer" onClick={getDemoAccess} className={valid === "verify" || valid === "invalid" ? "inactive" : ""}>
-                    {lang === "eng" ? "Use demonstration access" : "Demonstrationszugang benutzen"}
-                </Link>
+                {/* <Link to="/changer" onClick={getDemoAccess} className={`demoBtn ${valid === "verify" || valid === "invalid" ? "inactive" : ""}`}>
+                    {loading ?
+                        <Loading light small />
+                        :
+                        lang === "eng" ? "Use demonstration access" : "Demonstrationszugang benutzen"
+                    }
+                </Link> */}
 
 
+            </div>
+
+            <div className={`window ${cookie ? "" : "unavailBlur"}`}>
+                <div className="guestBtnWrapper">
+                    <p>{lang === "eng" ? "Or.." : "Oder.."}</p>
+                    <button
+                        onClick={getDemoAccess}
+                        type="submit"
+                        className={`submitLogin guest ${loading ? "loading" : ""} ${valid === "verify" || valid === "invalid" ? "inactive" : ""}`}
+                    >
+                        {loading ?
+                            <Loading light background />
+                            :
+                            lang === "eng" ? "Sign in as guest" : "Als Gast anmelden"
+                        }
+                    </button>
+                </div>
             </div>
 
             {cookie && <FriendlyCaptcha setValid={setValid} />}

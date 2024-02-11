@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import Button from '../Button'
 import Datenschutz from '../Datenschutz'
@@ -7,7 +7,8 @@ import ProjectBar from '../ProjectBar'
 import LangChange from './LangChange'
 import '../../styles/css/NavBar.css'
 import Imprint from './Imprint'
-import { useCombineActivators } from '@dnd-kit/core/dist/hooks/utilities'
+import { toast } from 'react-toastify'
+
 
 
 type navProps = {
@@ -21,12 +22,17 @@ function NavBar(props: navProps) {
     const [click, setClick] = useState(false)
     const [button, setButton] = useState(true)
     const [totop, setTotop] = useState(false)
-    const location = useLocation()
-    const { lang } = useContext(LangContext)
-    const { account } = useContext(AccountContext)
+    const [timeLeft, setTimeLeft] = useState<number | null>(null)
 
-    const path = useLocation()
-    const pathMatches = path.pathname.match("\/webdev\/..*")
+    const timerTORef = useRef<NodeJS.Timeout>()
+
+    const location = useLocation()
+
+    const { lang } = useContext(LangContext)
+    const { account, setAccount } = useContext(AccountContext)
+
+    const pathMatches = location.pathname.match("\/webdev\/..*")
+    const pathIsLogin = location.pathname.match("\/changer")
 
 
     useEffect(() => {
@@ -50,6 +56,34 @@ function NavBar(props: navProps) {
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [location])
+
+    useEffect(() => {
+        const timeout = timerTORef.current
+        if(timeout) clearTimeout(timeout)
+        if (account) setTimeLeft(getTimeLeft(account.exp))
+    }, [account])
+
+    useEffect(() => {
+        if (timeLeft) {
+            if (timeLeft > 0) {
+                const partialTimeLeft = (timeLeft % 60) * 1000
+                const toNextMin = partialTimeLeft === 0 ? 60000 : partialTimeLeft
+                console.log("toNextMin: ", toNextMin)
+                timerTORef.current = setTimeout(() => {
+                    if (account) setTimeLeft(getTimeLeft(account.exp))
+                }, toNextMin)
+            }
+        }
+    }, [timeLeft])
+
+
+    function getTimeLeft(exp: number) {
+        const now = Math.floor(new Date().getTime() / 1000)
+        if (exp && now) {
+            return exp - now
+        }
+        return null
+    }
 
     const handleClick = () => {
         setClick(!click)
@@ -85,6 +119,12 @@ function NavBar(props: navProps) {
     function closeWindow() {
         props.setDaten(false)
         props.setContact(false)
+    }
+
+    function logOut() {
+        sessionStorage.removeItem("jwt")
+        setAccount(undefined)
+        toast.success(lang === "eng" ? "Logged out" : "Abgemeldet")
     }
 
 
@@ -189,15 +229,27 @@ function NavBar(props: navProps) {
 
                 </div>
 
-                <div className="navExtra">
-                    {account.name !== undefined
-                        ? 
-                            <div className='loggedIn'>
-                                <i className="fa-solid fa-user" />
+                <div className={`navExtra ${(!account && pathIsLogin) ? "glow" : ""}`}>
+                    {account !== undefined
+                        ?
+                        <div className='loggedIn' onClick={logOut}>
+                            <i className={`fa-solid fa-user admin_${account.admin}`} />
+                            <div className='infoContainer'>
+                                <p>invisble head</p>
                                 <p>{account.name}</p>
-                            </div>   
-                        : 
-                        <Button path='/changer' title="Login">
+                                <p className={(timeLeft && timeLeft < 60) ? "danger" : ""}>
+                                    {timeLeft
+                                        ? `${Math.ceil(timeLeft / 60)}min`
+                                        : "Error"
+                                    }
+                                </p>
+                            </div>
+                            <div className='logoutInfo'>
+                                <p>{lang === "eng" ? "Log out" : "Abmelden"}</p>
+                            </div>
+                        </div>
+                        :
+                        <Button path='/changer' title="Login" className={pathIsLogin ? "inactive" : ""}>
                             <i className="fa-solid fa-right-to-bracket" />
                         </Button>
                     }

@@ -31,6 +31,7 @@ type apNavigation = {
 export default function Changer() {
     const { lang } = useContext(LangContext)
     const { content_id } = useParams()
+
     const [apContent, setAPcontent] = useState<apNavigation>()
     const [error, setError] = useState<string>()
     const [showLogout, SetShowLogout] = useState(false)
@@ -121,7 +122,6 @@ export default function Changer() {
 
 
     function getTimeleft() {
-        console.log("check time left")
         const jwt = sessionStorage.getItem("jwt")
         if (jwt) {
             const expires = JSON.parse(atob(jwt.split(".")[1])).exp //change atob

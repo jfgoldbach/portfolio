@@ -17,7 +17,8 @@ $changer_topbar_height: 80px
         .window
             width: calc(100vw - 20px)
     .window
-        padding: 24px 10px
+        width: globals.$loginWidth
+        padding: 24px 0
         gap: 12px
         h1
             margin-bottom: 20px
@@ -32,6 +33,16 @@ $changer_topbar_height: 80px
                 font-size: 1.5rem
             p   
                 text-align: center
+        .submitLogin.guest
+        .guestBtnWrapper
+            @include globals.flexCenter
+            flex-direction: column
+            gap: 16px
+            width: 100%
+            padding: 0 40px
+            p
+                color: #333
+                font-style: italic
     form
         position: relative
         padding: 0 40px

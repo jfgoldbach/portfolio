@@ -45,7 +45,8 @@
   }
 }
 .login .window {
-  padding: 24px 10px;
+  width: 350px;
+  padding: 24px 0;
   gap: 12px;
 }
 .login .window h1 {
@@ -66,6 +67,19 @@
 }
 .login .window .tooMany p {
   text-align: center;
+}
+.login .window .guestBtnWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  padding: 0 40px;
+}
+.login .window .guestBtnWrapper p {
+  color: #333;
+  font-style: italic;
 }
 .login form {
   position: relative;

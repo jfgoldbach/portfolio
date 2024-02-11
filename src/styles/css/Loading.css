@@ -1,3 +1,31 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes rollBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(3vh);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes rollTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-3vh);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .loadingWheel {
   animation: spin 1s steps(16, end) infinite;
   width: 60px;
@@ -17,6 +45,7 @@
 }
 
 svg.loadAnim {
+  pointer-events: none;
   fill: none;
   position: absolute;
   transform-origin: center;
@@ -51,4 +80,10 @@ svg.loadAnim circle {
   100% {
     stroke-dashoffset: -125px;
   }
+}
+svg.loadAnim.bg {
+  background: white;
+  border-radius: 50%;
+  border: 2px solid #dedede;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }

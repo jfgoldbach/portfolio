@@ -361,6 +361,7 @@ button[type=submit]:hover {
 .inactive {
   opacity: 0.2 !important;
   pointer-events: none !important;
+  cursor: default !important;
 }
 
 .inactiveInvis {
@@ -378,6 +379,11 @@ button[type=submit]:hover {
 
 .frc-captcha {
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}
+
+.danger {
+  color: rgb(255, 103, 79) !important;
+  font-weight: bold !important;
 }
 
 input[type=range] {
