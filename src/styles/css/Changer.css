@@ -267,7 +267,8 @@
 }
 
 .changer-container {
-  max-height: 100vh;
+  margin-top: -65px;
+  height: 100vh;
   position: relative;
   display: grid;
   grid-template-columns: 180px auto;
@@ -284,93 +285,16 @@
   width: fit-content;
   min-width: 4rem;
 }
-.changer-container .changer-vertbar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  justify-content: flex-end;
-  gap: 12px;
-  padding: 24px;
-  grid-column-start: 1;
-  grid-column-end: end;
-  background: #13222f;
-  margin: 6px 6px 0 6px;
-  border-radius: 12px 12px 12px 0;
-  position: relative;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-.changer-container .changer-vertbar::before {
-  position: absolute;
-  content: "";
-  left: 174px;
-  top: 100%;
-  z-index: 100;
-  height: 12px;
-  width: 12px;
-  background-image: url("./backgrounds/inverse_corner.svg");
-  background-size: 100%;
-  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
-}
-.changer-container .changer-vertbar .changer-navigationBottom {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 4px 6px;
-  margin: 6px;
-  border-radius: 12px;
-}
-.changer-container .changer-vertbar .changer-navigationBottom .nameContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.changer-container .changer-vertbar .changer-navigationBottom .nameContainer h3 {
-  font-weight: normal;
-  font-size: 1.2rem;
-  line-height: 1.1rem;
-  color: #fff;
-}
-.changer-container .changer-vertbar .changer-navigationBottom .nameContainer h3.admin {
-  color: #5ded00;
-}
-.changer-container .changer-vertbar .changer-navigationBottom .nameContainer h3.guest {
-  color: #ffd401;
-}
-.changer-container .changer-vertbar .changer-navigationBottom .nameContainer p {
-  font-size: 0.7rem;
-}
-.changer-container .changer-vertbar .changer-navigationBottom button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-}
-.changer-container .changer-vertbar .changer-navigationBottom .fa-arrow-right-from-bracket {
-  font-size: 1.25rem;
-}
-.changer-container .changer-vertbar .changer-navigationBottom .countdown {
-  color: rgba(255, 255, 255, 0.5);
-}
-.changer-container .changer-vertbar .changer-navigationBottom .countdown.warn {
-  color: rgb(255, 103, 79);
-  font-weight: bold;
-}
 .changer-container .changer-sidebar {
   position: relative;
-  margin: 0 0 6px 6px;
-  border-radius: 0 0 12px 12px;
+  margin: 77px 0 0 16px;
   color: #fff;
   display: flex;
   flex-direction: column;
+  gap: 12px;
   padding-top: 30px;
-  background: #13222f;
-  box-shadow: 0 7px 10px rgba(0, 0, 0, 0.5);
   direction: rtl;
   overflow: visible;
-  height: calc(100vh - 80px - 6px);
 }
 @keyframes fromLeft {
   from {
@@ -383,58 +307,62 @@
 .changer-container .changer-sidebar * {
   direction: ltr;
 }
-.changer-container .changer-sidebar h2 {
+.changer-container .changer-sidebar .SideP-catContainer {
+  border-radius: 12px;
+  background: #ddd;
+  border: 2px solid #fff;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  color: #151515;
+  padding: 4px;
+}
+.changer-container .changer-sidebar .SideP-catContainer h2 {
   display: flex;
   align-items: center;
   justify-content: center;
   animation: fromLeft 0.25s;
   justify-content: flex-start;
-  padding-left: 9px;
   gap: 6px;
   border-radius: 6px 6px 0 0;
   font-size: 1.1rem;
   font-weight: 600;
+  margin-bottom: 4px;
 }
-.changer-container .changer-sidebar h2 i {
+.changer-container .changer-sidebar .SideP-catContainer h2 i {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 20px;
   font-size: 1.15rem;
-  color: rgba(255, 255, 255, 0.65);
 }
-.changer-container .changer-sidebar ul {
+.changer-container .changer-sidebar .SideP-catContainer ul {
   display: flex;
   align-items: center;
   justify-content: center;
   animation: fromLeft 0.25s;
   flex-direction: column;
   gap: 0;
-  padding: 4px 0;
-  margin-bottom: 40px;
 }
-.changer-container .changer-sidebar ul li {
+.changer-container .changer-sidebar .SideP-catContainer ul li {
   position: relative;
   list-style-type: none;
   width: 100%;
   border-radius: 8px;
-  margin-left: 58px;
+  padding-left: 40px;
   padding: 4px 6px;
   transition: 0.2s;
 }
-.changer-container .changer-sidebar ul li:hover button {
+.changer-container .changer-sidebar .SideP-catContainer ul li:hover button {
   color: #31a6ff;
 }
-.changer-container .changer-sidebar ul li.forbidden {
+.changer-container .changer-sidebar .SideP-catContainer ul li.forbidden {
   pointer-events: none;
   opacity: 0.33;
 }
-.changer-container .changer-sidebar ul li.forbidden button {
+.changer-container .changer-sidebar .SideP-catContainer ul li.forbidden button {
   gap: 0;
 }
-.changer-container .changer-sidebar ul li button {
+.changer-container .changer-sidebar .SideP-catContainer ul li button {
   padding: 6px 0;
-  color: #e6e6e6;
   background: none;
   font-size: 0.95rem;
   text-align: left;
@@ -444,23 +372,12 @@
   white-space: nowrap;
   text-overflow: ellipsis !important;
 }
-.changer-container .changer-sidebar ul li button i {
+.changer-container .changer-sidebar .SideP-catContainer ul li button i {
   margin: 0 4px;
 }
-.changer-container .changer-sidebar ul li.active {
-  background: #adb6d3;
-  /* &::before
-  *  content: ""
-  *  position: absolute
-  *  height: 100%
-  *  width: 20px
-  *  left: 100%
-  *  top: 0
-  *  background: #dce5ff
-  *  z-index: 100 */
-}
-.changer-container .changer-sidebar ul li.active button {
-  color: #151515;
+.changer-container .changer-sidebar .SideP-catContainer ul li.active {
+  background: #31a6ff;
+  font-weight: bold;
 }
 .changer-container .changer-sidebar h1 {
   font-size: 1.3rem;
@@ -473,15 +390,19 @@
   grid-column-end: end;
   position: relative;
   overflow: auto;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 65px - 21px);
   scrollbar-color: #3261a4 rgba(32, 62, 105, 0.4);
+  margin-top: 83px;
+  background: rgba(51, 51, 51, 0.66);
+  border: 2px solid #111;
+  margin-left: 16px;
   margin-right: 8px;
   border-radius: 12px;
 }
 .changer-container .changer-main > .apSubmitContainer {
   position: fixed;
   top: 20px;
-  left: 236px;
+  left: 280px;
   background: #13222f;
   border-radius: 12px;
   padding: 8px;
@@ -581,17 +502,16 @@
   font-size: 0.9rem;
 }
 .changer-container .changer-main .apContent {
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   justify-content: flex-start;
   align-items: flex-start;
   flex-wrap: wrap;
   padding: 40px 64px;
   gap: 32px;
   min-height: 100%;
-  margin: 0;
   padding-bottom: 75px;
 }
 .changer-container .changer-main .apContent .info-container.mildWarn.fetchError {

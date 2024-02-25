@@ -193,10 +193,11 @@ $changer_topbar_height: 80px
             animation: checkIn 0.25s forwards
 
 .changer-container
+    margin-top: calc(globals.$navHeight * -1)
     $navColor: #fff
     $navRadius: 12px
     $navMargin: 6px
-    max-height: 100vh
+    height: 100vh
     position: relative
     display: grid
     $sideWidth: 180px
@@ -213,67 +214,6 @@ $changer_topbar_height: 80px
         background: white
         width: fit-content
         min-width: 4rem
-    .changer-vertbar
-        @include globals.flexCenter
-        justify-content: flex-end
-        gap: 12px
-        padding: 24px
-        grid-column-start: 1
-        grid-column-end: end
-        background: $sidebarColor
-        margin: $navMargin $navMargin 0 $navMargin
-        border-radius: $navRadius $navRadius $navRadius 0
-        position: relative
-        box-shadow: globals.$shadow2
-        &::before
-            position: absolute
-            content: ""
-            left: $sideWidth - 6px
-            top: 100%
-            z-index: 100
-            height: $navRadius
-            width: $navRadius
-            background-image: url("./backgrounds/inverse_corner.svg")
-            background-size: 100%
-            filter: drop-shadow(globals.$shadow2)
-        .changer-navigationBottom
-            @include globals.flexCenter
-            justify-content: space-between
-            gap: 8px
-            padding: 4px 6px
-            margin: 6px
-            border-radius: globals.$bordMed
-            //background: #4b475b //#060e2b
-            .nameContainer
-                display: flex
-                flex-direction: column
-                gap: 2px
-                h3
-                    font-weight: normal
-                    font-size: 1.2rem
-                    line-height: 1.1rem
-                    color: #fff
-                    &.admin
-                        color: #5ded00
-                    &.guest
-                        color: #ffd401
-                p
-                    font-size: 0.7rem
-            button
-                @include globals.flexCenter
-                $size: 32px
-                width: $size
-                height: $size
-                //background: none
-                //color: #fff
-                //border: 2px solid rgba(#fff, 0.33)
-            .fa-arrow-right-from-bracket
-                font-size: 1.25rem
-            .countdown
-                color: rgba(#fff, 0.5)
-                &.warn
-                    color: globals.$cancel
-                    font-weight: bold
 
     .changer-sidebar
         @keyframes fromLeft
@@ -284,84 +224,75 @@ $changer_topbar_height: 80px
         @mixin slideToRight
             animation: fromLeft 0.25s
         position: relative
-        margin: 0 0 $navMargin $navMargin
-        border-radius: 0 0 $navRadius $navRadius
+        margin: calc(globals.$navHeight + 12px) 0 0 16px
         color: $navColor
         display: flex
         flex-direction: column
+        gap: 12px
         padding-top: 30px
-        background: $sidebarColor
-        box-shadow: 0 7px 10px rgba(#000 ,0.5)
         direction: rtl
         overflow: visible
-        //overflow-y: auto
         $bgColor: rgba(#fff, 0.033)
-        height: calc(100vh - $changer_topbar_height - $navMargin)
         *
             direction: ltr
-        h2
-            @include globals.flexCenter
-            @include slideToRight
-            justify-content: flex-start
-            padding-left: 9px
-            gap: 6px
-            border-radius: 6px 6px 0 0
-            font-size: 1.1rem
-            font-weight: 600
-            i
+        .SideP-catContainer
+            border-radius: 12px
+            background: #ddd
+            border: 2px solid #fff
+            box-shadow: globals.$shadow
+            color: #151515
+            padding: 4px
+            h2
                 @include globals.flexCenter
-                width: 20px
-                font-size: 1.15rem
-                color: rgba($navColor, 0.65)
-        ul
-            @include globals.flexCenter
-            @include slideToRight
-            flex-direction: column
-            gap: 0
-            padding: 4px 0
-            margin-bottom: 40px
-            li
-                position: relative
-                list-style-type: none
-                width: 100%
-                border-radius: 8px
-                margin-left: 58px
-                padding: 4px 6px
-                transition: 0.2s
-                &:hover
+                @include slideToRight
+                justify-content: flex-start
+                gap: 6px
+                border-radius: 6px 6px 0 0
+                font-size: 1.1rem
+                font-weight: 600
+                margin-bottom: 4px
+                i
+                    @include globals.flexCenter
+                    width: 20px
+                    font-size: 1.15rem
+                    //color: rgba($navColor, 0.65)
+            ul
+                @include globals.flexCenter
+                @include slideToRight
+                flex-direction: column
+                gap: 0
+                li
+                    position: relative
+                    list-style-type: none
+                    width: 100%
+                    border-radius: 8px
+                    padding-left: 40px
+                    padding: 4px 6px
+                    transition: 0.2s
+                    &:hover
+                        button
+                            color: globals.$active
+                    &.forbidden
+                        pointer-events: none
+                        opacity: 0.33
+                        button
+                            gap: 0
                     button
-                        color: globals.$active
-                &.forbidden
-                    pointer-events: none
-                    opacity: 0.33
-                    button
-                        gap: 0
-                button
-                    padding: 6px 0
-                    color: darken($navColor, 10%)
-                    background: none
-                    font-size: 0.95rem
-                    text-align: left
-                    box-shadow: none
-                    justify-content: flex-start
-                    overflow: hidden
-                    white-space: nowrap
-                    text-overflow: ellipsis !important
-                    i
-                        margin: 0 4px
-                &.active
-                    background: #adb6d3
-                    /* &::before
-                        content: ""
-                        position: absolute
-                        height: 100%
-                        width: 20px
-                        left: 100%
-                        top: 0
-                        background: #dce5ff
-                        z-index: 100 */
-                    button
-                        color: #151515
+                        padding: 6px 0
+                        //color: darken($navColor, 10%)
+                        background: none
+                        font-size: 0.95rem
+                        text-align: left
+                        box-shadow: none
+                        justify-content: flex-start
+                        overflow: hidden
+                        white-space: nowrap
+                        text-overflow: ellipsis !important
+                        i
+                            margin: 0 4px
+                    &.active
+                        background: globals.$active
+                        font-weight: bold
 
         h1
             font-size: 1.3rem
@@ -375,15 +306,19 @@ $changer_topbar_height: 80px
         grid-column-end: end
         position: relative
         overflow: auto
-        height: calc(100vh - $changer_topbar_height)
+        height: calc(100vh - globals.$navHeight - 21px)
         scrollbar-color: lighten(globals.$secondary, 15%) rgba(globals.$secondary, 0.4)
+        margin-top: calc(globals.$navHeight + 18px)
+        background: rgba(#333, 0.66)
+        border: 2px solid #111
+        margin-left: 16px
         //scrollbar-width: thin
         margin-right: 8px
         border-radius: 12px
         & > .apSubmitContainer
             position: fixed
             top: 20px
-            left: 236px
+            left: 280px
             background: $sidebarColor
             border-radius: 12px
             padding: 8px
@@ -462,15 +397,14 @@ $changer_topbar_height: 80px
                             p
                                 font-size: 0.9rem
         .apContent
-            position: relative
             @include globals.flexCenter
+            position: relative
             justify-content: flex-start
             align-items: flex-start
             flex-wrap: wrap
             padding: 40px 64px
             gap: 32px
             min-height: 100%
-            margin: 0
             padding-bottom: 75px
             .info-container.mildWarn.fetchError
                 margin: auto

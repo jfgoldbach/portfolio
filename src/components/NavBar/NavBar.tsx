@@ -193,6 +193,20 @@ function NavBar(props: navProps) {
                                 <p>{lang === "eng" ? "Contact" : "Kontakt"}</p>
                             </Link>
                         </li>
+
+                        {account && account.name !== undefined &&
+                            <li className='nav-item'>
+                                <Link
+                                    to='/changer/loggedin'
+                                    className={`nav-links ${location.pathname === "/gamedev" ? "active" : ""}`}
+                                    onClick={() => { navigationButtonPressed() }}
+                                    id='link2'
+                                >
+                                    <p>aPanel</p>
+                                </Link>
+                            </li>
+                        }
+
                         <div className="vertMoreOpts">
                             <LangChange />
                             {account ?

@@ -42,8 +42,8 @@ export default function Changer() {
 
 
     useEffect(() => {
-        setError("not allowed at this moment")
-        toast.error(lang === "eng" ? "Not allowed at this moment" : "Zugang noch nicht erlaubt")
+        //setError("not allowed at this moment")
+        //toast.error(lang === "eng" ? "Not allowed at this moment" : "Zugang noch nicht erlaubt")
 
         const token = sessionStorage.getItem("jwt")
         if (token) {
@@ -65,10 +65,10 @@ export default function Changer() {
             toast.error(lang === "eng" ? "Cant access without valid token" : "Zugang ohne gültigen Token nicht gestatet")
         }
 
-        document.title = "Julian Goldbach - Admin panel"
+        document.title = "Admin panel"
 
         return (() => {
-            genNew() //always generate new key when unmounting
+            //genNew() //always generate new key when unmounting
         })
     }, [])
 
@@ -167,39 +167,23 @@ export default function Changer() {
                 <Navigate to="/changer" />
             }
 
-            <div className="changer-vertbar">
-                <div className="changer-navigationBottom">
-                    <div className="nameContainer">
-                        <h3 className={admin ? "admin" : "guest"}>
-                            {admin ?
-                                "Admin"
-                                :
-                                lang === "eng" ? "Guest" : "Gast"
-                            }
-                        </h3>
-                        <p>
-                            {getTimer(timeLeft)}
-                        </p>
-                    </div>
-                    <Button buttonStyle="btn--light" onClick={logout} title="Logout">
-                        <i className="fa-solid fa-arrow-right-from-bracket"></i>
-                    </Button>
-                </div>
-                <LangChange />
-            </div>
-
             <div className="changer-sidebar">
                 {apContent && apContent.navigation ?
                     <>
                         {apContent.navigation.map((section, index) => {
-                            return <>
+                            return <div className="SideP-catContainer">
                                 <h2 key={`${index}.1`}>
                                     <i className={section.fa_icon} />
                                     {lang === "eng" ? section.eng : section.ger}
                                 </h2>
                                 <ul key={`${index}.2`}>
                                     {section.items.map((category, li) =>
-                                        <li className={`${!admin && category.admin_only ? "forbidden" : ""} ${content_id === category.path ? "active" : ""}`} key={`${index}.2.${li}`}>
+                                        <li className={`
+                                            ${!admin && category.admin_only ? "forbidden" : ""} 
+                                            ${content_id === category.path ? "active" : ""}`
+                                        }
+                                            key={`${index}.2.${li}`}
+                                        >
                                             <Button path={category.path} title={category.ger}>
                                                 {!admin && category.admin_only &&
                                                     <i className="fa-solid fa-ban"></i>
@@ -209,7 +193,7 @@ export default function Changer() {
                                         </li>
                                     )}
                                 </ul>
-                            </>
+                            </div>
                         })}
                     </>
                     :
